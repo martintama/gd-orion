@@ -1,2 +1,2 @@
-ggdd-orion
+gd-orion
 ==========

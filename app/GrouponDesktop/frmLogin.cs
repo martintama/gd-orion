@@ -15,5 +15,12 @@ namespace GrouponDesktop
         {
             InitializeComponent();
         }
+
+        private void btnAcceder_Click(object sender, EventArgs e)
+        {
+            frmMain main = new frmMain();
+            this.Hide();
+            main.ShowDialog();
+        }
     }
 }

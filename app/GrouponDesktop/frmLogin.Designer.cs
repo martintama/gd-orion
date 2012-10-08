@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnAcceder = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.btnAcceder = new System.Windows.Forms.Button();
             this.lnkRegistro = new System.Windows.Forms.LinkLabel();
             this.lblErrorMsg = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -63,28 +63,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese sus datos";
             // 
-            // txtUsuario
+            // label3
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(108, 21);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(203, 20);
-            this.txtUsuario.TabIndex = 0;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(108, 47);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(203, 20);
-            this.txtPassword.TabIndex = 1;
-            // 
-            // btnAcceder
-            // 
-            this.btnAcceder.Location = new System.Drawing.Point(251, 146);
-            this.btnAcceder.Name = "btnAcceder";
-            this.btnAcceder.Size = new System.Drawing.Size(75, 23);
-            this.btnAcceder.TabIndex = 2;
-            this.btnAcceder.Text = "Acceder";
-            this.btnAcceder.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 50);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Contraseña:";
             // 
             // label2
             // 
@@ -95,14 +81,29 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Nombre de usuario:";
             // 
-            // label3
+            // txtPassword
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Contraseña:";
+            this.txtPassword.Location = new System.Drawing.Point(108, 47);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(203, 20);
+            this.txtPassword.TabIndex = 1;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Location = new System.Drawing.Point(108, 21);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(203, 20);
+            this.txtUsuario.TabIndex = 0;
+            // 
+            // btnAcceder
+            // 
+            this.btnAcceder.Location = new System.Drawing.Point(251, 146);
+            this.btnAcceder.Name = "btnAcceder";
+            this.btnAcceder.Size = new System.Drawing.Size(75, 23);
+            this.btnAcceder.TabIndex = 2;
+            this.btnAcceder.Text = "Acceder";
+            this.btnAcceder.UseVisualStyleBackColor = true;
+            this.btnAcceder.Click += new System.EventHandler(this.btnAcceder_Click);
             // 
             // lnkRegistro
             // 
@@ -122,7 +123,6 @@
             this.lblErrorMsg.Size = new System.Drawing.Size(327, 18);
             this.lblErrorMsg.TabIndex = 3;
             this.lblErrorMsg.Text = "Usuario o contraseña incorrecta";
-            this.lblErrorMsg.Click += new System.EventHandler(this.lblErrorMsg_Click);
             // 
             // frmLogin
             // 
