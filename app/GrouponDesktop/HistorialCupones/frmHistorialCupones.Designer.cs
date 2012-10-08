@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.AbmCliente
+﻿namespace GrouponDesktop.HistorialCupones
 {
-    partial class Form1
+    partial class frmHistorialCupones
     {
         /// <summary>
         /// Required designer variable.

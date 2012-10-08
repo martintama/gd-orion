@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.CargaCredito
+namespace GrouponDesktop.ComprarCupon
 {
-    public partial class Form1 : Form
+    public partial class frmComprarCupon : Form
     {
-        public Form1()
+        public frmComprarCupon()
         {
             InitializeComponent();
         }

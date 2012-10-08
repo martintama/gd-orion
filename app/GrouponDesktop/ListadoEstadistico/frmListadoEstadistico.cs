@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.AbmProveedor
+namespace GrouponDesktop.ListadoEstadistico
 {
-    public partial class Form1 : Form
+    public partial class frmListadoEstadistico : Form
     {
-        public Form1()
+        public frmListadoEstadistico()
         {
             InitializeComponent();
         }

@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.HistorialCupones
+namespace GrouponDesktop.FacturarProveedor
 {
-    public partial class Form1 : Form
+    public partial class frmFacturarProveedor : Form
     {
-        public Form1()
+        public frmFacturarProveedor()
         {
             InitializeComponent();
         }

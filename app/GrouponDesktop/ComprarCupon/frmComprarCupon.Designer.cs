@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.PedirDevolucion
+﻿namespace GrouponDesktop.ComprarCupon
 {
-    partial class Form2
+    partial class frmComprarCupon
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form2";
+            this.Text = "Form1";
         }
 
         #endregion

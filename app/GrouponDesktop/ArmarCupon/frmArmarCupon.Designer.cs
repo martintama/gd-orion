@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.ListadoEstadistico
+﻿namespace GrouponDesktop.ArmarCupon
 {
-    partial class Form1
+    partial class frmArmarCupon
     {
         /// <summary>
         /// Required designer variable.

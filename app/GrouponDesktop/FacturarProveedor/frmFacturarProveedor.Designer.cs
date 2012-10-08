@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop
+﻿namespace GrouponDesktop.FacturarProveedor
 {
-    partial class Form1
+    partial class frmFacturarProveedor
     {
         /// <summary>
         /// Required designer variable.
@@ -36,4 +36,3 @@
         #endregion
     }
 }
-

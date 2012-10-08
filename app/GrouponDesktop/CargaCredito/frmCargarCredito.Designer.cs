@@ -1,6 +1,6 @@
 ﻿namespace GrouponDesktop.CargaCredito
 {
-    partial class Form1
+    partial class frmCargarCredito
     {
         /// <summary>
         /// Required designer variable.

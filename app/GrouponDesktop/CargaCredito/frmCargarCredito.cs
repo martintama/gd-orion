@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.ListadoEstadistico
+namespace GrouponDesktop.CargaCredito
 {
-    public partial class Form1 : Form
+    public partial class frmCargarCredito : Form
     {
-        public Form1()
+        public frmCargarCredito()
         {
             InitializeComponent();
         }

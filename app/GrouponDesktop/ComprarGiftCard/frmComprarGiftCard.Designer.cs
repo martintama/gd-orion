@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.FacturarProveedor
+﻿namespace GrouponDesktop.ComprarGiftCard
 {
-    partial class Form1
+    partial class frmComprarGiftCard
     {
         /// <summary>
         /// Required designer variable.

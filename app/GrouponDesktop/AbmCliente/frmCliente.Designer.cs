@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.AbmProveedor
+﻿namespace GrouponDesktop.AbmCliente
 {
-    partial class Form1
+    partial class frmCliente
     {
         /// <summary>
         /// Required designer variable.

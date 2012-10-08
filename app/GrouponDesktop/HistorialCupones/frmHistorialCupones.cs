@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.AbmCliente
+namespace GrouponDesktop.HistorialCupones
 {
-    public partial class Form1 : Form
+    public partial class frmHistorialCupones : Form
     {
-        public Form1()
+        public frmHistorialCupones()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
-﻿namespace GrouponDesktop.HistorialCupones
+﻿namespace GrouponDesktop.ListadoEstadistico
 {
-    partial class Form1
+    partial class frmListadoEstadistico
     {
         /// <summary>
         /// Required designer variable.
