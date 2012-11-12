@@ -1,0 +1,28 @@
+- Los giftcards no restan credito de quien lo regala
+
+Funcionalidades
+.  Login y seguridad 		(ESPECIAL - Todos lo tienen)
+.  ABM de Rol 
+.  Registro de Usuario 
+.  ABM de Cliente 
+.  ABM de Proveedor 
+.  Cargar Crédito 
+.  Comprar GiftCard 
+.  Comprar Cupón 
+.  Pedir Devolución 
+.  Historial de Compra de cupones
+.  Armar Cupón 
+.  Registro de consumo d
+.  Publicar Cupón 
+.  Facturación a Proveed
+.  Listado Estadístico 
+
+Roles
+- Proveedor
+- Administrativo
+- Cliente
+- (Otros a gusto)
+
+
+
+
