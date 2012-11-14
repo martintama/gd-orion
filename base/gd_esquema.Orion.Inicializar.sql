@@ -36,7 +36,7 @@ CREATE TABLE ORION.clientes(
 ) ON [PRIMARY]
 
 -- clientes_ciudades
-CREATE TABLE ORION.clietes_ciudades(
+CREATE TABLE ORION.clientes_ciudades(
 	idcliente_ciudad	int IDENTITY(1,1) NOT NULL,
 	idcliente			int,
 	idciudad			int,
@@ -75,7 +75,8 @@ CREATE TABLE ORION.consumos(
 CREATE TABLE ORION.cupones(
 	idcupon					int IDENTITY(1,1) NOT NULL,
 	idproveedor				int,
-	descripcion				varchar(50),
+	descripcion				varchar(200),
+	codigo					varchar(50),
 	fecha_publicacion		datetime,
 	fecha_vencimiento		datetime,
 	fecha_vencimiento_canje	datetime,
@@ -151,7 +152,8 @@ CREATE TABLE ORION.proveedores(
 	idrubro					nvarchar(100),
 	contacto				nvarchar(100),
 	idusuario				int,
-	habilitado				bit default 1
+	habilitado				bit default 1,
+	rubro					nvarchar(100)				-- SE ELIMINA AL FINAL
 ) ON [PRIMARY]
 
 -- publicaciones

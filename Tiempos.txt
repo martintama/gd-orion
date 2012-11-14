@@ -1,0 +1,108 @@
+#Carga completa clientes, giftcards y cargas:	3:01
+
+select distinct cli_nombre, cli_apellido, Cli_Dni,Cli_Direccion, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac, Cli_Ciudad,
+Carga_Credito, Carga_Fecha, Cli_Dest_Dni, GiftCard_Fecha, GiftCard_Monto
+into orion.clientes_temp
+from gd_esquema.Maestra
+	
+		#Agrego indices			
+		CREATE INDEX idx_clientes_temp_cli_dest_dni ON ORION.clientes_temp(cli_dest_dni)
+		CREATE INDEX idx_clientes_temp_cli_dni ON ORION.clientes_temp(cli_dni)
+		
+
+#Clientes: 	
+
+insert into ORION.clientes(nombre, apellido, dni, email, telefono, direccion, localidad, codigo_postal,
+fecha_nacimiento, idusuario, credito_actual, activo)
+select distinct cli_nombre, Cli_Apellido, Cli_Dni,  Cli_Mail, Cli_Telefono, Cli_Direccion, Cli_Ciudad,
+'' codpostal, Cli_Fecha_Nac, 0 idusuario, 0 credito, 1 habilitado
+from ORION.clientes_temp
+
+	CREATE INDEX idx_clientes_dni ON ORION.clientes(dni)
+
+#GiftCards:		00:03
+insert into orion.gift_cards(fecha, monto, idcliente_origen, idcliente_destino)
+select ct.giftcard_fecha, ct.giftcard_monto, c.idcliente, c2.idcliente
+from orion.clientes_temp ct
+left join orion.clientes c on c.dni = ct.cli_dni
+left join orion.clientes c2 on c2.dni = ct.cli_dest_dni
+where ct.giftcard_fecha is not null
+
+#Cargas crédito		00:06
+insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto)
+select carga_fecha, c.idcliente, case tipo_pago_desc when 'Efectivo' then 1 when 'Crédito' then 2 else 0 end,
+ct.carga_credito
+from orion.clientes_temp ct
+left join orion.clientes c on c.dni = ct.cli_dni
+where ct.carga_credito is not null
+
+
+#Carga general proveedores, groupones, devoluciones, compras		01:50
+
+select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,Provee_CUIT,Provee_Rubro,
+Groupon_Cantidad, Groupon_Codigo, Groupon_Descripcion,
+Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha, Groupon_Fecha, Groupon_Fecha_Compra, 
+Groupon_Fecha_Venc, Groupon_Precio, Groupon_Precio_Ficticio, Factura_Nro, Factura_Fecha
+into orion.proveedores_temp
+from gd_esquema.Maestra
+
+	#Agrego indices		01:07
+	CREATE INDEX idx_proveedores_temp_cli_dni ON ORION.proveedores_temp(cli_dni)
+	CREATE INDEX idx_proveedores_temp_prove_cuit ON ORION.proveedores_temp(provee_cuit)
+	CREATE INDEX idx_proveedores_temp_groupon_codigo ON ORION.proveedores_temp(groupon_codigo)
+	CREATE INDEX idx_proveedores_temp_rs ON ORION.proveedores_temp(provee_rs)
+
+
+	
+
+#Proveedores:  			00:34
+insert into ORION.proveedores(razon_social, direccion, localidad, telefono, cuit, rubro)
+select distinct Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,Provee_CUIT,Provee_Rubro from orion.proveedores_temp
+WHERE orion.proveedores_temp.provee_RS is not null
+
+	#Agrego indices		00:00
+	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
+
+#Cupones
+insert into ORION.cupones(idproveedor, descripcion, codigo, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
+cantidad_disponible)
+select p.idproveedor, groupon_descripcion, groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
+sum(groupon_cantidad)
+from ORION.proveedores_temp ct
+left join ORION.proveedores p on p.cuit = ct.provee_cuit
+group by p.idproveedor, groupon_descripcion,groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio
+
+@TESTEAR PASAR PROVEEDORES USANDO METODO DE ARRIBA 
+
+
+
+#Proveedores:  1:02
+insert into ORION.proveedores(razon_social, direccion, localidad, telefono, cuit, rubro)
+select distinct Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,Provee_CUIT,Provee_Rubro from gd_esquema.Maestra
+WHERE Provee_RS is not null
+
+	#Agrego indices		00:00
+	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
+
+#Groupones temp: 	1:12
+select cli_dni, Provee_CUIT, Groupon_Cantidad, Groupon_Codigo, Groupon_Descripcion,
+Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha, Groupon_Fecha, Groupon_Fecha_Compra, 
+Groupon_Fecha_Venc, Groupon_Precio, Groupon_Precio_Ficticio
+into ORION.cupones_temp 
+from gd_esquema.Maestra
+where Groupon_Codigo is not null
+
+	#Agrego indices		00:20
+	CREATE INDEX idx_cupones_temp_cli_dni ON ORION.cupones_temp(cli_dni)
+	CREATE INDEX idx_cupones_temp_prove_cuit ON ORION.cupones_temp(provee_cuit)
+	CREATE INDEX idx_cupones_temp_groupon_codigo ON ORION.cupones_temp(groupon_codigo)
+	
+#Cupones:			00:33
+
+insert into ORION.cupones(idproveedor, descripcion, codigo, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
+cantidad_disponible)
+select p.idproveedor, groupon_descripcion, groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
+sum(groupon_cantidad)
+from ORION.cupones_temp ct
+left join ORION.proveedores p on p.cuit = ct.provee_cuit
+group by p.idproveedor, groupon_descripcion,groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio

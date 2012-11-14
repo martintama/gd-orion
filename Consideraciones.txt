@@ -1,4 +1,6 @@
 - Los giftcards no restan credito de quien lo regala
+- Al migrar la base, se crean los clientes y proveedores. Luego, los usuarios se generan usando el DNI como username y CUIT en caso de proveedor
+- 
 
 Funcionalidades
 .  Login y seguridad 		(ESPECIAL - Todos lo tienen)
