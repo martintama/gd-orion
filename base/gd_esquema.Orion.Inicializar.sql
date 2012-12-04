@@ -50,15 +50,12 @@ CREATE TABLE ORION.compras(
 	fecha_compra		datetime,
 	cantidad			smallint,
 	idcupon				int,
-	nro_cupon			nvarchar(50),
-	idtipo_pago			int,
-	monto				numeric(18,2),
-	idtarjeta			int,
+	nro_cupon			int,
 	activo				bit default 1
 ) ON [PRIMARY]
 
 -- compras_estados
-CREATE TABLE ORION.cargas_estados(
+CREATE TABLE ORION.compras_estados(
 	idcompra_estado		int IDENTITY(1,1) NOT NULL,
 	descripcion			nvarchar(50)
 ) ON [PRIMARY]
@@ -72,19 +69,22 @@ CREATE TABLE ORION.consumos(
 ) ON [PRIMARY]
 
 -- cupones
-CREATE TABLE ORION.cupones(
-	idcupon					int IDENTITY(1,1) NOT NULL,
-	idproveedor				int,
-	descripcion				varchar(200),
-	codigo					varchar(50),
-	fecha_publicacion		datetime,
-	fecha_vencimiento		datetime,
-	fecha_vencimiento_canje	datetime,
-	precio_real				decimal(18,2),
-	precio_ficticio			decimal(18,2),
-	cantidad_disponible		smallint,
-	cantidad_max_usuario	smallint,
-	habilitado				bit default 1
+CREATE TABLE [ORION].[cupones](
+	[idcupon] [int] IDENTITY(1,1) NOT NULL,
+	[idproveedor] [int] NULL,
+	[descripcion] [varchar](200) NULL,
+	[codigo] [varchar](50) NULL,
+	[fecha_alta] [date] NULL,
+	[fecha_publicacion] [date] NULL,
+	[fecha_vencimiento] [date] NULL,
+	[fecha_vencimiento_canje] [date] NULL,
+	[precio_real] [decimal](18, 2) NULL,
+	[precio_ficticio] [decimal](18, 2) NULL,
+	[cantidad_disponible] [smallint] NULL,
+	[cantidad_max_usuario] [smallint] NULL,
+	[habilitado] [bit] NULL,
+	[publicado] [bit] default 0,
+	[fecha_pubilcacion_real] [date] NULL
 ) ON [PRIMARY]
 
 -- cupones_ciudades
@@ -154,14 +154,6 @@ CREATE TABLE ORION.proveedores(
 	idusuario				int,
 	habilitado				bit default 1,
 	rubro					nvarchar(100)				-- SE ELIMINA AL FINAL
-) ON [PRIMARY]
-
--- publicaciones
-CREATE TABLE ORION.publicaciones(
-	idpublicacion			int IDENTITY(1,1) NOT NULL,
-	fecha_publicacion		datetime,
-	idcupon					int,
-	habilitado				bit default 1
 ) ON [PRIMARY]
 
 -- roles

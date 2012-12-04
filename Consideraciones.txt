@@ -1,6 +1,10 @@
 - Los giftcards no restan credito de quien lo regala
 - Al migrar la base, se crean los clientes y proveedores. Luego, los usuarios se generan usando el DNI como username y CUIT en caso de proveedor
-- 
+	La clave inicial en ambos casos es la misma para todos, 123456.
+- El nro de cupon es el PK de la tabla de cupones
+- Fecha entrega = fecha consumo
+- IMPORTENTE Recordar restar el stock de los cupones!! en base a restante = total -  compras + devoluciones
+
 
 Funcionalidades
 .  Login y seguridad 		(ESPECIAL - Todos lo tienen)
@@ -14,7 +18,7 @@ Funcionalidades
 .  Pedir Devolución 
 .  Historial de Compra de cupones
 .  Armar Cupón 
-.  Registro de consumo d
+.  Registro de consumo de cupon
 .  Publicar Cupón 
 .  Facturación a Proveed
 .  Listado Estadístico 
