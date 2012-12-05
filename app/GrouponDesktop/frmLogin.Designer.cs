@@ -37,6 +37,7 @@
             this.btnAcceder = new System.Windows.Forms.Button();
             this.lnkRegistro = new System.Windows.Forms.LinkLabel();
             this.lblErrorMsg = new System.Windows.Forms.Label();
+            this.btnhola = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,12 +128,23 @@
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblErrorMsg.Visible = false;
             // 
+            // btnhola
+            // 
+            this.btnhola.Location = new System.Drawing.Point(123, 147);
+            this.btnhola.Name = "btnhola";
+            this.btnhola.Size = new System.Drawing.Size(75, 23);
+            this.btnhola.TabIndex = 5;
+            this.btnhola.Text = "Ashid";
+            this.btnhola.UseVisualStyleBackColor = false;
+            this.btnhola.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmLogin
             // 
             this.AcceptButton = this.btnAcceder;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 181);
+            this.Controls.Add(this.btnhola);
             this.Controls.Add(this.lnkRegistro);
             this.Controls.Add(this.lblErrorMsg);
             this.Controls.Add(this.btnAcceder);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Button btnAcceder;
         private System.Windows.Forms.LinkLabel lnkRegistro;
         private System.Windows.Forms.Label lblErrorMsg;
+        private System.Windows.Forms.Button btnhola;
     }
 }

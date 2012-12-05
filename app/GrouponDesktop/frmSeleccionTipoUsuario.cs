@@ -21,7 +21,7 @@ namespace GrouponDesktop
         private void btnNuevoProveedor_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmAltaProveedor frmProveedor = new frmAltaProveedor();
+            frmAbmProveedor frmProveedor = new frmAbmProveedor();
             frmProveedor.ShowDialog();
 
             this.Close();
@@ -30,7 +30,7 @@ namespace GrouponDesktop
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
-            frmAltaCliente frmCliente = new frmAltaCliente();
+            frmAbmCliente frmCliente = new frmAbmCliente();
             frmCliente.ShowDialog();
 
             this.Close();

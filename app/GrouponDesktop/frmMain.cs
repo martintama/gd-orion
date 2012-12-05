@@ -46,7 +46,7 @@ namespace GrouponDesktop
             verHistorialToolStripMenuItem.Visible = false;
             pedirDevoluciónToolStripMenuItem.Visible = false;
 
-            editarUsuarioToolStripMenuItem.Visible = false;
+            cambiarClaveToolStripMenuItem.Visible = false;
         }
         private void CargarMenues()
         {
@@ -135,7 +135,7 @@ namespace GrouponDesktop
                         }
                     case clsMain.Funcionalidades.Registro_Usuario:
                         {
-                            editarUsuarioToolStripMenuItem.Visible = true;
+                            cambiarClaveToolStripMenuItem.Visible = true;
                             break;
                         }
                 }

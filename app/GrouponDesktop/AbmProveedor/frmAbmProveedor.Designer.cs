@@ -1,6 +1,6 @@
 ﻿namespace GrouponDesktop.AbmProveedor
 {
-    partial class frmAltaProveedor
+    partial class frmAbmProveedor
     {
         /// <summary>
         /// Required designer variable.

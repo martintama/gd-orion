@@ -7,20 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.AbmProveedor
+namespace GrouponDesktop.AbmRol
 {
-    public partial class frmAltaProveedor : Form
+    public partial class frmAbmRol : Form
     {
-        public Form frmParent;
-
-        public frmAltaProveedor()
+        public frmAbmRol()
         {
             InitializeComponent();
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

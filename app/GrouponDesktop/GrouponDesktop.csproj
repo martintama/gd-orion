@@ -48,22 +48,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\frmAltaCliente.cs">
+    <Compile Include="AbmCliente\frmAbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\frmAltaCliente.Designer.cs">
-      <DependentUpon>frmAltaCliente.cs</DependentUpon>
+    <Compile Include="AbmCliente\frmAbmCliente.Designer.cs">
+      <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmProveedor\frmAltaProveedor.cs">
+    <Compile Include="AbmProveedor\frmAbmProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmProveedor\frmAltaProveedor.Designer.cs">
-      <DependentUpon>frmAltaProveedor.cs</DependentUpon>
+    <Compile Include="AbmProveedor\frmAbmProveedor.Designer.cs">
+      <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArmarCupon\frmArmarCupon.cs">
+    <Compile Include="AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ArmarCupon\frmArmarCupon.Designer.cs">
+    <Compile Include="AbmRol\frmAbmRol.Designer.cs">
+      <DependentUpon>frmAbmRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\frmFuncionalidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\frmFuncionalidades.Designer.cs">
+      <DependentUpon>frmFuncionalidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CargaCredito\ArmarCupon\frmArmarCupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargaCredito\ArmarCupon\frmArmarCupon.Designer.cs">
       <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="CargaCredito\frmCargarCredito.cs">
@@ -138,11 +150,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\frmAltaCliente.resx">
-      <DependentUpon>frmAltaCliente.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
+      <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmProveedor\frmAltaProveedor.resx">
-      <DependentUpon>frmAltaProveedor.cs</DependentUpon>
+    <EmbeddedResource Include="AbmProveedor\frmAbmProveedor.resx">
+      <DependentUpon>frmAbmProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\frmAbmRol.resx">
+      <DependentUpon>frmAbmRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\frmFuncionalidades.resx">
+      <DependentUpon>frmFuncionalidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

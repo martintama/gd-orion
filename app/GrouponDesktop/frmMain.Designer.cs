@@ -31,7 +31,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editarUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cambiarClaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +78,7 @@
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editarUsuarioToolStripMenuItem,
+            this.cambiarClaveToolStripMenuItem,
             this.toolStripSeparator1,
             this.cerrarSesionToolStripMenuItem,
             this.salirToolStripMenuItem});
@@ -86,28 +86,28 @@
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
-            // editarUsuarioToolStripMenuItem
+            // cambiarClaveToolStripMenuItem
             // 
-            this.editarUsuarioToolStripMenuItem.Name = "editarUsuarioToolStripMenuItem";
-            this.editarUsuarioToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.editarUsuarioToolStripMenuItem.Text = "Editar registro usuario";
+            this.cambiarClaveToolStripMenuItem.Name = "cambiarClaveToolStripMenuItem";
+            this.cambiarClaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cambiarClaveToolStripMenuItem.Text = "Cambiar clave";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -248,7 +248,7 @@
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editarUsuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cambiarClaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem administrativoStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aBMClienteToolStripMenuItem;
