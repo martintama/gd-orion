@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GrouponDesktop.PedirDevolucion
+namespace GrouponDesktop.PublicarCupon
 {
-    public partial class Form1 : Form
+    public partial class frmPublicarCupon : Form
     {
-        public Form1()
+        public frmPublicarCupon()
         {
             InitializeComponent();
         }

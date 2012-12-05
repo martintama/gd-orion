@@ -166,5 +166,87 @@ namespace GrouponDesktop
 
             frm.ShowDialog();
         }
+
+        private void aBMRolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbmRol.frmAbmRol frmRol = new GrouponDesktop.AbmRol.frmAbmRol();
+
+            frmRol.ShowDialog();
+        }
+
+        private void aBMClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbmCliente.frmAbmCliente frmCliente = new GrouponDesktop.AbmCliente.frmAbmCliente();
+            frmCliente.ShowDialog();
+
+        }
+
+        private void aBMProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbmProveedor.frmAbmProveedor frmProveedor = new GrouponDesktop.AbmProveedor.frmAbmProveedor();
+            frmProveedor.ShowDialog();
+
+        }
+
+        private void facturacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FacturarProveedor.frmFacturarProveedor frmFacturar = new GrouponDesktop.FacturarProveedor.frmFacturarProveedor();
+            frmFacturar.ShowDialog();
+        }
+
+        private void publicarCuponesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PublicarCupon.frmPublicarCupon frmPublicar = new GrouponDesktop.PublicarCupon.frmPublicarCupon();
+            frmPublicar.ShowDialog();
+        }
+
+        private void listadoEstadisticoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListadoEstadistico.frmListadoEstadistico frmListado = new GrouponDesktop.ListadoEstadistico.frmListadoEstadistico();
+            frmListado.ShowDialog();
+        }
+
+        private void cargarCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CargaCredito.frmCargarCredito frmCargar = new GrouponDesktop.CargaCredito.frmCargarCredito();
+            frmCargar.ShowDialog();
+        }
+
+        private void comprarCuponToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ComprarCupon.frmComprarCupon frmComprar = new GrouponDesktop.ComprarCupon.frmComprarCupon();
+            frmComprar.ShowDialog();
+        }
+
+        private void comprarGiftcardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ComprarGiftCard.frmComprarGiftCard frmComprarGift = new GrouponDesktop.ComprarGiftCard.frmComprarGiftCard();
+            frmComprarGift.ShowDialog();
+        }
+
+        private void verHistorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HistorialCupones.frmHistorialCupones frmHistorial = new GrouponDesktop.HistorialCupones.frmHistorialCupones();
+            frmHistorial.ShowDialog();
+        }
+
+        private void pedirDevoluciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PedirDevolucion.frmPedirDevolucion frmDevolucion = new GrouponDesktop.PedirDevolucion.frmPedirDevolucion();
+            frmDevolucion.ShowDialog();
+        }
+
+        private void armarCupónToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ArmarCupon.frmArmarCupon frmArmarCupon = new GrouponDesktop.ArmarCupon.frmArmarCupon();
+            frmArmarCupon.ShowDialog();
+        }
+
+        private void registrarConsumoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegistroConsumoCupon.frmRegistroConsumo frmConsumo = new GrouponDesktop.RegistroConsumoCupon.frmRegistroConsumo();
+            frmConsumo.ShowDialog();
+        }
+
     }
 }

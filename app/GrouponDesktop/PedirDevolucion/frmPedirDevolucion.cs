@@ -15,5 +15,10 @@ namespace GrouponDesktop.PedirDevolucion
         {
             InitializeComponent();
         }
+
+        private void frmPedirDevolucion_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
