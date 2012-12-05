@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\frmCliente.cs">
+    <Compile Include="AbmCliente\frmAltaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\frmCliente.Designer.cs">
-      <DependentUpon>frmCliente.cs</DependentUpon>
+    <Compile Include="AbmCliente\frmAltaCliente.Designer.cs">
+      <DependentUpon>frmAltaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmProveedor\frmAltaProveedor.cs">
       <SubType>Form</SubType>
@@ -72,6 +72,8 @@
     <Compile Include="CargaCredito\frmCargarCredito.Designer.cs">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
     </Compile>
+    <Compile Include="clsLogin.cs" />
+    <Compile Include="clsMain.cs" />
     <Compile Include="ComprarCupon\frmComprarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +86,7 @@
     <Compile Include="ComprarGiftCard\frmComprarGiftCard.Designer.cs">
       <DependentUpon>frmComprarGiftCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dbaccess.cs" />
     <Compile Include="FacturarProveedor\frmFacturarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +105,13 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSeleccionTipoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSeleccionTipoUsuario.Designer.cs">
+      <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hasher.cs" />
     <Compile Include="HistorialCupones\frmHistorialCupones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,8 +138,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\frmCliente.resx">
-      <DependentUpon>frmCliente.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\frmAltaCliente.resx">
+      <DependentUpon>frmAltaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmProveedor\frmAltaProveedor.resx">
       <DependentUpon>frmAltaProveedor.cs</DependentUpon>
@@ -139,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeleccionTipoUsuario.resx">
+      <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

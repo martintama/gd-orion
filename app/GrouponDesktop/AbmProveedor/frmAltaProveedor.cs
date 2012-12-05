@@ -11,6 +11,8 @@ namespace GrouponDesktop.AbmProveedor
 {
     public partial class frmAltaProveedor : Form
     {
+        public Form frmParent;
+
         public frmAltaProveedor()
         {
             InitializeComponent();

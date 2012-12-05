@@ -114,18 +114,22 @@
             this.lnkRegistro.TabIndex = 4;
             this.lnkRegistro.TabStop = true;
             this.lnkRegistro.Text = "Registrarse";
+            this.lnkRegistro.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegistro_LinkClicked);
             // 
             // lblErrorMsg
             // 
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMsg.Location = new System.Drawing.Point(8, 38);
+            this.lblErrorMsg.Location = new System.Drawing.Point(13, 38);
             this.lblErrorMsg.Name = "lblErrorMsg";
             this.lblErrorMsg.Size = new System.Drawing.Size(327, 18);
             this.lblErrorMsg.TabIndex = 3;
-            this.lblErrorMsg.Text = "Usuario o contraseña incorrecta";
+            this.lblErrorMsg.Text = "Mensaje error";
+            this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblErrorMsg.Visible = false;
             // 
             // frmLogin
             // 
+            this.AcceptButton = this.btnAcceder;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 181);

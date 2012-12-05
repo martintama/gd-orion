@@ -9,9 +9,10 @@ using System.Windows.Forms;
 
 namespace GrouponDesktop.AbmCliente
 {
-    public partial class frmCliente : Form
+    public partial class frmAltaCliente : Form
     {
-        public frmCliente()
+        public Form frmParent;
+        public frmAltaCliente()
         {
             InitializeComponent();
         }

@@ -18,9 +18,89 @@ namespace GrouponDesktop
 
         private void btnAcceder_Click(object sender, EventArgs e)
         {
-            frmMain main = new frmMain();
-            this.Hide();
-            main.ShowDialog();
+            lblErrorMsg.Visible = false;
+            int ret = loguearSistema(txtUsuario.Text, txtPassword.Text);
+
+            switch (ret)
+            {
+                case 0: //Todo OK. Loguear!
+                    {
+                        this.Hide();
+                        
+                        frmMain main = new frmMain();
+                        //Guardo la ventana actual
+                        main.parentLogin = this;
+
+                        main.ShowDialog();
+                        break;
+                    }
+                case 1: //Usuario y clave incorrecta
+                    {
+                        lblErrorMsg.Text = "Usuario o clave incorrecta";
+                        lblErrorMsg.Visible = true;
+
+                        break;
+                    }
+                case 2: //Falta ingresar usuario o contraseña
+                    {
+                        lblErrorMsg.Text = "Ingrese correctamente su usuario y contraseña antes de continuar";
+                        lblErrorMsg.Visible = true;
+                        break;
+                    }
+                case 3: //Usuario inhabilitado
+                    {
+                        lblErrorMsg.Text = "El usuario " + txtUsuario.Text + " ha sido baneado por intentos incorrectos";
+                        lblErrorMsg.Visible = true;
+                        break;
+                    }
+                default:
+                    {
+                        lblErrorMsg.Text = "Error";
+                        lblErrorMsg.Visible = true;
+                        break;
+                    }
+            }
+
+            txtUsuario.Text = "";
+            txtPassword.Text = "";
+            txtUsuario.Focus();
+           
+        }
+
+        private int loguearSistema(String usuario, String password)
+        {
+            int return_status;
+
+            if (txtUsuario.Text != "" && txtPassword.Text != ""){
+
+                string passHashed = Hasher.ConvertirSHA256(password);
+
+                clsLogin.ValidarUsuario(usuario, passHashed);
+
+                //Ahora me fijo que fue lo que se cargó
+                if (clsMain.objInfoSesion.Idusuario > 0)
+                    return_status = 0;
+                else
+                    if (clsMain.objInfoSesion.Idusuario == 0)
+                        return_status = 1;
+                    else //Si es -1 el usuario fue baneado
+                        return_status = 3;
+
+            }
+            else
+            {
+                return_status = 2;
+            }
+
+            return return_status;
+        }
+
+        private void lnkRegistro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmSeleccionTipoUsuario frmSeleccion = new frmSeleccionTipoUsuario();
+            frmSeleccion.ShowDialog();
+            
         }
     }
+       
 }

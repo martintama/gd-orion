@@ -6,22 +6,33 @@
 - IMPORTENTE Recordar restar el stock de los cupones!! en base a restante = total -  compras + devoluciones
 
 
-Funcionalidades
-.  Login y seguridad 		(ESPECIAL - Todos lo tienen)
-.  ABM de Rol 
-.  Registro de Usuario 
+Funcionalidades por defecto
+
+Administrativos
 .  ABM de Cliente 
 .  ABM de Proveedor 
+.  ABM de Rol 
+.  Facturación a Proveedores
+.  Publicar Cupón 
+.  Listado Estadístico 
+
+Clientes
 .  Cargar Crédito 
-.  Comprar GiftCard 
 .  Comprar Cupón 
-.  Pedir Devolución 
+.  Comprar GiftCard 
 .  Historial de Compra de cupones
+.  Pedir Devolución 
+
+Proveedores
 .  Armar Cupón 
 .  Registro de consumo de cupon
-.  Publicar Cupón 
-.  Facturación a Proveed
-.  Listado Estadístico 
+
+Accesible desde login:
+.  Registro de Usuario
+
+
+
+ 
 
 Roles
 - Proveedor
@@ -29,6 +40,48 @@ Roles
 - Cliente
 - (Otros a gusto)
 
+Tablas
+-- cargas
+-- ciudades
+-- clientes
+-- clientes_ciudades
+-- compras
+-- compras_estados
+-- consumos
+-- cupones
+-- cupones_ciudades
+-- devoluciones
+-- facturas
+-- facturas_items
+-- funcionalidades
+-- gift_cards
+-- proveedores
+-- roles
+roles_funcionalidades
+--rubros
+-- tarjetas (Se carga a partir de la GUi)
+-- tipos_pago
+-- tipos_tarjeta
+-- usuarios
+-- usuarios_tipos
 
 
 
+Estrategia:
+
+Logueo.
+
+Se ingresan el usuario y password. Se verifica si todos los datos están completos y se devueve un return_status el que puede ser:
+
+0 - Todo OK: Logueo
+1 - Usuario o password incorrecto
+2 - Falta completar usuario o password
+3 - Usuario baneado
+
+
+Roles
+
+Suponemos que hay un usuario ya creado, el "administrador general", cuyo tipo de usuario
+es "Administrativo" y posee el rol de "Administrador General".
+
+A este rol, Administrador General, se le asignaron todas las funcionalidades

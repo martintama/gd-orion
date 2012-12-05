@@ -15,7 +15,20 @@ namespace GrouponDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //PRODUCCION    
             Application.Run(new frmLogin());
+            
+            //DESARROLLO
+            clsMain.objInfoSesion = new InfoSesion();
+            clsMain.objInfoSesion.Idusuario = 1;
+            clsMain.objInfoSesion.Idrol = 1;
+            clsMain.objInfoSesion.Idusuario_tipo = 1;
+            Dbaccess.DBConnect();
+            clsMain.objInfoSesion.Funcionalidades = clsLogin.obtenerFuncionalidades(1);
+            Dbaccess.DBDisconnect();
+
+            Application.Run(new frmMain());
+
         }
     }
 }

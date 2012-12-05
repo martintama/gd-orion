@@ -210,7 +210,16 @@ CREATE TABLE ORION.usuarios(
 	idusuario			int IDENTITY(1,1) NOT NULL,
 	fecha_alta			datetime,
 	username			nvarchar(50),
-	clave				nvarchar(200),
+	clave				char(64),
 	idrol				smallint,
+	idusuario_tipo		int NOT NULL,
+	intentos_fallidos	tinyint default 0,
 	habilitado			bit default 1
+) ON [PRIMARY]
+
+-- tipos_tarjeta
+CREATE TABLE ORION.usuarios_tipos(
+	idusuario_tipo		int IDENTITY(1,1) NOT NULL,
+	descripcion			nvarchar(50),
+	habilitado		bit default 1
 ) ON [PRIMARY]

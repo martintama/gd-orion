@@ -160,40 +160,55 @@ order by f.idfactura, con.idconsumo
 insert into ORION.cupones_ciudades(idcupon, idciudad) select c.idcupon, p.idciudad from ORION.cupones c
 left join orion.proveedores p on p.idproveedor = c.idproveedor
 
+#Usuarios_tipo			00:00
+insert into ORION.usuarios_tipos(descripcion) values('Administrativo')
+insert into ORION.usuarios_tipos(descripcion) values('Cliente')
+insert into ORION.usuarios_tipos(descripcion) values('Proveedor')
+
 #Funcionalidades		00:00
-insert into ORION.funcionalidades(descripcion) values('Login y seguridad');
-insert into ORION.funcionalidades(descripcion) values('ABM de Rol');
-insert into ORION.funcionalidades(descripcion) values('Registro de Usuario');
 insert into ORION.funcionalidades(descripcion) values('ABM de Cliente');
 insert into ORION.funcionalidades(descripcion) values('ABM de Proveedor');
-insert into ORION.funcionalidades(descripcion) values('Cargar Crédito');
-insert into ORION.funcionalidades(descripcion) values('Comprar GiftCard');
-insert into ORION.funcionalidades(descripcion) values('Comprar Cupón');
-insert into ORION.funcionalidades(descripcion) values('Pedir Devolución');
-insert into ORION.funcionalidades(descripcion) values('Historial de Compra de Cupones');
+insert into ORION.funcionalidades(descripcion) values('ABM de Rol');
 insert into ORION.funcionalidades(descripcion) values('Armar Cupón');
-insert into ORION.funcionalidades(descripcion) values('Registro de consumo de Cupón');
-insert into ORION.funcionalidades(descripcion) values('Publicar Cupón');
+insert into ORION.funcionalidades(descripcion) values('Cargar Crédito');
+insert into ORION.funcionalidades(descripcion) values('Comprar Cupón');
+insert into ORION.funcionalidades(descripcion) values('Comprar GiftCard');
 insert into ORION.funcionalidades(descripcion) values('Facturación a Proveedor');
+insert into ORION.funcionalidades(descripcion) values('Historial de Compra de Cupones');
 insert into ORION.funcionalidades(descripcion) values('Listado Estadístico');
+insert into ORION.funcionalidades(descripcion) values('Pedir Devolución');
+insert into ORION.funcionalidades(descripcion) values('Publicar Cupón');
+insert into ORION.funcionalidades(descripcion) values('Registro de consumo de Cupón');
+insert into ORION.funcionalidades(descripcion) values('Registro de Usuario');
 
 #Roles					00:00
-Insert into orion.roles(descripcion) values('Administrador General');
+Insert into orion.roles(descripcion) values('Administrador');
 Insert into orion.roles(descripcion) values('Cliente');
 Insert into orion.roles(descripcion) values('Proveedor');
-Insert into orion.roles(descripcion) values('Administrativo');
+Insert into orion.roles(descripcion) values('Administrador general');
 
 #Asigno las funcionalidades default de cada uno
-insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 1,idfuncionalidad from  orion.funcionalidades
 
-#Usuario admin
-insert into ORION.usuarios(fecha_alta, username, clave, idrol, habilitado) values(
-'20121001', 'admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 1,1)
+	#Clientes
+	insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) 
+	select 2,idfuncionalidad from orion.funcionalidades where idfuncionalidad in (5, 6,7,9, 11,14)
+
+	#Proveedores
+	insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) 
+	select 3,idfuncionalidad from orion.funcionalidades where idfuncionalidad in (4, 13 )
+
+	#Rol Administrador General
+	insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 4,idfuncionalidad from  orion.funcionalidades order by idfuncionalidad
+
+
+#Usuario administrativo
+insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo) values(
+'20121001', 'admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,4)
 
 #Usuario clientes
-insert into ORION.usuarios(fecha_alta, username, clave, idrol)
-select '20121001', dni, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 2 from ORION.clientes
+insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo)
+select '20121001', dni, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 2, 2 from ORION.clientes
 
 #Usuario proveedores
-insert into ORION.usuarios(fecha_alta, username, clave, idrol)
-select '20121001', cuit, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C920',3 from ORION.proveedores
+insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo)
+select '20121001', cuit, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C920',3,3 from ORION.proveedores

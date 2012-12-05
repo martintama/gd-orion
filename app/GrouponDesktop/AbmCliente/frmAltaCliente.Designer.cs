@@ -1,6 +1,6 @@
 ﻿namespace GrouponDesktop.AbmCliente
 {
-    partial class frmCliente
+    partial class frmAltaCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -55,6 +55,8 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -95,7 +97,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(65, 71);
+            this.label12.Location = new System.Drawing.Point(66, 69);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 13);
             this.label12.TabIndex = 6;
@@ -128,11 +130,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 71);
+            this.label3.Location = new System.Drawing.Point(6, 69);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Rol:";
+            this.label3.Text = "Tipo:";
             // 
             // label1
             // 
@@ -226,9 +228,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(9, 19);
+            this.listBox1.Location = new System.Drawing.Point(9, 22);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(267, 160);
+            this.listBox1.Size = new System.Drawing.Size(267, 121);
             this.listBox1.TabIndex = 10;
             // 
             // textBox1
@@ -307,6 +309,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button4);
+            this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.listBox1);
             this.groupBox3.Location = new System.Drawing.Point(12, 159);
             this.groupBox3.Name = "groupBox3";
@@ -314,6 +318,24 @@
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ciudades a visualizar";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(187, 156);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(12, 156);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -385,5 +407,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
     }
 }
