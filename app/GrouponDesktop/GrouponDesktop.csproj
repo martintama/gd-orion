@@ -48,138 +48,138 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\frmAbmCliente.cs">
+    <Compile Include="UI\AbmCliente\frmAbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\frmAbmCliente.Designer.cs">
+    <Compile Include="UI\AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmProveedor\frmAbmProveedor.cs">
+    <Compile Include="UI\AbmProveedor\frmAbmProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmProveedor\frmAbmProveedor.Designer.cs">
+    <Compile Include="UI\AbmProveedor\frmAbmProveedor.Designer.cs">
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\clsAbmRol.cs" />
-    <Compile Include="AbmRol\clsRol.cs" />
-    <Compile Include="AbmRol\frmAbmRol.cs">
+    <Compile Include="Logic\Rol\clsAbmRol.cs" />
+    <Compile Include="Logic\Rol\clsRol.cs" />
+    <Compile Include="UI\AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\frmAbmRol.Designer.cs">
+    <Compile Include="UI\AbmRol\frmAbmRol.Designer.cs">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\frmFuncionalidades.cs">
+    <Compile Include="UI\AbmRol\frmFuncionalidades.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\frmFuncionalidades.Designer.cs">
+    <Compile Include="UI\AbmRol\frmFuncionalidades.Designer.cs">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
     </Compile>
-    <Compile Include="CargaCredito\ArmarCupon\frmArmarCupon.cs">
+    <Compile Include="UI\CargaCredito\ArmarCupon\frmArmarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CargaCredito\ArmarCupon\frmArmarCupon.Designer.cs">
+    <Compile Include="UI\CargaCredito\ArmarCupon\frmArmarCupon.Designer.cs">
       <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </Compile>
-    <Compile Include="CargaCredito\frmCargarCredito.cs">
+    <Compile Include="UI\CargaCredito\frmCargarCredito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CargaCredito\frmCargarCredito.Designer.cs">
+    <Compile Include="UI\CargaCredito\frmCargarCredito.Designer.cs">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
     </Compile>
-    <Compile Include="clsLogin.cs" />
-    <Compile Include="clsMain.cs" />
-    <Compile Include="ComprarCupon\frmComprarCupon.cs">
+    <Compile Include="Logic\clsLogin.cs" />
+    <Compile Include="Logic\clsMain.cs" />
+    <Compile Include="UI\ComprarCupon\frmComprarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComprarCupon\frmComprarCupon.Designer.cs">
+    <Compile Include="UI\ComprarCupon\frmComprarCupon.Designer.cs">
       <DependentUpon>frmComprarCupon.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComprarGiftCard\frmComprarGiftCard.cs">
+    <Compile Include="UI\ComprarGiftCard\frmComprarGiftCard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComprarGiftCard\frmComprarGiftCard.Designer.cs">
+    <Compile Include="UI\ComprarGiftCard\frmComprarGiftCard.Designer.cs">
       <DependentUpon>frmComprarGiftCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dbaccess.cs" />
-    <Compile Include="FacturarProveedor\frmFacturarProveedor.cs">
+    <Compile Include="Logic\Global\Dbaccess.cs" />
+    <Compile Include="UI\FacturarProveedor\frmFacturarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FacturarProveedor\frmFacturarProveedor.Designer.cs">
+    <Compile Include="UI\FacturarProveedor\frmFacturarProveedor.Designer.cs">
       <DependentUpon>frmFacturarProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLogin.cs">
+    <Compile Include="UI\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLogin.Designer.cs">
+    <Compile Include="UI\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="UI\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="UI\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSeleccionTipoUsuario.cs">
+    <Compile Include="UI\frmSeleccionTipoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSeleccionTipoUsuario.Designer.cs">
+    <Compile Include="UI\frmSeleccionTipoUsuario.Designer.cs">
       <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hasher.cs" />
-    <Compile Include="HistorialCupones\frmHistorialCupones.cs">
+    <Compile Include="Logic\Global\Hasher.cs" />
+    <Compile Include="UI\HistorialCupones\frmHistorialCupones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HistorialCupones\frmHistorialCupones.Designer.cs">
+    <Compile Include="UI\HistorialCupones\frmHistorialCupones.Designer.cs">
       <DependentUpon>frmHistorialCupones.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\frmListadoEstadistico.cs">
+    <Compile Include="UI\ListadoEstadistico\frmListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\frmListadoEstadistico.Designer.cs">
+    <Compile Include="UI\ListadoEstadistico\frmListadoEstadistico.Designer.cs">
       <DependentUpon>frmListadoEstadistico.cs</DependentUpon>
     </Compile>
-    <Compile Include="PedirDevolucion\frmPedirDevolucion.cs">
+    <Compile Include="UI\PedirDevolucion\frmPedirDevolucion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PedirDevolucion\frmPedirDevolucion.Designer.cs">
+    <Compile Include="UI\PedirDevolucion\frmPedirDevolucion.Designer.cs">
       <DependentUpon>frmPedirDevolucion.cs</DependentUpon>
     </Compile>
-    <Compile Include="PublicarCupon\frmPublicarCupon.cs">
+    <Compile Include="UI\PublicarCupon\frmPublicarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PublicarCupon\frmPublicarCupon.Designer.cs">
+    <Compile Include="UI\PublicarCupon\frmPublicarCupon.Designer.cs">
       <DependentUpon>frmPublicarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
+    <EmbeddedResource Include="UI\AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmProveedor\frmAbmProveedor.resx">
+    <EmbeddedResource Include="UI\AbmProveedor\frmAbmProveedor.resx">
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\frmAbmRol.resx">
+    <EmbeddedResource Include="UI\AbmRol\frmAbmRol.resx">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\frmFuncionalidades.resx">
+    <EmbeddedResource Include="UI\AbmRol\frmFuncionalidades.resx">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ComprarCupon\frmComprarCupon.resx">
+    <EmbeddedResource Include="UI\ComprarCupon\frmComprarCupon.resx">
       <DependentUpon>frmComprarCupon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ComprarGiftCard\frmComprarGiftCard.resx">
+    <EmbeddedResource Include="UI\ComprarGiftCard\frmComprarGiftCard.resx">
       <DependentUpon>frmComprarGiftCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLogin.resx">
+    <EmbeddedResource Include="UI\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSeleccionTipoUsuario.resx">
+    <EmbeddedResource Include="UI\frmSeleccionTipoUsuario.resx">
       <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PedirDevolucion\frmPedirDevolucion.resx">
+    <EmbeddedResource Include="UI\PedirDevolucion\frmPedirDevolucion.resx">
       <DependentUpon>frmPedirDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -187,10 +187,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PublicarCupon\frmPublicarCupon.resx">
+    <EmbeddedResource Include="UI\PublicarCupon\frmPublicarCupon.resx">
       <DependentUpon>frmPublicarCupon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistroConsumoCupon\frmRegistroConsumo.resx">
+    <EmbeddedResource Include="UI\RegistroConsumoCupon\frmRegistroConsumo.resx">
       <DependentUpon>frmRegistroConsumo.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -206,13 +206,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RegistroConsumoCupon\frmRegistroConsumo.cs">
+    <Compile Include="UI\RegistroConsumoCupon\frmRegistroConsumo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistroConsumoCupon\frmRegistroConsumo.Designer.cs">
+    <Compile Include="UI\RegistroConsumoCupon\frmRegistroConsumo.Designer.cs">
       <DependentUpon>frmRegistroConsumo.cs</DependentUpon>
     </Compile>
-    <Compile Include="InfoSesion.cs" />
+    <Compile Include="Logic\Global\InfoSesion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

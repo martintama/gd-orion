@@ -67,6 +67,7 @@
             this.btnQuitar.TabIndex = 5;
             this.btnQuitar.Text = "Quitar ->";
             this.btnQuitar.UseVisualStyleBackColor = true;
+            this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             // 
             // btnAgregar
             // 
@@ -76,6 +77,7 @@
             this.btnAgregar.TabIndex = 4;
             this.btnAgregar.Text = "<- Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // lstDeshabilitadas
             // 
@@ -115,7 +117,8 @@
             // 
             // brnGrabar
             // 
-            this.brnGrabar.Location = new System.Drawing.Point(385, 371);
+            this.brnGrabar.Enabled = false;
+            this.brnGrabar.Location = new System.Drawing.Point(324, 371);
             this.brnGrabar.Name = "brnGrabar";
             this.brnGrabar.Size = new System.Drawing.Size(75, 24);
             this.brnGrabar.TabIndex = 2;
@@ -125,11 +128,11 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(300, 371);
+            this.btnCancelar.Location = new System.Drawing.Point(405, 370);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 25);
             this.btnCancelar.TabIndex = 3;
-            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Text = "Cerrar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -158,7 +161,8 @@
             this.txtNombreRol.Location = new System.Drawing.Point(61, 20);
             this.txtNombreRol.Name = "txtNombreRol";
             this.txtNombreRol.Size = new System.Drawing.Size(211, 20);
-            this.txtNombreRol.TabIndex = 5;
+            this.txtNombreRol.TabIndex = 0;
+            this.txtNombreRol.TextChanged += new System.EventHandler(this.txtNombreRol_TextChanged);
             // 
             // frmFuncionalidades
             // 
@@ -169,6 +173,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.brnGrabar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmFuncionalidades";
             this.Text = "Editar rol";
             this.Load += new System.EventHandler(this.frmFuncionalidades_Load);

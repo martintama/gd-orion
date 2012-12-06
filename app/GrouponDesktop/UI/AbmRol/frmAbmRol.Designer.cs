@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvRoles = new System.Windows.Forms.DataGridView();
-            this.colNombreRol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnEditar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnInhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.colIdrol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtRol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.colNombreRol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEditar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnInhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colIdrol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hdnColEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +86,8 @@
             this.colEstado,
             this.btnEditar,
             this.btnInhabilitar,
-            this.colIdrol});
+            this.colIdrol,
+            this.hdnColEstado});
             this.dgvRoles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvRoles.Location = new System.Drawing.Point(16, 104);
             this.dgvRoles.MultiSelect = false;
@@ -93,56 +96,8 @@
             this.dgvRoles.RowHeadersVisible = false;
             this.dgvRoles.Size = new System.Drawing.Size(456, 164);
             this.dgvRoles.TabIndex = 8;
+            this.dgvRoles.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvRoles_CellFormatting);
             this.dgvRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoles_CellContentClick);
-            // 
-            // colNombreRol
-            // 
-            this.colNombreRol.DataPropertyName = "Descripcion";
-            this.colNombreRol.Frozen = true;
-            this.colNombreRol.HeaderText = "Nombre rol";
-            this.colNombreRol.Name = "colNombreRol";
-            this.colNombreRol.ReadOnly = true;
-            this.colNombreRol.Width = 170;
-            // 
-            // colEstado
-            // 
-            this.colEstado.DataPropertyName = "estado";
-            this.colEstado.Frozen = true;
-            this.colEstado.HeaderText = "Estado";
-            this.colEstado.Name = "colEstado";
-            this.colEstado.ReadOnly = true;
-            this.colEstado.Width = 80;
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Frozen = true;
-            this.btnEditar.HeaderText = "Editar";
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.ReadOnly = true;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.ToolTipText = "Editar";
-            this.btnEditar.Width = 90;
-            // 
-            // btnInhabilitar
-            // 
-            this.btnInhabilitar.Frozen = true;
-            this.btnInhabilitar.HeaderText = "Inhabilitar";
-            this.btnInhabilitar.Name = "btnInhabilitar";
-            this.btnInhabilitar.ReadOnly = true;
-            this.btnInhabilitar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnInhabilitar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.btnInhabilitar.Text = "Inhabilitar";
-            this.btnInhabilitar.ToolTipText = "Inhabilitar";
-            this.btnInhabilitar.Width = 90;
-            // 
-            // colIdrol
-            // 
-            this.colIdrol.DataPropertyName = "idrol";
-            this.colIdrol.Frozen = true;
-            this.colIdrol.HeaderText = "Idrol";
-            this.colIdrol.Name = "colIdrol";
-            this.colIdrol.ReadOnly = true;
-            this.colIdrol.Visible = false;
             // 
             // groupBox1
             // 
@@ -160,7 +115,7 @@
             this.txtRol.Location = new System.Drawing.Point(88, 17);
             this.txtRol.Name = "txtRol";
             this.txtRol.Size = new System.Drawing.Size(204, 20);
-            this.txtRol.TabIndex = 1;
+            this.txtRol.TabIndex = 0;
             // 
             // label2
             // 
@@ -191,18 +146,87 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // colNombreRol
+            // 
+            this.colNombreRol.DataPropertyName = "NombreRol";
+            this.colNombreRol.Frozen = true;
+            this.colNombreRol.HeaderText = "Nombre rol";
+            this.colNombreRol.Name = "colNombreRol";
+            this.colNombreRol.ReadOnly = true;
+            this.colNombreRol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colNombreRol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNombreRol.Width = 170;
+            // 
+            // colEstado
+            // 
+            this.colEstado.Frozen = true;
+            this.colEstado.HeaderText = "Estado";
+            this.colEstado.Name = "colEstado";
+            this.colEstado.ReadOnly = true;
+            this.colEstado.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colEstado.Width = 80;
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Frozen = true;
+            this.btnEditar.HeaderText = "Editar";
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.ReadOnly = true;
+            this.btnEditar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.ToolTipText = "Editar";
+            this.btnEditar.Width = 80;
+            // 
+            // btnInhabilitar
+            // 
+            this.btnInhabilitar.DataPropertyName = "NombreRol";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInhabilitar.DefaultCellStyle = dataGridViewCellStyle2;
+            this.btnInhabilitar.Frozen = true;
+            this.btnInhabilitar.HeaderText = "Cambiar estado";
+            this.btnInhabilitar.Name = "btnInhabilitar";
+            this.btnInhabilitar.ReadOnly = true;
+            this.btnInhabilitar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btnInhabilitar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.btnInhabilitar.Text = "Habilitar";
+            this.btnInhabilitar.ToolTipText = "Cambiar estado";
+            this.btnInhabilitar.Width = 110;
+            // 
+            // colIdrol
+            // 
+            this.colIdrol.DataPropertyName = "idrol";
+            this.colIdrol.Frozen = true;
+            this.colIdrol.HeaderText = "Idrol";
+            this.colIdrol.Name = "colIdrol";
+            this.colIdrol.ReadOnly = true;
+            this.colIdrol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colIdrol.Visible = false;
+            // 
+            // hdnColEstado
+            // 
+            this.hdnColEstado.DataPropertyName = "Estado";
+            this.hdnColEstado.HeaderText = "EstadoNoVisible";
+            this.hdnColEstado.Name = "hdnColEstado";
+            this.hdnColEstado.ReadOnly = true;
+            this.hdnColEstado.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.hdnColEstado.Visible = false;
+            // 
             // frmAbmRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 308);
+            this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCerrar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAbmRol";
             this.Text = "ABM de Roles";
             this.Load += new System.EventHandler(this.frmAbmRol_Load);
@@ -230,6 +254,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn btnEditar;
         private System.Windows.Forms.DataGridViewButtonColumn btnInhabilitar;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdrol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdnColEstado;
 
     }
 }
