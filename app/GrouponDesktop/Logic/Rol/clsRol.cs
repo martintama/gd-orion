@@ -98,25 +98,28 @@ namespace GrouponDesktop.AbmRol
 
         public Int16 InhabilitarRol()
         {
+            return this.InhabilitarRol(false);
+        }
+
+        public Int16 InhabilitarRol(bool forzar)
+        {
             Dbaccess.DBConnect();
 
             SqlCommand cmd = new SqlCommand("Orion.Roles_Inhabilitar", Dbaccess.globalConn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter param;
             SqlParameter returnParameter;
-
-            param = cmd.Parameters.AddWithValue("@idrol", this.Idrol);
-            param.Direction = ParameterDirection.Input;
-
-
+            
+            cmd.Parameters.AddWithValue("@idrol", this.Idrol);
+            cmd.Parameters.AddWithValue("@forzar", forzar);
+            
             returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
 
             cmd.ExecuteNonQuery();
-            
+
             Dbaccess.DBDisconnect();
-            
+
             return Convert.ToInt16(returnParameter.Value);
 
         }

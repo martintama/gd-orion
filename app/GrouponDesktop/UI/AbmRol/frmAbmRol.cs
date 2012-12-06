@@ -90,32 +90,58 @@ namespace GrouponDesktop.AbmRol
                 objRol.HabilitarRol();
             }
         }
+        
         private void InhabilitarRol(ClsRol objRol)
         {
-            if (MessageBox.Show("Está seguro que desea DESHABILITAR este rol?", "Inhabilitar rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Int16 retvalue = objRol.InhabilitarRol() ;
+            this.InhabilitarRol(objRol, false);
+        }
 
-                switch(retvalue){
-                    case 0:
-                        {
-                            //Nada, que continue y recargue
-                            break;
-                        }
-                    case 1:
-                        {
-                            MessageBox.Show("Hay usuarios con el rol asignado. No es posible continuar", "Inhabilitar rol");
-                            break;
-                        }
-                    default:
-                        {
-                            MessageBox.Show("Error inhabilitando rol");
-                            break;
-                        }  
-                
+        private void InhabilitarRol(ClsRol objRol, bool forzar)
+        {
+            if (forzar)
+            {
+                Int16 retvalue = objRol.InhabilitarRol(true);
+                if (retvalue == 0)
+                {
+                    //Nada, que continue y recargue
+                }
+                else
+                {
+                    MessageBox.Show("Error deshabilitando rol", "Deshabilitar rol");
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Está seguro que desea DESHABILITAR este rol?", "Deshabilitar rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Int16 retvalue = objRol.InhabilitarRol();
+
+                    switch (retvalue)
+                    {
+                        case 0:
+                            {
+                                //Nada, que continue y recargue
+                                break;
+                            }
+                        case 1:
+                            {
+                                if (MessageBox.Show("Aún hay usuarios con el rol a deshabilitar. Si continúa se deshabilitaran también dichos usuarios. Desea continuar?", "Deshabilitar rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    this.InhabilitarRol(objRol, true);
+                                }
+                                break;
+                            }
+                        default:
+                            {
+                                MessageBox.Show("Error deshabilitando rol");
+                                break;
+                            }
+
+                    }
                 }
             }
         }
+
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {

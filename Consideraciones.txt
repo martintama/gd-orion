@@ -78,6 +78,9 @@ Se ingresan el usuario y password. Se verifica si todos los datos están complet
 2 - Falta completar usuario o password
 3 - Usuario baneado
 
+General
+
+Conexiones a la base se genera una nueva cada vez que se realiza una transaccion. Se utiliza una conexion global.
 
 Roles
 
