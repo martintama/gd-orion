@@ -167,6 +167,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmFuncionalidades";
             this.Text = "Editar rol";
+            this.Load += new System.EventHandler(this.frmFuncionalidades_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

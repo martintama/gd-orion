@@ -101,16 +101,6 @@ namespace GrouponDesktop
             frmSeleccion.ShowDialog();
             
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            holamundo(btnhola.Text);
-        }
-
-        private void holamundo(String valor)
-        {
-            MessageBox.Show(valor);
-        }
     }
        
 }
