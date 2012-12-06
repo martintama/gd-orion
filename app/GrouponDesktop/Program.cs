@@ -16,9 +16,10 @@ namespace GrouponDesktop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //PRODUCCION    
-            //Application.Run(new frmLogin());
+            Application.Run(new frmLogin());
             
             //DESARROLLO
+            /*
             clsMain.objInfoSesion = new InfoSesion();
             clsMain.objInfoSesion.Idusuario = 1;
             clsMain.objInfoSesion.Idrol = 4;
@@ -28,6 +29,7 @@ namespace GrouponDesktop
             Dbaccess.DBDisconnect();
 
             Application.Run(new frmMain());
+             * */
 
         }
     }

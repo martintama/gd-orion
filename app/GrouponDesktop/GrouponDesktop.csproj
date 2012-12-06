@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Global\Ciudad.cs" />
+    <Compile Include="Logic\Global\Cliente.cs" />
+    <Compile Include="Logic\Global\Proveedor.cs" />
+    <Compile Include="Logic\Global\Rubro.cs" />
+    <Compile Include="Logic\Global\TipoUsuario.cs" />
+    <Compile Include="Logic\Global\Usuario.cs" />
     <Compile Include="UI\AbmCliente\frmAbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,7 +67,7 @@
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Rol\clsAbmRol.cs" />
-    <Compile Include="Logic\Rol\clsRol.cs" />
+    <Compile Include="Logic\Global\Rol.cs" />
     <Compile Include="UI\AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>

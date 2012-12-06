@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Logic.Global;
 
 namespace GrouponDesktop.AbmRol
 {
@@ -51,22 +52,22 @@ namespace GrouponDesktop.AbmRol
             //Si lo que se presionó fue un botón de editar
             if (dgvRoles.Columns[e.ColumnIndex].Name == "btnEditar")
             {
-                this.EditarRol((ClsRol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
+                this.EditarRol((Rol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
                 this.CargarListado();
             }
             else
             {
                 if (dgvRoles.Columns[e.ColumnIndex].Name == "btnInhabilitar")
                 {
-                    ClsRol objRol = (ClsRol)dgvRoles.Rows[e.RowIndex].DataBoundItem;
+                    Rol objRol = (Rol)dgvRoles.Rows[e.RowIndex].DataBoundItem;
 
                     if (objRol.Estado)
                     {
-                        this.InhabilitarRol((ClsRol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
+                        this.InhabilitarRol((Rol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
                     }
                     else
                     {
-                        this.HabilitarRol((ClsRol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
+                        this.HabilitarRol((Rol)dgvRoles.Rows[e.RowIndex].DataBoundItem);
                     }
                     
                     this.CargarListado();
@@ -74,7 +75,7 @@ namespace GrouponDesktop.AbmRol
             }
         }
 
-        private void EditarRol(ClsRol objRol)
+        private void EditarRol(Rol objRol)
         {
             frmFuncionalidades frmFunc = new frmFuncionalidades();
             frmFunc.objRol = objRol;
@@ -83,7 +84,7 @@ namespace GrouponDesktop.AbmRol
             
         }
 
-        private void HabilitarRol(ClsRol objRol)
+        private void HabilitarRol(Rol objRol)
         {
             if (MessageBox.Show("Está seguro que desea HABILITAR este rol?", "Habilitar rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -91,12 +92,12 @@ namespace GrouponDesktop.AbmRol
             }
         }
         
-        private void InhabilitarRol(ClsRol objRol)
+        private void InhabilitarRol(Rol objRol)
         {
             this.InhabilitarRol(objRol, false);
         }
 
-        private void InhabilitarRol(ClsRol objRol, bool forzar)
+        private void InhabilitarRol(Rol objRol, bool forzar)
         {
             if (forzar)
             {
@@ -156,7 +157,7 @@ namespace GrouponDesktop.AbmRol
             if (e.ColumnIndex == this.dgvRoles.Columns["btnInhabilitar"].Index)
             {
                 
-                if (((List<ClsRol>)dgvRoles.DataSource).ElementAt(e.RowIndex).Estado == false)
+                if (((List<Rol>)dgvRoles.DataSource).ElementAt(e.RowIndex).Estado == false)
                 {
                     e.Value = "Habilitar";
                 }
@@ -169,7 +170,7 @@ namespace GrouponDesktop.AbmRol
             else if (e.ColumnIndex == this.dgvRoles.Columns["colEstado"].Index)
             {
                 
-                if (((List<ClsRol>)dgvRoles.DataSource).ElementAt(e.RowIndex).Estado == true)
+                if (((List<Rol>)dgvRoles.DataSource).ElementAt(e.RowIndex).Estado == true)
                 {
                     e.Value = "Habilitado";
                 }

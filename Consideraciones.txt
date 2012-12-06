@@ -93,6 +93,9 @@ No se permite deshabilitar un rol que este asociado aún a un usuario. Esto se e
 utilizando un stored procedure que devuelva un 0 si no hubo problemas, o un 1 si no se pudo
 inhabilitar porque hay usuarios asociados.
 
+En este caso se consulta al usuarios si desea continuar deshabilitando también los usuarios
+y solo así se puede deshabilitar el rol.
+
 
 Devoluciones
 Los cupones devuefltos vuelven a figurar en el stock del cliente

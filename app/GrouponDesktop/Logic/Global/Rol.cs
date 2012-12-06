@@ -5,9 +5,9 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace GrouponDesktop.AbmRol
+namespace GrouponDesktop.Logic.Global
 {
-    public class ClsRol
+    public class Rol
     {
         public class Funcionalidad
         {
@@ -22,7 +22,7 @@ namespace GrouponDesktop.AbmRol
             public String Descripcion { get; set; }
         }
 
-        public ClsRol()
+        public Rol()
         {
             this.FuncHabilitadas = new List<Funcionalidad>();
             this.FuncInhabilitadas = new List<Funcionalidad>();
@@ -142,7 +142,7 @@ namespace GrouponDesktop.AbmRol
 
                 while (dr1.Read())
                 {
-                    this.FuncHabilitadas.Add(new ClsRol.Funcionalidad(
+                    this.FuncHabilitadas.Add(new Rol.Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
                 }
 
@@ -159,7 +159,7 @@ namespace GrouponDesktop.AbmRol
                 dr1 = sqlc.ExecuteReader();
                 while (dr1.Read())
                 {
-                    this.FuncInhabilitadas.Add(new ClsRol.Funcionalidad(
+                    this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
                 }
 
@@ -192,7 +192,7 @@ namespace GrouponDesktop.AbmRol
 
                 while (dr1.Read())
                 {
-                    this.FuncInhabilitadas.Add(new ClsRol.Funcionalidad(
+                    this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
                 }
 

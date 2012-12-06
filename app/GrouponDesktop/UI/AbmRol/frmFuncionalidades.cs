@@ -6,13 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Logic.Global;
 
 namespace GrouponDesktop.AbmRol
 {
     public partial class frmFuncionalidades : Form
     {
 
-        public ClsRol objRol = new ClsRol();
+        public Rol objRol = new Rol();
 
         public frmFuncionalidades()
         {
@@ -49,12 +50,12 @@ namespace GrouponDesktop.AbmRol
             lstHabilitadas.Items.Clear();
             lstDeshabilitadas.Items.Clear();
 
-            foreach (ClsRol.Funcionalidad func in objRol.FuncHabilitadas)
+            foreach (Rol.Funcionalidad func in objRol.FuncHabilitadas)
             {
                 lstHabilitadas.Items.Add(func);
             }
 
-            foreach (ClsRol.Funcionalidad func in objRol.FuncInhabilitadas)
+            foreach (Rol.Funcionalidad func in objRol.FuncInhabilitadas)
             {
                 lstDeshabilitadas.Items.Add(func);
             }
@@ -72,7 +73,7 @@ namespace GrouponDesktop.AbmRol
             objRol.NombreRol = txtNombreRol.Text;
             objRol.FuncHabilitadas.Clear();
 
-            foreach (ClsRol.Funcionalidad func in lstHabilitadas.Items)
+            foreach (Rol.Funcionalidad func in lstHabilitadas.Items)
             {
                 objRol.FuncHabilitadas.Add(func);
             }
@@ -88,7 +89,7 @@ namespace GrouponDesktop.AbmRol
             {
                 if (lstHabilitadas.SelectedItem != null)
                 {
-                    ClsRol.Funcionalidad func = (ClsRol.Funcionalidad)lstHabilitadas.SelectedItem;
+                    Rol.Funcionalidad func = (Rol.Funcionalidad)lstHabilitadas.SelectedItem;
 
                     lstDeshabilitadas.Items.Add(func);
                     lstHabilitadas.Items.Remove(func);
@@ -106,7 +107,7 @@ namespace GrouponDesktop.AbmRol
             {
                 if (lstDeshabilitadas.SelectedItem != null)
                 {
-                    ClsRol.Funcionalidad func = (ClsRol.Funcionalidad)lstDeshabilitadas.SelectedItem;
+                    Rol.Funcionalidad func = (Rol.Funcionalidad)lstDeshabilitadas.SelectedItem;
 
                     lstHabilitadas.Items.Add(func);
                     lstDeshabilitadas.Items.Remove(func);
