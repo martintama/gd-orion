@@ -34,7 +34,7 @@
             this.lstDeshabilitadas = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.listHabilitadas = new System.Windows.Forms.ListBox();
+            this.lstHabilitadas = new System.Windows.Forms.ListBox();
             this.brnGrabar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@
             this.groupBox1.Controls.Add(this.lstDeshabilitadas);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.listHabilitadas);
+            this.groupBox1.Controls.Add(this.lstHabilitadas);
             this.groupBox1.Location = new System.Drawing.Point(12, 71);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(467, 293);
@@ -79,6 +79,7 @@
             // 
             // lstDeshabilitadas
             // 
+            this.lstDeshabilitadas.DisplayMember = "Descripcion";
             this.lstDeshabilitadas.FormattingEnabled = true;
             this.lstDeshabilitadas.Location = new System.Drawing.Point(288, 36);
             this.lstDeshabilitadas.Name = "lstDeshabilitadas";
@@ -103,13 +104,14 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Habilitadas";
             // 
-            // listHabilitadas
+            // lstHabilitadas
             // 
-            this.listHabilitadas.FormattingEnabled = true;
-            this.listHabilitadas.Location = new System.Drawing.Point(10, 36);
-            this.listHabilitadas.Name = "listHabilitadas";
-            this.listHabilitadas.Size = new System.Drawing.Size(170, 238);
-            this.listHabilitadas.TabIndex = 0;
+            this.lstHabilitadas.DisplayMember = "Descripcion";
+            this.lstHabilitadas.FormattingEnabled = true;
+            this.lstHabilitadas.Location = new System.Drawing.Point(10, 36);
+            this.lstHabilitadas.Name = "lstHabilitadas";
+            this.lstHabilitadas.Size = new System.Drawing.Size(170, 238);
+            this.lstHabilitadas.TabIndex = 0;
             // 
             // brnGrabar
             // 
@@ -119,6 +121,7 @@
             this.brnGrabar.TabIndex = 2;
             this.brnGrabar.Text = "Grabar";
             this.brnGrabar.UseVisualStyleBackColor = true;
+            this.brnGrabar.Click += new System.EventHandler(this.brnGrabar_Click);
             // 
             // btnCancelar
             // 
@@ -128,6 +131,7 @@
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label3
             // 
@@ -184,7 +188,7 @@
         private System.Windows.Forms.Button btnQuitar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ListBox lstDeshabilitadas;
-        private System.Windows.Forms.ListBox listHabilitadas;
+        private System.Windows.Forms.ListBox lstHabilitadas;
         private System.Windows.Forms.Button brnGrabar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label3;

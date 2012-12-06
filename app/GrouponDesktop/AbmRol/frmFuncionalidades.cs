@@ -21,9 +21,12 @@ namespace GrouponDesktop.AbmRol
 
         private void frmFuncionalidades_Load(object sender, EventArgs e)
         {
+            clsAbmRol clsAbm = new clsAbmRol();
             if (idrol > 0)
             {
                 this.Text = "Editar rol";
+                ClsRol objRol = clsAbm.GetRol(idrol);
+                this.CargarFormulario(objRol);
             }
             else
             {
@@ -31,5 +34,29 @@ namespace GrouponDesktop.AbmRol
             }
         }
 
+        private void CargarFormulario(ClsRol objRol)
+        {
+            this.txtNombreRol.Text = objRol.NombreRol;
+
+            foreach (ClsRol.Funcionalidad func in objRol.FuncHabilitadas)
+            {
+                lstHabilitadas.Items.Add(func);
+            }
+
+            foreach (ClsRol.Funcionalidad func in objRol.FuncInhabilitadas)
+            {
+                lstDeshabilitadas.Items.Add(func);
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void brnGrabar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

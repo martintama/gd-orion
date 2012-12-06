@@ -86,6 +86,10 @@ es "Administrativo" y posee el rol de "Administrador General".
 
 A este rol, Administrador General, se le asignaron todas las funcionalidades
 
+No se permite deshabilitar un rol que este asociado aún a un usuario. Esto se efectiviza
+utilizando un stored procedure que devuelva un 0 si no hubo problemas, o un 1 si no se pudo
+inhabilitar porque hay usuarios asociados.
+
 
 Devoluciones
-Los cupones devueltos vuelven a figurar en el stock del cliente
+Los cupones devuefltos vuelven a figurar en el stock del cliente

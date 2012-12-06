@@ -61,6 +61,7 @@
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\clsAbmRol.cs" />
+    <Compile Include="AbmRol\clsRol.cs" />
     <Compile Include="AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>
