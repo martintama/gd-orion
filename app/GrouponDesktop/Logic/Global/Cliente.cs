@@ -32,8 +32,6 @@ namespace GrouponDesktop.Logic.Global
 
         public String Direccion { get; set; }
 
-        public String Localidad { get; set; }
-
         public String CodPostal { get; set; }
 
         public DateTime FechaNacimiento { get; set; }
@@ -95,7 +93,6 @@ namespace GrouponDesktop.Logic.Global
                     cmd.Parameters.AddWithValue("@direccion", this.Direccion);
                     cmd.Parameters.AddWithValue("@codpost", this.CodPostal);
                     cmd.Parameters.AddWithValue("@fechanac", this.FechaNacimiento.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@localidad", this.Localidad);
                     cmd.Parameters.AddWithValue("@idusuario", this.UsuarioAsociado.Idusuario);
 
                     returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);

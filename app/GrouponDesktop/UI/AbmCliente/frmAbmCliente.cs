@@ -33,7 +33,6 @@ namespace GrouponDesktop.UI.AbmCliente
                 this.objCliente.Telefono = txtTelefono.Text;
                 this.objCliente.Direccion = txtDireccion.Text;
                 this.objCliente.CodPostal = txtCodPostal.Text;
-                this.objCliente.Localidad = txtLocalidad.Text;
                 this.objCliente.FechaNacimiento = dtpNacimiento.Value;
                 this.objCliente.UsuarioAsociado.Username = txtUsername.Text;
                 this.objCliente.UsuarioAsociado.Clave = txtPassword.Text;
@@ -44,9 +43,17 @@ namespace GrouponDesktop.UI.AbmCliente
                 {
                     case 0: //Todo OK
                         {
-                            MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
-                            this.Close();
-                            this.Dispose();
+                            if (esRegistracion)
+                            {
+                                MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Cambios guardados correctamente", "ABM Clientes");
+                            }
+                                this.Close();
+                                this.Dispose();
+                           
                             break;
                         }
                     case 1: //Usuario ya existe
@@ -165,18 +172,16 @@ namespace GrouponDesktop.UI.AbmCliente
                 lblUsername.Visible = true;
             }
 
-            if (txtLocalidad.Text == "")
+            //Solo para la registración
+            if (this.esRegistracion)
             {
-                valido = false;
-                lblLocalidad.Text = "* Obligatorio";
-                lblLocalidad.Visible = true;
-            }
-
-            if (txtPassword.Text == "")
-            {
-                valido = false;
-                lblPassword.Text = "* Obligatorio";
-                lblPassword.Visible = true;
+                if (txtPassword.Text == "")
+                {
+                    valido = false;
+                    lblPassword.Text = "* Obligatorio";
+                    lblPassword.ForeColor = Color.Red;
+                    lblPassword.Visible = true;
+                }
             }
 
             if (!valido)
@@ -196,7 +201,6 @@ namespace GrouponDesktop.UI.AbmCliente
             lblTelefono.Visible = false;
             lblDireccion.Visible = false;
             lblCodPostal.Visible = false;
-            lblLocalidad.Visible = false;
             lblFechaNac.Visible = false;
             lblCiudades.Visible = false;
             lblUsername.Visible = false;
@@ -269,7 +273,6 @@ namespace GrouponDesktop.UI.AbmCliente
             txtMail.Text = objCliente.Mail;
             txtTelefono.Text = objCliente.Telefono;
             txtDireccion.Text = objCliente.Direccion;
-            txtLocalidad.Text = objCliente.Localidad;
             txtCodPostal.Text = objCliente.CodPostal;
             dtpNacimiento.Value = objCliente.FechaNacimiento;
             CargarTextoCiudades();
@@ -293,7 +296,6 @@ namespace GrouponDesktop.UI.AbmCliente
             this.txtUsername.Text = "Tama";
             this.txtPassword.Text = "tama";
             this.txtMail.Text = "tama@gmail.com";
-            this.txtLocalidad.Text = "CABA";
             this.objCliente.Ciudades.Add(new Ciudad(1, "Bahia Blanca"));
             this.CargarTextoCiudades();
 

@@ -117,28 +117,31 @@ namespace GrouponDesktop.UI.AbmCliente
 
         private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Si lo que se presionó fue un botón de editar
-            if (dgvDatos.Columns[e.ColumnIndex].Name == "Editar")
+            if (e.RowIndex > -1)
             {
-                this.EditarCliente((Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem);
-                this.CargarDatos();
-            }
-            else
-            {
-                if (dgvDatos.Columns[e.ColumnIndex].Name == "CambiarEstado")
+                //Si lo que se presionó fue un botón de editar
+                if (dgvDatos.Columns[e.ColumnIndex].Name == "Editar")
                 {
-                    Cliente objCliente = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
-
-                    if (objCliente.Habilitado)
-                    {
-                        this.InhabilitarCliente(objCliente);
-                    }
-                    else
-                    {
-                        this.HabilitarCliente(objCliente);
-                    }
-
+                    this.EditarCliente((Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem);
                     this.CargarDatos();
+                }
+                else
+                {
+                    if (dgvDatos.Columns[e.ColumnIndex].Name == "CambiarEstado")
+                    {
+                        Cliente objCliente = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
+
+                        if (objCliente.Habilitado)
+                        {
+                            this.InhabilitarCliente(objCliente);
+                        }
+                        else
+                        {
+                            this.HabilitarCliente(objCliente);
+                        }
+
+                        this.CargarDatos();
+                    }
                 }
             }
         }
