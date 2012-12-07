@@ -24,7 +24,6 @@ namespace GrouponDesktop.CargaCredito
             if (credito <= 15)
             {
                 lblError.Text = "El monto debe ser mayor a 15$!";
-                lblError.ForeColor = Color.Red;
                 btnAceptar.Enabled = false;
             }
             else
@@ -34,23 +33,52 @@ namespace GrouponDesktop.CargaCredito
             }
         }
 
+        private void mroTarjBox_TextChanged(object sender, EventArgs e)
+        {
+            int nroTarj;
+            int.TryParse(txtNroTarj.Text, out nroTarj);
+            if (txtNroTarj.Text.Length != 16)
+            {
+                lblError.Text = "Debe ingresar 16 Digitos de Tarjeta";
+            }
+            else
+            {
+                lblError.Text = "";
+            }
+        }
+
+        private void cmbPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbPago.SelectedIndex == 0)
+            {
+                txtNroTarj.Visible = false;
+                lblNroTarj.Visible = false;
+            }
+            else
+            {
+                txtNroTarj.Visible = true;
+                lblNroTarj.Visible = true;
+            }
+        }
+
+        private void lblError_TextChanged(object sender, EventArgs e)
+        {
+            if (lblError.Text.Length > 0)
+            {
+                lblError.Visible = true;
+            }
+            else
+            {
+                lblError.Visible = false;
+            }
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             int credito;
 
             int.TryParse(montoBox.Text, out credito);
 
-        }
-
-        private void hide_nro(object sender, EventArgs e)
-        {
-            txtNroTarj.Visible = false;
-        }
-
-        private void cmbPago_CursorChanged(object sender, EventArgs e)
-        {
-            //if (cmbPago.Item == 1);
-            //Si el item es efectivo, esconderme el campo nro tarjeta
         }
     }
 }

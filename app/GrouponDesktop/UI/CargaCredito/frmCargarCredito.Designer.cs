@@ -69,7 +69,7 @@
             this.cmbPago.Size = new System.Drawing.Size(121, 21);
             this.cmbPago.Sorted = true;
             this.cmbPago.TabIndex = 2;
-            this.cmbPago.CursorChanged += new System.EventHandler(this.cmbPago_CursorChanged);
+            this.cmbPago.SelectedIndexChanged += new System.EventHandler(this.cmbPago_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -101,12 +101,15 @@
             // lblError
             // 
             this.lblError.AutoEllipsis = true;
-            this.lblError.AutoSize = true;
-            this.lblError.Location = new System.Drawing.Point(95, 13);
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(12, 9);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(29, 13);
+            this.lblError.Size = new System.Drawing.Size(230, 38);
             this.lblError.TabIndex = 5;
             this.lblError.Text = "Error";
+            this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblError.Visible = false;
+            this.lblError.TextChanged += new System.EventHandler(this.lblError_TextChanged);
             // 
             // txtNroTarj
             // 
@@ -114,7 +117,8 @@
             this.txtNroTarj.Name = "txtNroTarj";
             this.txtNroTarj.Size = new System.Drawing.Size(100, 20);
             this.txtNroTarj.TabIndex = 1;
-            this.txtNroTarj.TextChanged += new System.EventHandler(this.montoBox_TextChanged);
+            this.txtNroTarj.Visible = false;
+            this.txtNroTarj.TextChanged += new System.EventHandler(this.mroTarjBox_TextChanged);
             // 
             // lblNroTarj
             // 
@@ -124,6 +128,7 @@
             this.lblNroTarj.Size = new System.Drawing.Size(60, 13);
             this.lblNroTarj.TabIndex = 6;
             this.lblNroTarj.Text = "Nro Tarjeta";
+            this.lblNroTarj.Visible = false;
             // 
             // frmCargarCredito
             // 
