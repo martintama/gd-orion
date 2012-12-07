@@ -197,6 +197,9 @@
     <EmbeddedResource Include="UI\AbmRol\frmFuncionalidades.resx">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ArmarCupon\frmArmarCupon.resx">
+      <DependentUpon>frmArmarCupon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CargaCredito\frmCargarCredito.resx">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ComprarGiftCard\frmComprarGiftCard.resx">
       <DependentUpon>frmComprarGiftCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturarProveedor\frmFacturarProveedor.resx">
+      <DependentUpon>frmFacturarProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

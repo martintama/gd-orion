@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
@@ -52,7 +53,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnGrabar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -64,6 +64,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -94,12 +95,21 @@
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Location = new System.Drawing.Point(12, 10);
+            this.groupBox2.Location = new System.Drawing.Point(12, 32);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(459, 251);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del proveedor";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(272, 46);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(165, 13);
+            this.label4.TabIndex = 73;
+            this.label4.Text = "Alfanumérico - Max 50 caracteres";
             // 
             // label14
             // 
@@ -292,18 +302,9 @@
             this.label21.TabIndex = 57;
             this.label21.Text = "Teléfono:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(272, 46);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(165, 13);
-            this.label4.TabIndex = 73;
-            this.label4.Text = "Alfanumérico - Max 50 caracteres";
-            // 
             // btnGrabar
             // 
-            this.btnGrabar.Location = new System.Drawing.Point(264, 391);
+            this.btnGrabar.Location = new System.Drawing.Point(264, 413);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(83, 23);
             this.btnGrabar.TabIndex = 76;
@@ -312,7 +313,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(127, 391);
+            this.btnCancelar.Location = new System.Drawing.Point(127, 413);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(78, 23);
             this.btnCancelar.TabIndex = 75;
@@ -329,7 +330,7 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(12, 267);
+            this.groupBox1.Location = new System.Drawing.Point(12, 289);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(459, 118);
             this.groupBox1.TabIndex = 74;
@@ -409,11 +410,22 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Username:";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(12, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(204, 20);
+            this.label27.TabIndex = 77;
+            this.label27.Text = "Alta de nuevo proveedor";
+            // 
             // frmAbmProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 420);
+            this.ClientSize = new System.Drawing.Size(483, 449);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelar);
@@ -425,6 +437,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -466,5 +479,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label27;
     }
 }

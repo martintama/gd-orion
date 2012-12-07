@@ -34,21 +34,22 @@
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnComprar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtPrecioReal = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtLimitePromo = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtPrecioFicticio = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblCreditoActual = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numCantidadCompra = new System.Windows.Forms.NumericUpDown();
             this.btnReset = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtPrecioFicticio = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtLimitePromo = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPrecioReal = new System.Windows.Forms.TextBox();
             this.chkComprar = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadCompra)).BeginInit();
@@ -58,7 +59,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 30);
+            this.dataGridView1.Location = new System.Drawing.Point(11, 54);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(474, 193);
             this.dataGridView1.TabIndex = 1;
@@ -66,7 +67,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 11);
+            this.label1.Location = new System.Drawing.Point(12, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(190, 13);
             this.label1.TabIndex = 2;
@@ -76,7 +77,7 @@
             // 
             this.lblCiudad.AutoSize = true;
             this.lblCiudad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCiudad.Location = new System.Drawing.Point(209, 11);
+            this.lblCiudad.Location = new System.Drawing.Point(208, 35);
             this.lblCiudad.Name = "lblCiudad";
             this.lblCiudad.Size = new System.Drawing.Size(11, 13);
             this.lblCiudad.TabIndex = 3;
@@ -84,7 +85,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(405, 439);
+            this.btnCerrar.Location = new System.Drawing.Point(404, 463);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 4;
@@ -111,17 +112,82 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtDescripcion);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(12, 229);
+            this.groupBox1.Location = new System.Drawing.Point(11, 253);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(474, 141);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detalle del cupón seleccionado";
             // 
+            // txtPrecioReal
+            // 
+            this.txtPrecioReal.Location = new System.Drawing.Point(86, 109);
+            this.txtPrecioReal.Name = "txtPrecioReal";
+            this.txtPrecioReal.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecioReal.TabIndex = 7;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 112);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(74, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Precio normal:";
+            // 
+            // txtLimitePromo
+            // 
+            this.txtLimitePromo.Location = new System.Drawing.Point(357, 79);
+            this.txtLimitePromo.Name = "txtLimitePromo";
+            this.txtLimitePromo.Size = new System.Drawing.Size(100, 20);
+            this.txtLimitePromo.TabIndex = 5;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(231, 82);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Promoción válida hasta:";
+            // 
+            // txtPrecioFicticio
+            // 
+            this.txtPrecioFicticio.Location = new System.Drawing.Point(86, 79);
+            this.txtPrecioFicticio.Name = "txtPrecioFicticio";
+            this.txtPrecioFicticio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecioFicticio.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 82);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Precio c/u:";
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(86, 20);
+            this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(371, 47);
+            this.txtDescripcion.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Descripción: ";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(340, 11);
+            this.label3.Location = new System.Drawing.Point(339, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 7;
@@ -132,7 +198,7 @@
             // 
             this.lblCreditoActual.AutoSize = true;
             this.lblCreditoActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreditoActual.Location = new System.Drawing.Point(429, 11);
+            this.lblCreditoActual.Location = new System.Drawing.Point(428, 35);
             this.lblCreditoActual.Name = "lblCreditoActual";
             this.lblCreditoActual.Size = new System.Drawing.Size(57, 13);
             this.lblCreditoActual.TabIndex = 8;
@@ -158,77 +224,12 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(314, 439);
+            this.btnReset.Location = new System.Drawing.Point(313, 463);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 10;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Descripción: ";
-            // 
-            // txtDescripcion
-            // 
-            this.txtDescripcion.Location = new System.Drawing.Point(86, 20);
-            this.txtDescripcion.Multiline = true;
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(371, 47);
-            this.txtDescripcion.TabIndex = 1;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 82);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Precio c/u:";
-            // 
-            // txtPrecioFicticio
-            // 
-            this.txtPrecioFicticio.Location = new System.Drawing.Point(86, 79);
-            this.txtPrecioFicticio.Name = "txtPrecioFicticio";
-            this.txtPrecioFicticio.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecioFicticio.TabIndex = 3;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(231, 82);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Promoción válida hasta:";
-            // 
-            // txtLimitePromo
-            // 
-            this.txtLimitePromo.Location = new System.Drawing.Point(357, 79);
-            this.txtLimitePromo.Name = "txtLimitePromo";
-            this.txtLimitePromo.Size = new System.Drawing.Size(100, 20);
-            this.txtLimitePromo.TabIndex = 5;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 112);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 13);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Precio normal:";
-            // 
-            // txtPrecioReal
-            // 
-            this.txtPrecioReal.Location = new System.Drawing.Point(86, 109);
-            this.txtPrecioReal.Name = "txtPrecioReal";
-            this.txtPrecioReal.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecioReal.TabIndex = 7;
             // 
             // chkComprar
             // 
@@ -246,18 +247,29 @@
             this.groupBox2.Controls.Add(this.numCantidadCompra);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.chkComprar);
-            this.groupBox2.Location = new System.Drawing.Point(12, 376);
+            this.groupBox2.Location = new System.Drawing.Point(11, 400);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(474, 57);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Compra";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(7, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(131, 20);
+            this.label27.TabIndex = 30;
+            this.label27.Text = "Comprar cupón";
+            // 
             // frmComprarCupon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 476);
+            this.ClientSize = new System.Drawing.Size(499, 498);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnCerrar);
@@ -304,5 +316,6 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.CheckBox chkComprar;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label27;
     }
 }

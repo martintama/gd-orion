@@ -47,6 +47,7 @@
             this.chkCliente = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtNombreRol = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +61,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lstHabilitadas);
-            this.groupBox1.Location = new System.Drawing.Point(12, 97);
+            this.groupBox1.Location = new System.Drawing.Point(12, 121);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(467, 293);
             this.groupBox1.TabIndex = 1;
@@ -137,7 +138,7 @@
             // brnGrabar
             // 
             this.brnGrabar.Enabled = false;
-            this.brnGrabar.Location = new System.Drawing.Point(324, 397);
+            this.brnGrabar.Location = new System.Drawing.Point(324, 421);
             this.brnGrabar.Name = "brnGrabar";
             this.brnGrabar.Size = new System.Drawing.Size(75, 24);
             this.brnGrabar.TabIndex = 2;
@@ -147,7 +148,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(405, 396);
+            this.btnCancelar.Location = new System.Drawing.Point(405, 420);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 25);
             this.btnCancelar.TabIndex = 3;
@@ -174,7 +175,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtNombreRol);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 36);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(467, 79);
             this.groupBox2.TabIndex = 5;
@@ -252,11 +253,22 @@
             this.txtNombreRol.TabIndex = 0;
             this.txtNombreRol.TextChanged += new System.EventHandler(this.txtNombreRol_TextChanged);
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(12, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(144, 20);
+            this.label27.TabIndex = 30;
+            this.label27.Text = "Alta de nuevo rol";
+            // 
             // frmFuncionalidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 429);
+            this.ClientSize = new System.Drawing.Size(492, 452);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.brnGrabar);
@@ -272,6 +284,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -296,6 +309,7 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblAsociado;
         private System.Windows.Forms.Label lblHabilitadas;
+        private System.Windows.Forms.Label label27;
 
     }
 }
