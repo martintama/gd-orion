@@ -26,7 +26,7 @@ namespace GrouponDesktop
         private void OcultarMenues()
         {
             administrativoStripMenuItem.Visible = false;
-            clientesStripMenuItem.Visible = false;
+            clientesStripMenuItem.Visible = true;
             proveedoresStripMenuItem.Visible = false;
 
             aBMClienteToolStripMenuItem.Visible = false;
@@ -40,7 +40,7 @@ namespace GrouponDesktop
             armarCupónToolStripMenuItem1.Visible = false;
             registrarConsumoToolStripMenuItem.Visible = false;
 
-            cargarCreditoToolStripMenuItem.Visible = false;
+            cargarCreditoToolStripMenuItem.Visible = true;
             comprarCuponToolStripMenuItem.Visible = false;
             comprarGiftcardToolStripMenuItem.Visible = false;
             verHistorialToolStripMenuItem.Visible = false;

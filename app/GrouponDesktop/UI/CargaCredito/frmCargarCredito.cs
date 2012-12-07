@@ -11,9 +11,17 @@ namespace GrouponDesktop.CargaCredito
 {
     public partial class frmCargarCredito : Form
     {
+        int credito;
+
         public frmCargarCredito()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int.TryParse(montoBox.Text, out credito);
+            MessageBox.Show(credito.ToString());
         }
     }
 }

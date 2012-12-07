@@ -74,10 +74,10 @@
     <Compile Include="UI\AbmRol\frmFuncionalidades.Designer.cs">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\CargaCredito\ArmarCupon\frmArmarCupon.cs">
+    <Compile Include="UI\ArmarCupon\frmArmarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CargaCredito\ArmarCupon\frmArmarCupon.Designer.cs">
+    <Compile Include="UI\ArmarCupon\frmArmarCupon.Designer.cs">
       <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CargaCredito\frmCargarCredito.cs">
@@ -163,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\frmFuncionalidades.resx">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CargaCredito\frmCargarCredito.resx">
+      <DependentUpon>frmCargarCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ComprarCupon\frmComprarCupon.resx">
       <DependentUpon>frmComprarCupon.cs</DependentUpon>
