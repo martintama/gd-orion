@@ -82,6 +82,7 @@ namespace GrouponDesktop.Logic
                 unCliente.Direccion = dr1["direccion"].ToString();
                 unCliente.CodPostal = dr1["codigo_postal"].ToString();
                 unCliente.Localidad = dr1["localidad"].ToString();
+                unCliente.Telefono = dr1["telefono"].ToString();
 
                 unCliente.FechaNacimiento = DateTime.ParseExact(dr1["fecha_nacimiento"].ToString(), "yyyy.MM.dd", null);
                 unCliente.Habilitado = Convert.ToBoolean(dr1["activo"]);

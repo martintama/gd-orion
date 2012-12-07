@@ -3,7 +3,7 @@ bin
 obj
 gd_esquema.Maestra.Table.sql
 
-*.suo
+app\GrouponDesktop.suo
 # mstest test results
 TestResultsdd
 
