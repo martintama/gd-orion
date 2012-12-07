@@ -5,8 +5,14 @@ using System.Text;
 
 namespace GrouponDesktop.Logic.Global
 {
-    class Ciudad
+    public class Ciudad
     {
+        public Ciudad(Int32 idciudad, String descripcion)
+        {
+            this.Idciudad = idciudad;
+            this.Descripcion = descripcion;
+        }
+
         public Int32 Idciudad { get; set; }
 
         public String Descripcion { get; set; }

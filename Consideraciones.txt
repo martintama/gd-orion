@@ -96,6 +96,38 @@ inhabilitar porque hay usuarios asociados.
 En este caso se consulta al usuarios si desea continuar deshabilitando también los usuarios
 y solo así se puede deshabilitar el rol.
 
+- Cuando se editan las funcionalidades, se desactivan las funcionalidades existentes y se cargan nuevamente.
 
+ABM de clientes:
+
+- El DNI además de ser numérico debe ser entre 1000000 y 99999999
+- Se realiza una verificación de que la dirección de correo es válida, pero solo se hace una
+	comprobación estandar. Las direcciones según el RFC correspondiente pueden ser de lo
+	más variadas. Una página lo explica: http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
+	La dirección !def!xyz%abc@example.com es válida según la especificación.
+	Se copió el método de la siguiente dirección: http://www.dreamincode.net/code/snippet1374.htm
+- La fecha de nacimiento debe estar entre 01/01/1900 y 31/12/2050	
+- Seleccion de ciudades:
+
+Se consideró la opción de usar la "Selección por buscador" tal cual se especifica en la GUIA DE ABMs,
+pero se descartó por no ser cómoda a la hora de elegir más de una ciudad.
+También se consideró la idea de realizar un formulario con checkboxes fijos, uno para
+cada ciudad, pero si bien las ciudades no se pueden modificar, no nos pareció correcto 
+ya que limita mucho el diseño (Si se insertara una ciudad nueva que comience con A, como se 
+encuentran odenados alfabeticamente, habría que mover casi todos los checkboxes para abajo.
+Finalmente se decidió por la idea de tener dos listas, una de ciudades seleccionadas y otra de
+ciudades disponibles. Similar a cómo se seleccionan las funcionalidades en los roles ya que
+conserva la facilidad de uso y la flexibilidad.
+	
+- Grabar datos
+A la hora de grabar datos, se verifica que no exista el usuario, tanto activo como inactivo. Esto es así
+porque podria suceder que un usuario inhabilitado se vuelva a habilitar por parte del administrativo
+
+Se verifica además que no exista otro cliente con el mismo teléfono o DNI. Esas son los datos que es verifican
+para asegurar que no se da el caso que un cliente se loguea con más de un usuario.
+
+- Cuando se editan las ciudades, se desactivan todas y se cargan nuevamente
+
+- La carga inicial de $15 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
 Devoluciones
 Los cupones devuefltos vuelven a figurar en el stock del cliente

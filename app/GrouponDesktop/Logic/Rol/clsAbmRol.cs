@@ -35,11 +35,27 @@ namespace GrouponDesktop.AbmRol
                 unRol.NombreRol = dr1["descripcion"].ToString();
                 unRol.Estado = Convert.ToBoolean(dr1["Estado"]);
 
+                if (dr1["Administrativo"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(1, null));
+                }
+
+                if (dr1["Cliente"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(2, null));
+                }
+
+                if (dr1["Proveedor"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(3, null));
+                }
                 listaRoles.Add(unRol);
             }
 
             dr1.Close();
             dr1.Dispose();
+
+            sqlc.Dispose();
 
             Dbaccess.DBConnect();
 

@@ -3,6 +3,7 @@ bin
 obj
 gd_esquema.Maestra.Table.sql
 
+*.suo
 # mstest test results
 TestResultsdd
 

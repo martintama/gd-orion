@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using GrouponDesktop.Logic;
 
 namespace GrouponDesktop
 {
@@ -13,13 +14,16 @@ namespace GrouponDesktop
         [STAThread]
         static void Main()
         {
+            clsIO.loadConfig();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //PRODUCCION    
-            Application.Run(new frmLogin());
+
+            //Application.Run(new frmLogin());
             
             //DESARROLLO
-            /*
+            
             clsMain.objInfoSesion = new InfoSesion();
             clsMain.objInfoSesion.Idusuario = 1;
             clsMain.objInfoSesion.Idrol = 4;
@@ -29,7 +33,7 @@ namespace GrouponDesktop
             Dbaccess.DBDisconnect();
 
             Application.Run(new frmMain());
-             * */
+            
 
         }
     }

@@ -10,6 +10,8 @@ namespace GrouponDesktop
     {
         public static InfoSesion objInfoSesion;
 
+        public static DateTime currentDate;
+
         public enum Funcionalidades
         {
             ABM_Cliente = 1,
@@ -27,5 +29,6 @@ namespace GrouponDesktop
             Registro_Consumo_cupon,
             Registro_Usuario 
         }
+
     }
 }

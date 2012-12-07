@@ -28,18 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbTipoUsuario = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtRol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.colNombreRol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkAdministrativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnInhabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.colIdrol = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +55,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(397, 274);
+            this.btnCerrar.Location = new System.Drawing.Point(475, 274);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 3;
@@ -60,7 +65,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(305, 274);
+            this.btnAgregar.Location = new System.Drawing.Point(394, 274);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 4;
@@ -84,6 +89,9 @@
             this.dgvRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNombreRol,
             this.colEstado,
+            this.chkAdministrativo,
+            this.chkCliente,
+            this.chkProveedor,
             this.btnEditar,
             this.btnInhabilitar,
             this.colIdrol,
@@ -94,27 +102,45 @@
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.ReadOnly = true;
             this.dgvRoles.RowHeadersVisible = false;
-            this.dgvRoles.Size = new System.Drawing.Size(456, 164);
+            this.dgvRoles.Size = new System.Drawing.Size(534, 164);
             this.dgvRoles.TabIndex = 8;
             this.dgvRoles.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvRoles_CellFormatting);
             this.dgvRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoles_CellContentClick);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbTipoUsuario);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtRol);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(459, 46);
+            this.groupBox1.Size = new System.Drawing.Size(537, 46);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de roles";
+            // 
+            // cmbTipoUsuario
+            // 
+            this.cmbTipoUsuario.FormattingEnabled = true;
+            this.cmbTipoUsuario.Location = new System.Drawing.Point(352, 16);
+            this.cmbTipoUsuario.Name = "cmbTipoUsuario";
+            this.cmbTipoUsuario.Size = new System.Drawing.Size(179, 21);
+            this.cmbTipoUsuario.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(273, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Asociado a:";
             // 
             // txtRol
             // 
             this.txtRol.Location = new System.Drawing.Point(88, 17);
             this.txtRol.Name = "txtRol";
-            this.txtRol.Size = new System.Drawing.Size(204, 20);
+            this.txtRol.Size = new System.Drawing.Size(149, 20);
             this.txtRol.TabIndex = 0;
             // 
             // label2
@@ -128,7 +154,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(397, 65);
+            this.btnFiltrar.Location = new System.Drawing.Point(475, 65);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 10;
@@ -138,7 +164,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(305, 65);
+            this.btnLimpiar.Location = new System.Drawing.Point(394, 65);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 11;
@@ -155,7 +181,7 @@
             this.colNombreRol.ReadOnly = true;
             this.colNombreRol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colNombreRol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colNombreRol.Width = 170;
+            this.colNombreRol.Width = 150;
             // 
             // colEstado
             // 
@@ -165,6 +191,36 @@
             this.colEstado.ReadOnly = true;
             this.colEstado.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colEstado.Width = 80;
+            // 
+            // chkAdministrativo
+            // 
+            this.chkAdministrativo.Frozen = true;
+            this.chkAdministrativo.HeaderText = "A";
+            this.chkAdministrativo.Name = "chkAdministrativo";
+            this.chkAdministrativo.ReadOnly = true;
+            this.chkAdministrativo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chkAdministrativo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.chkAdministrativo.Width = 20;
+            // 
+            // chkCliente
+            // 
+            this.chkCliente.Frozen = true;
+            this.chkCliente.HeaderText = "C";
+            this.chkCliente.Name = "chkCliente";
+            this.chkCliente.ReadOnly = true;
+            this.chkCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chkCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.chkCliente.Width = 20;
+            // 
+            // chkProveedor
+            // 
+            this.chkProveedor.Frozen = true;
+            this.chkProveedor.HeaderText = "P";
+            this.chkProveedor.Name = "chkProveedor";
+            this.chkProveedor.ReadOnly = true;
+            this.chkProveedor.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chkProveedor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.chkProveedor.Width = 20;
             // 
             // btnEditar
             // 
@@ -180,9 +236,9 @@
             // btnInhabilitar
             // 
             this.btnInhabilitar.DataPropertyName = "NombreRol";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInhabilitar.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInhabilitar.DefaultCellStyle = dataGridViewCellStyle1;
             this.btnInhabilitar.Frozen = true;
             this.btnInhabilitar.HeaderText = "Cambiar estado";
             this.btnInhabilitar.Name = "btnInhabilitar";
@@ -216,7 +272,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 308);
+            this.ClientSize = new System.Drawing.Size(562, 306);
             this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnFiltrar);
@@ -249,8 +305,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.ComboBox cmbTipoUsuario;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNombreRol;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEstado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chkAdministrativo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chkCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn chkProveedor;
         private System.Windows.Forms.DataGridViewButtonColumn btnEditar;
         private System.Windows.Forms.DataGridViewButtonColumn btnInhabilitar;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdrol;

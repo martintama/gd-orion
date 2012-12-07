@@ -36,6 +36,7 @@ left join orion.clientes c on c.dni = ct.cli_dni
 where ct.carga_credito is not null
 
 #Tipos_pago			00:00
+insert into ORION.tipos_pago(descripcion) values('Sistema')
 insert into ORION.tipos_pago(descripcion) values('Efectivo')
 insert into ORION.tipos_pago(descripcion) values('Crédito')
 

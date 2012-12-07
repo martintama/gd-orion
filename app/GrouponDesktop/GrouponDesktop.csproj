@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Cliente\clsCliente.cs" />
+    <Compile Include="Logic\clsIO.cs" />
+    <Compile Include="Logic\Global\BasicFunctions.cs" />
     <Compile Include="Logic\Global\Ciudad.cs" />
     <Compile Include="Logic\Global\Cliente.cs" />
     <Compile Include="Logic\Global\Proveedor.cs" />
@@ -125,6 +128,12 @@
     <Compile Include="UI\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\frmSeleccionCiudad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmSeleccionCiudad.Designer.cs">
+      <DependentUpon>frmSeleccionCiudad.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\frmSeleccionTipoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +194,9 @@
     <EmbeddedResource Include="UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmSeleccionCiudad.resx">
+      <DependentUpon>frmSeleccionCiudad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\frmSeleccionTipoUsuario.resx">
       <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,6 +234,11 @@
       <DependentUpon>frmRegistroConsumo.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Global\InfoSesion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GrouponConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

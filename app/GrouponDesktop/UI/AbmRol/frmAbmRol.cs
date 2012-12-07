@@ -183,6 +183,39 @@ namespace GrouponDesktop.AbmRol
             {
                 e.Value = "Editar";
             }
+            else if (e.ColumnIndex == this.dgvRoles.Columns["chkAdministrativo"].Index)
+            {
+                if (((List<Rol>)dgvRoles.DataSource).ElementAt(e.RowIndex).AsociadoATipoUsuario(1))
+                {
+                    e.Value = "X";
+                }
+                else
+                {
+                    e.Value = "";
+                }
+            }
+            else if (e.ColumnIndex == this.dgvRoles.Columns["chkCliente"].Index)
+            {
+                if (((List<Rol>)dgvRoles.DataSource).ElementAt(e.RowIndex).AsociadoATipoUsuario(2))
+                {
+                    e.Value = "X";
+                }
+                else
+                {
+                    e.Value = "";
+                }
+            }
+            else if (e.ColumnIndex == this.dgvRoles.Columns["chkProveedor"].Index)
+            {
+                if (((List<Rol>)dgvRoles.DataSource).ElementAt(e.RowIndex).AsociadoATipoUsuario(3))
+                {
+                    e.Value = "X";
+                }
+                else
+                {
+                    e.Value = "";
+                }
+            }
         }
     }
 }

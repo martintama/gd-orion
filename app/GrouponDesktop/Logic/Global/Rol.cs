@@ -26,7 +26,10 @@ namespace GrouponDesktop.Logic.Global
         {
             this.FuncHabilitadas = new List<Funcionalidad>();
             this.FuncInhabilitadas = new List<Funcionalidad>();
+            this.TipoUsuarioAsociados = new List<TipoUsuario>();
         }
+
+
         public String NombreRol { get; set; }
 
         public Int32 Idrol { get; set; }
@@ -36,6 +39,8 @@ namespace GrouponDesktop.Logic.Global
         public List<Funcionalidad> FuncHabilitadas { get; set; }
 
         public List<Funcionalidad> FuncInhabilitadas { get; set; }
+        
+        public List<TipoUsuario> TipoUsuarioAsociados { get; set; }
 
         public Int16 GrabarRol()
         {
@@ -64,6 +69,11 @@ namespace GrouponDesktop.Logic.Global
                 sqlc.ExecuteNonQuery();
                 sqlc.Dispose();
 
+                sqlstr = "Delete from orion.usuarios_tipos_roles where idrol = @idrol";
+                sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
+                sqlc.ExecuteNonQuery();
+                sqlc.Dispose();
             }
             else
             {
@@ -83,10 +93,25 @@ namespace GrouponDesktop.Logic.Global
             sqlc.Parameters.Add("@idfuncionalidad", SqlDbType.Int);
             sqlc.Prepare();
 
-            foreach (Funcionalidad func in this.FuncHabilitadas)
+            foreach (Rol.Funcionalidad func in this.FuncHabilitadas)
             {
                 sqlc.Parameters["@idrol"].Value = this.Idrol;
                 sqlc.Parameters["@idfuncionalidad"].Value = func.idfuncionalidad;
+                sqlc.ExecuteNonQuery();
+            }
+            sqlc.Dispose();
+
+            //Y agrego los tipos de usuario asociados
+            sqlstr = "Insert into orion.usuarios_tipos_roles(idrol, idusuario_tipo) values(@idrol, @idusuario_tipo)";
+            sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.Add("@idrol", SqlDbType.Int);
+            sqlc.Parameters.Add("@idusuario_tipo", SqlDbType.Int);
+            sqlc.Prepare();
+
+            foreach (TipoUsuario tipo in this.TipoUsuarioAsociados)
+            {
+                sqlc.Parameters["@idrol"].Value = this.Idrol;
+                sqlc.Parameters["@idusuario_tipo"].Value = tipo.Idusuario_tipo;
                 sqlc.ExecuteNonQuery();
             }
             sqlc.Dispose();
@@ -143,7 +168,7 @@ namespace GrouponDesktop.Logic.Global
                 while (dr1.Read())
                 {
                     this.FuncHabilitadas.Add(new Rol.Funcionalidad(
-                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
+                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 
                 dr1.Close();
@@ -160,7 +185,7 @@ namespace GrouponDesktop.Logic.Global
                 while (dr1.Read())
                 {
                     this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
-                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
+                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 
                 dr1.Close();
@@ -193,7 +218,7 @@ namespace GrouponDesktop.Logic.Global
                 while (dr1.Read())
                 {
                     this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
-                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString()));
+                        Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 
                 dr1.Close();
@@ -215,6 +240,25 @@ namespace GrouponDesktop.Logic.Global
             sqlc.Dispose();
 
             Dbaccess.DBDisconnect();
+        }
+
+        public bool AsociadoATipoUsuario(Int16 idusuario_tipo)
+        {
+            Boolean esta = false;
+
+            Int16 indice = 0;
+
+            while (indice < this.TipoUsuarioAsociados.Count && !esta)
+            {
+                if (this.TipoUsuarioAsociados[indice].Idusuario_tipo == idusuario_tipo)
+                {
+                    esta = true;
+                }
+
+                indice++;
+            }
+
+            return esta;
         }
     }
 }

@@ -31,9 +31,11 @@ namespace GrouponDesktop
         {
             this.Hide();
             frmAbmCliente frmCliente = new frmAbmCliente();
+            frmCliente.esRegistracion = true;
             frmCliente.ShowDialog();
 
             this.Close();
+            this.Dispose();
         }
     }
 }

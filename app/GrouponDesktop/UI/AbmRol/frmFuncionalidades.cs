@@ -59,28 +59,101 @@ namespace GrouponDesktop.AbmRol
             {
                 lstDeshabilitadas.Items.Add(func);
             }
+
+            foreach (TipoUsuario tipo in objRol.TipoUsuarioAsociados)
+            {
+                switch (tipo.Idusuario_tipo)
+                {
+                    case 1: //Administrativo
+                        {
+                            chkAdministrativo.Checked = true;
+                            break;
+                        }
+                    case 2: //Cliente
+                        {
+                            chkCliente.Checked = true;
+                            break;
+                        }
+                    case 3: //Proveedor
+                        {
+                            chkProveedor.Checked = true;
+                            break;
+                        }
+
+                }
+            }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            this.Dispose();
-        }
-
-        private void brnGrabar_Click(object sender, EventArgs e)
+        private void GrabarCambios()
         {
             clsAbmRol frmabm = new clsAbmRol();
             objRol.NombreRol = txtNombreRol.Text;
             objRol.FuncHabilitadas.Clear();
+            objRol.TipoUsuarioAsociados.Clear();
 
             foreach (Rol.Funcionalidad func in lstHabilitadas.Items)
             {
                 objRol.FuncHabilitadas.Add(func);
             }
 
-            this.objRol.GrabarRol();
+            if (chkAdministrativo.Checked)
+            {
+                objRol.TipoUsuarioAsociados.Add(new TipoUsuario(1, null));
+            }
+            if (chkCliente.Checked)
+            {
+                objRol.TipoUsuarioAsociados.Add(new TipoUsuario(2, null));
+            }
+            if (chkProveedor.Checked)
+            {
+                objRol.TipoUsuarioAsociados.Add(new TipoUsuario(3, null));
+            }
 
-            brnGrabar.Enabled = false;
+            this.objRol.GrabarRol();
+        }
+
+        private bool VerificarDatos()
+        {
+            Boolean valido = true;
+            lblAsociado.Visible = false;
+            lblHabilitadas.Visible = false;
+            lblNombre.Visible = false;
+            if (this.txtNombreRol.Text == "")
+            {
+                lblNombre.Visible = true;
+            }
+
+            if (!chkAdministrativo.Checked && !chkCliente.Checked && !chkProveedor.Checked)
+            {
+                lblAsociado.Visible = true;
+            }
+
+            if (lstHabilitadas.Items.Count == 0)
+            {
+                lblHabilitadas.Visible = true;
+            }
+            return valido;
+        }
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (brnGrabar.Enabled){
+                if (MessageBox.Show("No se han guardado los cambios. Desea guardarlos antes de cerrar?", "Guardar cambios", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.GrabarCambios();
+                }
+            }
+            this.Close();
+            this.Dispose();
+        }
+
+        private void brnGrabar_Click(object sender, EventArgs e)
+        {
+            if (VerificarDatos())
+            {
+                this.GrabarCambios();
+
+                brnGrabar.Enabled = false;
+            }
         }
 
         private void btnQuitar_Click(object sender, EventArgs e)
@@ -124,6 +197,21 @@ namespace GrouponDesktop.AbmRol
         {
             brnGrabar.Enabled = true;
 
+        }
+
+        private void chkCliente_CheckedChanged(object sender, EventArgs e)
+        {
+            brnGrabar.Enabled = true;
+        }
+
+        private void chkProveedor_CheckedChanged(object sender, EventArgs e)
+        {
+            brnGrabar.Enabled = true;
+        }
+
+        private void chkAdministrativo_CheckedChanged(object sender, EventArgs e)
+        {
+            brnGrabar.Enabled = true;
         }
     }
 }

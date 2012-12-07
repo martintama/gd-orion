@@ -35,6 +35,9 @@ CREATE TABLE ORION.clientes(
 	activo				bit default 1
 ) ON [PRIMARY]
 
+ALTER TABLE orion.clientes ADD CONSTRAINT telefono_uniq UNIQUE NONCLUSTERED (telefono)
+
+
 -- clientes_ciudades
 CREATE TABLE ORION.clientes_ciudades(
 	idcliente_ciudad	int IDENTITY(1,1) NOT NULL,
@@ -196,6 +199,7 @@ CREATE TABLE ORION.tipos_pago(
 	idtipo_pago		int IDENTITY(1,1) NOT NULL,
 	descripcion		nvarchar(50),
 	habilitado		bit default 1
+	visible			bit default 1
 ) ON [PRIMARY]
 
 -- tipos_tarjeta
