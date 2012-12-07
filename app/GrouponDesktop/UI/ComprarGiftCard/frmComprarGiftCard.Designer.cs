@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtidusuario = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSeleccionar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.cmbMonto = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSeleccionar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtUsuarioReceptor = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -46,7 +46,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnSeleccionar);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtidusuario);
+            this.groupBox1.Controls.Add(this.txtUsuarioReceptor);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(400, 86);
@@ -54,23 +54,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos GiftCard";
             // 
-            // txtidusuario
+            // cmbMonto
             // 
-            this.txtidusuario.Location = new System.Drawing.Point(100, 22);
-            this.txtidusuario.Name = "txtidusuario";
-            this.txtidusuario.ReadOnly = true;
-            this.txtidusuario.Size = new System.Drawing.Size(197, 20);
-            this.txtidusuario.TabIndex = 0;
+            this.cmbMonto.FormattingEnabled = true;
+            this.cmbMonto.Location = new System.Drawing.Point(100, 52);
+            this.cmbMonto.Name = "cmbMonto";
+            this.cmbMonto.Size = new System.Drawing.Size(121, 21);
+            this.cmbMonto.TabIndex = 4;
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Usuario receptor:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Monto deseado:";
             // 
             // btnSeleccionar
             // 
@@ -81,23 +80,22 @@
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // label1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Monto deseado:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Usuario receptor:";
             // 
-            // cmbMonto
+            // txtUsuarioReceptor
             // 
-            this.cmbMonto.FormattingEnabled = true;
-            this.cmbMonto.Location = new System.Drawing.Point(100, 52);
-            this.cmbMonto.Name = "cmbMonto";
-            this.cmbMonto.Size = new System.Drawing.Size(121, 21);
-            this.cmbMonto.TabIndex = 4;
+            this.txtUsuarioReceptor.Location = new System.Drawing.Point(100, 22);
+            this.txtUsuarioReceptor.Name = "txtUsuarioReceptor";
+            this.txtUsuarioReceptor.ReadOnly = true;
+            this.txtUsuarioReceptor.Size = new System.Drawing.Size(197, 20);
+            this.txtUsuarioReceptor.TabIndex = 0;
             // 
             // btnAceptar
             // 
@@ -121,7 +119,7 @@
             // 
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.ForeColor = System.Drawing.Color.Red;
-            this.lblMensaje.Location = new System.Drawing.Point(18, 101);
+            this.lblMensaje.Location = new System.Drawing.Point(18, 123);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(40, 13);
             this.lblMensaje.TabIndex = 7;
@@ -152,7 +150,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSeleccionar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtidusuario;
+        private System.Windows.Forms.TextBox txtUsuarioReceptor;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblMensaje;
