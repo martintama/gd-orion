@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Logic.Global;
 
-namespace GrouponDesktop.AbmCliente
+namespace GrouponDesktop.UI.AbmCliente
 {
     public partial class frmAbmCliente : Form
     {
@@ -51,7 +51,7 @@ namespace GrouponDesktop.AbmCliente
                         }
                     case 1: //Usuario ya existe
                         {
-                            txtUsername.Focus();
+                            this.txtUsername.Focus();
                             lblUsername.Text = "* Nombre de usuario ya en uso";
                             lblUsername.Visible = true;
                             break;
@@ -232,6 +232,7 @@ namespace GrouponDesktop.AbmCliente
             if (this.esRegistracion)
             {
                 this.Text = "Registro de nuevo cliente";
+                this.lblTitulo.Text = "Nuevo cliente";
                 chkHabilitado.Visible = false;
                 //Rol y tipo de usuario "Cliente" por default
                 this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
@@ -243,7 +244,11 @@ namespace GrouponDesktop.AbmCliente
             else
             {
                 this.Text = "Editar cliente";
+                this.lblTitulo.Text = "Editar cliente";
+
                 chkHabilitado.Visible = true;
+                this.CargarControles();
+
             }
         }
 
@@ -256,6 +261,27 @@ namespace GrouponDesktop.AbmCliente
             this.CargarTextoCiudades();
         }
 
+        private void CargarControles()
+        {
+            txtNombre.Text = objCliente.Nombre;
+            txtApellido.Text = objCliente.Apellido;
+            txtDni.Text = objCliente.DNI.ToString();
+            txtMail.Text = objCliente.Mail;
+            txtTelefono.Text = objCliente.Telefono;
+            txtDireccion.Text = objCliente.Direccion;
+            txtLocalidad.Text = objCliente.Localidad;
+            txtCodPostal.Text = objCliente.CodPostal;
+            dtpNacimiento.Value = objCliente.FechaNacimiento;
+            CargarTextoCiudades();
+
+            txtUsername.Text = objCliente.UsuarioAsociado.Username;
+
+            if (objCliente.UsuarioAsociado.Habilitado)
+                chkHabilitado.Checked = true;
+            else
+                chkHabilitado.Checked = false;
+
+        }
         private void Test()
         {
             this.txtNombre.Text = "Martin";
@@ -270,9 +296,6 @@ namespace GrouponDesktop.AbmCliente
             this.txtLocalidad.Text = "CABA";
             this.objCliente.Ciudades.Add(new Ciudad(1, "Bahia Blanca"));
             this.CargarTextoCiudades();
-
-
-
 
         }
     }

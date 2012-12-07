@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.AbmProveedor
+﻿namespace GrouponDesktop.UI.AbmProveedor
 {
     partial class frmAbmProveedor
     {

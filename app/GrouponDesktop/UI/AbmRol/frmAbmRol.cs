@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Logic;
 using GrouponDesktop.Logic.Global;
 
 namespace GrouponDesktop.AbmRol

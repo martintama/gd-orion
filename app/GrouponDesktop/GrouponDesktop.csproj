@@ -63,6 +63,12 @@
     <Compile Include="UI\AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AbmCliente\frmBuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AbmCliente\frmBuscarCliente.Designer.cs">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AbmProveedor\frmAbmProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="Logic\Rol\clsAbmRol.cs" />
     <Compile Include="Logic\Global\Rol.cs" />
+    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.Designer.cs">
+      <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,8 +182,14 @@
     <EmbeddedResource Include="UI\AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AbmCliente\frmBuscarCliente.resx">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmProveedor\frmAbmProveedor.resx">
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AbmProveedor\frmBuscarProveedor.resx">
+      <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\frmAbmRol.resx">
       <DependentUpon>frmAbmRol.cs</DependentUpon>

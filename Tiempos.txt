@@ -36,7 +36,7 @@ left join orion.clientes c on c.dni = ct.cli_dni
 where ct.carga_credito is not null
 
 #Tipos_pago			00:00
-insert into ORION.tipos_pago(descripcion) values('Sistema')
+insert into ORION.tipos_pago(descripcion, visible) values('Sistema', 0)
 insert into ORION.tipos_pago(descripcion) values('Efectivo')
 insert into ORION.tipos_pago(descripcion) values('Crédito')
 
@@ -210,6 +210,12 @@ insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo) v
 insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo)
 select '20121001', dni, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 2, 2 from ORION.clientes
 
+update ORION.clientes set idusuario = us.idusuario from ORION.usuarios us where us.username = cast(ORION.clientes.dni as varchar)
+and us.idusuario_tipo = 2
+
 #Usuario proveedores
 insert into ORION.usuarios(fecha_alta, username, clave, idrol, idusuario_tipo)
 select '20121001', cuit, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C920',3,3 from ORION.proveedores
+
+update ORION.proveedores set idusuario = us.idusuario from ORION.usuarios us where us.username = cast(ORION.proveedores.cuit as varchar)
+and us.idusuario_tipo = 3

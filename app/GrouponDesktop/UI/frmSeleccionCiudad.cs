@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Logic.Global;
-using GrouponDesktop.AbmCliente;
+using GrouponDesktop.UI.AbmCliente;
 
 namespace GrouponDesktop
 {

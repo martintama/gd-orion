@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Logic.Global;
 
-namespace GrouponDesktop.AbmRol
+namespace GrouponDesktop.Logic
 {
     public partial class frmFuncionalidades : Form
     {

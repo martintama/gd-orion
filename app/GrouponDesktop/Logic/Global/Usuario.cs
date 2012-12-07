@@ -22,5 +22,7 @@ namespace GrouponDesktop.Logic.Global
         public Rol RolAsociado { get; set; }
 
         public TipoUsuario TipoUsuarioAsociado { get; set; }
+
+        public Boolean Habilitado { get; set; }
     }
 }

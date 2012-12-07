@@ -239,6 +239,44 @@ namespace GrouponDesktop.Logic.Global
             Dbaccess.DBDisconnect();
             
         }
+
+        internal void Inhabilitar()
+        {
+            if (this.Idcliente > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "update orion.clientes set activo = 0 where idcliente = @idcliente";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
+
+                sqlc.ExecuteNonQuery();
+
+                sqlc.Dispose();
+
+                Dbaccess.DBDisconnect();
+            }
+        }
+
+        internal void Habilitar()
+        {
+            if (this.Idcliente > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "update orion.clientes set activo = 1 where idcliente = @idcliente";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
+
+                sqlc.ExecuteNonQuery();
+
+                sqlc.Dispose();
+
+                Dbaccess.DBDisconnect();
+            }
+        }
     }
 }
 

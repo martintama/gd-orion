@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Collections;
 using GrouponDesktop.Logic.Global;
 
-namespace GrouponDesktop.AbmRol
+namespace GrouponDesktop.Logic
 {
     class clsAbmRol
     {
