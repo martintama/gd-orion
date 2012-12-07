@@ -17,14 +17,6 @@ namespace GrouponDesktop.CargaCredito
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int credito;
-
-            int.TryParse(montoBox.Text, out credito);
-            MessageBox.Show(credito.ToString());
-        }
-
         private void montoBox_TextChanged(object sender, EventArgs e)
         {
             int credito;
@@ -33,11 +25,32 @@ namespace GrouponDesktop.CargaCredito
             {
                 lblError.Text = "El monto debe ser mayor a 15$!";
                 lblError.ForeColor = Color.Red;
+                btnAceptar.Enabled = false;
             }
             else
             {
                 lblError.Text = "";
+                btnAceptar.Enabled = true;
             }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            int credito;
+
+            int.TryParse(montoBox.Text, out credito);
+
+        }
+
+        private void hide_nro(object sender, EventArgs e)
+        {
+            txtNroTarj.Visible = false;
+        }
+
+        private void cmbPago_CursorChanged(object sender, EventArgs e)
+        {
+            //if (cmbPago.Item == 1);
+            //Si el item es efectivo, esconderme el campo nro tarjeta
         }
     }
 }

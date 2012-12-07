@@ -30,22 +30,24 @@
         {
             this.btnAceptar = new System.Windows.Forms.Button();
             this.montoBox = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbPago = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
+            this.txtNroTarj = new System.Windows.Forms.TextBox();
+            this.lblNroTarj = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(12, 103);
+            this.btnAceptar.Location = new System.Drawing.Point(12, 139);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.button1_Click);
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // montoBox
             // 
@@ -55,14 +57,19 @@
             this.montoBox.TabIndex = 1;
             this.montoBox.TextChanged += new System.EventHandler(this.montoBox_TextChanged);
             // 
-            // comboBox1
+            // cmbPago
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 76);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cmbPago.FormattingEnabled = true;
+            this.cmbPago.Items.AddRange(new object[] {
+            "Efectivo",
+            "Tarjeta Credito",
+            "Tarjeta Debito"});
+            this.cmbPago.Location = new System.Drawing.Point(12, 76);
+            this.cmbPago.Name = "cmbPago";
+            this.cmbPago.Size = new System.Drawing.Size(121, 21);
+            this.cmbPago.Sorted = true;
+            this.cmbPago.TabIndex = 2;
+            this.cmbPago.CursorChanged += new System.EventHandler(this.cmbPago_CursorChanged);
             // 
             // label1
             // 
@@ -84,7 +91,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(138, 103);
+            this.btnCancelar.Location = new System.Drawing.Point(167, 139);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 0;
@@ -101,15 +108,34 @@
             this.lblError.TabIndex = 5;
             this.lblError.Text = "Error";
             // 
+            // txtNroTarj
+            // 
+            this.txtNroTarj.Location = new System.Drawing.Point(12, 103);
+            this.txtNroTarj.Name = "txtNroTarj";
+            this.txtNroTarj.Size = new System.Drawing.Size(100, 20);
+            this.txtNroTarj.TabIndex = 1;
+            this.txtNroTarj.TextChanged += new System.EventHandler(this.montoBox_TextChanged);
+            // 
+            // lblNroTarj
+            // 
+            this.lblNroTarj.AutoSize = true;
+            this.lblNroTarj.Location = new System.Drawing.Point(148, 106);
+            this.lblNroTarj.Name = "lblNroTarj";
+            this.lblNroTarj.Size = new System.Drawing.Size(60, 13);
+            this.lblNroTarj.TabIndex = 6;
+            this.lblNroTarj.Text = "Nro Tarjeta";
+            // 
             // frmCargarCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(225, 138);
+            this.ClientSize = new System.Drawing.Size(254, 174);
+            this.Controls.Add(this.lblNroTarj);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbPago);
+            this.Controls.Add(this.txtNroTarj);
             this.Controls.Add(this.montoBox);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -124,10 +150,12 @@
 
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.TextBox montoBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbPago;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.TextBox txtNroTarj;
+        private System.Windows.Forms.Label lblNroTarj;
     }
 }
