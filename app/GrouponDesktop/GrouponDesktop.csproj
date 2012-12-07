@@ -48,11 +48,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Cliente\clsCliente.cs" />
+    <Compile Include="Logic\clsIO.cs" />
+    <Compile Include="Logic\Global\BasicFunctions.cs" />
+    <Compile Include="Logic\Global\Ciudad.cs" />
+    <Compile Include="Logic\Global\Cliente.cs" />
+    <Compile Include="Logic\Global\Proveedor.cs" />
+    <Compile Include="Logic\Global\Rubro.cs" />
+    <Compile Include="Logic\Global\TipoUsuario.cs" />
+    <Compile Include="Logic\Global\Usuario.cs" />
     <Compile Include="UI\AbmCliente\frmAbmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AbmCliente\frmBuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AbmCliente\frmBuscarCliente.Designer.cs">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmProveedor\frmAbmProveedor.cs">
       <SubType>Form</SubType>
@@ -61,7 +76,13 @@
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Rol\clsAbmRol.cs" />
-    <Compile Include="Logic\Rol\clsRol.cs" />
+    <Compile Include="Logic\Global\Rol.cs" />
+    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.Designer.cs">
+      <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +140,12 @@
     <Compile Include="UI\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\frmSeleccionCiudad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmSeleccionCiudad.Designer.cs">
+      <DependentUpon>frmSeleccionCiudad.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\frmSeleccionTipoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,8 +182,14 @@
     <EmbeddedResource Include="UI\AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AbmCliente\frmBuscarCliente.resx">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmProveedor\frmAbmProveedor.resx">
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AbmProveedor\frmBuscarProveedor.resx">
+      <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\frmAbmRol.resx">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
@@ -178,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmSeleccionCiudad.resx">
+      <DependentUpon>frmSeleccionCiudad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\frmSeleccionTipoUsuario.resx">
       <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
@@ -216,6 +252,11 @@
       <DependentUpon>frmRegistroConsumo.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Global\InfoSesion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GrouponConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

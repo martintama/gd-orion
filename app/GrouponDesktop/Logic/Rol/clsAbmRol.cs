@@ -5,18 +5,19 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using GrouponDesktop.Logic.Global;
 
-namespace GrouponDesktop.AbmRol
+namespace GrouponDesktop.Logic
 {
     class clsAbmRol
     {
-        public List<ClsRol> GetRoles(){
+        public List<Rol> GetRoles(){
             return this.GetRoles("");
         }
 
-        public List<ClsRol> GetRoles(String filtro)
+        public List<Rol> GetRoles(String filtro)
         {
-            List<ClsRol> listaRoles = new List<ClsRol>();
+            List<Rol> listaRoles = new List<Rol>();
 
             Dbaccess.DBConnect();
 
@@ -29,16 +30,32 @@ namespace GrouponDesktop.AbmRol
 
             while (dr1.Read())
             {
-                ClsRol unRol = new ClsRol();
+                Rol unRol = new Rol();
                 unRol.Idrol = Convert.ToInt32(dr1["idrol"]);
                 unRol.NombreRol = dr1["descripcion"].ToString();
                 unRol.Estado = Convert.ToBoolean(dr1["Estado"]);
 
+                if (dr1["Administrativo"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(1, null));
+                }
+
+                if (dr1["Cliente"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(2, null));
+                }
+
+                if (dr1["Proveedor"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(3, null));
+                }
                 listaRoles.Add(unRol);
             }
 
             dr1.Close();
             dr1.Dispose();
+
+            sqlc.Dispose();
 
             Dbaccess.DBConnect();
 

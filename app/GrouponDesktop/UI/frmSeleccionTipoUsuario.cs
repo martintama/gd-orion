@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GrouponDesktop.AbmCliente;
-using GrouponDesktop.AbmProveedor;
+using GrouponDesktop.UI.AbmProveedor;
+using GrouponDesktop.UI.AbmCliente;
 
 namespace GrouponDesktop
 {
@@ -31,9 +31,11 @@ namespace GrouponDesktop
         {
             this.Hide();
             frmAbmCliente frmCliente = new frmAbmCliente();
+            frmCliente.esRegistracion = true;
             frmCliente.ShowDialog();
 
             this.Close();
+            this.Dispose();
         }
     }
 }

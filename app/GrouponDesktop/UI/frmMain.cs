@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.UI.AbmCliente;
+using GrouponDesktop.UI.AbmProveedor;
 
 namespace GrouponDesktop
 {
@@ -176,14 +178,15 @@ namespace GrouponDesktop
 
         private void aBMClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbmCliente.frmAbmCliente frmCliente = new GrouponDesktop.AbmCliente.frmAbmCliente();
+
+            frmBuscarCliente frmCliente = new frmBuscarCliente();
             frmCliente.ShowDialog();
 
         }
 
         private void aBMProveedorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbmProveedor.frmAbmProveedor frmProveedor = new GrouponDesktop.AbmProveedor.frmAbmProveedor();
+            frmAbmProveedor frmProveedor = new frmAbmProveedor();
             frmProveedor.ShowDialog();
 
         }

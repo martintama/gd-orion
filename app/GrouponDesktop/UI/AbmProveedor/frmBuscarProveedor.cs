@@ -9,11 +9,9 @@ using System.Windows.Forms;
 
 namespace GrouponDesktop.UI.AbmProveedor
 {
-    public partial class frmAbmProveedor : Form
+    public partial class frmBuscarProveedor : Form
     {
-        public Form frmParent;
-
-        public frmAbmProveedor()
+        public frmBuscarProveedor()
         {
             InitializeComponent();
         }
