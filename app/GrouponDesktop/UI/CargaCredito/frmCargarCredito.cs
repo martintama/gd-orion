@@ -33,6 +33,11 @@ namespace GrouponDesktop.CargaCredito
             }
         }
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
         private void mroTarjBox_TextChanged(object sender, EventArgs e)
         {
             int nroTarj;
@@ -79,6 +84,9 @@ namespace GrouponDesktop.CargaCredito
 
             int.TryParse(montoBox.Text, out credito);
 
+
+
         }
+
     }
 }
