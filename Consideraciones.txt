@@ -1,3 +1,9 @@
+TODO!
+- Actualizar la cantidad de stock en base a los consumos y devoluciones
+- Verificar estado de los proveedoers
+
+
+
 - Los giftcards no restan credito de quien lo regala
 
 - El nro de cupon es el PK de la tabla de cupones

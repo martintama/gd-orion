@@ -88,7 +88,7 @@ CREATE TABLE ORION.consumos(
 	activo				bit default 1
 ) ON [PRIMARY]
 alter table orion.consumos add constraint pk_consumos primary key (idconsumo)
-
+ALTER TABLE orion.consumos ADD CONSTRAINT uniq_consumos_compra_activo UNIQUE NONCLUSTERED (idcompra, activo)
 -- cupones
 CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
@@ -183,8 +183,8 @@ CREATE TABLE ORION.proveedores(
 	idusuario		int NOT NULL,
 	habilitado		bit default 1 NOT NULL,
 ) ON [PRIMARY]
-ALTER TABLE orion.proveedores ADD CONSTRAINT cuit_razon_uniq UNIQUE NONCLUSTERED (cuit,razon_social)
 alter table orion.proveedores add constraint pk_proveedores primary key (idproveedor)
+ALTER TABLE orion.proveedores ADD CONSTRAINT cuit_razon_uniq UNIQUE NONCLUSTERED (cuit,razon_social)
 
 -- roles
 CREATE TABLE ORION.roles(
@@ -714,14 +714,14 @@ select Groupon_Devolucion_Fecha, co.idcompra, '- no especifica (migración inicia
 from orion.proveedores_temp pt
 left join ORION.clientes c on c.dni = pt.cli_dni
 left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon
+left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is not null and 
 groupon_entregado_fecha is null
 group by  Groupon_Devolucion_Fecha, co.idcompra
 order by Groupon_Devolucion_Fecha
 
-update ORION.compras set idcompra_estado = 3 where idcompra in 
-(select idcompra from ORION.devoluciones)
+-- Actualizo el estado de todas las devoluciones
+update ORION.compras set idcompra_estado = 3 where idcompra in (select idcompra from ORION.devoluciones)
 
 -- Consumos				00:04
 insert into ORION.consumos(fecha_consumo, idcompra)
@@ -729,14 +729,13 @@ select Groupon_Entregado_Fecha, co.idcompra
 from orion.proveedores_temp pt
 left join ORION.clientes c on c.dni = pt.cli_dni
 left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon
+left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is not null
 group by  Groupon_Entregado_Fecha, co.idcompra
 order by Groupon_Entregado_Fecha
 
-update ORION.compras set idcompra_estado = 2 where idcompra in 
-(select idcompra from ORION.consumos)
+update ORION.compras set idcompra_estado = 2 where idcompra in (select idcompra from ORION.consumos)
 
 -- Actualizo la tabla de compras según el estado en el que quedó la compra
 update orion.compras set idcompra_Estado = 4 where fecha_compra <= '2012-12-26' and idcompra_Estado = 1
