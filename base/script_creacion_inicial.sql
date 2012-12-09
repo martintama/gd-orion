@@ -1,4 +1,3 @@
-begin transaction t1
 -- Crear tablas!
 USE [GD2C2012]
 
@@ -87,7 +86,7 @@ CREATE TABLE ORION.consumos(
 	activo				bit default 1
 ) ON [PRIMARY]
 alter table orion.consumos add constraint pk_consumos primary key (idconsumo)
-ALTER TABLE orion.consumos ADD CONSTRAINT uniq_consumos_compra_activo UNIQUE NONCLUSTERED (idcompra, activo)
+ALTER TABLE orion.consumos ADD CONSTRAINT uniq_consumos_compra_activo UNIQUE NONCLUSTERED (idcompra)
 -- cupones
 CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
@@ -126,7 +125,7 @@ CREATE TABLE ORION.devoluciones(
 	activo				bit default 1
 ) ON [PRIMARY]
 alter table orion.devoluciones add constraint pk_devoluciones primary key (iddevolucion)
-
+ALTER TABLE orion.devoluciones ADD CONSTRAINT uniq_devoluciones_compra UNIQUE NONCLUSTERED (idcompra)
 -- facturas
 CREATE TABLE ORION.facturas(
 	idfactura			int IDENTITY(1,1) NOT NULL,
@@ -523,6 +522,7 @@ BEGIN
 
 			return 1
 		end
+		
 		else begin
 			--Si no existe, puedo insertar
 			insert into ORION.usuarios(username, clave, idrol, idtipo_usuario, habilitado) 
@@ -536,7 +536,6 @@ BEGIN
 END
 
 GO
-
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
@@ -596,32 +595,32 @@ select 3,idfuncionalidad from orion.funcionalidades where idfuncionalidad in (4,
 insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 4,idfuncionalidad from  orion.funcionalidades order by idfuncionalidad
 	
 -- Usuario administrativo
-insert into ORION.usuarios(fecha_alta, username, clave, idrol, idtipo_usuario) values(
-cast(GETDATE() as date), 'admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
+insert into ORION.usuarios(username, clave, idrol, idtipo_usuario) values('admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
 
-begin transaction tran1
 
--- Carga completa clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades:	03:04
+-- Carga completa clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades:	03:03
 select distinct cli_nombre, cli_apellido, Cli_Dni,Cli_Direccion, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac, Cli_Ciudad,
 Carga_Credito, Carga_Fecha, Cli_Dest_Dni, GiftCard_Fecha, GiftCard_Monto, tipo_pago_desc
 into orion.clientes_temp
 from gd_esquema.Maestra
+where Provee_RS is null
+
 	
-	-- Agrego indices	00:03
+	-- Agrego indices	00:16
 	CREATE INDEX idx_clientes_temp_cli_dest_dni ON ORION.clientes_temp(cli_dest_dni)
 	CREATE INDEX idx_clientes_temp_cli_dni ON ORION.clientes_temp(cli_dni)
 
---Ciudades			00:15
+--Ciudades			00:08
 insert into ORION.ciudades(descripcion) select distinct cli_ciudad from ORION.clientes_temp
 
 -- Usuario clientes		00:00
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario)
 select distinct cli_dni, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 2, 2 from ORION.clientes_temp
 	
--- Clientes: 			00:13
+-- Clientes: 			00:05
 insert into ORION.clientes(nombre, apellido, dni, email, telefono, direccion, codigo_postal,
 fecha_nacimiento, idusuario, credito_actual, habilitado)
-select distinct cli_nombre, Cli_Apellido, Cli_Dni,  Cli_Mail, Cli_Telefono, Cli_Direccion, Cli_Ciudad,
+select distinct cli_nombre, Cli_Apellido, Cli_Dni,  Cli_Mail, Cli_Telefono, Cli_Direccion,
 '' codpostal, Cli_Fecha_Nac, u.idusuario idusuario, 0 credito, 1 habilitado
 from ORION.clientes_temp ct
 left join ORION.usuarios u on u.username = cast(ct.cli_dni as varchar)
@@ -630,8 +629,7 @@ left join ORION.usuarios u on u.username = cast(ct.cli_dni as varchar)
 	CREATE INDEX idx_clientes_dni ON ORION.clientes(dni)
 
 
-
--- Clientes_ciudades		00:14
+-- Clientes_ciudades		00:15
 insert into ORION.clientes_ciudades(idcliente, idciudad)
 select distinct c.idcliente, (Select idciudad from ORION.ciudades where descripcion = ct.cli_ciudad)
 from ORION.clientes_temp ct
@@ -639,7 +637,7 @@ left join ORION.usuarios u on u.username = cast(ct.cli_dni as varchar)
 left join ORION.clientes c on c.idusuario = u.idusuario
 
 
--- GiftCards:		00:03
+-- GiftCards:		00:05
 insert into orion.gift_cards(fecha, monto, idcliente_origen, idcliente_destino)
 select ct.giftcard_fecha, ct.giftcard_monto, c.idcliente, c2.idcliente
 from orion.clientes_temp ct
@@ -649,55 +647,63 @@ where ct.giftcard_fecha is not null
 
 --Cargas crédito		00:07
 insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto)
-select carga_fecha, c.idcliente, case tipo_pago_desc when 'Efectivo' then 1 when 'Crédito' then 2 else 0 end,
+select carga_fecha, c.idcliente, case tipo_pago_desc when 'Efectivo' then 2 when 'Crédito' then 3 else 1 end,
 ct.carga_credito
 from orion.clientes_temp ct
 left join orion.clientes c on c.dni = ct.cli_dni
 where ct.carga_credito is not null
 
+/*************************************************************/
+-- SAFE-BAR: DE ACA PARA ARRIBA TODO ESTA OK
+/*************************************************************/
+
 
 -- Carga general proveedores, cupones, devoluciones, compras, compras_estados,
- --facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items		02:26
+ --facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items		02:28
 
-select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,Provee_CUIT,Provee_Rubro,
+select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,replace(Provee_CUIT,'-',''),Provee_Rubro,
 Groupon_Cantidad, Groupon_Codigo, Groupon_Descripcion,
 Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha, Groupon_Fecha, Groupon_Fecha_Compra, 
 Groupon_Fecha_Venc, Groupon_Precio, Groupon_Precio_Ficticio, Factura_Nro, Factura_Fecha
 into orion.proveedores_temp
 from gd_esquema.Maestra
+where Provee_RS is not null
 
-	-- Agrego indices		00:49
+	-- Agrego indices		01:01
 	CREATE INDEX idx_proveedores_temp_cli_dni ON ORION.proveedores_temp(cli_dni)
 	CREATE INDEX idx_proveedores_temp_prove_cuit ON ORION.proveedores_temp(provee_cuit)
 	CREATE INDEX idx_proveedores_temp_groupon_codigo ON ORION.proveedores_temp(groupon_codigo)
 	CREATE INDEX idx_proveedores_temp_rs ON ORION.proveedores_temp(provee_rs)
 
--- Rubros					00:01
+-- Rubros					00:02
 insert into orion.rubros(descripcion) select distinct provee_rubro from ORION.proveedores_temp where provee_rubro is not null order by provee_rubro 
 
 -- Usuario proveedores		00:00
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario)
-select distinct provee_cuit, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 3,3  from ORION.proveedores_temp
+select distinct provee_cuit, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', 3,3  from ORION.proveedores_temp where provee_cuit is not null
 
 -- Proveedores:  			00:35
 insert into ORION.proveedores(razon_social, direccion, idciudad, telefono, cuit, idrubro, email,contacto, idusuario)
 select distinct Provee_RS,Provee_Dom,(select idciudad from ORION.ciudades where descripcion = provee_ciudad),
-Provee_Telefono,replace(Provee_CUIT,'-',''),(select idrubro from orion.rubros where descripcion = Provee_Rubro),'', '-',
+Provee_Telefono,Provee_CUIT,(select idrubro from orion.rubros where descripcion = Provee_Rubro),'', '-',
 u.idusuario from orion.proveedores_temp pt
 left join ORION.usuarios u on u.username = cast(pt.provee_cuit as varchar)
 WHERE pt.provee_RS is not null
 
+
 	-- Agrego indices		00:00
 	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
 
--- Cupones				00:37
+-- Cupones				00:08
 insert into ORION.cupones(idproveedor, descripcion, codigo, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
 cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real)
 select p.idproveedor, groupon_descripcion, groupon_codigo, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
 sum(isnull(groupon_cantidad,0)), DATEADD(d, 5, groupon_fecha_venc), 5, dateadd(d, 1, groupon_fecha)
-from ORION.proveedores_temp ct
-inner join ORION.proveedores p on p.cuit = replace(ct.provee_cuit,'-','')
+from ORION.proveedores_temp ct inner join ORION.proveedores p on p.cuit = ct.provee_cuit
+where groupon_entregado_fecha is null and groupon_devolucion_fecha is null and factura_fecha is null
 group by p.idproveedor, groupon_descripcion,groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio
+order by groupon_codigo
+
 
 -- Compras				00:10
 insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, nro_cupon, idcompra_estado)
@@ -708,6 +714,7 @@ left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is null
 group by c.idcliente, pt.Groupon_Fecha_Compra, cu.idcupon, Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha
+
 
 -- Devoluciones			00:05
 insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo)
@@ -721,16 +728,16 @@ groupon_entregado_fecha is null
 group by  Groupon_Devolucion_Fecha, co.idcompra
 order by Groupon_Devolucion_Fecha
 
--- Actualizo el estado de todas las devoluciones
+-- Actualizo el estado de todas las devoluciones 00:00
 update ORION.compras set idcompra_estado = 3 where idcompra in (select idcompra from ORION.devoluciones)
 
--- Consumos				00:04
+-- Consumos				00:07
 insert into ORION.consumos(fecha_consumo, idcompra)
 select Groupon_Entregado_Fecha, co.idcompra
 from orion.proveedores_temp pt
-left join ORION.clientes c on c.dni = pt.cli_dni
-left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
+inner join ORION.clientes c on c.dni = pt.cli_dni
+inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
+inner join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is not null
 group by  Groupon_Entregado_Fecha, co.idcompra
@@ -738,43 +745,65 @@ order by Groupon_Entregado_Fecha
 
 update ORION.compras set idcompra_estado = 2 where idcompra in (select idcompra from ORION.consumos)
 
--- Actualizo la tabla de compras según el estado en el que quedó la compra
+-- Actualizo la tabla de compras según el estado en el que quedó la compra 00:00
 update orion.compras set idcompra_Estado = 4 where fecha_compra <= '2012-12-26' and idcompra_Estado = 1
 
 
 -- Facturas				00:01
-insert into ORION.facturas(fecha_generacion, idproveedor, nro_factura)
-select distinct Factura_Fecha, p.idproveedor, Factura_Nro
+-- Se carga primero con monto cero y despues se actualiza
+insert into ORION.facturas(fecha_generacion, idproveedor, nro_factura, monto_total)
+select distinct Factura_Fecha, p.idproveedor, Factura_Nro, 0
 from ORION.proveedores_temp pt
-left join orion.proveedores p on replace(pt.Provee_CUIT,'-','') = p.cuit
+inner join orion.proveedores p on pt.Provee_CUIT = p.cuit
 where Factura_Fecha is not null
 order by Factura_Fecha, factura_nro
+
 
 -- FActuras_items		00:05
 insert into ORION.facturas_items(idfactura, idconsumo)
 select f.idfactura, con.idconsumo
 from orion.proveedores_temp pt
-left join ORION.clientes c on c.dni = pt.cli_dni
-left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon
-left join ORION.consumos con on con.idcompra = co.idcompra
-left join ORION.facturas f on f.nro_factura = pt.Factura_Nro
+inner join ORION.clientes c on c.dni = pt.cli_dni
+inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
+inner join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon
+inner join ORION.consumos con on con.idcompra = co.idcompra
+inner join ORION.facturas f on f.nro_factura = pt.Factura_Nro
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is null and pt.Factura_Nro is not null
 order by f.idfactura, con.idconsumo
 
--- Calcular el TOTAL en facturas y setear los consumos como facturados
+-- Actualizo el importe de las facturas
+update ORION.facturas set 
+orion.facturas.monto_total = 
+(select SUM(cu.precio_real * 0.5)
+from ORION.facturas_items fi
+inner join ORION.facturas f on F.idfactura = fi.idfactura
+inner join ORION.consumos c on c.idconsumo = fi.idconsumo
+inner join ORION.compras co on co.idcompra = c.idcompra
+inner join ORION.cupones cu on cu.idcupon = co.idcupon
+where f.idfactura = ORION.facturas.idfactura
+group by f.idfactura)
 
+-- y seteo como "facturado" los consumos que ya están
+update ORION.consumos set facturado = 1 where idconsumo in (
+select c.idconsumo from ORION.facturas_items fi
+inner join ORION.facturas f on f.idfactura = fi.idfactura
+inner join ORION.consumos c on c.idconsumo = fi.idconsumo
+inner join ORION.compras co on co.idcompra = c.idcompra
+inner join ORION.cupones cu on cu.idcupon = co.idcupon)
 
 -- cupones_ciudades		00:00
 insert into ORION.cupones_ciudades(idcupon, idciudad) select c.idcupon, p.idciudad from ORION.cupones c
 left join orion.proveedores p on p.idproveedor = c.idproveedor
 
-
-
+-- Actualizo el stock de cupones de acuerdo a los cajneados			00:06
+update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COUNT(1) from ORION.compras where idcompra_estado = 2 and idcupon = ORION.cupones.idcupon)
 
 -- FINALMENTE, BORRO LAS TABLAS TEMPORALES
 drop table orion.proveedores_temp
 drop table orion.clientes_temp
 
-rollback
+
+/*************************************************************/
+-- SAFE-BAR: DE ACA PARA ARRIBA TODO ESTA OK
+/*************************************************************/

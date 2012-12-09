@@ -91,12 +91,16 @@ Tabla cupones:
 - La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 5 dias, para darle tiempo a quien compra el cupón de organizar el canje.
 - La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5.
 - La fecha en la que el cupón se publica (por el administrativo) para los que ya están en sistema, se estableció como la de publicación por el proveedor + 1.
+- El stock con el que se inicializan los cupones es el campo groupon_cantidad. 
 
 Tabla compras:
-- Inicialmente se cargan todas las tablas con el estado "comprado". Una vez que se cargan la tabla de devoluciones y consumos, se actualiza dicho estado.
+- Inicialmente se cargan todos los cupones con el estado "comprado". Una vez que se cargan la tabla de devoluciones y consumos, se actualiza dicho estado según corresponda.
 - Para todos los cupones que hayan quedado como "comprado", se setearon como "vencidos" todos los cupones que se hayan comprado hasta el 26/12/2009. Esto se hizo así para mantener 
 la coherencia de vencimiento a los 5 dias de la compra: Como el cupón comprado más "recientemente" es del 31/12/2009, se asume que hoy es 01/01/2010 
 (Tomamos como consideración que si fuera otra fecha más reciente, habría más registros de esas fechas. Como no lo podemos comprobar, lo suponemos).
+- Luego de completadas las tablas de consumos, compras y devoluciones, se actualiza el stock de cada cupón para que guarden coherencia con las tablas de consumos y devoluciones:
+	cantidad_final = cantidad_inicial - cantidad_cupones_entregados - cantidad_cupones_comprados (sin canjear)
+	los cupones devueltos y y vencidos no restan del stock ya que son cupones que no fueron consumidos
 
 Tabla devoluciones:
 - Como el motivo no estaba en la tabla maestra, se cargaron todas las devoluciones existentes como "- no especifica (migración inicial) -"
