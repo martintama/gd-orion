@@ -1,6 +1,5 @@
 - Los giftcards no restan credito de quien lo regala
-- Al migrar la base, se crean los clientes y proveedores. Luego, los usuarios se generan usando el DNI como username y CUIT en caso de proveedor
-La clave inicial en ambos casos es la misma para todos, 123456.
+
 - El nro de cupon es el PK de la tabla de cupones
 - Fecha entrega = fecha consumo
 - IMPORTENTE Recordar restar el stock de los cupones!! en base a restante = total - compras + devoluciones
@@ -68,6 +67,34 @@ roles_funcionalidades
 
 
 Estrategia:
+
+MIGRACION
+
+Tabla proveedores:
+- Se optó por cargar el cuit como campo sin guiones por una cuestion de que a la hora de ingresar el dato es más fácil cargarlo sin guiones que con ellos. (en el registro)
+- El campo "email", al no estar presente en la migración, se optó por completarlo con campo '' (vacio). Se barajó la idea de completar con 'No posee' o 'notiene@notiene.com', pero
+se descartaron porque ensucian el campo. Preferiblemente dejarlo vacio y se pueda completar posteriormente.
+- El campo "contacto" tampoco estaba presente. En este caso se optó por poner como dato '-' (un guión) para simbolizar que no se posee ese dato.
+Al migrar la base, los usuarios de los proveedores se generan usando el CUIT como username. La clave inicial en ambos casos es la misma para todos, 123456.
+
+Tabla clientes:
+- Al migrar la base, los usuarios de los clientes se generan usando el DNI como username. La clave inicial en ambos casos es la misma para todos, 123456.
+
+Tabla cupones:
+- Como la fecha de alta (cuando se genera un nuevo cupon) no está en la base, se optó por tomar el dicha fecha como la misma de publicación
+- La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 5 dias, para darle tiempo a quien compra el cupón de organizar el canje.
+- La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5.
+- La fecha en la que el cupón se publica (por el administrativo) para los que ya están en sistema, se estableció como la de publicación por el proveedor + 1.
+
+Tabla compras:
+- Inicialmente se cargan todas las tablas con el estado "comprado". Una vez que se cargan la tabla de devoluciones y consumos, se actualiza dicho estado.
+- Para todos los cupones que hayan quedado como "comprado", se setearon como "vencidos" todos los cupones que se hayan comprado hasta el 26/12/2009. Esto se hizo así para mantener 
+la coherencia de vencimiento a los 5 dias de la compra: Como el cupón comprado más "recientemente" es del 31/12/2009, se asume que hoy es 01/01/2010 
+(Tomamos como consideración que si fuera otra fecha más reciente, habría más registros de esas fechas. Como no lo podemos comprobar, lo suponemos).
+
+Tabla devoluciones:
+- Como el motivo no estaba en la tabla maestra, se cargaron todas las devoluciones existentes como "- no especifica (migración inicial) -"
+
 
 Logueo.
 
