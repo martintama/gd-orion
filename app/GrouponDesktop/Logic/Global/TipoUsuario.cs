@@ -11,12 +11,12 @@ namespace GrouponDesktop.Logic.Global
         {
 
         }
-        public TipoUsuario(Int16 idusuario_tipo, String descripcion)
+        public TipoUsuario(Int16 idtipo_usuario, String descripcion)
         {
-            this.Idusuario_tipo = idusuario_tipo;
+            this.Idtipo_usuario = idtipo_usuario;
             this.Descripcion = descripcion;
         }
-        public Int16 Idusuario_tipo { get; set; }
+        public Int16 Idtipo_usuario { get; set; }
 
         public String Descripcion { get; set; }
     }

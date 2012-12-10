@@ -62,7 +62,7 @@ namespace GrouponDesktop.Logic.Global
                 cmd.Parameters.AddWithValue("@username", this.UsuarioAsociado.Username);
                 cmd.Parameters.AddWithValue("@pass", Hasher.ConvertirSHA256(this.UsuarioAsociado.Clave));
                 cmd.Parameters.AddWithValue("@idrol", this.UsuarioAsociado.RolAsociado.Idrol);
-                cmd.Parameters.AddWithValue("@idusuario_tipo", this.UsuarioAsociado.TipoUsuarioAsociado.Idusuario_tipo);
+                cmd.Parameters.AddWithValue("@idtipo_usuario", this.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario);
 
                 SqlParameter returnParameter;
                 returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);

@@ -62,7 +62,7 @@ namespace GrouponDesktop.Logic
 
             foreach (TipoUsuario tipo in objRol.TipoUsuarioAsociados)
             {
-                switch (tipo.Idusuario_tipo)
+                switch (tipo.Idtipo_usuario)
                 {
                     case 1: //Administrativo
                         {

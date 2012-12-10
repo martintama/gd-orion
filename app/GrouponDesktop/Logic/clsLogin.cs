@@ -27,7 +27,7 @@ namespace GrouponDesktop
             {
                 clsMain.objInfoSesion.Idusuario = Convert.ToInt32(dr1["idusuario"]);
                 clsMain.objInfoSesion.Idrol = Convert.ToInt32(dr1["idrol"]);
-                clsMain.objInfoSesion.Idusuario_tipo = Convert.ToInt16(dr1["idusuario_tipo"]);
+                clsMain.objInfoSesion.idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
                 
                 dr1.Close();
                 dr1.Dispose();
@@ -52,7 +52,7 @@ namespace GrouponDesktop
         {
             ArrayList arrFunc = new ArrayList();
 
-            String sqlstr = "select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and habilitado = 1";
+            String sqlstr = "select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and activo = 1";
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.AddWithValue("@idrol", idrol);
 

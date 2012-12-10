@@ -69,7 +69,7 @@ namespace GrouponDesktop.Logic.Global
                 sqlc.ExecuteNonQuery();
                 sqlc.Dispose();
 
-                sqlstr = "Delete from orion.usuarios_tipos_roles where idrol = @idrol";
+                sqlstr = "Delete from orion.tipos_usuario_rol where idrol = @idrol";
                 sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
                 sqlc.ExecuteNonQuery();
@@ -102,16 +102,16 @@ namespace GrouponDesktop.Logic.Global
             sqlc.Dispose();
 
             //Y agrego los tipos de usuario asociados
-            sqlstr = "Insert into orion.usuarios_tipos_roles(idrol, idusuario_tipo) values(@idrol, @idusuario_tipo)";
+            sqlstr = "Insert into orion.tipos_usuario_rol(idrol, idtipo_usuario) values(@idrol, @idtipo_usuario)";
             sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.Add("@idrol", SqlDbType.Int);
-            sqlc.Parameters.Add("@idusuario_tipo", SqlDbType.Int);
+            sqlc.Parameters.Add("@idtipo_usuario", SqlDbType.Int);
             sqlc.Prepare();
 
             foreach (TipoUsuario tipo in this.TipoUsuarioAsociados)
             {
                 sqlc.Parameters["@idrol"].Value = this.Idrol;
-                sqlc.Parameters["@idusuario_tipo"].Value = tipo.Idusuario_tipo;
+                sqlc.Parameters["@idtipo_usuario"].Value = tipo.Idtipo_usuario;
                 sqlc.ExecuteNonQuery();
             }
             sqlc.Dispose();
@@ -158,7 +158,7 @@ namespace GrouponDesktop.Logic.Global
             {
                 //Traigo funcionalidades habilitadas
                 String sqlstr = "select f.idfuncionalidad, f.descripcion from ORION.funcionalidades f ";
-                sqlstr += "where f.idfuncionalidad in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and habilitado = 1) order by f.descripcion";
+                sqlstr += "where f.idfuncionalidad in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and activo = 1) order by f.descripcion";
 
                 SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
@@ -176,7 +176,7 @@ namespace GrouponDesktop.Logic.Global
 
                 //Traigo funcionalidades deshablitadas
                 sqlstr = "select f.idfuncionalidad, f.descripcion from ORION.funcionalidades f ";
-                sqlstr += "where f.idfuncionalidad not in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and habilitado = 1) order by f.descripcion";
+                sqlstr += "where f.idfuncionalidad not in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and activo = 1) order by f.descripcion";
 
                 sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
@@ -232,7 +232,7 @@ namespace GrouponDesktop.Logic.Global
         {
             Dbaccess.DBConnect();
 
-            String sqlstr = "Update orion.roles set habilitado = 1 where idrol = @idrol";
+            String sqlstr = "Update orion.roles set activo = 1 where idrol = @idrol";
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
 
             sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
@@ -242,7 +242,7 @@ namespace GrouponDesktop.Logic.Global
             Dbaccess.DBDisconnect();
         }
 
-        public bool AsociadoATipoUsuario(Int16 idusuario_tipo)
+        public bool AsociadoATipoUsuario(Int16 idtipo_usuario)
         {
             Boolean esta = false;
 
@@ -250,7 +250,7 @@ namespace GrouponDesktop.Logic.Global
 
             while (indice < this.TipoUsuarioAsociados.Count && !esta)
             {
-                if (this.TipoUsuarioAsociados[indice].Idusuario_tipo == idusuario_tipo)
+                if (this.TipoUsuarioAsociados[indice].Idtipo_usuario == idtipo_usuario)
                 {
                     esta = true;
                 }

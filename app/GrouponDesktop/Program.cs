@@ -27,7 +27,7 @@ namespace GrouponDesktop
             clsMain.objInfoSesion = new InfoSesion();
             clsMain.objInfoSesion.Idusuario = 1;
             clsMain.objInfoSesion.Idrol = 4;
-            clsMain.objInfoSesion.Idusuario_tipo = 1;
+            clsMain.objInfoSesion.idtipo_usuario = 1;
             Dbaccess.DBConnect();
             clsMain.objInfoSesion.Funcionalidades = clsLogin.obtenerFuncionalidades(clsMain.objInfoSesion.Idrol);
             Dbaccess.DBDisconnect();

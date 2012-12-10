@@ -9,7 +9,7 @@ namespace GrouponDesktop
     {
         public int Idusuario { get; set; }
         public int Idrol { get; set; }
-        public Int16 Idusuario_tipo { get; set; }
+        public Int16 idtipo_usuario { get; set; }
         public Array Funcionalidades { get; set; }
     }
 }

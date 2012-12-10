@@ -37,7 +37,7 @@ namespace GrouponDesktop.Logic
                 sqlwhere += "and c.email like @email ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
-            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idusuario, u.clave, c.credito_actual, c.activo, ";
+            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idusuario, u.clave, c.credito_actual, c.habilitado, ";
             sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuariohabilitado from ORION.clientes c  ";
             sqlstr += "left join ORION.clientes_ciudades cc on cc.idcliente = c.idcliente left join ORION.ciudades ci on ci.idciudad = cc.idciudad ";
             sqlstr += "left join ORION.usuarios u on u.idusuario = c.idusuario ";
@@ -84,7 +84,7 @@ namespace GrouponDesktop.Logic
                 unCliente.Telefono = dr1["telefono"].ToString();
 
                 unCliente.FechaNacimiento = DateTime.ParseExact(dr1["fecha_nacimiento"].ToString(), "yyyy.MM.dd", null);
-                unCliente.Habilitado = Convert.ToBoolean(dr1["activo"]);
+                unCliente.Habilitado = Convert.ToBoolean(dr1["habilitado"]);
                 unCliente.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"].ToString());
                 unCliente.UsuarioAsociado.Username = dr1["username"].ToString();
                 unCliente.UsuarioAsociado.Habilitado = Convert.ToBoolean(dr1["usuariohabilitado"].ToString());

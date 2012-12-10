@@ -240,7 +240,7 @@ namespace GrouponDesktop.UI.AbmCliente
                 chkHabilitado.Visible = false;
                 //Rol y tipo de usuario "Cliente" por default
                 this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
-                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idusuario_tipo = 2;
+                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
 
                 //Sacar luego de las pruebas
                 Test();

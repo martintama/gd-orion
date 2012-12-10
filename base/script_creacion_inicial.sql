@@ -168,7 +168,6 @@ alter table orion.gift_cards add constraint pk_gift_cards primary key (idgift_ca
 -- proveedores
 CREATE TABLE ORION.proveedores(
 	idproveedor		int IDENTITY(1,1) NOT NULL,
-	fecha_alta		date  NOT NULL,
 	razon_social	varchar(100) NOT NULL,
 	email			varchar(50) NOT NULL,
 	telefono		numeric(18,0) NOT NULL,
@@ -598,7 +597,7 @@ insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 4,idfunci
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario) values('admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
 
 
--- Carga completa clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades:	03:03
+-- Carga completa clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades:	02:39
 select distinct cli_nombre, cli_apellido, Cli_Dni,Cli_Direccion, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac, Cli_Ciudad,
 Carga_Credito, Carga_Fecha, Cli_Dest_Dni, GiftCard_Fecha, GiftCard_Monto, tipo_pago_desc
 into orion.clientes_temp
@@ -606,11 +605,11 @@ from gd_esquema.Maestra
 where Provee_RS is null
 
 	
-	-- Agrego indices	00:16
+	-- Agrego indices	00:07
 	CREATE INDEX idx_clientes_temp_cli_dest_dni ON ORION.clientes_temp(cli_dest_dni)
 	CREATE INDEX idx_clientes_temp_cli_dni ON ORION.clientes_temp(cli_dni)
 
---Ciudades			00:08
+--Ciudades			00:10
 insert into ORION.ciudades(descripcion) select distinct cli_ciudad from ORION.clientes_temp
 
 -- Usuario clientes		00:00
@@ -637,7 +636,7 @@ left join ORION.usuarios u on u.username = cast(ct.cli_dni as varchar)
 left join ORION.clientes c on c.idusuario = u.idusuario
 
 
--- GiftCards:		00:05
+-- GiftCards:		00:06
 insert into orion.gift_cards(fecha, monto, idcliente_origen, idcliente_destino)
 select ct.giftcard_fecha, ct.giftcard_monto, c.idcliente, c2.idcliente
 from orion.clientes_temp ct
@@ -653,15 +652,10 @@ from orion.clientes_temp ct
 left join orion.clientes c on c.dni = ct.cli_dni
 where ct.carga_credito is not null
 
-/*************************************************************/
--- SAFE-BAR: DE ACA PARA ARRIBA TODO ESTA OK
-/*************************************************************/
-
-
 -- Carga general proveedores, cupones, devoluciones, compras, compras_estados,
- --facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items		02:28
+ --facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items		02:18
 
-select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,replace(Provee_CUIT,'-',''),Provee_Rubro,
+select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,replace(Provee_CUIT,'-','') provee_cuit,Provee_Rubro,
 Groupon_Cantidad, Groupon_Codigo, Groupon_Descripcion,
 Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha, Groupon_Fecha, Groupon_Fecha_Compra, 
 Groupon_Fecha_Venc, Groupon_Precio, Groupon_Precio_Ficticio, Factura_Nro, Factura_Fecha
@@ -674,6 +668,7 @@ where Provee_RS is not null
 	CREATE INDEX idx_proveedores_temp_prove_cuit ON ORION.proveedores_temp(provee_cuit)
 	CREATE INDEX idx_proveedores_temp_groupon_codigo ON ORION.proveedores_temp(groupon_codigo)
 	CREATE INDEX idx_proveedores_temp_rs ON ORION.proveedores_temp(provee_rs)
+
 
 -- Rubros					00:02
 insert into orion.rubros(descripcion) select distinct provee_rubro from ORION.proveedores_temp where provee_rubro is not null order by provee_rubro 
@@ -802,8 +797,3 @@ update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COU
 -- FINALMENTE, BORRO LAS TABLAS TEMPORALES
 drop table orion.proveedores_temp
 drop table orion.clientes_temp
-
-
-/*************************************************************/
--- SAFE-BAR: DE ACA PARA ARRIBA TODO ESTA OK
-/*************************************************************/
