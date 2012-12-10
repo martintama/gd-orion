@@ -296,7 +296,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAbmRol";
-            this.Text = "ABM de Roles";
+            this.Text = "Cuponete Orion - ABM de Roles";
             this.Load += new System.EventHandler(this.frmAbmRol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
             this.groupBox1.ResumeLayout(false);

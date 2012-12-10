@@ -259,7 +259,7 @@ namespace GrouponDesktop.UI.AbmCliente
         private void btnEditarCiudades_Click(object sender, EventArgs e)
         {
             frmSeleccionCiudad frmCiudad = new frmSeleccionCiudad();
-            frmCiudad.frmParent = this;
+            frmCiudad.listaCiudadesParent = this.objCliente.Ciudades;
             frmCiudad.ShowDialog();
 
             this.CargarTextoCiudades();

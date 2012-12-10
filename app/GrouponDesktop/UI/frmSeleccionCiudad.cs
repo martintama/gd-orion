@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Logic;
 using GrouponDesktop.Logic.Global;
 using GrouponDesktop.UI.AbmCliente;
 
@@ -13,7 +14,10 @@ namespace GrouponDesktop
 {
     public partial class frmSeleccionCiudad : Form
     {
-        public frmAbmCliente frmParent;
+        //Recibe la lista en la que hay que cargar las ciudades (la del parent)
+        public List<Ciudad> listaCiudadesParent;
+
+        private List<Ciudad> listaCiudadesDisponibles;
 
         public frmSeleccionCiudad()
         {
@@ -60,9 +64,6 @@ namespace GrouponDesktop
 
         private void frmSeleccionCiudad_Load(object sender, EventArgs e)
         {
-
-            frmParent.objCliente.GetCiudades();
-
             this.CargarListas();
         }
 
@@ -71,12 +72,15 @@ namespace GrouponDesktop
             lstSeleccionadas.Items.Clear();
             lstDisponibles.Items.Clear();
 
-            foreach (Ciudad item in frmParent.objCliente.Ciudades)
+            foreach (Ciudad item in listaCiudadesParent)
             {
                 lstSeleccionadas.Items.Add(item);
             }
 
-            foreach (Ciudad item in frmParent.objCliente.CiudadesDisponibles)
+            //Cargo todas las ciudades y luego saco las ciudades que ya están-
+            listaCiudadesDisponibles = clsSeleccionCiudad.getListaCiudades(this.listaCiudadesParent);
+
+            foreach (Ciudad item in listaCiudadesDisponibles)
             {
                 lstDisponibles.Items.Add(item);
             }
@@ -85,10 +89,11 @@ namespace GrouponDesktop
 
         private void AplicarCambios()
         {
-            frmParent.objCliente.Ciudades.Clear();
+            listaCiudadesParent.Clear();
+            
             foreach (Ciudad item in lstSeleccionadas.Items)
             {
-                frmParent.objCliente.Ciudades.Add(item);
+                listaCiudadesParent.Add(item);
             }
 
             btnGuardar.Enabled = false;

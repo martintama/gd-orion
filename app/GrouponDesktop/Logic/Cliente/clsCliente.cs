@@ -37,10 +37,11 @@ namespace GrouponDesktop.Logic
                 sqlwhere += "and c.email like @email ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
-            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idusuario, u.clave, c.credito_actual, c.habilitado, ";
-            sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuariohabilitado from ORION.clientes c  ";
+            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, c.habilitado, ";
+            sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuariohabilitado, tu.idtipo_usuario, tu.descripcion tipo_usuario from ORION.clientes c  ";
             sqlstr += "left join ORION.clientes_ciudades cc on cc.idcliente = c.idcliente left join ORION.ciudades ci on ci.idciudad = cc.idciudad ";
-            sqlstr += "left join ORION.usuarios u on u.idusuario = c.idusuario ";
+            sqlstr += "left join ORION.usuarios u on u.idusuario = c.idusuario left join ORION.roles r on r.idrol = u.idrol ";
+            sqlstr += "left join ORION.tipos_usuario tu on tu.idtipo_usuario = u.idtipo_usuario ";
             sqlstr += "where " + sqlwhere + " order by c.nombre, c.apellido, c.dni";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
@@ -88,6 +89,8 @@ namespace GrouponDesktop.Logic
                 unCliente.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"].ToString());
                 unCliente.UsuarioAsociado.Username = dr1["username"].ToString();
                 unCliente.UsuarioAsociado.Habilitado = Convert.ToBoolean(dr1["usuariohabilitado"].ToString());
+                unCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(dr1["idrol"]), dr1["nombrerol"].ToString());
+                unCliente.UsuarioAsociado.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), dr1["tipo_usuario"].ToString());
                 
 
                 while (hayDatos && unCliente.Idcliente == idcliente_actual)

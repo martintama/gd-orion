@@ -29,6 +29,15 @@ namespace GrouponDesktop.Logic.Global
             this.TipoUsuarioAsociados = new List<TipoUsuario>();
         }
 
+        public Rol(Int32 idrol, String descripcion)
+        {
+            this.Idrol = idrol;
+            this.NombreRol = descripcion;
+            this.FuncHabilitadas = new List<Funcionalidad>();
+            this.FuncInhabilitadas = new List<Funcionalidad>();
+            this.TipoUsuarioAsociados = new List<TipoUsuario>();
+        }
+
 
         public String NombreRol { get; set; }
 

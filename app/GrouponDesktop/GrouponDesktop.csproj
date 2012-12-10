@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Logic\Cliente\clsCliente.cs" />
     <Compile Include="Logic\clsIO.cs" />
+    <Compile Include="Logic\clsSeleccionCiudad.cs" />
     <Compile Include="Logic\Global\BasicFunctions.cs" />
     <Compile Include="Logic\Global\Ciudad.cs" />
     <Compile Include="Logic\Global\Cliente.cs" />

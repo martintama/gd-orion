@@ -58,7 +58,6 @@ namespace GrouponDesktop.Logic.Global
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Transaction = tran;
 
-                cmd.Parameters.AddWithValue("@fechaalta", clsMain.currentDate.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@username", this.UsuarioAsociado.Username);
                 cmd.Parameters.AddWithValue("@pass", Hasher.ConvertirSHA256(this.UsuarioAsociado.Clave));
                 cmd.Parameters.AddWithValue("@idrol", this.UsuarioAsociado.RolAsociado.Idrol);
@@ -84,7 +83,6 @@ namespace GrouponDesktop.Logic.Global
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Transaction = tran;
 
-                    cmd.Parameters.AddWithValue("@fecha", clsMain.currentDate.ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@nombre", this.Nombre);
                     cmd.Parameters.AddWithValue("@apellido", this.Apellido);
                     cmd.Parameters.AddWithValue("@dni", this.DNI);
@@ -160,7 +158,7 @@ namespace GrouponDesktop.Logic.Global
             {
                 
                 tran.Rollback();
-                return_value = 2;           
+                return_value = 3;           
                 
             }
             
@@ -177,7 +175,7 @@ namespace GrouponDesktop.Logic.Global
 
             if (this.Idcliente > 0)
             {
-                //Traigo funcionalidades habilitadas
+                //Traigo ciudades habilitadas
                 String sqlstr = "select idciudad, descripcion from ORION.ciudades ";
                 sqlstr += "where idciudad in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente and activo = 1) and activo = 1 order by descripcion;";
 
@@ -213,26 +211,7 @@ namespace GrouponDesktop.Logic.Global
                 sqlc.Dispose();
 
             }
-            else
-            {
-                //Traigo todas las funcionalidades y las pongo como deshabilitadas en el caso de que sea un nuevo usuario
-                String sqlstr = "select idciudad, descripcion from ORION.ciudades ";
-                sqlstr += "where idciudad not in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente and activo = 1) and activo = 1 order by descripcion;";
 
-                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
-
-                SqlDataReader dr1 = sqlc.ExecuteReader();
-
-                while (dr1.Read())
-                {
-                    this.CiudadesDisponibles.Add(new Ciudad(
-                        Convert.ToInt32(dr1["idciudad"]), dr1["descripcion"].ToString().Trim()));
-                }
-
-                dr1.Close();
-                sqlc.Dispose();
-            }
             Dbaccess.DBDisconnect();
             
         }

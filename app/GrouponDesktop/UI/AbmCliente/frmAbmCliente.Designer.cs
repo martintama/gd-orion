@@ -33,10 +33,10 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.MaskedTextBox();
+            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -133,6 +133,17 @@
             this.txtPassword.Size = new System.Drawing.Size(175, 20);
             this.txtPassword.TabIndex = 12;
             // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHabilitado.Location = new System.Drawing.Point(424, 46);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(112, 17);
+            this.chkHabilitado.TabIndex = 11;
+            this.chkHabilitado.Text = "Usuario Habilitado";
+            this.chkHabilitado.UseVisualStyleBackColor = true;
+            // 
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(68, 14);
@@ -157,17 +168,6 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
-            // 
-            // chkHabilitado
-            // 
-            this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHabilitado.Location = new System.Drawing.Point(424, 46);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(112, 17);
-            this.chkHabilitado.TabIndex = 11;
-            this.chkHabilitado.Text = "Usuario Habilitado";
-            this.chkHabilitado.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -567,7 +567,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "frmAbmCliente";
-            this.Text = "ABM Cliente";
+            this.Text = "Cuponete Orion - ABM Cliente";
             this.Load += new System.EventHandler(this.frmAbmCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
