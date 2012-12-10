@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GrouponDesktop.Logic;
-using GrouponDesktop.Logic.Global;
+using GrouponDesktop.Base;
 using GrouponDesktop.UI.AbmCliente;
 
 namespace GrouponDesktop
@@ -78,7 +77,7 @@ namespace GrouponDesktop
             }
 
             //Cargo todas las ciudades y luego saco las ciudades que ya están-
-            listaCiudadesDisponibles = clsSeleccionCiudad.getListaCiudades(this.listaCiudadesParent);
+            listaCiudadesDisponibles = Ciudad.getListaCiudades(this.listaCiudadesParent);
 
             foreach (Ciudad item in listaCiudadesDisponibles)
             {

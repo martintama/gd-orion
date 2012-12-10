@@ -6,10 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GrouponDesktop.Logic;
-using GrouponDesktop.Logic.Global;
+using GrouponDesktop.Base;
 
-namespace GrouponDesktop.AbmRol
+namespace GrouponDesktop.UI.AbmRol
 {
     public partial class frmAbmRol : Form
     {
@@ -44,7 +43,7 @@ namespace GrouponDesktop.AbmRol
 
         private void CargarListado()
         {
-            clsAbmRol clsAbm = new clsAbmRol();
+            Rol clsAbm = new Rol();
             dgvRoles.DataSource = clsAbm.GetRoles(txtRol.Text);
         }
 

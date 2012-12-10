@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GrouponDesktop.Logic.Global;
+using GrouponDesktop.Base;
 
-namespace GrouponDesktop.Logic
+namespace GrouponDesktop.UI.AbmRol
 {
     public partial class frmFuncionalidades : Form
     {
@@ -23,7 +23,7 @@ namespace GrouponDesktop.Logic
         private void frmFuncionalidades_Load(object sender, EventArgs e)
         {
 
-            clsAbmRol clsAbm = new clsAbmRol();
+            Rol clsAbm = new Rol();
 
             if (objRol.Idrol > 0){
                 this.Text = "Editar rol";
@@ -86,7 +86,7 @@ namespace GrouponDesktop.Logic
 
         private void GrabarCambios()
         {
-            clsAbmRol frmabm = new clsAbmRol();
+            Rol frmabm = new Rol();
             objRol.NombreRol = txtNombreRol.Text;
             objRol.FuncHabilitadas.Clear();
             objRol.TipoUsuarioAsociados.Clear();

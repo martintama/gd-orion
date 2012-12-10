@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Base;
 
 namespace GrouponDesktop
 {
@@ -75,7 +76,7 @@ namespace GrouponDesktop
 
                 string passHashed = Hasher.ConvertirSHA256(password);
 
-                clsLogin.ValidarUsuario(usuario, passHashed);
+                Login.ValidarUsuario(usuario, passHashed);
 
                 //Ahora me fijo que fue lo que se cargó
                 if (clsMain.objInfoSesion.Idusuario > 0)

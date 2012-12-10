@@ -6,9 +6,9 @@ using System.Xml;
 using System.Reflection;
 using System.IO;
 
-namespace GrouponDesktop.Logic
+namespace GrouponDesktop.Base
 {
-    public static class clsIO
+    public static class IoBLL
     {
         public static void loadConfig()
         {

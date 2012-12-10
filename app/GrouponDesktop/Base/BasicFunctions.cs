@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace GrouponDesktop.Logic.Global
+namespace GrouponDesktop.Base
 {
     static class BasicFunctions
     {

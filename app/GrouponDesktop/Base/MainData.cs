@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 
-namespace GrouponDesktop
+namespace GrouponDesktop.Base
 {
     static class clsMain
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace GrouponDesktop
+namespace GrouponDesktop.Base
 {
     //Recibe un string y devuelve el mismo en SHA256
     public static class Hasher

@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GrouponDesktop.Base;
 using GrouponDesktop.UI.AbmCliente;
 using GrouponDesktop.UI.AbmProveedor;
+using GrouponDesktop.UI.AbmRol;
 
 namespace GrouponDesktop
 {
@@ -171,7 +173,7 @@ namespace GrouponDesktop
 
         private void aBMRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbmRol.frmAbmRol frmRol = new GrouponDesktop.AbmRol.frmAbmRol();
+            frmAbmRol frmRol = new frmAbmRol();
 
             frmRol.ShowDialog();
         }

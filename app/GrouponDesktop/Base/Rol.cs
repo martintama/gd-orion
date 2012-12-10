@@ -5,23 +5,27 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace GrouponDesktop.Logic.Global
+namespace GrouponDesktop.Base
 {
     public class Rol
     {
+        // SUBCLASE - FUNCIONALIDAD
         public class Funcionalidad
         {
+            // CONTRUCTOR
             public Funcionalidad(Int32 id, String descrip)
             {
                 this.idfuncionalidad = id;
                 this.Descripcion = descrip;
             }
 
+            // PROPIEDADES
             public Int32 idfuncionalidad { get; set; }
 
             public String Descripcion { get; set; }
         }
 
+        // CONTRUCTORES
         public Rol()
         {
             this.FuncHabilitadas = new List<Funcionalidad>();
@@ -38,7 +42,7 @@ namespace GrouponDesktop.Logic.Global
             this.TipoUsuarioAsociados = new List<TipoUsuario>();
         }
 
-
+        // PROPIEDADES
         public String NombreRol { get; set; }
 
         public Int32 Idrol { get; set; }
@@ -50,6 +54,59 @@ namespace GrouponDesktop.Logic.Global
         public List<Funcionalidad> FuncInhabilitadas { get; set; }
         
         public List<TipoUsuario> TipoUsuarioAsociados { get; set; }
+
+        // METODOS
+        public List<Rol> GetRoles()
+        {
+            return this.GetRoles("");
+        }
+
+        public List<Rol> GetRoles(String filtro)
+        {
+            List<Rol> listaRoles = new List<Rol>();
+
+            Dbaccess.DBConnect();
+
+            SqlCommand sqlc = new SqlCommand("orion.Roles_Obtener", Dbaccess.globalConn);
+            sqlc.CommandType = System.Data.CommandType.StoredProcedure;
+
+            sqlc.Parameters.AddWithValue("@filtro", filtro);
+
+            SqlDataReader dr1 = sqlc.ExecuteReader();
+
+            while (dr1.Read())
+            {
+                Rol unRol = new Rol();
+                unRol.Idrol = Convert.ToInt32(dr1["idrol"]);
+                unRol.NombreRol = dr1["descripcion"].ToString();
+                unRol.Estado = Convert.ToBoolean(dr1["Estado"]);
+
+                if (dr1["Administrativo"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(1, null));
+                }
+
+                if (dr1["Cliente"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(2, null));
+                }
+
+                if (dr1["Proveedor"].ToString() == "S")
+                {
+                    unRol.TipoUsuarioAsociados.Add(new TipoUsuario(3, null));
+                }
+                listaRoles.Add(unRol);
+            }
+
+            dr1.Close();
+            dr1.Dispose();
+
+            sqlc.Dispose();
+
+            Dbaccess.DBConnect();
+
+            return listaRoles;
+        }
 
         public Int16 GrabarRol()
         {

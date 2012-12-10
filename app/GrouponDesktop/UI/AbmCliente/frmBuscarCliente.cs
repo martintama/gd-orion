@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using GrouponDesktop.Logic;
-using GrouponDesktop.Logic.Global;
+using GrouponDesktop.Base;
 
 namespace GrouponDesktop.UI.AbmCliente
 {
@@ -25,7 +24,7 @@ namespace GrouponDesktop.UI.AbmCliente
 
         private void CargarDatos()
         {
-            clsCliente fnCliente = new clsCliente();
+            Cliente fnCliente = new Cliente();
             String nombre = txtNombre.Text;
             String apellido = txtApellido.Text;
             Int32 dni = -1;

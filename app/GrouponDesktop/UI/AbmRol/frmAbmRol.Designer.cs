@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.AbmRol
+﻿namespace GrouponDesktop.UI.AbmRol
 {
     partial class frmAbmRol
     {

@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GrouponDesktop.Logic.Global;
 using System.Data.SqlClient;
 
-namespace GrouponDesktop.Logic
+namespace GrouponDesktop.Base
 {
-    public static class clsSeleccionCiudad
+    public class Ciudad
     {
+        // CONSTRUCTORES
+        public Ciudad(Int32 idciudad, String descripcion)
+        {
+            this.Idciudad = idciudad;
+            this.Descripcion = descripcion;
+        }
+
+        //PROPIEDADES
+        public Int32 Idciudad { get; set; }
+
+        public String Descripcion { get; set; }
+
+        // METODOS
         public static List<Ciudad> getListaCiudades()
         {
             return getListaCiudades(new List<Ciudad>());
@@ -54,6 +66,5 @@ namespace GrouponDesktop.Logic
 
             return listaCiudades;
         }
-
     }
 }

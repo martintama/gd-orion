@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.Logic
+﻿namespace GrouponDesktop.UI.AbmRol
 {
     partial class frmFuncionalidades
     {

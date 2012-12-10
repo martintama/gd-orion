@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
-using System.Collections;
 
-namespace GrouponDesktop
+namespace GrouponDesktop.Base
 {
-    class clsLogin
+    class Login
     {
         public static void ValidarUsuario(String usuario, String passhashed)
         {
@@ -28,7 +28,7 @@ namespace GrouponDesktop
                 clsMain.objInfoSesion.Idusuario = Convert.ToInt32(dr1["idusuario"]);
                 clsMain.objInfoSesion.Idrol = Convert.ToInt32(dr1["idrol"]);
                 clsMain.objInfoSesion.idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
-                
+
                 dr1.Close();
                 dr1.Dispose();
 
@@ -67,7 +67,7 @@ namespace GrouponDesktop
 
             dr1.Dispose();
 
-           return arrFunc.ToArray();
+            return arrFunc.ToArray();
         }
     }
 }
