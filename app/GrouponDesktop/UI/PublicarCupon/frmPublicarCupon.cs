@@ -15,5 +15,10 @@ namespace GrouponDesktop.PublicarCupon
         {
             InitializeComponent();
         }
+
+        private void frmPublicarCupon_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

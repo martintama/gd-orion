@@ -15,5 +15,10 @@ namespace GrouponDesktop.RegistroConsumoCupon
         {
             InitializeComponent();
         }
+
+        private void frmRegistroConsumo_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

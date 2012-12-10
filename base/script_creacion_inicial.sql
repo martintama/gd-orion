@@ -1,3 +1,4 @@
+begin transaction tran1
 -- Crear tablas!
 USE [GD2C2012]
 
@@ -60,6 +61,7 @@ alter table orion.clientes_ciudades add constraint pk_clientes_ciudades primary 
 CREATE TABLE ORION.compras(
 	idcompra			int IDENTITY(1,1) NOT NULL,
 	idcliente			int NOT NULL,
+	codigo 				varchar(50) NOT NULL,
 	fecha_compra		date NOT NULL,
 	cantidad			smallint NOT NULL,
 	idcupon				int NOT NULL,
@@ -68,6 +70,7 @@ CREATE TABLE ORION.compras(
 	activo				bit default 1
 ) ON [PRIMARY]
 alter table orion.compras add constraint pk_compras primary key (idcompra)
+ALTER TABLE orion.compras ADD CONSTRAINT uniq_compras_codigo UNIQUE NONCLUSTERED (codigo)
 
 -- compras_estados
 CREATE TABLE ORION.compras_estados(
@@ -92,7 +95,6 @@ CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
 	idproveedor 			int  NOT NULL,
 	descripcion 			varchar(200) NOT NULL,
-	codigo 					varchar(50) NOT NULL,
 	fecha_alta 				date NOT NULL,
 	fecha_publicacion 		date NOT NULL,
 	fecha_vencimiento 		date NOT NULL,
@@ -690,19 +692,19 @@ WHERE pt.provee_RS is not null
 	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
 
 -- Cupones				00:08
-insert into ORION.cupones(idproveedor, descripcion, codigo, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
+insert into ORION.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
 cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real)
-select p.idproveedor, groupon_descripcion, groupon_codigo, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
+select p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
 sum(isnull(groupon_cantidad,0)), DATEADD(d, 5, groupon_fecha_venc), 5, dateadd(d, 1, groupon_fecha)
 from ORION.proveedores_temp ct inner join ORION.proveedores p on p.cuit = ct.provee_cuit
 where groupon_entregado_fecha is null and groupon_devolucion_fecha is null and factura_fecha is null
-group by p.idproveedor, groupon_descripcion,groupon_codigo, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio
-order by groupon_codigo
+group by p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio
+order by groupon_fecha
 
 
 -- Compras				00:10
-insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, nro_cupon, idcompra_estado)
-select c.idcliente, pt.Groupon_Fecha_Compra, COUNT(distinct Groupon_Codigo), cu.idcupon, cu.idcupon,1
+insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, nro_cupon, idcompra_estado, codigo)
+select c.idcliente, pt.Groupon_Fecha_Compra, COUNT(distinct Groupon_Codigo), cu.idcupon, cu.idcupon,1, groupon_codigo
 from orion.proveedores_temp pt
 left join ORION.clientes c on c.dni = pt.cli_dni
 left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
@@ -710,14 +712,16 @@ where Groupon_Descripcion is not null and groupon_fecha_compra is not null and g
 groupon_entregado_fecha is null
 group by c.idcliente, pt.Groupon_Fecha_Compra, cu.idcupon, Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha
 
+	-- Agrego indices	00:00
+	CREATE INDEX idx_compras_codigo ON ORION.compras(codigo)
 
 -- Devoluciones			00:05
 insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo)
 select Groupon_Devolucion_Fecha, co.idcompra, '- no especifica (migración inicial) -' 
 from orion.proveedores_temp pt
 left join ORION.clientes c on c.dni = pt.cli_dni
-left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-left join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
+--left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
+inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt_groupon_codigo and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is not null and 
 groupon_entregado_fecha is null
 group by  Groupon_Devolucion_Fecha, co.idcompra
@@ -731,8 +735,8 @@ insert into ORION.consumos(fecha_consumo, idcompra)
 select Groupon_Entregado_Fecha, co.idcompra
 from orion.proveedores_temp pt
 inner join ORION.clientes c on c.dni = pt.cli_dni
-inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-inner join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon and co.fecha_compra = pt.groupon_fecha_Compra
+--inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
+inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt_groupon_codigo and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is not null
 group by  Groupon_Entregado_Fecha, co.idcompra
@@ -797,3 +801,5 @@ update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COU
 -- FINALMENTE, BORRO LAS TABLAS TEMPORALES
 drop table orion.proveedores_temp
 drop table orion.clientes_temp
+
+commit	

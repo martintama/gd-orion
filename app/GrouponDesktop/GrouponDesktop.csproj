@@ -224,6 +224,12 @@
     <EmbeddedResource Include="UI\frmSeleccionTipoUsuario.resx">
       <DependentUpon>frmSeleccionTipoUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\HistorialCupones\frmHistorialCupones.resx">
+      <DependentUpon>frmHistorialCupones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ListadoEstadistico\frmListadoEstadistico.resx">
+      <DependentUpon>frmListadoEstadistico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\PedirDevolucion\frmPedirDevolucion.resx">
       <DependentUpon>frmPedirDevolucion.cs</DependentUpon>
     </EmbeddedResource>

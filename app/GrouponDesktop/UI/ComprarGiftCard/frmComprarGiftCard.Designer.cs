@@ -37,6 +37,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             this.groupBox1.Controls.Add(this.btnSeleccionar);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtUsuarioReceptor);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(400, 86);
             this.groupBox1.TabIndex = 0;
@@ -99,7 +100,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(324, 123);
+            this.btnAceptar.Location = new System.Drawing.Point(324, 154);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 5;
@@ -108,7 +109,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(234, 123);
+            this.btnCancelar.Location = new System.Drawing.Point(234, 154);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 6;
@@ -119,23 +120,34 @@
             // 
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.ForeColor = System.Drawing.Color.Red;
-            this.lblMensaje.Location = new System.Drawing.Point(18, 123);
+            this.lblMensaje.Location = new System.Drawing.Point(18, 154);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(40, 13);
             this.lblMensaje.TabIndex = 7;
             this.lblMensaje.Text = "Errores";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(8, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(156, 20);
+            this.label27.TabIndex = 31;
+            this.label27.Text = "Comprar Gift-Card";
+            // 
             // frmComprarGiftCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 158);
+            this.ClientSize = new System.Drawing.Size(424, 186);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmComprarGiftCard";
-            this.Text = "Comprar Giftcard";
+            this.Text = "Cuponete Orion - Comprar Giftcard";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -154,5 +166,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.Label label27;
     }
 }

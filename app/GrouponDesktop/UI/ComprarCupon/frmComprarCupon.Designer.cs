@@ -123,6 +123,7 @@
             // 
             this.txtPrecioReal.Location = new System.Drawing.Point(86, 109);
             this.txtPrecioReal.Name = "txtPrecioReal";
+            this.txtPrecioReal.ReadOnly = true;
             this.txtPrecioReal.Size = new System.Drawing.Size(100, 20);
             this.txtPrecioReal.TabIndex = 7;
             // 
@@ -139,6 +140,7 @@
             // 
             this.txtLimitePromo.Location = new System.Drawing.Point(357, 79);
             this.txtLimitePromo.Name = "txtLimitePromo";
+            this.txtLimitePromo.ReadOnly = true;
             this.txtLimitePromo.Size = new System.Drawing.Size(100, 20);
             this.txtLimitePromo.TabIndex = 5;
             // 
@@ -155,6 +157,7 @@
             // 
             this.txtPrecioFicticio.Location = new System.Drawing.Point(86, 79);
             this.txtPrecioFicticio.Name = "txtPrecioFicticio";
+            this.txtPrecioFicticio.ReadOnly = true;
             this.txtPrecioFicticio.Size = new System.Drawing.Size(100, 20);
             this.txtPrecioFicticio.TabIndex = 3;
             // 
@@ -172,6 +175,7 @@
             this.txtDescripcion.Location = new System.Drawing.Point(86, 20);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.ReadOnly = true;
             this.txtDescripcion.Size = new System.Drawing.Size(371, 47);
             this.txtDescripcion.TabIndex = 1;
             // 
@@ -280,7 +284,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmComprarCupon";
-            this.Text = "Comprar Cupón";
+            this.Text = "Cuponete Orion - Comprar cupón";
             this.Load += new System.EventHandler(this.frmComprarCupon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
