@@ -97,6 +97,10 @@ Tabla cupones:
 
 Tabla compras:
 - Inicialmente se cargan todos los cupones con el estado "comprado". Una vez que se cargan la tabla de devoluciones y consumos, se actualiza dicho estado según corresponda.
+- Se detectaron inconsistencias en los códigos de compra de los cupones. Si bien en el enunciado figura que los códigos son POR COMPRA, en la base se encontraron compras del mismo cupón, 
+por diferentes usuarios, con el mismo código. Tal es el caso de la compra con código: AAADWZLCSP12, que fue comprada por ERVAR Ferreyra (DNI 48357541) y CEFERINO Silva (DNI 86345376).
+En estos casos se optó por mantener la compatibilidad hacia atras, migrando los datos como están, pero asegurando que a futuro dicho código sea realmente por compra.
+
 - Para todos los cupones que hayan quedado como "comprado", se setearon como "vencidos" todos los cupones que se hayan comprado hasta el 26/12/2009. Esto se hizo así para mantener 
 la coherencia de vencimiento a los 5 dias de la compra: Como el cupón comprado más "recientemente" es del 31/12/2009, se asume que hoy es 01/01/2010 
 (Tomamos como consideración que si fuera otra fecha más reciente, habría más registros de esas fechas. Como no lo podemos comprobar, lo suponemos).
@@ -167,7 +171,7 @@ conserva la facilidad de uso y la flexibilidad.
 	
 	- Cuando se editan las ciudades, se desactivan todas y se cargan nuevamente
 	
-	- La carga inicial de $15 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
+	- La carga inicial de $10 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
 	
 ABM de proveedores
 - Para buscar todos los CUIT, se carga -1 porque es un valor que no se podrá cargar manualmente.
@@ -177,6 +181,7 @@ Comprar GiftCard
 - Si bien en la base existente hay giftcard con todos los valores entre 25 y 99, se estipuló que a partir de la migración el monto no sea tan libre sino acotado entre { $25, $30, $50, $75 y $100 }.
 - En la selección por busqueda, el cliente logueado se omite de los resultados para evitar que se autocompren una giftcard.
 - En esta misma selección por busqueda, se omiten todos los clientes inhabilitados.
+- Las compras de giftcards se cargan como cargas de credito para los usuarios destinatarios con el tipo de pago "Gift Card".
 
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del cliente
