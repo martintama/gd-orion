@@ -184,6 +184,6 @@ Comprar GiftCard
 - Las compras de giftcards se cargan como cargas de credito para los usuarios destinatarios con el tipo de pago "Gift Card".
 
 Devoluciones
-	Los cupones devuefltos vuelven a figurar en el stock del cliente
+	Los cupones devuefltos vuelven a figurar en el stock del proveedor
 	
 	
