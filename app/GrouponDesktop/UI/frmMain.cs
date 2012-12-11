@@ -7,11 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
-using GrouponDesktop.UI.AbmCliente;
-using GrouponDesktop.UI.AbmProveedor;
-using GrouponDesktop.UI.AbmRol;
 
-namespace GrouponDesktop
+namespace GrouponDesktop.UI
 {
     public partial class frmMain : Form
     {
@@ -54,90 +51,92 @@ namespace GrouponDesktop
         }
         private void CargarMenues()
         {
-            InfoSesion objInfo = clsMain.objInfoSesion;
-
-            foreach(clsMain.Funcionalidades func in clsMain.objInfoSesion.Funcionalidades){
-                switch (func)
+            ;
+            Usuario usuarioAsociado = clsMain.objInfoSesion.GetUsuarioAsociado();
+            foreach (Funcionalidad func in usuarioAsociado.RolAsociado.FuncHabilitadas)
+            {
+                switch (func.idfuncionalidad)
                 {
-                    case clsMain.Funcionalidades.ABM_Cliente:
+                    
+                    case 1:  //clsMain.Funcionalidades.ABM_Cliente:
                         {
                             administrativoStripMenuItem.Visible = true;
                             aBMClienteToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.ABM_Proveedor:
+                    case 2: //clsMain.Funcionalidades.ABM_Proveedor:
                         {
                             administrativoStripMenuItem.Visible = true;
                             aBMProveedorToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.ABM_Rol:
+                    case 3: //clsMain.Funcionalidades.ABM_Rol:
                         {
                             administrativoStripMenuItem.Visible = true;
                             aBMRolToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Armar_Cupon:
+                    case 4: //clsMain.Funcionalidades.Armar_Cupon:
                         {
                             proveedoresStripMenuItem.Visible = true;
                             armarCupónToolStripMenuItem1.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Cargar_Credito:
+                    case 5: //clsMain.Funcionalidades.Cargar_Credito:
                         {
                             clientesStripMenuItem.Visible = true;
                             cargarCreditoToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Comprar_Cupon:
+                    case 6: //clsMain.Funcionalidades.Comprar_Cupon:
                         {
                             clientesStripMenuItem.Visible = true;
                             comprarCuponToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Comprar_GiftCard:
+                    case 7: //clsMain.Funcionalidades.Comprar_GiftCard:
                         {
                             clientesStripMenuItem.Visible = true;
                             comprarGiftcardToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Facturacion_Proveedores:
+                    case 8: //clsMain.Funcionalidades.Facturacion_Proveedores:
                         {
                             administrativoStripMenuItem.Visible = true;
                             facturacionToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Historial_Compra:
+                    case 9: //clsMain.Funcionalidades.Historial_Compra:
                         {
                             clientesStripMenuItem.Visible = true;
                             verHistorialToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Listado_Estadístico:
+                    case 10: //clsMain.Funcionalidades.Listado_Estadístico:
                         {
                             administrativoStripMenuItem.Visible = true;
                             listadoEstadisticoToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Pedir_Devolucion:
+                    case 11: //clsMain.Funcionalidades.Pedir_Devolucion:
                         {
                             clientesStripMenuItem.Visible = true;
                             pedirDevoluciónToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Publicar_Cupon:
+                    case 12: //clsMain.Funcionalidades.Publicar_Cupon:
                         {
                             administrativoStripMenuItem.Visible = true;
                             publicarCuponesToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Registro_Consumo_cupon:
+                    case 13: //clsMain.Funcionalidades.Registro_Consumo_cupon:
                         {
                             proveedoresStripMenuItem.Visible = true;
                             registrarConsumoToolStripMenuItem.Visible = true;
                             break;
                         }
-                    case clsMain.Funcionalidades.Registro_Usuario:
+                    case 14: //clsMain.Funcionalidades.Registro_Usuario:
                         {
                             cambiarClaveToolStripMenuItem.Visible = true;
                             break;
@@ -173,7 +172,8 @@ namespace GrouponDesktop
 
         private void aBMRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAbmRol frmRol = new frmAbmRol();
+
+            AbmRol.frmAbmRol frmRol = new AbmRol.frmAbmRol();
 
             frmRol.ShowDialog();
         }
@@ -225,7 +225,7 @@ namespace GrouponDesktop
 
         private void comprarGiftcardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComprarGiftCard.frmComprarGiftCard frmComprarGift = new GrouponDesktop.ComprarGiftCard.frmComprarGiftCard();
+            ComprarGiftCard.frmComprarGiftCard frmComprarGift = new ComprarGiftCard.frmComprarGiftCard();
             frmComprarGift.ShowDialog();
         }
 

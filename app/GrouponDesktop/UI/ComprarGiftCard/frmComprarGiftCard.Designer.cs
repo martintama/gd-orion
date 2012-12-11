@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.ComprarGiftCard
+﻿namespace GrouponDesktop.UI.ComprarGiftCard
 {
     partial class frmComprarGiftCard
     {
@@ -80,6 +80,7 @@
             this.btnSeleccionar.TabIndex = 2;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // label1
             // 
@@ -148,6 +149,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmComprarGiftCard";
             this.Text = "Cuponete Orion - Comprar Giftcard";
+            this.Load += new System.EventHandler(this.frmComprarGiftCard_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.UI.AbmProveedor
+namespace GrouponDesktop.UI
 {
     
     public partial class frmBuscarProveedor : Form
@@ -50,7 +50,7 @@ namespace GrouponDesktop.UI.AbmProveedor
                 }
 
                 dgvDatos.AutoGenerateColumns = false;
-                dgvDatos.DataSource = Proveedor.BuscarProveedor(razonsocial, cuit, email);
+                dgvDatos.DataSource = Proveedor.BuscarProveedor(razonsocial, cuit, email, false, 0);
             }
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -141,7 +141,7 @@ namespace GrouponDesktop.UI.AbmProveedor
 
         private void EditarProveedor(Proveedor proveedor)
         {
-            frmAbmProveedor oFrm = new frmAbmProveedor();
+            AbmProveedor.frmAbmProveedor oFrm = new AbmProveedor.frmAbmProveedor();
             oFrm.elProveedor = proveedor;
             oFrm.ShowDialog();
 

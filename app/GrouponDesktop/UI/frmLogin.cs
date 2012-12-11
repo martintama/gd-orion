@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using GrouponDesktop.UI;
 
 namespace GrouponDesktop
 {
@@ -76,21 +77,15 @@ namespace GrouponDesktop
 
                 string passHashed = Hasher.ConvertirSHA256(password);
 
-                Login.ValidarUsuario(usuario, passHashed);
+                InfoSesion login = new InfoSesion();
+                login.ValidarUsuario(usuario, passHashed);
 
-                //Ahora me fijo que fue lo que se cargó
-                if (clsMain.objInfoSesion.Idusuario > 0)
-                    return_status = 0;
-                else
-                    if (clsMain.objInfoSesion.Idusuario == 0)
-                        return_status = 1;
-                    else //Si es -1 el usuario fue baneado
-                        return_status = 3;
+                return Convert.ToInt32(login.EstadoLogin);
 
             }
             else
             {
-                return_status = 2;
+                return_status = -2;
             }
 
             return return_status;

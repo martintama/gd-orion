@@ -166,6 +166,14 @@ CREATE TABLE ORION.gift_cards(
 ) ON [PRIMARY]
 alter table orion.gift_cards add constraint pk_gift_cards primary key (idgift_card)
 
+-- gift cards montos
+CREATE TABLE ORION.gift_cards_montos(
+	idmonto				smallint identity(1,1) not null,
+	monto				decimal(18,2) default 0,
+	activo				bit default 1
+) on [PRIMARY]
+alter table orion.gift_cards_montos add constraint pk_gift_cards_montos primary key (idmonto)
+
 -- proveedores
 CREATE TABLE ORION.proveedores(
 	idproveedor		int IDENTITY(1,1) NOT NULL,
@@ -540,6 +548,12 @@ GO
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
 
+-- gift_cards_montos
+insert into ORION.gift_cards_montos(monto) values ('25')
+insert into ORION.gift_cards_montos(monto) values ('30')
+insert into ORION.gift_cards_montos(monto) values ('50')
+insert into ORION.gift_cards_montos(monto) values ('75')
+insert into ORION.gift_cards_montos(monto) values ('100')
 
 -- Compras_estados		00:00
 insert into ORION.compras_estados(descripcion) values('Comprado')

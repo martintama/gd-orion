@@ -9,22 +9,6 @@ namespace GrouponDesktop.Base
 {
     public class Rol
     {
-        // SUBCLASE - FUNCIONALIDAD
-        public class Funcionalidad
-        {
-            // CONTRUCTOR
-            public Funcionalidad(Int32 id, String descrip)
-            {
-                this.idfuncionalidad = id;
-                this.Descripcion = descrip;
-            }
-
-            // PROPIEDADES
-            public Int32 idfuncionalidad { get; set; }
-
-            public String Descripcion { get; set; }
-        }
-
         // CONTRUCTORES
         public Rol()
         {
@@ -159,7 +143,7 @@ namespace GrouponDesktop.Base
             sqlc.Parameters.Add("@idfuncionalidad", SqlDbType.Int);
             sqlc.Prepare();
 
-            foreach (Rol.Funcionalidad func in this.FuncHabilitadas)
+            foreach (Funcionalidad func in this.FuncHabilitadas)
             {
                 sqlc.Parameters["@idrol"].Value = this.Idrol;
                 sqlc.Parameters["@idfuncionalidad"].Value = func.idfuncionalidad;
@@ -233,7 +217,7 @@ namespace GrouponDesktop.Base
 
                 while (dr1.Read())
                 {
-                    this.FuncHabilitadas.Add(new Rol.Funcionalidad(
+                    this.FuncHabilitadas.Add(new Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 
@@ -250,7 +234,7 @@ namespace GrouponDesktop.Base
                 dr1 = sqlc.ExecuteReader();
                 while (dr1.Read())
                 {
-                    this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
+                    this.FuncInhabilitadas.Add(new Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 
@@ -283,7 +267,7 @@ namespace GrouponDesktop.Base
 
                 while (dr1.Read())
                 {
-                    this.FuncInhabilitadas.Add(new Rol.Funcionalidad(
+                    this.FuncInhabilitadas.Add(new Funcionalidad(
                         Convert.ToInt32(dr1["idfuncionalidad"]), dr1["descripcion"].ToString().Trim()));
                 }
 

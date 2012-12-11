@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using GrouponDesktop.UI;
 
 namespace GrouponDesktop
 {
@@ -23,15 +24,9 @@ namespace GrouponDesktop
             //Application.Run(new frmLogin());
             
             //DESARROLLO
+            clsMain.objInfoSesion.Idtipo_usuario = 1;
+            clsMain.objInfoSesion.EntidadLogueada = (Administrativo)Usuario.GetEntidadAsociada(1);
             
-            clsMain.objInfoSesion = new InfoSesion();
-            clsMain.objInfoSesion.Idusuario = 1;
-            clsMain.objInfoSesion.Idrol = 4;
-            clsMain.objInfoSesion.idtipo_usuario = 1;
-            Dbaccess.DBConnect();
-            clsMain.objInfoSesion.Funcionalidades = Login.obtenerFuncionalidades(clsMain.objInfoSesion.Idrol);
-            Dbaccess.DBDisconnect();
-
             Application.Run(new frmMain());
             
 

@@ -96,5 +96,91 @@ namespace GrouponDesktop.Base
                 Dbaccess.DBDisconnect();
             }
         }
+
+        public static Object GetEntidadAsociada(Int32 idusuario)
+        {
+            Object objetoRetorno = new Object();
+            Usuario usuarioRetorno = new Usuario();
+
+            Int16 idtipo_usuario = 0;
+            Int32 idasociado = 0;
+
+            if (idusuario > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "select u.idusuario, u.idtipo_usuario, u.idrol, c.idcliente, p.idproveedor from ORION.usuarios u ";
+                sqlstr += "left join ORION.clientes c on c.idusuario = u.idusuario left join ORION.proveedores p on p.idusuario = u.idusuario ";
+                sqlstr += "where u.idusuario = @idusuario";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idusuario", idusuario);
+
+                SqlDataReader dr1 = sqlc.ExecuteReader();
+
+                if (dr1.Read()){
+                    idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
+
+                    switch (idtipo_usuario)
+                    {
+                        case 1: //Administrativo
+                            {
+                                //No tiene ningun dato asociado...
+                                usuarioRetorno = new Usuario();
+                                usuarioRetorno.Idusuario = idusuario;
+                                usuarioRetorno.RolAsociado = new Rol(Convert.ToInt32(dr1["idrol"]), "-");
+
+                                usuarioRetorno.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), "-");
+
+                               
+                                break;
+                            }
+                        case 2: //Cliente
+                            {
+                                idasociado = Convert.ToInt32(dr1["idcliente"]);
+                                break;
+                            }
+                        case 3: //Proveedor
+                            {
+                                idasociado = Convert.ToInt32(dr1["idproveedor"]);
+                                break;
+                            }
+                    }
+                }
+                else{
+                    throw new Exception("Usuario sin tipo usuario");
+                }
+                dr1.Close();
+                dr1.Dispose();
+                sqlc.Dispose();
+
+
+                Dbaccess.DBDisconnect();
+
+                switch (idtipo_usuario)
+                {
+                    case 1: //Administrativo
+                        {
+                            Administrativo unAdministrativo = new Administrativo();
+                            usuarioRetorno.RolAsociado.GetFuncionalidades();
+                            unAdministrativo.UsuarioAsociado = usuarioRetorno;
+                            objetoRetorno = unAdministrativo;
+                            break;
+                        }
+                    case 2: //Cliente
+                        {
+                            objetoRetorno = Cliente.GetCliente(idasociado);
+                            break;
+                        }
+                    case 3: //Proveedor
+                        {
+                            objetoRetorno = Proveedor.BuscaProveedor(idasociado);
+                            break;
+                        }
+                }
+            }
+
+            return objetoRetorno;
+        }
     }
 }

@@ -50,12 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Administrativo.cs" />
     <Compile Include="Base\Cupon.cs" />
-    <Compile Include="Base\Login.cs" />
+    <Compile Include="Base\Funcionalidad.cs" />
+    <Compile Include="Base\GiftCard.cs" />
     <Compile Include="Base\ConfigReader.cs" />
     <Compile Include="Base\BasicFunctions.cs" />
     <Compile Include="Base\Ciudad.cs" />
     <Compile Include="Base\Cliente.cs" />
+    <Compile Include="Base\MontoGiftCard.cs" />
     <Compile Include="Base\Proveedor.cs" />
     <Compile Include="Base\Rubro.cs" />
     <Compile Include="Base\TipoUsuario.cs" />
@@ -66,10 +69,10 @@
     <Compile Include="UI\AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AbmCliente\frmBuscarCliente.cs">
+    <Compile Include="UI\frmBuscarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AbmCliente\frmBuscarCliente.Designer.cs">
+    <Compile Include="UI\frmBuscarCliente.Designer.cs">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmProveedor\frmAbmProveedor.cs">
@@ -79,10 +82,10 @@
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Rol.cs" />
-    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.cs">
+    <Compile Include="UI\frmBuscarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AbmProveedor\frmBuscarProveedor.Designer.cs">
+    <Compile Include="UI\frmBuscarProveedor.Designer.cs">
       <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\frmAbmRol.cs">
@@ -183,13 +186,13 @@
     <EmbeddedResource Include="UI\AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AbmCliente\frmBuscarCliente.resx">
+    <EmbeddedResource Include="UI\frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmProveedor\frmAbmProveedor.resx">
       <DependentUpon>frmAbmProveedor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AbmProveedor\frmBuscarProveedor.resx">
+    <EmbeddedResource Include="UI\frmBuscarProveedor.resx">
       <DependentUpon>frmBuscarProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\frmAbmRol.resx">

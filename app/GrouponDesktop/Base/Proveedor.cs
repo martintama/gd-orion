@@ -42,27 +42,30 @@ namespace GrouponDesktop.Base
 
         //METODOS
         public static List<Proveedor> BuscarProveedor(){
-            return BuscarProveedor("", "", "");
+            return BuscarProveedor("", "", "",false,0);
         }
 
-        public static List<Proveedor> BuscarProveedor(String razonSocial, String cuit, String email){
+        public static Proveedor BuscaProveedor(Int32 idproveedor)
+        {
+            return BuscarProveedor("","","",false,idproveedor)[0];
+        }
+        public static List<Proveedor> BuscarProveedor(String razonSocial, String cuit, String email, Boolean soloHabilitados, Int32 idproveedor){
             List<Proveedor> listaProveedores = new List<Proveedor>();
 
             Dbaccess.DBConnect();
 
             String sqlwhere = "1=1 ";
             if (razonSocial != "")
-            {
                 sqlwhere += "and p.razon_social like '%' + @razonsocial + '%' ";
-            }
+            
             if (cuit != "")
-            {
                 sqlwhere += "and p.cuit = @cuit ";
-            }
+            
             if (email != "")
-            {
                 sqlwhere += "and p.email like '%' + @email + '%' ";
-            }
+
+            if (idproveedor > 0)
+                sqlwhere += "and p.idproveedor = @idproveedor ";
 
             String sqlstr = "select p.idproveedor, p.razon_social, p.email, p.telefono, p.direccion, p.codigo_postal, ";
             sqlstr += "p.idciudad, c.descripcion ciudad, p.cuit, p.idrubro, r.descripcion rubro, ";
@@ -73,18 +76,17 @@ namespace GrouponDesktop.Base
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             
             if (razonSocial != "")
-            {
                 sqlc.Parameters.AddWithValue("@razonsocial", razonSocial);
-            }
-            if (cuit != "")
-            {
-                sqlc.Parameters.AddWithValue("@cuit", cuit);
-            }
-            if (email != "")
-            {
-                sqlc.Parameters.AddWithValue("@email", email);
-            }
 
+            if (cuit != "")
+                sqlc.Parameters.AddWithValue("@cuit", cuit);
+
+            if (email != "")
+                sqlc.Parameters.AddWithValue("@email", email);
+
+            if (idproveedor > 0)
+                sqlc.Parameters.AddWithValue("@idproveedor", idproveedor);
+                
             SqlDataReader dr1 = sqlc.ExecuteReader();
 
             while (dr1.Read())

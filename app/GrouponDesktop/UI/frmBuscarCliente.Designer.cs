@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.UI.AbmCliente
+﻿namespace GrouponDesktop.UI
 {
     partial class frmBuscarCliente
     {
@@ -43,13 +43,8 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CambiarEstado = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
@@ -184,7 +179,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 152);
+            this.label5.Location = new System.Drawing.Point(13, 163);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(113, 13);
             this.label5.TabIndex = 26;
@@ -196,14 +191,7 @@
             this.dgvDatos.AllowUserToDeleteRows = false;
             this.dgvDatos.AllowUserToResizeRows = false;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Nombre,
-            this.Apellido,
-            this.DNI,
-            this.Estado,
-            this.Editar,
-            this.CambiarEstado});
-            this.dgvDatos.Location = new System.Drawing.Point(12, 168);
+            this.dgvDatos.Location = new System.Drawing.Point(12, 179);
             this.dgvDatos.MultiSelect = false;
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.ReadOnly = true;
@@ -213,59 +201,9 @@
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "Nombre";
-            this.Nombre.Frozen = true;
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            this.Nombre.Width = 120;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "Apellido";
-            this.Apellido.Frozen = true;
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.ReadOnly = true;
-            this.Apellido.Width = 120;
-            // 
-            // DNI
-            // 
-            this.DNI.DataPropertyName = "DNI";
-            this.DNI.Frozen = true;
-            this.DNI.HeaderText = "DNI";
-            this.DNI.Name = "DNI";
-            this.DNI.ReadOnly = true;
-            this.DNI.Width = 70;
-            // 
-            // Estado
-            // 
-            this.Estado.Frozen = true;
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            this.Estado.ReadOnly = true;
-            this.Estado.Width = 60;
-            // 
-            // Editar
-            // 
-            this.Editar.Frozen = true;
-            this.Editar.HeaderText = "Editar";
-            this.Editar.Name = "Editar";
-            this.Editar.ReadOnly = true;
-            this.Editar.Width = 50;
-            // 
-            // CambiarEstado
-            // 
-            this.CambiarEstado.Frozen = true;
-            this.CambiarEstado.HeaderText = "Cambiar estado";
-            this.CambiarEstado.Name = "CambiarEstado";
-            this.CambiarEstado.ReadOnly = true;
-            // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(467, 381);
+            this.btnCerrar.Location = new System.Drawing.Point(467, 392);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 28;
@@ -273,11 +211,21 @@
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(12, 126);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 29;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            // 
             // frmBuscarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 411);
+            this.ClientSize = new System.Drawing.Size(554, 421);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.dgvDatos);
             this.Controls.Add(this.label5);
@@ -314,11 +262,6 @@
         private System.Windows.Forms.DataGridView dgvDatos;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Label lblSoloNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
-        private System.Windows.Forms.DataGridViewButtonColumn Editar;
-        private System.Windows.Forms.DataGridViewButtonColumn CambiarEstado;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

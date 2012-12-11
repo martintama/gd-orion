@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.UI.AbmProveedor
+﻿namespace GrouponDesktop.UI
 {
     partial class frmBuscarProveedor
     {

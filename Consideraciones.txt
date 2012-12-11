@@ -171,5 +171,12 @@ conserva la facilidad de uso y la flexibilidad.
 	
 ABM de proveedores
 - Para buscar todos los CUIT, se carga -1 porque es un valor que no se podrá cargar manualmente.
+
+
+Comprar GiftCard
+- Si bien en la base existente hay giftcard con todos los valores entre 25 y 99, se estipuló que a partir de la migración el monto no sea tan libre sino acotado entre { $25, $30, $50, $75 y $100 }.
+
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del cliente
+	
+	

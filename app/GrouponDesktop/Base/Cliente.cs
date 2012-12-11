@@ -196,13 +196,23 @@ namespace GrouponDesktop.Base
             
         }
 
-        internal List<Cliente> GetClientes()
+        internal static Cliente GetCliente(Int32 idcliente)
         {
-            //Va -1 porque el usuario no puede cargar numeros negativos
-            return this.GetClientes("", "", -1, "");
+            return GetClientes("", "", -1, "",false,idcliente)[0];
         }
 
-        internal List<Cliente> GetClientes(String nombre, String apellido, Int32 dni, String email)
+        internal static List<Cliente> GetClientes()
+        {
+            //Va -1 porque el usuario no puede cargar numeros negativos
+            return GetClientes("", "", -1, "");
+        }
+
+        internal static List<Cliente> GetClientes(String nombre, String apellido, Int32 dni, String email)
+        {
+            return GetClientes("", "", -1, "", false, 0);
+        }
+        
+        internal static List<Cliente> GetClientes(String nombre, String apellido, Int32 dni, String email, Boolean soloHabilitados, Int32 idcliente)
         {
             List<Cliente> listaClientes = new List<Cliente>();
 
@@ -220,6 +230,12 @@ namespace GrouponDesktop.Base
 
             if (email != "")
                 sqlwhere += "and c.email like @email ";
+            
+            if (soloHabilitados)
+                sqlwhere += "and u.habilitado = 1 ";
+
+            if (idcliente >= 0)
+                sqlwhere += "and c.idcliente = @idcliente ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
             sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, ";
@@ -243,6 +259,9 @@ namespace GrouponDesktop.Base
             if (email != "")
                 sqlc.Parameters.AddWithValue("@email", "%" + email + "%");
 
+            if (idcliente >= 0)
+                sqlc.Parameters.AddWithValue("@idcliente", idcliente) ;
+            
             SqlDataReader dr1 = sqlc.ExecuteReader();
 
             //Hago un corte de control para cargar las ciudades

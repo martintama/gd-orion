@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop
+﻿namespace GrouponDesktop.UI
 {
     partial class frmMain
     {

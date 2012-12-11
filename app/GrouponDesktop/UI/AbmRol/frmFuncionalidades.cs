@@ -50,12 +50,12 @@ namespace GrouponDesktop.UI.AbmRol
             lstHabilitadas.Items.Clear();
             lstDeshabilitadas.Items.Clear();
 
-            foreach (Rol.Funcionalidad func in objRol.FuncHabilitadas)
+            foreach (Funcionalidad func in objRol.FuncHabilitadas)
             {
                 lstHabilitadas.Items.Add(func);
             }
 
-            foreach (Rol.Funcionalidad func in objRol.FuncInhabilitadas)
+            foreach (Funcionalidad func in objRol.FuncInhabilitadas)
             {
                 lstDeshabilitadas.Items.Add(func);
             }
@@ -91,7 +91,7 @@ namespace GrouponDesktop.UI.AbmRol
             objRol.FuncHabilitadas.Clear();
             objRol.TipoUsuarioAsociados.Clear();
 
-            foreach (Rol.Funcionalidad func in lstHabilitadas.Items)
+            foreach (Funcionalidad func in lstHabilitadas.Items)
             {
                 objRol.FuncHabilitadas.Add(func);
             }
@@ -162,7 +162,7 @@ namespace GrouponDesktop.UI.AbmRol
             {
                 if (lstHabilitadas.SelectedItem != null)
                 {
-                    Rol.Funcionalidad func = (Rol.Funcionalidad)lstHabilitadas.SelectedItem;
+                    Funcionalidad func = (Funcionalidad)lstHabilitadas.SelectedItem;
 
                     lstDeshabilitadas.Items.Add(func);
                     lstHabilitadas.Items.Remove(func);
@@ -180,7 +180,7 @@ namespace GrouponDesktop.UI.AbmRol
             {
                 if (lstDeshabilitadas.SelectedItem != null)
                 {
-                    Rol.Funcionalidad func = (Rol.Funcionalidad)lstDeshabilitadas.SelectedItem;
+                    Funcionalidad func = (Funcionalidad)lstDeshabilitadas.SelectedItem;
 
                     lstHabilitadas.Items.Add(func);
                     lstDeshabilitadas.Items.Remove(func);
