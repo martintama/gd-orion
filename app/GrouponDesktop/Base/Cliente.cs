@@ -44,8 +44,6 @@ namespace GrouponDesktop.Base
 
         public Usuario UsuarioAsociado { get; set; }
 
-        public Boolean Habilitado { get; set; }
-
         // METODOS
         internal short Grabar()
         {
@@ -57,8 +55,8 @@ namespace GrouponDesktop.Base
             try
             {
 
-                Int16 return_parameter = this.UsuarioAsociado.Grabar(Dbaccess.globalConn, tran);
-                
+                return_value = this.UsuarioAsociado.Grabar(Dbaccess.globalConn, tran);
+
                 if (return_value == 0) //Si no ay problemas
                 {
 
@@ -85,13 +83,15 @@ namespace GrouponDesktop.Base
                     cmd.ExecuteNonQuery();
                    
                     return_value = Convert.ToInt16(returnParameter.Value);
-                    this.Idcliente = Convert.ToInt32(idclienteParam.Value);
+                    
 
                     cmd.Dispose();
 
                     //Finalmente, si hasta acá está todo OK, grabo las ciudades preferidas y listo. 
                     if (return_value == 0)
                     {
+                        this.Idcliente = Convert.ToInt32(idclienteParam.Value);
+
                         //Borro antes todas las ciudades y las recreo
                         String sqlstr = "Delete from orion.clientes_ciudades where idcliente = @idcliente";
                         cmd = new SqlCommand(sqlstr, Dbaccess.globalConn);
@@ -122,7 +122,6 @@ namespace GrouponDesktop.Base
                     else
                     {
                         return_value = 2; //Datos duplicados
-                        this.UsuarioAsociado.Idusuario = 0; //Reseteo el idusuario
                         tran.Rollback();
                         
                     }
@@ -131,7 +130,6 @@ namespace GrouponDesktop.Base
                 else
                 {
                     return_value = 1; //Usuarios ya existentes
-                    this.UsuarioAsociado.Idusuario = 0; //Reseteo el idusuario
                     tran.Rollback();
                     
                 }
@@ -224,8 +222,8 @@ namespace GrouponDesktop.Base
                 sqlwhere += "and c.email like @email ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
-            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, c.habilitado, ";
-            sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuariohabilitado, tu.idtipo_usuario, tu.descripcion tipo_usuario from ORION.clientes c  ";
+            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, ";
+            sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuario_habilitado, tu.idtipo_usuario, tu.descripcion tipo_usuario from ORION.clientes c  ";
             sqlstr += "left join ORION.clientes_ciudades cc on cc.idcliente = c.idcliente left join ORION.ciudades ci on ci.idciudad = cc.idciudad ";
             sqlstr += "left join ORION.usuarios u on u.idusuario = c.idusuario left join ORION.roles r on r.idrol = u.idrol ";
             sqlstr += "left join ORION.tipos_usuario tu on tu.idtipo_usuario = u.idtipo_usuario ";
@@ -272,10 +270,9 @@ namespace GrouponDesktop.Base
                 unCliente.Telefono = dr1["telefono"].ToString();
 
                 unCliente.FechaNacimiento = DateTime.ParseExact(dr1["fecha_nacimiento"].ToString(), "yyyy.MM.dd", null);
-                unCliente.Habilitado = Convert.ToBoolean(dr1["habilitado"]);
                 unCliente.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"].ToString());
                 unCliente.UsuarioAsociado.Username = dr1["username"].ToString();
-                unCliente.UsuarioAsociado.Habilitado = Convert.ToBoolean(dr1["usuariohabilitado"].ToString());
+                unCliente.UsuarioAsociado.Habilitado = Convert.ToBoolean(dr1["usuario_habilitado"].ToString());
                 unCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(dr1["idrol"]), dr1["nombrerol"].ToString());
                 unCliente.UsuarioAsociado.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), dr1["tipo_usuario"].ToString());
 
@@ -310,39 +307,17 @@ namespace GrouponDesktop.Base
 
         internal void Inhabilitar()
         {
-            if (this.Idcliente > 0)
+            if (this.UsuarioAsociado.Idusuario > 0)
             {
-                Dbaccess.DBConnect();
-
-                String sqlstr = "update orion.clientes set activo = 0 where idcliente = @idcliente";
-
-                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
-
-                sqlc.ExecuteNonQuery();
-
-                sqlc.Dispose();
-
-                Dbaccess.DBDisconnect();
+                this.UsuarioAsociado.Inhabilitar();
             }
         }
 
         internal void Habilitar()
         {
-            if (this.Idcliente > 0)
+            if (this.UsuarioAsociado.Idusuario > 0)
             {
-                Dbaccess.DBConnect();
-
-                String sqlstr = "update orion.clientes set activo = 1 where idcliente = @idcliente";
-
-                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
-
-                sqlc.ExecuteNonQuery();
-
-                sqlc.Dispose();
-
-                Dbaccess.DBDisconnect();
+                this.UsuarioAsociado.Habilitar();
             }
         }
     }

@@ -188,7 +188,7 @@ namespace GrouponDesktop
 
         private void aBMProveedorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAbmProveedor frmProveedor = new frmAbmProveedor();
+            frmBuscarProveedor frmProveedor = new frmBuscarProveedor();
             frmProveedor.ShowDialog();
 
         }

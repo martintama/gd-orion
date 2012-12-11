@@ -9,6 +9,10 @@ namespace GrouponDesktop.Base
     public class Ciudad
     {
         // CONSTRUCTORES
+        public Ciudad()
+        {
+        }
+
         public Ciudad(Int32 idciudad, String descripcion)
         {
             this.Idciudad = idciudad;

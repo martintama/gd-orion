@@ -43,13 +43,13 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.btnCerrar = new System.Windows.Forms.Button();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Editar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CambiarEstado = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
@@ -86,11 +86,11 @@
             // 
             this.lblSoloNum.AutoSize = true;
             this.lblSoloNum.ForeColor = System.Drawing.Color.Red;
-            this.lblSoloNum.Location = new System.Drawing.Point(364, 55);
+            this.lblSoloNum.Location = new System.Drawing.Point(346, 55);
             this.lblSoloNum.Name = "lblSoloNum";
-            this.lblSoloNum.Size = new System.Drawing.Size(78, 13);
+            this.lblSoloNum.Size = new System.Drawing.Size(180, 13);
             this.lblSoloNum.TabIndex = 8;
-            this.lblSoloNum.Text = "* Solo números";
+            this.lblSoloNum.Text = "* Solo números sin guiones ni puntos";
             this.lblSoloNum.Visible = false;
             // 
             // txtDNI
@@ -98,7 +98,7 @@
             this.txtDNI.Location = new System.Drawing.Point(258, 52);
             this.txtDNI.MaxLength = 8;
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(100, 20);
+            this.txtDNI.Size = new System.Drawing.Size(85, 20);
             this.txtDNI.TabIndex = 7;
             // 
             // txtEmail
@@ -213,16 +213,6 @@
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Location = new System.Drawing.Point(467, 381);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
-            this.btnCerrar.TabIndex = 28;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.UseVisualStyleBackColor = true;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
             // Nombre
             // 
             this.Nombre.DataPropertyName = "Nombre";
@@ -272,6 +262,16 @@
             this.CambiarEstado.HeaderText = "Cambiar estado";
             this.CambiarEstado.Name = "CambiarEstado";
             this.CambiarEstado.ReadOnly = true;
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Location = new System.Drawing.Point(467, 381);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
+            this.btnCerrar.TabIndex = 28;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // frmBuscarCliente
             // 

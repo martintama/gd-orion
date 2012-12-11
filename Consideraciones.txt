@@ -1,14 +1,16 @@
 TODO!
-- Actualizar la cantidad de stock en base a los consumos y devoluciones
 - Verificar estado de los proveedoers
-
+- Explciar por que pasamos el DNI y CUIT de varchars a int
+- Verificar que el CUIT sea valido (en el abm de proveedoreS)
+- Inhabilitar usuarios significa NO inhabilitar el login sino solo las funcionalidades que dicen.
+- Averiguar si hay que usar verificaicon dinamica en el abm o se puede con los try catch
+- Verificar los rangos de fecha de nacimiento contra la BBDD
 
 
 - Los giftcards no restan credito de quien lo regala
 
 - El nro de cupon es el PK de la tabla de cupones
 - Fecha entrega = fecha consumo
-- IMPORTENTE Recordar restar el stock de los cupones!! en base a restante = total - compras + devoluciones
 
 
 Funcionalidades por defecto
@@ -155,16 +157,19 @@ encuentran odenados alfabeticamente, habría que mover casi todos los checkboxes
 Finalmente se decidió por la idea de tener dos listas, una de ciudades seleccionadas y otra de
 ciudades disponibles. Similar a cómo se seleccionan las funcionalidades en los roles ya que
 conserva la facilidad de uso y la flexibilidad.
+
+	- Grabar datos
+	A la hora de grabar datos, se verifica que no exista el usuario, tanto activo como inactivo. Esto es así
+	porque podria suceder que un usuario inhabilitado se vuelva a habilitar por parte del administrativo
 	
-- Grabar datos
-A la hora de grabar datos, se verifica que no exista el usuario, tanto activo como inactivo. Esto es así
-porque podria suceder que un usuario inhabilitado se vuelva a habilitar por parte del administrativo
-
-Se verifica además que no exista otro cliente con el mismo teléfono o DNI. Esas son los datos que es verifican
-para asegurar que no se da el caso que un cliente se loguea con más de un usuario.
-
-- Cuando se editan las ciudades, se desactivan todas y se cargan nuevamente
-
-- La carga inicial de $15 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
+	Se verifica además que no exista otro cliente con el mismo teléfono o DNI. Esas son los datos que es verifican
+	para asegurar que no se da el caso que un cliente se loguea con más de un usuario.
+	
+	- Cuando se editan las ciudades, se desactivan todas y se cargan nuevamente
+	
+	- La carga inicial de $15 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
+	
+ABM de proveedores
+- Para buscar todos los CUIT, se carga -1 porque es un valor que no se podrá cargar manualmente.
 Devoluciones
-Los cupones devuefltos vuelven a figurar en el stock del cliente
+	Los cupones devuefltos vuelven a figurar en el stock del cliente

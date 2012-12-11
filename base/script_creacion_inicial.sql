@@ -41,8 +41,7 @@ CREATE TABLE ORION.clientes(
 	fecha_nacimiento	date NOT NULL,
 	idusuario			int NOT NULL,
 	credito_actual		numeric(18,2) default 0 NOT NULL,
-	solicitar_datos		bit default 0,
-	habilitado			bit default 1,
+	solicitar_datos		bit default 0
 ) ON [PRIMARY]
 alter table orion.clientes add constraint pk_clientes primary key (idcliente)
 ALTER TABLE orion.clientes ADD CONSTRAINT telefono_uniq UNIQUE NONCLUSTERED (telefono)
@@ -179,11 +178,11 @@ CREATE TABLE ORION.proveedores(
 	cuit			char(11) NOT NULL,
 	idrubro			int NOT NULL,
 	contacto		varchar(50) NOT NULL,
-	idusuario		int NOT NULL,
-	habilitado		bit default 1 NOT NULL,
+	idusuario		int NOT NULL
 ) ON [PRIMARY]
 alter table orion.proveedores add constraint pk_proveedores primary key (idproveedor)
-ALTER TABLE orion.proveedores ADD CONSTRAINT cuit_razon_uniq UNIQUE NONCLUSTERED (cuit,razon_social)
+ALTER TABLE orion.proveedores ADD CONSTRAINT uniq_proveedores_cuit UNIQUE NONCLUSTERED (cuit)
+ALTER TABLE orion.proveedores ADD CONSTRAINT uniq_proveedores_razon_social UNIQUE NONCLUSTERED (razon_social)
 
 -- roles
 CREATE TABLE ORION.roles(

@@ -86,7 +86,7 @@ namespace GrouponDesktop.UI.AbmCliente
             if (e.ColumnIndex == this.dgvDatos.Columns["CambiarEstado"].Index)
             {
 
-                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).Habilitado == false)
+                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == false)
                 {
                     e.Value = "Habilitar";
                 }
@@ -99,7 +99,7 @@ namespace GrouponDesktop.UI.AbmCliente
             else if (e.ColumnIndex == this.dgvDatos.Columns["Estado"].Index)
             {
 
-                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).Habilitado == true)
+                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == true)
                 {
                     e.Value = "Habilitado";
                 }
@@ -128,15 +128,15 @@ namespace GrouponDesktop.UI.AbmCliente
                 {
                     if (dgvDatos.Columns[e.ColumnIndex].Name == "CambiarEstado")
                     {
-                        Cliente objCliente = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
+                        Cliente unCliente = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
 
-                        if (objCliente.Habilitado)
+                        if (unCliente.UsuarioAsociado.Habilitado)
                         {
-                            this.InhabilitarCliente(objCliente);
+                            this.InhabilitarCliente(unCliente);
                         }
                         else
                         {
-                            this.HabilitarCliente(objCliente);
+                            this.HabilitarCliente(unCliente);
                         }
 
                         this.CargarDatos();

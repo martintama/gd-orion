@@ -136,6 +136,7 @@
             // chkHabilitado
             // 
             this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Enabled = false;
             this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkHabilitado.Location = new System.Drawing.Point(424, 46);
             this.chkHabilitado.Name = "chkHabilitado";

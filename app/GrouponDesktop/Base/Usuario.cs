@@ -36,7 +36,10 @@ namespace GrouponDesktop.Base
             cmd.Transaction = sqltran;
             
             cmd.Parameters.AddWithValue("@username", this.Username);
-            cmd.Parameters.AddWithValue("@pass", Hasher.ConvertirSHA256(this.Clave));
+            if (this.Clave != "")
+            {
+                cmd.Parameters.AddWithValue("@pass", Hasher.ConvertirSHA256(this.Clave));
+            }
             cmd.Parameters.AddWithValue("@idrol", this.RolAsociado.Idrol);
             cmd.Parameters.AddWithValue("@idtipo_usuario", this.TipoUsuarioAsociado.Idtipo_usuario);
 
@@ -54,6 +57,44 @@ namespace GrouponDesktop.Base
             this.Idusuario = Convert.ToInt32(idusuarioParameter.Value);
             return Convert.ToInt16(returnParameter.Value);
             
+        }
+
+        internal void Inhabilitar()
+        {
+            if (this.Idusuario > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "update orion.usuarios set habilitado = 0 where idusuario = @idusuario";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idusuario", this.Idusuario);
+
+                sqlc.ExecuteNonQuery();
+
+                sqlc.Dispose();
+
+                Dbaccess.DBDisconnect();
+            }
+        }
+
+        internal void Habilitar()
+        {
+            if (this.Idusuario > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "update orion.usuarios set habilitado = 1 where idusuario = @idusuario";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idusuario", this.Idusuario);
+
+                sqlc.ExecuteNonQuery();
+
+                sqlc.Dispose();
+
+                Dbaccess.DBDisconnect();
+            }
         }
     }
 }

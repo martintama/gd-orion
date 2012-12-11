@@ -29,11 +29,20 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblContacto = new System.Windows.Forms.Label();
+            this.lblCiudad = new System.Windows.Forms.Label();
+            this.lblRubro = new System.Windows.Forms.Label();
+            this.lblCuit = new System.Windows.Forms.Label();
+            this.lblCodpostal = new System.Windows.Forms.Label();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.lblMail = new System.Windows.Forms.Label();
+            this.lblRazonSocial = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtContacto = new System.Windows.Forms.TextBox();
             this.cmbCiudad = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -42,7 +51,7 @@
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtCodPostal = new System.Windows.Forms.TextBox();
@@ -56,25 +65,16 @@
             this.btnGrabar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.lvlRazonSocial = new System.Windows.Forms.Label();
-            this.lblMail = new System.Windows.Forms.Label();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblCodpostal = new System.Windows.Forms.Label();
-            this.lblCuit = new System.Windows.Forms.Label();
-            this.lblRubro = new System.Windows.Forms.Label();
-            this.lblCiudad = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.lblErrorMsg = new System.Windows.Forms.Label();
-            this.lblContacto = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -89,12 +89,12 @@
             this.groupBox2.Controls.Add(this.lblDireccion);
             this.groupBox2.Controls.Add(this.lblTelefono);
             this.groupBox2.Controls.Add(this.lblMail);
-            this.groupBox2.Controls.Add(this.lvlRazonSocial);
+            this.groupBox2.Controls.Add(this.lblRazonSocial);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.cmbRubro);
-            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.txtContacto);
             this.groupBox2.Controls.Add(this.cmbCiudad);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label15);
@@ -103,7 +103,7 @@
             this.groupBox2.Controls.Add(this.txtCuit);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.txtRazonSocial);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.txtCodPostal);
@@ -120,6 +120,105 @@
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del proveedor";
+            // 
+            // lblContacto
+            // 
+            this.lblContacto.AutoSize = true;
+            this.lblContacto.ForeColor = System.Drawing.Color.Red;
+            this.lblContacto.Location = new System.Drawing.Point(373, 221);
+            this.lblContacto.Name = "lblContacto";
+            this.lblContacto.Size = new System.Drawing.Size(50, 13);
+            this.lblContacto.TabIndex = 83;
+            this.lblContacto.Text = "* Revisar";
+            this.lblContacto.Visible = false;
+            // 
+            // lblCiudad
+            // 
+            this.lblCiudad.AutoSize = true;
+            this.lblCiudad.ForeColor = System.Drawing.Color.Red;
+            this.lblCiudad.Location = new System.Drawing.Point(221, 146);
+            this.lblCiudad.Name = "lblCiudad";
+            this.lblCiudad.Size = new System.Drawing.Size(50, 13);
+            this.lblCiudad.TabIndex = 82;
+            this.lblCiudad.Text = "* Revisar";
+            this.lblCiudad.Visible = false;
+            // 
+            // lblRubro
+            // 
+            this.lblRubro.AutoSize = true;
+            this.lblRubro.ForeColor = System.Drawing.Color.Red;
+            this.lblRubro.Location = new System.Drawing.Point(221, 196);
+            this.lblRubro.Name = "lblRubro";
+            this.lblRubro.Size = new System.Drawing.Size(50, 13);
+            this.lblRubro.TabIndex = 81;
+            this.lblRubro.Text = "* Revisar";
+            this.lblRubro.Visible = false;
+            // 
+            // lblCuit
+            // 
+            this.lblCuit.AutoSize = true;
+            this.lblCuit.ForeColor = System.Drawing.Color.Red;
+            this.lblCuit.Location = new System.Drawing.Point(341, 171);
+            this.lblCuit.Name = "lblCuit";
+            this.lblCuit.Size = new System.Drawing.Size(50, 13);
+            this.lblCuit.TabIndex = 79;
+            this.lblCuit.Text = "* Revisar";
+            this.lblCuit.Visible = false;
+            // 
+            // lblCodpostal
+            // 
+            this.lblCodpostal.AutoSize = true;
+            this.lblCodpostal.ForeColor = System.Drawing.Color.Red;
+            this.lblCodpostal.Location = new System.Drawing.Point(373, 121);
+            this.lblCodpostal.Name = "lblCodpostal";
+            this.lblCodpostal.Size = new System.Drawing.Size(50, 13);
+            this.lblCodpostal.TabIndex = 78;
+            this.lblCodpostal.Text = "* Revisar";
+            this.lblCodpostal.Visible = false;
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.ForeColor = System.Drawing.Color.Red;
+            this.lblDireccion.Location = new System.Drawing.Point(418, 96);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(50, 13);
+            this.lblDireccion.TabIndex = 77;
+            this.lblDireccion.Text = "* Revisar";
+            this.lblDireccion.Visible = false;
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.ForeColor = System.Drawing.Color.Red;
+            this.lblTelefono.Location = new System.Drawing.Point(373, 73);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(50, 13);
+            this.lblTelefono.TabIndex = 76;
+            this.lblTelefono.Text = "* Revisar";
+            this.lblTelefono.Visible = false;
+            // 
+            // lblMail
+            // 
+            this.lblMail.AutoSize = true;
+            this.lblMail.ForeColor = System.Drawing.Color.Red;
+            this.lblMail.Location = new System.Drawing.Point(373, 46);
+            this.lblMail.Name = "lblMail";
+            this.lblMail.Size = new System.Drawing.Size(50, 13);
+            this.lblMail.TabIndex = 75;
+            this.lblMail.Text = "* Revisar";
+            this.lblMail.Visible = false;
+            // 
+            // lblRazonSocial
+            // 
+            this.lblRazonSocial.AutoSize = true;
+            this.lblRazonSocial.ForeColor = System.Drawing.Color.Red;
+            this.lblRazonSocial.Location = new System.Drawing.Point(373, 21);
+            this.lblRazonSocial.Name = "lblRazonSocial";
+            this.lblRazonSocial.Size = new System.Drawing.Size(50, 13);
+            this.lblRazonSocial.TabIndex = 74;
+            this.lblRazonSocial.Text = "* Revisar";
+            this.lblRazonSocial.Visible = false;
             // 
             // label4
             // 
@@ -156,13 +255,13 @@
             this.cmbRubro.Size = new System.Drawing.Size(121, 21);
             this.cmbRubro.TabIndex = 72;
             // 
-            // textBox5
+            // txtContacto
             // 
-            this.textBox5.Location = new System.Drawing.Point(94, 218);
-            this.textBox5.MaxLength = 50;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(168, 20);
-            this.textBox5.TabIndex = 53;
+            this.txtContacto.Location = new System.Drawing.Point(94, 218);
+            this.txtContacto.MaxLength = 50;
+            this.txtContacto.Name = "txtContacto";
+            this.txtContacto.Size = new System.Drawing.Size(168, 20);
+            this.txtContacto.TabIndex = 53;
             // 
             // cmbCiudad
             // 
@@ -234,13 +333,13 @@
             this.label16.TabIndex = 68;
             this.label16.Text = "Numérico, sin guiones ni parentesis";
             // 
-            // textBox2
+            // txtRazonSocial
             // 
-            this.textBox2.Location = new System.Drawing.Point(93, 18);
-            this.textBox2.MaxLength = 50;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(168, 20);
-            this.textBox2.TabIndex = 51;
+            this.txtRazonSocial.Location = new System.Drawing.Point(93, 18);
+            this.txtRazonSocial.MaxLength = 50;
+            this.txtRazonSocial.Name = "txtRazonSocial";
+            this.txtRazonSocial.Size = new System.Drawing.Size(168, 20);
+            this.txtRazonSocial.TabIndex = 51;
             // 
             // label2
             // 
@@ -287,7 +386,7 @@
             // 
             // txtTelefono
             // 
-            this.txtTelefono.Location = new System.Drawing.Point(93, 70);
+            this.txtTelefono.Location = new System.Drawing.Point(93, 68);
             this.txtTelefono.MaxLength = 50;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(100, 20);
@@ -336,6 +435,7 @@
             this.btnGrabar.TabIndex = 76;
             this.btnGrabar.Text = "Grabar datos";
             this.btnGrabar.UseVisualStyleBackColor = true;
+            this.btnGrabar.Click += new System.EventHandler(this.btnGrabar_Click);
             // 
             // btnCancelar
             // 
@@ -345,11 +445,12 @@
             this.btnCancelar.TabIndex = 75;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblPassword);
-            this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.lblUsername);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.chkHabilitado);
             this.groupBox1.Controls.Add(this.txtPassword);
@@ -363,6 +464,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de acceso";
             // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.ForeColor = System.Drawing.Color.Black;
+            this.lblPassword.Location = new System.Drawing.Point(221, 49);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(159, 13);
+            this.lblPassword.TabIndex = 84;
+            this.lblPassword.Text = "* Solo para resetear el password";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.ForeColor = System.Drawing.Color.Red;
+            this.lblUsername.Location = new System.Drawing.Point(322, 22);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(50, 13);
+            this.lblUsername.TabIndex = 83;
+            this.lblUsername.Text = "* Revisar";
+            this.lblUsername.Visible = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -370,11 +492,12 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 13);
             this.label5.TabIndex = 24;
-            this.label5.Text = " Max 10 caracteres";
+            this.label5.Text = " Max 20 caracteres";
             // 
             // chkHabilitado
             // 
             this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Enabled = false;
             this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkHabilitado.Location = new System.Drawing.Point(411, 48);
             this.chkHabilitado.Name = "chkHabilitado";
@@ -395,7 +518,7 @@
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(94, 19);
-            this.txtUsername.MaxLength = 50;
+            this.txtUsername.MaxLength = 20;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(121, 20);
             this.txtUsername.TabIndex = 4;
@@ -418,124 +541,15 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Username:";
             // 
-            // label27
+            // lblTitulo
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(12, 9);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(204, 20);
-            this.label27.TabIndex = 77;
-            this.label27.Text = "Alta de nuevo proveedor";
-            // 
-            // lvlRazonSocial
-            // 
-            this.lvlRazonSocial.AutoSize = true;
-            this.lvlRazonSocial.ForeColor = System.Drawing.Color.Red;
-            this.lvlRazonSocial.Location = new System.Drawing.Point(373, 21);
-            this.lvlRazonSocial.Name = "lvlRazonSocial";
-            this.lvlRazonSocial.Size = new System.Drawing.Size(50, 13);
-            this.lvlRazonSocial.TabIndex = 74;
-            this.lvlRazonSocial.Text = "* Revisar";
-            this.lvlRazonSocial.Visible = false;
-            // 
-            // lblMail
-            // 
-            this.lblMail.AutoSize = true;
-            this.lblMail.ForeColor = System.Drawing.Color.Red;
-            this.lblMail.Location = new System.Drawing.Point(373, 46);
-            this.lblMail.Name = "lblMail";
-            this.lblMail.Size = new System.Drawing.Size(50, 13);
-            this.lblMail.TabIndex = 75;
-            this.lblMail.Text = "* Revisar";
-            this.lblMail.Visible = false;
-            // 
-            // lblTelefono
-            // 
-            this.lblTelefono.AutoSize = true;
-            this.lblTelefono.ForeColor = System.Drawing.Color.Red;
-            this.lblTelefono.Location = new System.Drawing.Point(373, 73);
-            this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(50, 13);
-            this.lblTelefono.TabIndex = 76;
-            this.lblTelefono.Text = "* Revisar";
-            this.lblTelefono.Visible = false;
-            // 
-            // lblDireccion
-            // 
-            this.lblDireccion.AutoSize = true;
-            this.lblDireccion.ForeColor = System.Drawing.Color.Red;
-            this.lblDireccion.Location = new System.Drawing.Point(418, 96);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(50, 13);
-            this.lblDireccion.TabIndex = 77;
-            this.lblDireccion.Text = "* Revisar";
-            this.lblDireccion.Visible = false;
-            // 
-            // lblCodpostal
-            // 
-            this.lblCodpostal.AutoSize = true;
-            this.lblCodpostal.ForeColor = System.Drawing.Color.Red;
-            this.lblCodpostal.Location = new System.Drawing.Point(373, 121);
-            this.lblCodpostal.Name = "lblCodpostal";
-            this.lblCodpostal.Size = new System.Drawing.Size(50, 13);
-            this.lblCodpostal.TabIndex = 78;
-            this.lblCodpostal.Text = "* Revisar";
-            this.lblCodpostal.Visible = false;
-            // 
-            // lblCuit
-            // 
-            this.lblCuit.AutoSize = true;
-            this.lblCuit.ForeColor = System.Drawing.Color.Red;
-            this.lblCuit.Location = new System.Drawing.Point(341, 171);
-            this.lblCuit.Name = "lblCuit";
-            this.lblCuit.Size = new System.Drawing.Size(50, 13);
-            this.lblCuit.TabIndex = 79;
-            this.lblCuit.Text = "* Revisar";
-            this.lblCuit.Visible = false;
-            // 
-            // lblRubro
-            // 
-            this.lblRubro.AutoSize = true;
-            this.lblRubro.ForeColor = System.Drawing.Color.Red;
-            this.lblRubro.Location = new System.Drawing.Point(221, 196);
-            this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(50, 13);
-            this.lblRubro.TabIndex = 81;
-            this.lblRubro.Text = "* Revisar";
-            this.lblRubro.Visible = false;
-            // 
-            // lblCiudad
-            // 
-            this.lblCiudad.AutoSize = true;
-            this.lblCiudad.ForeColor = System.Drawing.Color.Red;
-            this.lblCiudad.Location = new System.Drawing.Point(221, 146);
-            this.lblCiudad.Name = "lblCiudad";
-            this.lblCiudad.Size = new System.Drawing.Size(50, 13);
-            this.lblCiudad.TabIndex = 82;
-            this.lblCiudad.Text = "* Revisar";
-            this.lblCiudad.Visible = false;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.ForeColor = System.Drawing.Color.Red;
-            this.label28.Location = new System.Drawing.Point(322, 22);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(50, 13);
-            this.label28.TabIndex = 83;
-            this.label28.Text = "* Revisar";
-            this.label28.Visible = false;
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.ForeColor = System.Drawing.Color.Black;
-            this.lblPassword.Location = new System.Drawing.Point(221, 49);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(159, 13);
-            this.lblPassword.TabIndex = 84;
-            this.lblPassword.Text = "* Solo para resetear el password";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(12, 9);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(204, 20);
+            this.lblTitulo.TabIndex = 77;
+            this.lblTitulo.Text = "Alta de nuevo proveedor";
             // 
             // lblErrorMsg
             // 
@@ -546,30 +560,20 @@
             this.lblErrorMsg.TabIndex = 78;
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblContacto
-            // 
-            this.lblContacto.AutoSize = true;
-            this.lblContacto.ForeColor = System.Drawing.Color.Red;
-            this.lblContacto.Location = new System.Drawing.Point(373, 221);
-            this.lblContacto.Name = "lblContacto";
-            this.lblContacto.Size = new System.Drawing.Size(50, 13);
-            this.lblContacto.TabIndex = 83;
-            this.lblContacto.Text = "* Revisar";
-            this.lblContacto.Visible = false;
-            // 
             // frmAbmProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 449);
             this.Controls.Add(this.lblErrorMsg);
-            this.Controls.Add(this.label27);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmAbmProveedor";
             this.Text = "ABM Proveedores";
+            this.Load += new System.EventHandler(this.frmAbmProveedor_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -585,7 +589,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbRubro;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtContacto;
         private System.Windows.Forms.ComboBox cmbCiudad;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label15;
@@ -594,7 +598,7 @@
         private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtCodPostal;
@@ -615,16 +619,16 @@
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblRubro;
         private System.Windows.Forms.Label lblCuit;
         private System.Windows.Forms.Label lblCodpostal;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.Label lblMail;
-        private System.Windows.Forms.Label lvlRazonSocial;
+        private System.Windows.Forms.Label lblRazonSocial;
         private System.Windows.Forms.Label lblCiudad;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblErrorMsg;
         private System.Windows.Forms.Label lblContacto;
