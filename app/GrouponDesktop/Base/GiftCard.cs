@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.Base
 {
@@ -15,5 +17,24 @@ namespace GrouponDesktop.Base
 
         public Cliente ClienteDestino { get; set; }
 
+
+        internal void CompraGiftCard()
+        {
+
+            Dbaccess.DBConnect();
+
+            SqlCommand cmd = new SqlCommand("Orion.ComprarGiftCard", Dbaccess.globalConn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@idcliente_origen", this.ClienteOrigen.Idcliente);
+            cmd.Parameters.AddWithValue("@idcliente_destino", this.ClienteDestino.Idcliente);
+            cmd.Parameters.AddWithValue("@fecha", Sesion.currentDate.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@monto", this.Monto);
+
+            cmd.ExecuteNonQuery();
+
+            Dbaccess.DBDisconnect();
+
+        }
     }
 }

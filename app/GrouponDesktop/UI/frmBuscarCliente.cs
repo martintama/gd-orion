@@ -14,6 +14,7 @@ namespace GrouponDesktop.UI
     {
         public Boolean esAbm = true;
         public Cliente clienteSeleccionado;
+        public List<Cliente> listaExclusion = new List<Cliente>();
 
         public frmBuscarCliente()
         {
@@ -115,8 +116,19 @@ namespace GrouponDesktop.UI
 
             String mail = txtEmail.Text;
 
-            
-            dgvDatos.DataSource = Cliente.GetClientes(nombre, apellido, dni, mail);
+            List<Cliente> listaDatos;
+            if (esAbm)
+            {
+                listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail, false, 0);
+            }
+            else
+            {
+                listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail);
+            }
+
+            ExcluirClientes(listaDatos, listaExclusion);
+
+            dgvDatos.DataSource = listaDatos;
             
         }
 
@@ -162,34 +174,44 @@ namespace GrouponDesktop.UI
 
         private void dgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == this.dgvDatos.Columns["colCambiarEstado"].Index)
+            if (this.esAbm)
             {
-
-                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == false)
+                if (e.ColumnIndex == this.dgvDatos.Columns["colCambiarEstado"].Index)
                 {
-                    e.Value = "Habilitar";
-                }
-                else
-                {
-                    e.Value = "Deshabilitar";
-                }
 
+                    if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == false)
+                    {
+                        e.Value = "Habilitar";
+                    }
+                    else
+                    {
+                        e.Value = "Deshabilitar";
+                    }
+
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colEstado"].Index)
+                {
+
+                    if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == true)
+                    {
+                        e.Value = "Habilitado";
+                    }
+                    else
+                    {
+                        e.Value = "Deshabilitado";
+                    }
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colEditar"].Index)
+                {
+                    e.Value = "Editar";
+                }
             }
-            else if (e.ColumnIndex == this.dgvDatos.Columns["colEstado"].Index)
+            else
             {
-
-                if (((List<Cliente>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == true)
+                if (e.ColumnIndex == this.dgvDatos.Columns["colSeleccionar"].Index)
                 {
-                    e.Value = "Habilitado";
+                    e.Value = "Seleccionar";
                 }
-                else
-                {
-                    e.Value = "Deshabilitado";
-                }
-            }
-            else if (e.ColumnIndex == this.dgvDatos.Columns["colEditar"].Index)
-            {
-                e.Value = "Editar";
             }
         }
 
@@ -250,6 +272,34 @@ namespace GrouponDesktop.UI
             {
                 cliente.Inhabilitar();
             }
+        }
+
+        private List<Cliente> ExcluirClientes(List<Cliente> listaOriginal, List<Cliente> listaExcluidos)
+        {
+            if (listaExcluidos != null)
+            {
+                Boolean encontrado = false;
+                int i;
+                foreach (Cliente item in listaExcluidos)
+                {
+                    i = 0;
+                    while (!encontrado && (i < listaOriginal.Count))
+                    {
+                        if (listaOriginal[i].DNI == item.DNI)
+                        {
+                            listaOriginal.RemoveAt(i);
+                            encontrado = true;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    
+                }
+            }
+
+            return listaOriginal;
         }
     }
 }

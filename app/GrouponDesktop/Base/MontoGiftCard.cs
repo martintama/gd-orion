@@ -10,7 +10,9 @@ namespace GrouponDesktop.Base
     {
         public Int16 Idmonto { get; set; }
 
-        public String Monto { get; set; }
+        public Decimal Monto { get; set; }
+
+        public String StrMonto { get; set; }
 
         public static List<MontoGiftCard> getMontos(){
             List<MontoGiftCard> listaMontos = new List<MontoGiftCard>();
@@ -25,7 +27,8 @@ namespace GrouponDesktop.Base
             {
                 MontoGiftCard item = new MontoGiftCard();
                 item.Idmonto = Convert.ToInt16(dr1["idmonto"]);
-                item.Monto = "$ " + dr1["monto"].ToString();
+                item.StrMonto = "$ " + dr1["monto"].ToString();
+                item.Monto = Convert.ToDecimal(dr1["monto"]);
 
                 listaMontos.Add(item);
             }

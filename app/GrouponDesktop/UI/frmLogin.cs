@@ -77,10 +77,9 @@ namespace GrouponDesktop
 
                 string passHashed = Hasher.ConvertirSHA256(password);
 
-                InfoSesion login = new InfoSesion();
-                login.ValidarUsuario(usuario, passHashed);
+                Sesion.ValidarUsuario(usuario, passHashed);
 
-                return Convert.ToInt32(login.EstadoLogin);
+                return Convert.ToInt32(Sesion.EstadoLogin);
 
             }
             else

@@ -175,6 +175,8 @@ ABM de proveedores
 
 Comprar GiftCard
 - Si bien en la base existente hay giftcard con todos los valores entre 25 y 99, se estipuló que a partir de la migración el monto no sea tan libre sino acotado entre { $25, $30, $50, $75 y $100 }.
+- En la selección por busqueda, el cliente logueado se omite de los resultados para evitar que se autocompren una giftcard.
+- En esta misma selección por busqueda, se omiten todos los clientes inhabilitados.
 
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del cliente

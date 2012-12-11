@@ -17,7 +17,7 @@ namespace GrouponDesktop.Base
             xdoc.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\GrouponConfig.xml");
             XmlNode xnodes = xdoc.SelectSingleNode("/Config/FechaSistema");
 
-            clsMain.currentDate = DateTime.ParseExact(xnodes.InnerText, "dd/MM/yyyy",null);           
+            Sesion.currentDate = DateTime.ParseExact(xnodes.InnerText, "dd/MM/yyyy",null);           
 
         }
     }

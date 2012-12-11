@@ -27,7 +27,7 @@ namespace GrouponDesktop.UI
         private void OcultarMenues()
         {
             administrativoStripMenuItem.Visible = false;
-            clientesStripMenuItem.Visible = true;
+            clientesStripMenuItem.Visible = false;
             proveedoresStripMenuItem.Visible = false;
 
             aBMClienteToolStripMenuItem.Visible = false;
@@ -51,8 +51,8 @@ namespace GrouponDesktop.UI
         }
         private void CargarMenues()
         {
-            ;
-            Usuario usuarioAsociado = clsMain.objInfoSesion.GetUsuarioAsociado();
+            
+            Usuario usuarioAsociado = Sesion.GetUsuarioAsociado();
             foreach (Funcionalidad func in usuarioAsociado.RolAsociado.FuncHabilitadas)
             {
                 switch (func.idfuncionalidad)
@@ -155,7 +155,8 @@ namespace GrouponDesktop.UI
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            clsMain.objInfoSesion = null;
+
+            Sesion.CerrarSesion();
 
             frmLogin frm;
             if (this.parentLogin != null)

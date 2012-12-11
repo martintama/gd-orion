@@ -112,7 +112,6 @@
     <Compile Include="UI\CargaCredito\frmCargarCredito.Designer.cs">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
     </Compile>
-    <Compile Include="Base\MainData.cs" />
     <Compile Include="UI\ComprarCupon\frmComprarCupon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,7 +266,7 @@
     <Compile Include="UI\RegistroConsumoCupon\frmRegistroConsumo.Designer.cs">
       <DependentUpon>frmRegistroConsumo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Base\InfoSesion.cs" />
+    <Compile Include="Base\Sesion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GrouponConfig.xml">

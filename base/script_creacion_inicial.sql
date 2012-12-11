@@ -329,7 +329,7 @@ GO
 -- =============================================
 -- Description:	Inserta un registro en la tabla de clientes y devueve en output el idcliente generado
 -- =============================================
-CREATE PROCEDURE [ORION].[Clientes_Grabar]
+ALTER PROCEDURE [ORION].[Clientes_Grabar]
 	@fecha date = null, @nombre varchar(50), @apellido varchar(50), @dni int, @mail varchar(50), @telefono varchar(50), 
 	@direccion varchar(100), @codpost varchar(8), @fechanac date, @idusuario int, @idcliente int = 0 output
 AS
@@ -350,7 +350,7 @@ BEGIN
 			
 			set @idcliente = @@IDENTITY
 			
-			--Carga inicial de $15!
+			--Carga inicial de $10!
 			insert into ORION.cargas(idcliente, idtipo_pago, fecha_carga, monto) values(@idcliente, 1, @fecha, '10')
 			return 0
 		end
@@ -370,11 +370,12 @@ BEGIN
 				
     end
 END
+
 GO
 -- =============================================
 -- Loguea al usuario y si es necesario lo banea por intentos fallidos
 -- =============================================
-CREATE PROCEDURE [ORION].[LoguearUsuario]
+ALTER PROCEDURE [ORION].[LoguearUsuario]
 	@username varchar(50), @passhashed char(64)
 AS
 BEGIN
@@ -387,10 +388,13 @@ BEGIN
 	declare @idtipo_usuario	tinyint
 	declare @idrol		int
 	declare @intentos_fallidos	tinyint
-
-	
-	select @idusuario = idusuario, @clave = clave, @idtipo_usuario = idtipo_usuario, @idrol = idrol, @intentos_fallidos = intentos_fallidos
-	from ORION.usuarios where username = @username and habilitado = 1
+	declare @idcliente	int
+	declare @idproveedor	int
+       
+	select @idusuario = u.idusuario, @clave = clave, @idtipo_usuario = idtipo_usuario, @idrol = idrol, @intentos_fallidos = intentos_fallidos,
+	@idcliente = c.idcliente, @idproveedor = p.idproveedor
+	from ORION.usuarios u left join ORION.clientes c on c.idusuario = u.idusuario left join ORION.proveedores p on p.idusuario = u.idusuario  
+	where username = @username and u.habilitado = 1
 	
 	-- Si no es nulo, existe. 
 	if (@idusuario is not null) begin
@@ -399,12 +403,12 @@ BEGIN
 			update ORION.usuarios set intentos_fallidos = 0 where idusuario = @idusuario
 			
 			-- Devuelvo los datos
-			select @idusuario idusuario, @idrol idrol, @idtipo_usuario idtipo_usuario
+			select @idusuario idusuario, @idrol idrol, @idtipo_usuario idtipo_usuario, @idcliente idcliente, @idproveedor idproveedor
 		end
 		else begin
 			if (@intentos_fallidos = 2) begin -- a la tercera lo banea
 				-- -1 -1 -1 indica que fue baneado
-				select -1 idusuario, -1 idrol, -1 idtipo_usuario
+				select -1 idusuario, -1 idrol, -1 idtipo_usuario, -1 idcliente, -1 idproveedor
 				
 				update ORION.usuarios set habilitado = 0 where idusuario = @idusuario
 			end
@@ -416,7 +420,7 @@ BEGIN
 	end
 	else begin
 		-- Devuelvo 0 0 0 para indicar que el logueo no fue satisfactorio
-		select 0 idusuario, 0 idrol, 0 idtipo_usuario
+		select 0 idusuario, 0 idrol, 0 idtipo_usuario, 0 idcliente, 0 idproveedor
 	end
 END
 
@@ -424,7 +428,7 @@ GO
 -- =============================================
 -- Description:	Inhabilita el rol deseado
 -- =============================================
-CREATE PROCEDURE [ORION].[Roles_Inhabilitar]
+ALTER PROCEDURE [ORION].[Roles_Inhabilitar]
 	@idrol int, @forzar bit
 AS 
 BEGIN
@@ -453,7 +457,7 @@ GO
 -- =============================================
 -- Description:	Obtiene los roles existentes en el sistema, opcionalmente puede pedirse un filtro
 -- =============================================
-CREATE PROCEDURE [ORION].[Roles_Obtener]
+ALTER PROCEDURE [ORION].[Roles_Obtener]
 	@filtro varchar(60) = '', @solo_habilitados bit = 0
 AS
 BEGIN
@@ -503,7 +507,7 @@ GO
 -- =============================================
 -- Description:	Inserta o actualiza el usuario
 -- =============================================
-CREATE PROCEDURE [ORION].[Usuarios_Grabar]
+ALTER PROCEDURE [ORION].[Usuarios_Grabar]
 	@idusuario int = 0 output, @username varchar(50), @pass char(64) = null, @idrol int, @idtipo_usuario tinyint, @habilitado bit = 1
 AS
 BEGIN
@@ -545,6 +549,20 @@ END
 
 GO
 
+-- =============================================
+-- Description:	Comprar GiftCard
+-- =============================================
+CREATE PROCEDURE Orion.ComprarGiftCard
+	@idcliente_origen int, @idcliente_destino int, @monto decimal(18,2), @fecha date
+AS
+BEGIN
+	Insert into ORION.gift_cards(fecha, idcliente_origen, idcliente_destino, monto)
+	values(@fecha, @idcliente_origen, @idcliente_destino, @monto)
+	
+	
+END
+GO
+
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
 
@@ -565,6 +583,8 @@ insert into ORION.compras_estados(descripcion) values('Vencido')
 insert into ORION.tipos_pago(descripcion, visible) values('Sistema', 0)
 insert into ORION.tipos_pago(descripcion) values('Efectivo')
 insert into ORION.tipos_pago(descripcion) values('Crédito')
+insert into ORION.tipos_pago(descripcion, visible) values('GiftCard', 0)
+
 
 -- Usuarios_tipo			00:00
 insert into ORION.tipos_usuario(descripcion) values('Administrativo')

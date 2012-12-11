@@ -6,25 +6,22 @@ using System.Data.SqlClient;
 
 namespace GrouponDesktop.Base
 {
-    class InfoSesion
+    static class Sesion
     {
-        public Object EntidadLogueada { get; set; }
-        public Int16 Idtipo_usuario { get; set; }
-        public LoginStatus EstadoLogin { get; set; }
-        
-        public InfoSesion(){
-            this.EstadoLogin = LoginStatus.login_exitoso;
-        }
+        static public Object EntidadLogueada { get; set; }
+        static public Int16 Idtipo_usuario { get; set; }
+        static public LoginStatus EstadoLogin { get; set; }
+        public static DateTime currentDate;
+
         public enum LoginStatus{
             login_exitoso,
             login_datos_incorrectos,
             login_inhabilitado
         }
 
-        public void ValidarUsuario(String usuario, String passhashed)
+        public static LoginStatus ValidarUsuario(String usuario, String passhashed)
         {
-            clsMain.objInfoSesion = new InfoSesion();
-
+            Int32 idasociado = 0;
             Dbaccess.DBConnect();
 
             SqlCommand sqlc = new SqlCommand("orion.LoguearUsuario", Dbaccess.globalConn);
@@ -37,17 +34,17 @@ namespace GrouponDesktop.Base
 
             if (dr1.Read())
             {
-                this.Idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
-                switch (this.Idtipo_usuario)
+                Idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
+                switch (Idtipo_usuario)
                 {
                     case -1: //Login Inhabilitado
                         {
-                            this.EstadoLogin = LoginStatus.login_inhabilitado;
+                            EstadoLogin = LoginStatus.login_inhabilitado;
                             break;
                         }
                     case 0: //Datos invalidos
                         {
-                            this.EstadoLogin = LoginStatus.login_datos_incorrectos;
+                            EstadoLogin = LoginStatus.login_datos_incorrectos;
                             break;
                         }
                     case 1: //administrativo
@@ -58,24 +55,18 @@ namespace GrouponDesktop.Base
                             unAdministrativo.UsuarioAsociado.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), "-");
                             unAdministrativo.UsuarioAsociado.RolAsociado.GetFuncionalidades();
 
-                            this.EntidadLogueada = unAdministrativo;
-                            this.EstadoLogin = LoginStatus.login_exitoso;
+                            EntidadLogueada = unAdministrativo;
+                            EstadoLogin = LoginStatus.login_exitoso;
                             break;
                         }
                     case 2: //Cliente
                         {
-                            Cliente unCliente = Cliente.GetCliente(Convert.ToInt32(dr1["idusuario"]));
-                            unCliente.UsuarioAsociado.RolAsociado.GetFuncionalidades();
-                            this.EntidadLogueada = unCliente;
-                            this.EstadoLogin = LoginStatus.login_exitoso;
+                            idasociado = Convert.ToInt32(dr1["idcliente"]);
                             break;
                         }
                     case 3: //Proveedor
                         {
-                            Proveedor unProveedor = Proveedor.BuscaProveedor(Convert.ToInt32(dr1["idusuario"]));
-                            this.EntidadLogueada = unProveedor;
-
-                            this.EstadoLogin = LoginStatus.login_exitoso;
+                            idasociado = Convert.ToInt32(dr1["idproveedor"]);
                             break;
                         }
                 }
@@ -93,33 +84,65 @@ namespace GrouponDesktop.Base
             dr1.Close();
             dr1.Dispose();
 
-            Dbaccess.DBDisconnect();
-
-        }
-
-        public Usuario GetUsuarioAsociado()
-        {
-            Usuario usuarioRetorno = new Usuario();
-            switch (this.Idtipo_usuario)
+            switch(Idtipo_usuario)
             {
-                case 1: //administrativo
-                    {
-                        usuarioRetorno = ((Administrativo)this.EntidadLogueada).UsuarioAsociado;
-                        break;
-                    }
                 case 2: //Cliente
                     {
-                        usuarioRetorno = ((Cliente)this.EntidadLogueada).UsuarioAsociado;
+                        Cliente unCliente = Cliente.GetCliente(idasociado);
+                        unCliente.UsuarioAsociado.RolAsociado.GetFuncionalidades();
+                        EntidadLogueada = unCliente;
+                        EstadoLogin = LoginStatus.login_exitoso;
                         break;
                     }
                 case 3: //Proveedor
                     {
-                        usuarioRetorno = ((Proveedor)this.EntidadLogueada).UsuarioAsociado;
+                        Proveedor unProveedor = Proveedor.BuscaProveedor(idasociado);
+                        EntidadLogueada = unProveedor;
+
+                        EstadoLogin = LoginStatus.login_exitoso;
+                        break;
+                    }
+            }
+
+            dr1.Close();
+            dr1.Dispose();
+
+            Dbaccess.DBDisconnect();
+
+            return EstadoLogin;
+        }
+
+        public static Usuario GetUsuarioAsociado()
+        {
+            Usuario usuarioRetorno = new Usuario();
+            switch (Idtipo_usuario)
+            {
+                case 1: //administrativo
+                    {
+                        usuarioRetorno = ((Administrativo)EntidadLogueada).UsuarioAsociado;
+                        break;
+                    }
+                case 2: //Cliente
+                    {
+                        usuarioRetorno = ((Cliente)EntidadLogueada).UsuarioAsociado;
+                        break;
+                    }
+                case 3: //Proveedor
+                    {
+                        usuarioRetorno = ((Proveedor)EntidadLogueada).UsuarioAsociado;
                         break;
                     }
             }
 
             return usuarioRetorno;
+        }
+
+        public static void CerrarSesion(){
+            Usuario unUsuario = GetUsuarioAsociado();
+            unUsuario.Username = "";
+            unUsuario.Idusuario = 0;
+            unUsuario.RolAsociado = null;
+            unUsuario.TipoUsuarioAsociado = null;
         }
     }
 }

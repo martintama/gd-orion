@@ -209,7 +209,7 @@ namespace GrouponDesktop.Base
 
         internal static List<Cliente> GetClientes(String nombre, String apellido, Int32 dni, String email)
         {
-            return GetClientes("", "", -1, "", false, 0);
+            return GetClientes(nombre, apellido, dni, email, true, 0);
         }
         
         internal static List<Cliente> GetClientes(String nombre, String apellido, Int32 dni, String email, Boolean soloHabilitados, Int32 idcliente)
@@ -234,7 +234,7 @@ namespace GrouponDesktop.Base
             if (soloHabilitados)
                 sqlwhere += "and u.habilitado = 1 ";
 
-            if (idcliente >= 0)
+            if (idcliente > 0)
                 sqlwhere += "and c.idcliente = @idcliente ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
