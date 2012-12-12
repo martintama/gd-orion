@@ -71,16 +71,38 @@ namespace GrouponDesktop.Base
 
         public static List<Cupon> BuscarCupones()
         {
+            return BuscarCupones(0, true);
+        }
+
+        public static List<Cupon> BuscarCupones(Int32 idproveedor, Boolean estadoPublicacion)
+        {
             List<Cupon> listaCupones = new List<Cupon>();
 
             Dbaccess.DBConnect();
 
+            String strwhere = "";
+            
+            if (estadoPublicacion)
+            {
+                strwhere = "@fecha between c.fecha_publicacion and c.fecha_Vencimiento and publicado = 1 ";
+            }
+            else
+            {
+                strwhere = "c.fecha_publicacion = @fecha and publicado = 0 ";
+            }
+
+            if (idproveedor > 0)
+                strwhere += "and c.idproveedor = @idproveedor ";
+            
             String sqlstr = "select c.idproveedor, c.descripcion, c.fecha_vencimiento, c.fecha_vencimiento_canje, c.precio_real, c.precio_ficticio, ";
             sqlstr += "c.cantidad_disponible, c.cantidad_max_usuario from orion.cupones c inner join orion.proveedores p on p.idproveedor = c.idproveedor ";
-            sqlstr += "inner join orion.usuarios u on u.idusuario = p.idusuario where publicado = 1 and @fecha between c.fecha_publicacion and c.fecha_Vencimiento ";
+            sqlstr += "inner join orion.usuarios u on u.idusuario = p.idusuario where " + strwhere " order by p.razon_social";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.AddWithValue("@fecha", Sesion.currentDate);
+
+             if (idproveedor > 0)
+                sqlc.Parameters.AddWithValue("@idproveedor", idproveedor);
 
             SqlDataReader dr1 = sqlc.ExecuteReader();
 

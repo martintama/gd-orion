@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.PublicarCupon
+﻿namespace GrouponDesktop.UI.PublicarCupon
 {
     partial class frmPublicarCupon
     {
@@ -33,10 +33,10 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtFecha = new System.Windows.Forms.TextBox();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.txtProveedor = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtFecha = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
             this.btnPublicar = new System.Windows.Forms.Button();
@@ -63,6 +63,7 @@
             this.btnLimpiar.TabIndex = 38;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnFiltrar
             // 
@@ -72,6 +73,7 @@
             this.btnFiltrar.TabIndex = 37;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // label4
             // 
@@ -96,14 +98,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
             // 
+            // txtFecha
+            // 
+            this.txtFecha.Location = new System.Drawing.Point(82, 17);
+            this.txtFecha.Name = "txtFecha";
+            this.txtFecha.ReadOnly = true;
+            this.txtFecha.Size = new System.Drawing.Size(100, 20);
+            this.txtFecha.TabIndex = 7;
+            // 
             // btnExaminar
             // 
             this.btnExaminar.Location = new System.Drawing.Point(393, 40);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(75, 23);
             this.btnExaminar.TabIndex = 3;
-            this.btnExaminar.Text = "Examinar";
+            this.btnExaminar.Text = "Seleccionar";
             this.btnExaminar.UseVisualStyleBackColor = true;
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
             // 
             // txtProveedor
             // 
@@ -121,14 +132,6 @@
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Proveedor:";
-            // 
-            // txtFecha
-            // 
-            this.txtFecha.Location = new System.Drawing.Point(82, 17);
-            this.txtFecha.Name = "txtFecha";
-            this.txtFecha.ReadOnly = true;
-            this.txtFecha.Size = new System.Drawing.Size(100, 20);
-            this.txtFecha.TabIndex = 7;
             // 
             // label2
             // 

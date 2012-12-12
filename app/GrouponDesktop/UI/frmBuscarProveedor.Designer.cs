@@ -262,6 +262,7 @@
             this.Controls.Add(this.label27);
             this.Name = "frmBuscarProveedor";
             this.Text = "ABM Proveedores";
+            this.Load += new System.EventHandler(this.frmBuscarProveedor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

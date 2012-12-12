@@ -53,6 +53,7 @@
     <Compile Include="Base\Administrativo.cs" />
     <Compile Include="Base\Compra.cs" />
     <Compile Include="Base\Cupon.cs" />
+    <Compile Include="Base\Devolucion.cs" />
     <Compile Include="Base\Funcionalidad.cs" />
     <Compile Include="Base\GiftCard.cs" />
     <Compile Include="Base\ConfigReader.cs" />

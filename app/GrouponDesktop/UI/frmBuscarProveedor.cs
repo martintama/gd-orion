@@ -14,6 +14,9 @@ namespace GrouponDesktop.UI
     
     public partial class frmBuscarProveedor : Form
     {
+        public Boolean esAbm;
+        public Proveedor proveedorSeleccionado;
+
         public frmBuscarProveedor()
         {
             InitializeComponent();
@@ -70,22 +73,32 @@ namespace GrouponDesktop.UI
 
         private void dgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == this.dgvDatos.Columns["cambiarEstado"].Index)
+            if (this.esAbm)
             {
-
-                if (((List<Proveedor>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == false)
+                if (e.ColumnIndex == this.dgvDatos.Columns["colCambiarEstado"].Index)
                 {
-                    e.Value = "Habilitar";
-                }
-                else
-                {
-                    e.Value = "Deshabilitar";
-                }
 
+                    if (((List<Proveedor>)dgvDatos.DataSource).ElementAt(e.RowIndex).UsuarioAsociado.Habilitado == false)
+                    {
+                        e.Value = "Habilitar";
+                    }
+                    else
+                    {
+                        e.Value = "Deshabilitar";
+                    }
+
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colEditar"].Index)
+                {
+                    e.Value = "Editar";
+                }
             }
-            else if (e.ColumnIndex == this.dgvDatos.Columns["editar"].Index)
+            else
             {
-                e.Value = "Editar";
+                if (e.ColumnIndex == this.dgvDatos.Columns["colSeleccionar"].Index)
+                {
+                    e.Value = "Seleccionar";
+                }
             }
         }
 
@@ -94,28 +107,31 @@ namespace GrouponDesktop.UI
             if (e.RowIndex > -1)
             {
                 //Si lo que se presionó fue un botón de editar
-                if (dgvDatos.Columns[e.ColumnIndex].Name == "editar")
+                if (dgvDatos.Columns[e.ColumnIndex].Name == "colEditar")
                 {
                     this.EditarProveedor((Proveedor)dgvDatos.Rows[e.RowIndex].DataBoundItem);
                     this.CargarDatos();
                 }
-                else
+                else if (dgvDatos.Columns[e.ColumnIndex].Name == "colCambiarEstado")
                 {
-                    if (dgvDatos.Columns[e.ColumnIndex].Name == "cambiarEstado")
+                    Proveedor unProveedor = (Proveedor)dgvDatos.Rows[e.RowIndex].DataBoundItem;
+
+                    if (unProveedor.UsuarioAsociado.Habilitado)
                     {
-                        Proveedor unProveedor = (Proveedor)dgvDatos.Rows[e.RowIndex].DataBoundItem;
-
-                        if (unProveedor.UsuarioAsociado.Habilitado)
-                        {
-                            this.InhabilitarProveedor(unProveedor);
-                        }
-                        else
-                        {
-                            this.HabilitarProveedor(unProveedor);
-                        }
-
-                        this.CargarDatos();
+                        this.InhabilitarProveedor(unProveedor);
                     }
+                    else
+                    {
+                        this.HabilitarProveedor(unProveedor);
+                    }
+
+                    this.CargarDatos();
+
+                }
+                else if (dgvDatos.Columns[e.ColumnIndex].Name == "colSeleccionar")
+                {
+                    this.proveedorSeleccionado = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
+                    this.Close();
                 }
             }
         }
@@ -162,6 +178,85 @@ namespace GrouponDesktop.UI
             oFrm.ShowDialog();
 
             this.CargarDatos();
+        }
+
+        private void frmBuscarProveedor_Load(object sender, EventArgs e)
+        {
+            //Si es un formulario para seleccionar un solo usuario, o si es parte del ABM
+            dgvDatos.AutoGenerateColumns = false;
+            dgvDatos.Columns.Clear();
+            if (this.esAbm)
+            {
+                DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
+                colNombre.Name = "colCuit";
+                colNombre.HeaderText = "Cuit";
+                colNombre.Width = 120;
+                colNombre.DataPropertyName = "Cuit";
+                this.dgvDatos.Columns.Add(colNombre);
+
+                DataGridViewTextBoxColumn colApellido = new DataGridViewTextBoxColumn();
+                colApellido.Name = "coRazonSocial";
+                colApellido.HeaderText = "RazonSocial";
+                colApellido.Width = 120;
+                colApellido.DataPropertyName = "RazonSocial";
+                this.dgvDatos.Columns.Add(colApellido);
+
+                DataGridViewTextBoxColumn colDni = new DataGridViewTextBoxColumn();
+                colDni.Name = "colMail";
+                colDni.HeaderText = "Mail";
+                colDni.Width = 70;
+                colDni.DataPropertyName = "Mail";
+                this.dgvDatos.Columns.Add(colDni);
+
+                DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn();
+                colEstado.Name = "colEstado";
+                colEstado.HeaderText = "Estado";
+                colEstado.Width = 60;
+                this.dgvDatos.Columns.Add(colEstado);
+
+                DataGridViewButtonColumn colEditar = new DataGridViewButtonColumn();
+                colEditar.Name = "colEditar";
+                colEditar.HeaderText = "Editar";
+                colEditar.Width = 50;
+                this.dgvDatos.Columns.Add(colEditar);
+
+                DataGridViewButtonColumn colCambiarEstado = new DataGridViewButtonColumn();
+                colCambiarEstado.Name = "colCambiarEstado";
+                colCambiarEstado.HeaderText = "Cambiar Estado";
+                colCambiarEstado.Width = 100;
+                this.dgvDatos.Columns.Add(colCambiarEstado);
+
+
+            }
+            else
+            {
+                DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
+                colNombre.Name = "colCuit";
+                colNombre.HeaderText = "Cuit";
+                colNombre.Width = 120;
+                colNombre.DataPropertyName = "Cuit";
+                this.dgvDatos.Columns.Add(colNombre);
+
+                DataGridViewTextBoxColumn colApellido = new DataGridViewTextBoxColumn();
+                colApellido.Name = "coRazonSocial";
+                colApellido.HeaderText = "RazonSocial";
+                colApellido.Width = 120;
+                colApellido.DataPropertyName = "RazonSocial";
+                this.dgvDatos.Columns.Add(colApellido);
+
+                DataGridViewTextBoxColumn colDni = new DataGridViewTextBoxColumn();
+                colDni.Name = "colMail";
+                colDni.HeaderText = "Mail";
+                colDni.Width = 70;
+                colDni.DataPropertyName = "Mail";
+                this.dgvDatos.Columns.Add(colDni);
+
+                DataGridViewButtonColumn colSeleccionar = new DataGridViewButtonColumn();
+                colSeleccionar.Name = "colSeleccionar";
+                colSeleccionar.HeaderText = "Seleccionar";
+                colSeleccionar.Width = 120;
+                this.dgvDatos.Columns.Add(colSeleccionar);
+            }
         }
         
     }
