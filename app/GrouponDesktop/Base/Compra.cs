@@ -8,12 +8,17 @@ namespace GrouponDesktop.Base
     class Compra
     {
         public enum EstadoCompra{
-            Comprado = 1,
+            EnProceso = 0,
+            Comprado,
             Consumido,
             Devuelto,
             Vencido
         }
 
+        public Compra()
+        {
+            this.Estado = EstadoCompra.EnProceso;
+        }
         public Int32 Idcompra { get; set; }
 
         public Int32 Idcliente { get; set; }
@@ -28,5 +33,11 @@ namespace GrouponDesktop.Base
 
         public EstadoCompra Estado { get; set; }
 
+
+        internal void GrabarDatos()
+        {
+            // Usar un SP porque hay que restar el stock y el credito al cliente.. un bardo.
+            throw new NotImplementedException();
+        }
     }
 }

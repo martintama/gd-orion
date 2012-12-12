@@ -92,7 +92,7 @@ Tabla cupones:
 - Como la fecha de alta (cuando se genera un nuevo cupon) no está en la base, se optó por tomar el dicha fecha como la misma de publicación
 - La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 5 dias, para darle tiempo a quien compra el cupón de organizar el canje.
 - La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5.
-- La fecha en la que el cupón se publica (por el administrativo) para los que ya están en sistema, se estableció como la de publicación por el proveedor + 1.
+- La fecha en la que el cupón se publica (por el administrativo) para los que ya están en sistema, se estableció como la de publicación por el proveedor.
 - El stock con el que se inicializan los cupones es el campo groupon_cantidad. 
 
 Tabla compras:
@@ -182,6 +182,10 @@ Comprar GiftCard
 - En la selección por busqueda, el cliente logueado se omite de los resultados para evitar que se autocompren una giftcard.
 - En esta misma selección por busqueda, se omiten todos los clientes inhabilitados.
 - Las compras de giftcards se cargan como cargas de credito para los usuarios destinatarios con el tipo de pago "Gift Card".
+
+Comprar Cupón:
+- En la lista de cupones para comprar, no se muestran los cupones de los proveedores inhabilitados. Esto se hizo así debido a que de mostrarlos, el cliente lo podría comprar y consumir, pero el proveedor
+no podría registrarlo. De esta forma no podria tampoco facturarle al proveedor.
 
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del proveedor

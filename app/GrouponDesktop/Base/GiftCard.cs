@@ -23,7 +23,7 @@ namespace GrouponDesktop.Base
 
             Dbaccess.DBConnect();
 
-            SqlCommand cmd = new SqlCommand("Orion.ComprarGiftCard", Dbaccess.globalConn);
+            SqlCommand cmd = new SqlCommand("Orion.GiftCard_Comprar", Dbaccess.globalConn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@idcliente_origen", this.ClienteOrigen.Idcliente);

@@ -103,7 +103,7 @@ CREATE TABLE ORION.cupones(
 	cantidad_disponible 	smallint NOT NULL,
 	cantidad_max_usuario 	smallint NOT NULL,
 	publicado 				bit default 0,
-	fecha_publicacion_real 	date NOT NULL,
+	fecha_publicacion_real 	date,
 	activo				bit default 1
 ) ON [PRIMARY]
 alter table orion.cupones add constraint pk_cupones primary key (idcupon)
@@ -130,7 +130,7 @@ ALTER TABLE orion.devoluciones ADD CONSTRAINT uniq_devoluciones_compra UNIQUE NO
 -- facturas
 CREATE TABLE ORION.facturas(
 	idfactura			int IDENTITY(1,1) NOT NULL,
-	fecha_generacion	date NOT NULL,
+	fecha_generacion	datetime NOT NULL,
 	idproveedor			int NOT NULL,
 	nro_factura			numeric(18,0) NOT NULL,
 	monto_total			decimal(18,2) NOT NULL,
@@ -280,56 +280,85 @@ CREATE TABLE ORION.usuarios(
 alter table orion.usuarios add constraint pk_usuarios primary key (idusuario)
 
 GO
--- Agrego los FK
+-- Agrego los FK E INDICES
 alter table orion.cargas add constraint fk_cargas_idcliente foreign key (idcliente) references orion.clientes (idcliente)
 alter table orion.cargas add constraint fk_cargas_idtarjeta foreign key (idtarjeta) references orion.tarjetas (idtarjeta)
+create index idx_cargas_idcliente on ORION.cargas(idcliente)
+create index idx_cargas_idtarjeta on ORION.cargas(idtarjeta)
 
 alter table orion.clientes add constraint fk_clientes_idusuario foreign key (idusuario) references orion.usuarios (idusuario)
+create index idx_clientes_idusuario on ORION.clientes(idusuario)
 
 alter table orion.clientes_ciudades add constraint fk_clientes_ciudades_idcliente foreign key (idcliente) references orion.clientes (idcliente)
 alter table orion.clientes_ciudades add constraint fk_clientes_ciudades_idciudad foreign key (idciudad) references orion.ciudades (idciudad)
+create index idx_clientes_ciudades_idcliente on ORION.clientes_ciudades(idcliente)
+create index idx_clientes_ciudades_idciudad on ORION.clientes_ciudades(idciudad)
+
 
 alter table orion.cupones_ciudades add constraint fk_cupones_ciudades_idcupon foreign key (idcupon) references orion.cupones (idcupon)
 alter table orion.cupones_ciudades add constraint fk_cupones_ciudades_idciudad foreign key (idciudad) references orion.ciudades (idciudad)
+create index idx_cupones_ciudades_idcupon on ORION.cupones_ciudades(idcupon)
+create index idx_cupones_ciudades_idciudad on ORION.cupones_ciudades(idciudad)
+
 
 alter table orion.compras add constraint fk_compras_idcliente foreign key (idcliente) references orion.clientes (idcliente)
 alter table orion.compras add constraint fk_compras_idcupon foreign key (idcupon) references orion.cupones (idcupon)
 alter table orion.compras add constraint fk_compras_idcompra_estado foreign key (idcompra_estado) references orion.compras_estados (idcompra_estado)
+create index idx_compras_idcliente on ORION.compras(idcliente)
+create index idx_compras_idcupon on ORION.compras(idcupon)
+create index idx_compras_idcompra_estado on ORION.compras(idcompra_estado)
 
 alter table orion.consumos add constraint fk_consumos_idcompra foreign key (idcompra) references orion.compras (idcompra)
+create index idx_consumos_idcompra on ORION.consumos(idcompra)
 
 alter table orion.cupones add constraint fk_cupones_idproveedor foreign key (idproveedor) references orion.proveedores (idproveedor)
+create index idx_cupones_idproveedor on ORION.cupones(idproveedor)
 
 alter table orion.devoluciones add constraint fk_devoluciones_idcompra foreign key (idcompra) references orion.compras (idcompra)
+create index idx_devoluciones_idcompra on ORION.devoluciones(idcompra)
 
 alter table orion.facturas add constraint fk_facturas_idproveedor foreign key (idproveedor) references orion.proveedores (idproveedor)
+create index idx_facturas_idproveedor on ORION.facturas(idproveedor)
 
 alter table orion.facturas_items add constraint fk_facturas_items_idfactura foreign key (idfactura) references orion.facturas (idfactura)
+create index idx_facturas_items_idfactura on ORION.facturas_items(idfactura)
 
 alter table orion.gift_cards add constraint fk_gift_cards_idcliente_origen foreign key (idcliente_origen) references orion.clientes (idcliente)
 alter table orion.gift_cards add constraint fk_gift_cards_idcliente_destino foreign key (idcliente_destino) references orion.clientes (idcliente)
+create index idx_gift_cards_idcliente_origen on ORION.gift_cards(idcliente_origen)
+create index idx_gift_cards_idcliente_destino on ORION.gift_cards(idcliente_destino)
 
 alter table orion.proveedores add constraint fk_proveedores_idrubro foreign key (idrubro) references orion.rubros (idrubro)
 alter table orion.proveedores add constraint fk_proveedores_idusuario foreign key (idusuario) references orion.usuarios (idusuario)
+create index idx_proveedores_idrubro on ORION.proveedores(idrubro)
+create index idx_proveedores_idusuario on ORION.proveedores(idusuario)
 
 alter table orion.roles_funcionalidades add constraint fk_roles_funcionalidades_idrol foreign key (idrol) references orion.roles(idrol)
 alter table orion.roles_funcionalidades add constraint fk_roles_funcionalidades_idfuncionalidad foreign key (idfuncionalidad) references orion.funcionalidades(idfuncionalidad)
+create index idx_roles_funcionalidades_idrol on ORION.roles_funcionalidades(idrol)
+create index idx_roles_funcionalidades_idfuncionalidad on ORION.roles_funcionalidades(idfuncionalidad)
 
 alter table orion.tarjetas add constraint fk_tarjetas_idtipo_tarjeta foreign key (idtipo_tarjeta) references orion.tipos_tarjeta(idtipo_tarjeta)
 alter table orion.tarjetas add constraint fk_tarjetas_idisuario foreign key (idusuario) references orion.usuarios(idusuario)
+create index idx_tarjetas_idtipo_tarjeta on ORION.tarjetas(idtipo_tarjeta)
+create index idx_tarjetas_idusuario on ORION.tarjetas(idusuario)
 
 alter table orion.tipos_usuario_rol add constraint fk_tipos_usuario_rol_idtipo_usuario foreign key (idtipo_usuario) references orion.tipos_usuario (idtipo_usuario)
 alter table orion.tipos_usuario_rol add constraint fk_tipos_usuario_rol_idrol foreign key (idrol) references orion.roles (idrol)
+create index idx_tipos_usuario_rol_idtipo_usuario on ORION.tipos_usuario_rol(idtipo_usuario)
+create index idx_tipos_usuario_rol_idrol on ORION.tipos_usuario_rol(idrol)
 
 alter table orion.usuarios add constraint fk_usuarios_idrol foreign key (idrol) references orion.roles (idrol)
 alter table orion.usuarios add constraint fk_usuarios_idtipo_usuario foreign key (idtipo_usuario) references orion.tipos_usuario(idtipo_usuario)
+create index idx_usuarios_idrol on ORION.usuarios(idrol)
+create index idx_usuarios_idtipo_usuario on ORION.usuarios(idtipo_usuario)
 
 GO
 -- Creo los Stored Procedures
 -- =============================================
 -- Description:	Inserta un registro en la tabla de clientes y devueve en output el idcliente generado
 -- =============================================
-ALTER PROCEDURE [ORION].[Clientes_Grabar]
+CREATE PROCEDURE [ORION].[Clientes_Grabar]
 	@fecha date = null, @nombre varchar(50), @apellido varchar(50), @dni int, @mail varchar(50), @telefono varchar(50), 
 	@direccion varchar(100), @codpost varchar(8), @fechanac date, @idusuario int, @idcliente int = 0 output
 AS
@@ -375,7 +404,7 @@ GO
 -- =============================================
 -- Loguea al usuario y si es necesario lo banea por intentos fallidos
 -- =============================================
-ALTER PROCEDURE [ORION].[LoguearUsuario]
+CREATE PROCEDURE [ORION].[Usuarios_Loguear]
 	@username varchar(50), @passhashed char(64)
 AS
 BEGIN
@@ -428,7 +457,7 @@ GO
 -- =============================================
 -- Description:	Inhabilita el rol deseado
 -- =============================================
-ALTER PROCEDURE [ORION].[Roles_Inhabilitar]
+CREATE PROCEDURE [ORION].[Roles_Inhabilitar]
 	@idrol int, @forzar bit
 AS 
 BEGIN
@@ -457,7 +486,7 @@ GO
 -- =============================================
 -- Description:	Obtiene los roles existentes en el sistema, opcionalmente puede pedirse un filtro
 -- =============================================
-ALTER PROCEDURE [ORION].[Roles_Obtener]
+CREATE PROCEDURE [ORION].[Roles_Obtener]
 	@filtro varchar(60) = '', @solo_habilitados bit = 0
 AS
 BEGIN
@@ -507,7 +536,7 @@ GO
 -- =============================================
 -- Description:	Inserta o actualiza el usuario
 -- =============================================
-ALTER PROCEDURE [ORION].[Usuarios_Grabar]
+CREATE PROCEDURE [ORION].[Usuarios_Grabar]
 	@idusuario int = 0 output, @username varchar(50), @pass char(64) = null, @idrol int, @idtipo_usuario tinyint, @habilitado bit = 1
 AS
 BEGIN
@@ -550,9 +579,52 @@ END
 GO
 
 -- =============================================
+-- Description:	Inserta un registro en la tabla de proveedores y devueve en output el idproveedor generado
+-- =============================================
+CREATE PROCEDURE [ORION].[Proveedores_Grabar]
+	@idproveedor int output, @razon_social varchar(50), @mail varchar(50), @telefono varchar(50), 
+	@direccion varchar(100), @codpost varchar(8), @idciudad int, @cuit varchar(11), @idrubro int, 
+	@contacto varchar(50), @idusuario int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- Si es un alta
+	if (@idproveedor = 0) begin
+		-- Me fijo antes que no haya otro "duplicado"
+		if exists (select idproveedor from ORION.proveedores where cuit = @cuit or razon_social = @razon_social) begin
+			return 1	-- Proveedor duplicado
+		end
+		else begin
+			insert into ORION.proveedores(razon_social, email, telefono, direccion, codigo_postal, idciudad, cuit, idrubro, contacto, idusuario)
+			values(@razon_social, @mail, @telefono, @direccion, @codpost, @idciudad, @cuit, @idrubro, @contacto, @idusuario)
+			
+			set @idproveedor = @@IDENTITY
+			return 0
+		end
+	end
+	else begin --Es una modificacion
+		-- me tengo que fijar que no haya OTRO idcliente diferente con el mismo telefono o dni
+		if exists (select idproveedor from ORION.proveedores where (cuit = @cuit or razon_social = @razon_social) and idproveedor <> @idproveedor) begin
+			return 1	-- Proveedor duplicado
+		end
+		else begin
+			update ORION.proveedores set razon_social = @razon_social, email = @mail, telefono = @telefono, direccion = @direccion, codigo_postal = @codpost,
+			idciudad= @idciudad, cuit = @cuit, idrubro = @idrubro, contacto = @contacto where idproveedor = @idproveedor
+			
+			return 0
+		end
+				
+    end
+END
+
+GO
+-- =============================================
 -- Description:	Comprar GiftCard
 -- =============================================
-CREATE PROCEDURE Orion.ComprarGiftCard
+CREATE PROCEDURE [ORION].[GiftCard_Comprar]
 	@idcliente_origen int, @idcliente_destino int, @monto decimal(18,2), @fecha date
 AS
 BEGIN
@@ -653,9 +725,9 @@ select distinct cli_dni, '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C
 	
 -- Clientes: 			00:05
 insert into ORION.clientes(nombre, apellido, dni, email, telefono, direccion, codigo_postal,
-fecha_nacimiento, idusuario, credito_actual, habilitado)
+fecha_nacimiento, idusuario, credito_actual)
 select distinct cli_nombre, Cli_Apellido, Cli_Dni,  Cli_Mail, Cli_Telefono, Cli_Direccion,
-'' codpostal, Cli_Fecha_Nac, u.idusuario idusuario, 0 credito, 1 habilitado
+'' codpostal, Cli_Fecha_Nac, u.idusuario idusuario, 0 credito
 from ORION.clientes_temp ct
 left join ORION.usuarios u on u.username = cast(ct.cli_dni as varchar)
 
@@ -724,27 +796,29 @@ WHERE pt.provee_RS is not null
 	-- Agrego indices		00:00
 	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
 
--- Cupones				00:08
+-- Cupones				00:08		46429 reg.
 insert into ORION.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
-cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real)
-select p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio,
-sum(isnull(groupon_cantidad,0)), DATEADD(d, 5, groupon_fecha_venc), 5, dateadd(d, 1, groupon_fecha)
-from ORION.proveedores_temp ct inner join ORION.proveedores p on p.cuit = ct.provee_cuit
-where groupon_entregado_fecha is null and groupon_devolucion_fecha is null and factura_fecha is null
-group by p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio
-order by groupon_fecha
+cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real, publicado)
+select p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, 
+groupon_precio_ficticio, Groupon_Cantidad, DATEADD(d, 5, groupon_fecha_venc), 5, groupon_fecha,1
+from ORION.proveedores_temp pt inner join ORION.proveedores p on p.cuit = pt.provee_cuit
+where groupon_entregado_fecha is null and groupon_devolucion_fecha is null 
+and factura_fecha is null
+group by p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio, Groupon_Cantidad
+order by pt.groupon_fecha
 
 
--- Compras				00:13
+-- Compras				00:13		116520 reg.
 insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, nro_cupon, idcompra_estado, codigo)
-select c.idcliente, pt.Groupon_Fecha_Compra,  COUNT(1), cu.idcupon, cu.idcupon, 1, pt.Groupon_Codigo
+select c.idcliente, pt.Groupon_Fecha_Compra,  COUNT(distinct 1), cu.idcupon, cu.idcupon, 1, pt.Groupon_Codigo
 from orion.proveedores_temp pt
 inner join ORION.clientes c on c.dni = pt.cli_dni
 inner join ORION.cupones cu on cu.descripcion = pt.Groupon_Descripcion and cu.fecha_alta = pt.Groupon_Fecha and 
-cu.fecha_publicacion = pt.Groupon_Fecha and cu.fecha_vencimiento = pt.Groupon_Fecha_Venc and cu.precio_real = pt.Groupon_Precio 
-and cu.precio_ficticio = pt.Groupon_Precio_Ficticio and cu.cantidad_disponible = pt.Groupon_Cantidad
+cu.cantidad_disponible = pt.Groupon_Cantidad and cu.fecha_publicacion = pt.Groupon_Fecha and cu.fecha_vencimiento = pt.Groupon_Fecha_Venc 
+and cu.precio_real = pt.Groupon_Precio and cu.precio_ficticio = pt.Groupon_Precio_Ficticio 
+inner join ORION.proveedores p on p.idproveedor = cu.idproveedor
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
-groupon_entregado_fecha is null
+groupon_entregado_fecha is null and factura_fecha is null and p.cuit = pt.provee_cuit
 group by c.idcliente, pt.Groupon_Fecha_Compra, cu.idcupon, Groupon_Devolucion_Fecha, Groupon_Entregado_Fecha, pt.Groupon_Codigo
 order by Groupon_Fecha_Compra
 
@@ -752,16 +826,16 @@ order by Groupon_Fecha_Compra
 	CREATE INDEX idx_compras_codigo ON ORION.compras(codigo)
 
 -- Devoluciones			00:16
-insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo)
-select Groupon_Devolucion_Fecha, co.idcompra, '- no especifica (migración inicial) -' 
-from orion.proveedores_temp pt
-left join ORION.clientes c on c.dni = pt.cli_dni
---left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt.groupon_codigo and co.fecha_compra = pt.groupon_fecha_Compra
-where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is not null and 
-groupon_entregado_fecha is null
-group by  Groupon_Devolucion_Fecha, co.idcompra
-order by Groupon_Devolucion_Fecha
+	insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo)
+	select Groupon_Devolucion_Fecha, co.idcompra, '- no especifica (migración inicial) -' 
+	from orion.proveedores_temp pt
+	left join ORION.clientes c on c.dni = pt.cli_dni
+	--left join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
+	inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt.groupon_codigo and co.fecha_compra = pt.groupon_fecha_Compra
+	where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is not null and 
+	groupon_entregado_fecha is null
+	group by  Groupon_Devolucion_Fecha, co.idcompra
+	order by Groupon_Devolucion_Fecha
 
 -- Actualizo el estado de todas las devoluciones 00:00
 update ORION.compras set idcompra_estado = 3 where idcompra in (select idcompra from ORION.devoluciones)
@@ -796,16 +870,16 @@ order by Factura_Fecha, factura_nro
 
 -- FActuras_items		00:05
 insert into ORION.facturas_items(idfactura, idconsumo)
-select f.idfactura, con.idconsumo
+select  f.idfactura, con.idconsumo
 from orion.proveedores_temp pt
 inner join ORION.clientes c on c.dni = pt.cli_dni
-inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
-inner join ORION.compras co on co.idcliente = c.idcliente and co.idcupon = cu.idcupon
-inner join ORION.consumos con on con.idcompra = co.idcompra
+inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt.groupon_codigo
+inner join ORION.consumos con on con.idcompra = co.idcompra 
 inner join ORION.facturas f on f.nro_factura = pt.Factura_Nro
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is null and pt.Factura_Nro is not null
 order by f.idfactura, con.idconsumo
+
 
 -- Actualizo el importe de las facturas
 update ORION.facturas set 
@@ -831,8 +905,8 @@ inner join ORION.cupones cu on cu.idcupon = co.idcupon)
 insert into ORION.cupones_ciudades(idcupon, idciudad) select c.idcupon, p.idciudad from ORION.cupones c
 left join orion.proveedores p on p.idproveedor = c.idproveedor
 
--- Actualizo el stock de cupones de acuerdo a los cajneados			00:06
-update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COUNT(1) from ORION.compras where idcompra_estado = 2 and idcupon = ORION.cupones.idcupon)
+-- Actualizo el stock de cupones de acuerdo a los cajneados	y los que queden por canjear		00:06
+update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COUNT(1) from ORION.compras where idcompra_estado in (2,1) and idcupon = ORION.cupones.idcupon)
 
 -- FINALMENTE, BORRO LAS TABLAS TEMPORALES
 drop table orion.proveedores_temp

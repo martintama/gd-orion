@@ -24,7 +24,7 @@ namespace GrouponDesktop.Base
             Int32 idasociado = 0;
             Dbaccess.DBConnect();
 
-            SqlCommand sqlc = new SqlCommand("orion.LoguearUsuario", Dbaccess.globalConn);
+            SqlCommand sqlc = new SqlCommand("orion.Usuarios_Loguear", Dbaccess.globalConn);
             sqlc.CommandType = System.Data.CommandType.StoredProcedure;
 
             sqlc.Parameters.AddWithValue("@username", usuario);
@@ -97,6 +97,7 @@ namespace GrouponDesktop.Base
                 case 3: //Proveedor
                     {
                         Proveedor unProveedor = Proveedor.BuscaProveedor(idasociado);
+                        unProveedor.UsuarioAsociado.RolAsociado.GetFuncionalidades();
                         EntidadLogueada = unProveedor;
 
                         EstadoLogin = LoginStatus.login_exitoso;

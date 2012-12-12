@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Administrativo.cs" />
+    <Compile Include="Base\Compra.cs" />
     <Compile Include="Base\Cupon.cs" />
     <Compile Include="Base\Funcionalidad.cs" />
     <Compile Include="Base\GiftCard.cs" />
@@ -68,6 +69,12 @@
     </Compile>
     <Compile Include="UI\AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ArmarCupon\frmArmarCupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ArmarCupon\frmArmarCupon.Designer.cs">
+      <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\frmBuscarCliente.cs">
       <SubType>Form</SubType>
@@ -99,12 +106,6 @@
     </Compile>
     <Compile Include="UI\AbmRol\frmFuncionalidades.Designer.cs">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ArmarCupon\frmArmarCupon.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ArmarCupon\frmArmarCupon.Designer.cs">
-      <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CargaCredito\frmCargarCredito.cs">
       <SubType>Form</SubType>
@@ -185,6 +186,9 @@
     <EmbeddedResource Include="UI\AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ArmarCupon\frmArmarCupon.resx">
+      <DependentUpon>frmArmarCupon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,9 +203,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\frmFuncionalidades.resx">
       <DependentUpon>frmFuncionalidades.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ArmarCupon\frmArmarCupon.resx">
-      <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CargaCredito\frmCargarCredito.resx">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>

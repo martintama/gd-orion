@@ -44,6 +44,7 @@ namespace GrouponDesktop.Base
 
         public Usuario UsuarioAsociado { get; set; }
 
+        public Decimal CreditoDisponible { get; set; }
         // METODOS
         internal short Grabar()
         {
@@ -237,7 +238,7 @@ namespace GrouponDesktop.Base
             if (idcliente > 0)
                 sqlwhere += "and c.idcliente = @idcliente ";
 
-            String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, ";
+            String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, c.credito_actual, ";
             sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, ";
             sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuario_habilitado, tu.idtipo_usuario, tu.descripcion tipo_usuario from ORION.clientes c  ";
             sqlstr += "left join ORION.clientes_ciudades cc on cc.idcliente = c.idcliente left join ORION.ciudades ci on ci.idciudad = cc.idciudad ";
@@ -287,6 +288,7 @@ namespace GrouponDesktop.Base
                 unCliente.Direccion = dr1["direccion"].ToString();
                 unCliente.CodPostal = dr1["codigo_postal"].ToString();
                 unCliente.Telefono = dr1["telefono"].ToString();
+                unCliente.CreditoDisponible = Convert.ToDecimal(dr1["credito_actual"]);
 
                 unCliente.FechaNacimiento = DateTime.ParseExact(dr1["fecha_nacimiento"].ToString(), "yyyy.MM.dd", null);
                 unCliente.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"].ToString());

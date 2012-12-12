@@ -23,9 +23,18 @@ namespace GrouponDesktop
             //Application.Run(new frmLogin());
             
             //DESARROLLO
-            Sesion.Idtipo_usuario = 1;
+            //Administrativo
+            //Sesion.Idtipo_usuario = 1;
+            //Sesion.ValidarUsuario("15403632", "8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92");
+
+            //Cliente de prueba
+            Sesion.Idtipo_usuario = 2;
             Sesion.ValidarUsuario("15403632", "8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92");
-            
+
+            //Proveedor de prueba
+            //Sesion.Idtipo_usuario = 3;
+            //Sesion.ValidarUsuario("12442988786", "8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92");
+
             Application.Run(new frmMain());
             
 

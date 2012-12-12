@@ -225,6 +225,7 @@ namespace GrouponDesktop.UI.AbmCliente
 
             txtCiudades.Text = strBuilder.ToString();
         }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
