@@ -7,6 +7,10 @@ namespace GrouponDesktop.Base
 {
     class Administrativo
     {
+        public Administrativo()
+        {
+            this.UsuarioAsociado = new Usuario();
+        }
         public Usuario UsuarioAsociado { get; set; }
 
     }

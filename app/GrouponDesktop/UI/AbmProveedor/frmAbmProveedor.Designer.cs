@@ -75,6 +75,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblErrorMsg = new System.Windows.Forms.Label();
+            this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblRol = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -249,11 +252,12 @@
             // 
             // cmbRubro
             // 
+            this.cmbRubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRubro.FormattingEnabled = true;
             this.cmbRubro.Location = new System.Drawing.Point(94, 193);
             this.cmbRubro.Name = "cmbRubro";
             this.cmbRubro.Size = new System.Drawing.Size(121, 21);
-            this.cmbRubro.TabIndex = 72;
+            this.cmbRubro.TabIndex = 7;
             // 
             // txtContacto
             // 
@@ -261,15 +265,16 @@
             this.txtContacto.MaxLength = 50;
             this.txtContacto.Name = "txtContacto";
             this.txtContacto.Size = new System.Drawing.Size(168, 20);
-            this.txtContacto.TabIndex = 53;
+            this.txtContacto.TabIndex = 8;
             // 
             // cmbCiudad
             // 
+            this.cmbCiudad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCiudad.FormattingEnabled = true;
             this.cmbCiudad.Location = new System.Drawing.Point(93, 143);
             this.cmbCiudad.Name = "cmbCiudad";
             this.cmbCiudad.Size = new System.Drawing.Size(121, 21);
-            this.cmbCiudad.TabIndex = 71;
+            this.cmbCiudad.TabIndex = 5;
             // 
             // label3
             // 
@@ -313,7 +318,7 @@
             this.txtCuit.MaxLength = 11;
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(100, 20);
-            this.txtCuit.TabIndex = 61;
+            this.txtCuit.TabIndex = 6;
             // 
             // label11
             // 
@@ -339,7 +344,7 @@
             this.txtRazonSocial.MaxLength = 50;
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(168, 20);
-            this.txtRazonSocial.TabIndex = 51;
+            this.txtRazonSocial.TabIndex = 0;
             // 
             // label2
             // 
@@ -365,7 +370,7 @@
             this.txtCodPostal.MaxLength = 8;
             this.txtCodPostal.Name = "txtCodPostal";
             this.txtCodPostal.Size = new System.Drawing.Size(100, 20);
-            this.txtCodPostal.TabIndex = 64;
+            this.txtCodPostal.TabIndex = 4;
             // 
             // label1
             // 
@@ -382,7 +387,7 @@
             this.txtDireccion.MaxLength = 100;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(319, 20);
-            this.txtDireccion.TabIndex = 63;
+            this.txtDireccion.TabIndex = 3;
             // 
             // txtTelefono
             // 
@@ -390,7 +395,7 @@
             this.txtTelefono.MaxLength = 50;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(100, 20);
-            this.txtTelefono.TabIndex = 60;
+            this.txtTelefono.TabIndex = 2;
             // 
             // txtMail
             // 
@@ -398,7 +403,7 @@
             this.txtMail.MaxLength = 50;
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(168, 20);
-            this.txtMail.TabIndex = 62;
+            this.txtMail.TabIndex = 1;
             // 
             // label18
             // 
@@ -429,37 +434,39 @@
             // 
             // btnGrabar
             // 
-            this.btnGrabar.Location = new System.Drawing.Point(264, 413);
+            this.btnGrabar.Location = new System.Drawing.Point(286, 432);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(83, 23);
-            this.btnGrabar.TabIndex = 76;
+            this.btnGrabar.TabIndex = 12;
             this.btnGrabar.Text = "Grabar datos";
             this.btnGrabar.UseVisualStyleBackColor = true;
             this.btnGrabar.Click += new System.EventHandler(this.btnGrabar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(127, 413);
+            this.btnCancelar.Location = new System.Drawing.Point(149, 432);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(78, 23);
-            this.btnCancelar.TabIndex = 75;
+            this.btnCancelar.TabIndex = 13;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblRol);
+            this.groupBox1.Controls.Add(this.cmbRol);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.lblPassword);
             this.groupBox1.Controls.Add(this.lblUsername);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.chkHabilitado);
             this.groupBox1.Controls.Add(this.txtPassword);
             this.groupBox1.Controls.Add(this.txtUsername);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Location = new System.Drawing.Point(12, 289);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(540, 79);
+            this.groupBox1.Size = new System.Drawing.Size(540, 106);
             this.groupBox1.TabIndex = 74;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de acceso";
@@ -492,14 +499,14 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 13);
             this.label5.TabIndex = 24;
-            this.label5.Text = " Max 20 caracteres";
+            this.label5.Text = " Max 30 caracteres";
             // 
             // chkHabilitado
             // 
             this.chkHabilitado.AutoSize = true;
             this.chkHabilitado.Enabled = false;
             this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHabilitado.Location = new System.Drawing.Point(411, 48);
+            this.chkHabilitado.Location = new System.Drawing.Point(433, 13);
             this.chkHabilitado.Name = "chkHabilitado";
             this.chkHabilitado.Size = new System.Drawing.Size(123, 17);
             this.chkHabilitado.TabIndex = 8;
@@ -513,7 +520,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(121, 20);
-            this.txtPassword.TabIndex = 5;
+            this.txtPassword.TabIndex = 20;
             // 
             // txtUsername
             // 
@@ -521,12 +528,12 @@
             this.txtUsername.MaxLength = 20;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(121, 20);
-            this.txtUsername.TabIndex = 4;
+            this.txtUsername.TabIndex = 9;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 46);
+            this.label7.Location = new System.Drawing.Point(15, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 3;
@@ -554,23 +561,55 @@
             // lblErrorMsg
             // 
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMsg.Location = new System.Drawing.Point(9, 371);
+            this.lblErrorMsg.Location = new System.Drawing.Point(13, 398);
             this.lblErrorMsg.Name = "lblErrorMsg";
             this.lblErrorMsg.Size = new System.Drawing.Size(541, 31);
             this.lblErrorMsg.TabIndex = 78;
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblErrorMsg.Click += new System.EventHandler(this.lblErrorMsg_Click);
+            // 
+            // cmbRol
+            // 
+            this.cmbRol.DisplayMember = "NombreRol";
+            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRol.FormattingEnabled = true;
+            this.cmbRol.Location = new System.Drawing.Point(93, 72);
+            this.cmbRol.Name = "cmbRol";
+            this.cmbRol.Size = new System.Drawing.Size(121, 21);
+            this.cmbRol.TabIndex = 11;
+            this.cmbRol.ValueMember = "Idrol";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 75);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 85;
+            this.label8.Text = "Rol:";
+            // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.Location = new System.Drawing.Point(91, 75);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(65, 13);
+            this.lblRol.TabIndex = 87;
+            this.lblRol.Text = "Proveedor";
             // 
             // frmAbmProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 449);
+            this.ClientSize = new System.Drawing.Size(571, 462);
             this.Controls.Add(this.lblErrorMsg);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.chkHabilitado);
             this.Name = "frmAbmProveedor";
             this.Text = "ABM Proveedores";
             this.Load += new System.EventHandler(this.frmAbmProveedor_Load);
@@ -632,5 +671,8 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblErrorMsg;
         private System.Windows.Forms.Label lblContacto;
+        private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblRol;
     }
 }

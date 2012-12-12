@@ -152,7 +152,11 @@ namespace GrouponDesktop.UI.AbmRol
             {
                 this.GrabarCambios();
 
+                MessageBox.Show("Datos grabados correctamente", "ABM rol");
                 brnGrabar.Enabled = false;
+
+                this.Close();
+                this.Dispose();
             }
         }
 
@@ -169,6 +173,11 @@ namespace GrouponDesktop.UI.AbmRol
 
                     this.objRol.FuncInhabilitadas.Add(func);
                     this.objRol.FuncHabilitadas.Remove(func);
+
+                    if (lstHabilitadas.Items.Count > 0)
+                    {
+                        lstHabilitadas.SelectedIndex = 0;
+                    }
                 }
                 brnGrabar.Enabled = true;
             }
@@ -187,6 +196,11 @@ namespace GrouponDesktop.UI.AbmRol
 
                     this.objRol.FuncHabilitadas.Add(func);
                     this.objRol.FuncInhabilitadas.Remove(func);
+
+                    if (lstDeshabilitadas.Items.Count > 0)
+                    {
+                        lstDeshabilitadas.SelectedIndex = 0;
+                    }
                 }
 
                 brnGrabar.Enabled = true;                

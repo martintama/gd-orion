@@ -102,6 +102,8 @@ namespace GrouponDesktop
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             this.AplicarCambios();
+            this.Close();
+            this.Dispose();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

@@ -127,13 +127,21 @@ namespace GrouponDesktop.Base
             }
             else
             {
-                //Es un alta
-                sqlstr = "Insert into orion.roles(descripcion) values(@descripcion)";
+                
 
-                sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-                sqlc.Parameters.AddWithValue("@descripcion", this.NombreRol);
+                sqlc = new SqlCommand("Orion.Roles_Crear", Dbaccess.globalConn);
+                sqlc.CommandType = CommandType.StoredProcedure;
+                SqlParameter idrolParameter;
+                idrolParameter = sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
+                idrolParameter.Direction = ParameterDirection.InputOutput;
+
+                //sqlc.Parameters.AddWithValue("@descripcion", this.NombreRol);
+                sqlc.Parameters.AddWithValue("@descripcion", "AAA");
+
                 sqlc.ExecuteNonQuery();
                 sqlc.Dispose();
+
+                this.Idrol = Convert.ToInt32(idrolParameter.Value);
             }
 
             //Agrego las funcionalidades
@@ -309,6 +317,35 @@ namespace GrouponDesktop.Base
             }
 
             return esta;
+        }
+
+        internal static List<Rol> getRoles(short idtipo_usuario)
+        {
+            List<Rol> listaRoles = new List<Rol>();
+
+            Dbaccess.DBConnect();
+            String sqlstr = "select r.idrol, r.descripcion from orion.roles r where r.idrol in (select idrol from orion.tipos_usuario_rol where idtipo_usuario = @idtipo_usuario)";
+
+            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.AddWithValue("@idtipo_usuario", idtipo_usuario);
+
+            SqlDataReader dr1 = sqlc.ExecuteReader();
+
+            while (dr1.Read())
+            {
+                Rol unRol = new Rol();
+                unRol.Idrol = Convert.ToInt32(dr1["idrol"]);
+                unRol.NombreRol = dr1["descripcion"].ToString();
+
+                listaRoles.Add(unRol);
+            }
+
+            dr1.Close();
+            sqlc.Dispose();
+
+            Dbaccess.DBDisconnect();
+
+            return listaRoles;
         }
     }
 }

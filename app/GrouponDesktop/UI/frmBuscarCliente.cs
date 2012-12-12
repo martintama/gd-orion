@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using GrouponDesktop.UI.AbmCliente;
 
 namespace GrouponDesktop.UI
 {
@@ -251,7 +252,7 @@ namespace GrouponDesktop.UI
         private void EditarCliente(Cliente cliente)
         {
             AbmCliente.frmAbmCliente frmAbm = new AbmCliente.frmAbmCliente();
-            frmAbm.esRegistracion = false;
+            frmAbm.tipoOperacion = frmAbmCliente.TipoOperacion.Edicion_Admin;
             frmAbm.objCliente = cliente;
             frmAbm.ShowDialog();
 
@@ -300,6 +301,15 @@ namespace GrouponDesktop.UI
             }
 
             return listaOriginal;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAbmCliente oFrm = new frmAbmCliente();
+            oFrm.tipoOperacion = frmAbmCliente.TipoOperacion.Alta;
+            oFrm.ShowDialog();
+
+            this.CargarDatos();
         }
     }
 }

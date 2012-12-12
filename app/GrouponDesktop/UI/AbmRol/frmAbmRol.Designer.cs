@@ -56,7 +56,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(475, 288);
+            this.btnCerrar.Location = new System.Drawing.Point(475, 295);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 3;
@@ -66,7 +66,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(394, 288);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 79);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 4;
@@ -77,7 +77,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 102);
+            this.label1.Location = new System.Drawing.Point(13, 109);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 7;
@@ -98,7 +98,7 @@
             this.colIdrol,
             this.hdnColEstado});
             this.dgvRoles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvRoles.Location = new System.Drawing.Point(16, 118);
+            this.dgvRoles.Location = new System.Drawing.Point(16, 125);
             this.dgvRoles.MultiSelect = false;
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.ReadOnly = true;
@@ -283,7 +283,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 320);
+            this.ClientSize = new System.Drawing.Size(562, 330);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.btnLimpiar);

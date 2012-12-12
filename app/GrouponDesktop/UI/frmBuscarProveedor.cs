@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using GrouponDesktop.UI.AbmProveedor;
 
 namespace GrouponDesktop.UI
 {
@@ -143,6 +144,21 @@ namespace GrouponDesktop.UI
         {
             AbmProveedor.frmAbmProveedor oFrm = new AbmProveedor.frmAbmProveedor();
             oFrm.elProveedor = proveedor;
+            oFrm.ShowDialog();
+
+            this.CargarDatos();
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAbmProveedor oFrm = new frmAbmProveedor();
+            oFrm.tipoOperacion = frmAbmProveedor.TipoOperacion.Alta;
             oFrm.ShowDialog();
 
             this.CargarDatos();

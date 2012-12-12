@@ -13,7 +13,16 @@ namespace GrouponDesktop.UI.AbmCliente
     public partial class frmAbmCliente : Form
     {
         public Form frmParent;
-        public bool esRegistracion = false;
+
+        public enum TipoOperacion
+        {
+            Registro = 1,
+            Alta,
+            Edicion_Admin,
+            Edicion_Cliente
+        }
+
+        public TipoOperacion tipoOperacion = TipoOperacion.Registro;
 
         public Cliente objCliente = new Cliente();
 
@@ -36,6 +45,7 @@ namespace GrouponDesktop.UI.AbmCliente
                 this.objCliente.FechaNacimiento = dtpNacimiento.Value;
                 this.objCliente.UsuarioAsociado.Username = txtUsername.Text;
                 this.objCliente.UsuarioAsociado.Clave = txtPassword.Text;
+                this.objCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(cmbRol.SelectedValue), cmbRol.SelectedText);
 
                 Int16 return_value = this.objCliente.Grabar();
 
@@ -43,16 +53,32 @@ namespace GrouponDesktop.UI.AbmCliente
                 {
                     case 0: //Todo OK
                         {
-                            if (esRegistracion)
+                            switch(this.tipoOperacion)
                             {
-                                MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
+                                case TipoOperacion.Registro:
+                                {
+                                    MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
+                                    break;
+                                }
+                                case TipoOperacion.Edicion_Admin:
+                                {
+                                    MessageBox.Show("Cambios guardados correctamente", "ABM Clientes");
+                                    break;
+                                }
+                                case TipoOperacion.Alta:
+                                {
+                                    MessageBox.Show("Cliente generado correctamente", "ABM Clientes");
+                                    break;
+                                }
+                                case TipoOperacion.Edicion_Cliente:
+                                {
+                                    MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
+                                    break;
+                                }
+                                
                             }
-                            else
-                            {
-                                MessageBox.Show("Cambios guardados correctamente", "ABM Clientes");
-                            }
-                                this.Close();
-                                this.Dispose();
+                            this.Close();
+                            this.Dispose();
                            
                             break;
                         }
@@ -61,11 +87,28 @@ namespace GrouponDesktop.UI.AbmCliente
                             this.txtUsername.Focus();
                             lblUsername.Text = "* Nombre de usuario ya en uso";
                             lblUsername.Visible = true;
+
+                            //Reseteo el objeto Cliente
+                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                            {
+                                this.objCliente = new Cliente();
+                                this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+                                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
+                            }
                             break;
                         }
                     case 2: //El cliente ya se encuentra dado de alta
                         {
                             MessageBox.Show("Se ha detectado que el cliente ya se encuentra registrado", "Registro de nuevo cliente");
+
+                            //Reseteo el objeto Cliente
+                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                            {
+                                this.objCliente = new Cliente();
+                                this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+                                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
+                            }
+
                             break;
                         }
                     default:
@@ -172,8 +215,8 @@ namespace GrouponDesktop.UI.AbmCliente
                 lblUsername.Visible = true;
             }
 
-            //Solo para la registración
-            if (this.esRegistracion)
+            //Solo para la registración o alga de nuevo por parte del admin
+            if (this.tipoOperacion == TipoOperacion.Alta ||this.tipoOperacion == TipoOperacion.Registro)
             {
                 if (txtPassword.Text == "")
                 {
@@ -234,27 +277,61 @@ namespace GrouponDesktop.UI.AbmCliente
 
         private void frmAbmCliente_Load(object sender, EventArgs e)
         {
-            if (this.esRegistracion)
+            if (this.tipoOperacion == TipoOperacion.Alta ||this.tipoOperacion == TipoOperacion.Registro)
             {
-                this.Text = "Registro de nuevo cliente";
+                this.Text = "Cuponete Orion - Registro de nuevo cliente";
                 this.lblTitulo.Text = "Nuevo cliente";
                 chkHabilitado.Visible = false;
-                //Rol y tipo de usuario "Cliente" por default
-                this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+
+                
                 this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
 
-                //Sacar luego de las pruebas
-                Test();
+                //Si es un registro: Rol y tipo de usuario "Cliente" por default
+                if (this.tipoOperacion == TipoOperacion.Registro)
+                {
+                    this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+                    lblRol.Visible = true;
+                    cmbRol.Visible = false;
+                }
+                else
+                {
+                    cmbRol.ValueMember = "Idrol";
+                    cmbRol.DisplayMember = "NombreRol";
+                    cmbRol.DataSource = Rol.getRoles(2);
+
+                    lblRol.Visible = false;
+                    cmbRol.Visible = true;
+                }
+                
+                
             }
             else
             {
-                this.Text = "Editar cliente";
-                this.lblTitulo.Text = "Editar cliente";
+                if (this.tipoOperacion == TipoOperacion.Edicion_Admin)
+                {
+                    this.Text = "Cuponete Orion - Editar cliente";
+                    this.lblTitulo.Text = "Editar cliente";
 
-                chkHabilitado.Visible = true;
+                    lblRol.Visible = false;
+                    cmbRol.Visible = true;
+
+                    chkHabilitado.Visible = true;
+
+                    cmbRol.ValueMember = "Idrol";
+                    cmbRol.DisplayMember = "NombreRol";
+                    cmbRol.DataSource = Rol.getRoles(2);
+                }
+                else
+                {
+                    this.Text = "Cuponete Orion - Editar datos";
+                    this.lblTitulo.Text = "Editar datos";
+                    lblRol.Visible = true;
+                    cmbRol.Visible = false;
+                }
+
                 this.CargarControles();
-
             }
+
         }
 
         private void btnEditarCiudades_Click(object sender, EventArgs e)
@@ -284,6 +361,8 @@ namespace GrouponDesktop.UI.AbmCliente
                 chkHabilitado.Checked = true;
             else
                 chkHabilitado.Checked = false;
+
+            cmbRol.SelectedValue = objCliente.UsuarioAsociado.RolAsociado.Idrol;
 
         }
         private void Test()

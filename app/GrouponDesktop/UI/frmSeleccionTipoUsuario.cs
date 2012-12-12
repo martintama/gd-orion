@@ -22,16 +22,18 @@ namespace GrouponDesktop
         {
             this.Hide();
             frmAbmProveedor frmProveedor = new frmAbmProveedor();
+            frmProveedor.tipoOperacion = frmAbmProveedor.TipoOperacion.Registro;
             frmProveedor.ShowDialog();
 
             this.Close();
+            this.Dispose();
         }
 
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
             frmAbmCliente frmCliente = new frmAbmCliente();
-            frmCliente.esRegistracion = true;
+            frmCliente.tipoOperacion = frmAbmCliente.TipoOperacion.Registro;
             frmCliente.ShowDialog();
 
             this.Close();

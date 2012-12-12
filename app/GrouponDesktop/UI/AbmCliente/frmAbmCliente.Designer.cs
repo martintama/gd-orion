@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblRol = new System.Windows.Forms.Label();
+            this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.MaskedTextBox();
-            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -81,20 +84,49 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblRol);
+            this.groupBox1.Controls.Add(this.cmbRol);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.lblPassword);
             this.groupBox1.Controls.Add(this.lblUsername);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.txtPassword);
-            this.groupBox1.Controls.Add(this.chkHabilitado);
             this.groupBox1.Controls.Add(this.txtUsername);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 303);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(542, 77);
+            this.groupBox1.Size = new System.Drawing.Size(542, 104);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de acceso";
+            // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.Location = new System.Drawing.Point(65, 75);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(46, 13);
+            this.lblRol.TabIndex = 39;
+            this.lblRol.Text = "Cliente";
+            // 
+            // cmbRol
+            // 
+            this.cmbRol.FormattingEnabled = true;
+            this.cmbRol.Location = new System.Drawing.Point(68, 71);
+            this.cmbRol.Name = "cmbRol";
+            this.cmbRol.Size = new System.Drawing.Size(121, 21);
+            this.cmbRol.TabIndex = 38;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "Rol:";
             // 
             // lblPassword
             // 
@@ -124,7 +156,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(95, 13);
             this.label19.TabIndex = 26;
-            this.label19.Text = "Max 50 caracteres";
+            this.label19.Text = "Max 30 caracteres";
             // 
             // txtPassword
             // 
@@ -133,21 +165,10 @@
             this.txtPassword.Size = new System.Drawing.Size(175, 20);
             this.txtPassword.TabIndex = 12;
             // 
-            // chkHabilitado
-            // 
-            this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.Enabled = false;
-            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHabilitado.Location = new System.Drawing.Point(424, 46);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(112, 17);
-            this.chkHabilitado.TabIndex = 11;
-            this.chkHabilitado.Text = "Usuario Habilitado";
-            this.chkHabilitado.UseVisualStyleBackColor = true;
-            // 
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(68, 14);
+            this.txtUsername.MaxLength = 30;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(175, 20);
             this.txtUsername.TabIndex = 9;
@@ -169,6 +190,18 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
+            // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Enabled = false;
+            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHabilitado.Location = new System.Drawing.Point(448, 13);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(106, 17);
+            this.chkHabilitado.TabIndex = 11;
+            this.chkHabilitado.Text = "Cliente habilitado";
+            this.chkHabilitado.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -300,6 +333,7 @@
             // txtCodPostal
             // 
             this.txtCodPostal.Location = new System.Drawing.Point(74, 178);
+            this.txtCodPostal.MaxLength = 8;
             this.txtCodPostal.Name = "txtCodPostal";
             this.txtCodPostal.Size = new System.Drawing.Size(100, 20);
             this.txtCodPostal.TabIndex = 6;
@@ -519,7 +553,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(151, 422);
+            this.btnCancelar.Location = new System.Drawing.Point(151, 444);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(78, 23);
             this.btnCancelar.TabIndex = 13;
@@ -529,7 +563,7 @@
             // 
             // btnGrabar
             // 
-            this.btnGrabar.Location = new System.Drawing.Point(336, 422);
+            this.btnGrabar.Location = new System.Drawing.Point(336, 444);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(83, 23);
             this.btnGrabar.TabIndex = 12;
@@ -550,7 +584,7 @@
             // lblErrorMsg
             // 
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMsg.Location = new System.Drawing.Point(9, 383);
+            this.lblErrorMsg.Location = new System.Drawing.Point(9, 410);
             this.lblErrorMsg.Name = "lblErrorMsg";
             this.lblErrorMsg.Size = new System.Drawing.Size(541, 31);
             this.lblErrorMsg.TabIndex = 22;
@@ -560,13 +594,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 454);
+            this.ClientSize = new System.Drawing.Size(566, 479);
             this.Controls.Add(this.lblErrorMsg);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.chkHabilitado);
             this.Name = "frmAbmCliente";
             this.Text = "Cuponete Orion - ABM Cliente";
             this.Load += new System.EventHandler(this.frmAbmCliente_Load);
@@ -628,5 +663,8 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.Label lblRol;
     }
 }

@@ -30,10 +30,16 @@
         {
             this.btnCerrar = new System.Windows.Forms.Button();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
+            this.cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.razónSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cambiarEstado = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblSoloNum = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -41,12 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.lblSoloNum = new System.Windows.Forms.Label();
-            this.cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.razónSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cambiarEstado = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +60,7 @@
             this.btnCerrar.TabIndex = 6;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // dgvDatos
             // 
@@ -76,6 +78,47 @@
             this.dgvDatos.TabIndex = 5;
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
+            // 
+            // cuit
+            // 
+            this.cuit.DataPropertyName = "Cuit";
+            this.cuit.Frozen = true;
+            this.cuit.HeaderText = "CUIT";
+            this.cuit.Name = "cuit";
+            this.cuit.ReadOnly = true;
+            this.cuit.Width = 80;
+            // 
+            // razónSocial
+            // 
+            this.razónSocial.DataPropertyName = "Razonsocial";
+            this.razónSocial.Frozen = true;
+            this.razónSocial.HeaderText = "Razón Social";
+            this.razónSocial.Name = "razónSocial";
+            this.razónSocial.ReadOnly = true;
+            this.razónSocial.Width = 130;
+            // 
+            // mail
+            // 
+            this.mail.DataPropertyName = "Mail";
+            this.mail.Frozen = true;
+            this.mail.HeaderText = "Mail";
+            this.mail.Name = "mail";
+            this.mail.ReadOnly = true;
+            this.mail.Width = 130;
+            // 
+            // editar
+            // 
+            this.editar.Frozen = true;
+            this.editar.HeaderText = "Editar";
+            this.editar.Name = "editar";
+            this.editar.ReadOnly = true;
+            // 
+            // cambiarEstado
+            // 
+            this.cambiarEstado.Frozen = true;
+            this.cambiarEstado.HeaderText = "Inhabilitar";
+            this.cambiarEstado.Name = "cambiarEstado";
+            this.cambiarEstado.ReadOnly = true;
             // 
             // label5
             // 
@@ -121,6 +164,17 @@
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // lblSoloNum
+            // 
+            this.lblSoloNum.AutoSize = true;
+            this.lblSoloNum.ForeColor = System.Drawing.Color.Red;
+            this.lblSoloNum.Location = new System.Drawing.Point(222, 55);
+            this.lblSoloNum.Name = "lblSoloNum";
+            this.lblSoloNum.Size = new System.Drawing.Size(180, 13);
+            this.lblSoloNum.TabIndex = 9;
+            this.lblSoloNum.Text = "* Solo números sin guiones ni puntos";
+            this.lblSoloNum.Visible = false;
             // 
             // txtMail
             // 
@@ -183,63 +237,22 @@
             this.label27.TabIndex = 29;
             this.label27.Text = "Buscar proveedores";
             // 
-            // lblSoloNum
+            // btnAgregar
             // 
-            this.lblSoloNum.AutoSize = true;
-            this.lblSoloNum.ForeColor = System.Drawing.Color.Red;
-            this.lblSoloNum.Location = new System.Drawing.Point(222, 55);
-            this.lblSoloNum.Name = "lblSoloNum";
-            this.lblSoloNum.Size = new System.Drawing.Size(180, 13);
-            this.lblSoloNum.TabIndex = 9;
-            this.lblSoloNum.Text = "* Solo números sin guiones ni puntos";
-            this.lblSoloNum.Visible = false;
-            // 
-            // cuit
-            // 
-            this.cuit.DataPropertyName = "Cuit";
-            this.cuit.Frozen = true;
-            this.cuit.HeaderText = "CUIT";
-            this.cuit.Name = "cuit";
-            this.cuit.ReadOnly = true;
-            this.cuit.Width = 80;
-            // 
-            // razónSocial
-            // 
-            this.razónSocial.DataPropertyName = "Razonsocial";
-            this.razónSocial.Frozen = true;
-            this.razónSocial.HeaderText = "Razón Social";
-            this.razónSocial.Name = "razónSocial";
-            this.razónSocial.ReadOnly = true;
-            this.razónSocial.Width = 130;
-            // 
-            // mail
-            // 
-            this.mail.DataPropertyName = "Mail";
-            this.mail.Frozen = true;
-            this.mail.HeaderText = "Mail";
-            this.mail.Name = "mail";
-            this.mail.ReadOnly = true;
-            this.mail.Width = 130;
-            // 
-            // editar
-            // 
-            this.editar.Frozen = true;
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            // 
-            // cambiarEstado
-            // 
-            this.cambiarEstado.Frozen = true;
-            this.cambiarEstado.HeaderText = "Inhabilitar";
-            this.cambiarEstado.Name = "cambiarEstado";
-            this.cambiarEstado.ReadOnly = true;
+            this.btnAgregar.Location = new System.Drawing.Point(12, 125);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 34;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // frmBuscarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 428);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.dgvDatos);
             this.Controls.Add(this.label5);
@@ -278,6 +291,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewButtonColumn editar;
         private System.Windows.Forms.DataGridViewButtonColumn cambiarEstado;
+        private System.Windows.Forms.Button btnAgregar;
 
     }
 }

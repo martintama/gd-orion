@@ -53,7 +53,6 @@ namespace GrouponDesktop.Base
                             unAdministrativo.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"]);
                             unAdministrativo.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(dr1["idrol"]), "-");
                             unAdministrativo.UsuarioAsociado.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), "-");
-                            unAdministrativo.UsuarioAsociado.RolAsociado.GetFuncionalidades();
 
                             EntidadLogueada = unAdministrativo;
                             EstadoLogin = LoginStatus.login_exitoso;
@@ -86,6 +85,11 @@ namespace GrouponDesktop.Base
 
             switch(Idtipo_usuario)
             {
+                case 1: //Administrativo
+                    {
+                        ((Administrativo)EntidadLogueada).UsuarioAsociado.RolAsociado.GetFuncionalidades();
+                        break;
+                    }
                 case 2: //Cliente
                     {
                         Cliente unCliente = Cliente.GetCliente(idasociado);

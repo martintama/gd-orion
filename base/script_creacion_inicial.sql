@@ -635,6 +635,23 @@ BEGIN
 END
 GO
 
+-- =============================================
+-- Description:	Crea un nuevo rol y devuelve el idrol creado
+-- =============================================
+CREATE PROCEDURE [ORION].[Roles_Crear]
+	@idrol int = 0 output, @descripcion varchar(50)
+AS 
+BEGIN
+	SET NOCOUNT ON
+
+	Insert into orion.roles(descripcion) values(@descripcion)
+	
+	set @idrol = @@IDENTITY	
+	
+END
+
+GO
+
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
 
@@ -699,7 +716,12 @@ select 3,idfuncionalidad from orion.funcionalidades where idfuncionalidad in (4,
 
 -- Roles del Administrador General
 insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 4,idfuncionalidad from  orion.funcionalidades order by idfuncionalidad
-	
+
+-- Asociación de roles y tipos de usuario
+insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(1, 1);
+insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(2, 2);
+insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(3, 3);
+
 -- Usuario administrativo
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario) values('admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
 

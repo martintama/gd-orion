@@ -16,7 +16,15 @@ namespace GrouponDesktop.UI.AbmProveedor
 
         public Proveedor elProveedor;
 
-        public Boolean esRegistracion;
+        public enum TipoOperacion
+        {
+            Registro = 1,
+            Alta,
+            Edicion_Admin,
+            Edicion_Cliente
+        }
+
+        public TipoOperacion tipoOperacion = TipoOperacion.Registro;
 
         public frmAbmProveedor()
         {
@@ -27,20 +35,54 @@ namespace GrouponDesktop.UI.AbmProveedor
         {
             this.CargarCombos();
 
-            //Si no hay nada, es uno nuevo
-            if (elProveedor == null)
+            if (this.tipoOperacion == TipoOperacion.Alta || this.tipoOperacion == TipoOperacion.Registro)
             {
-                esRegistracion = true;
-                elProveedor = new Proveedor();
-                elProveedor.UsuarioAsociado.TipoUsuarioAsociado = new TipoUsuario(3, "Proveedor");
+                this.Text = "Cuponete Orion - Registr de nuevo proveedor";
                 lblTitulo.Text = "Registrar nuevo proveedor";
+                this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
+                chkHabilitado.Visible = false;
+
+                if (this.tipoOperacion == TipoOperacion.Registro)
+                {
+                    this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
+                    lblRol.Visible = true;
+                    cmbRol.Visible = false;
+                }
+                else
+                {
+                    cmbRol.ValueMember = "Idrol";
+                    cmbRol.DisplayMember = "NombreRol";
+                    cmbRol.DataSource = Rol.getRoles(3);
+
+                    lblRol.Visible = false;
+                    cmbRol.Visible = true;
+                }
+                
             }
             else
             {
-                //Sino, es una edicion
-                esRegistracion = false;
-                lblTitulo.Text = "Editar proveedor";
-                this.CargarDatos();
+                if (this.tipoOperacion == TipoOperacion.Edicion_Admin)
+                {
+                    this.Text = "Cuponete Orion - Editar proveedor";
+                    this.lblTitulo.Text = "Editar proveedor";
+
+                    lblRol.Visible = false;
+                    cmbRol.Visible = true;
+
+                    chkHabilitado.Visible = true;
+
+                    cmbRol.ValueMember = "Idrol";
+                    cmbRol.DisplayMember = "NombreRol";
+                    cmbRol.DataSource = Rol.getRoles(3);
+                }
+                else
+                {
+                    this.Text = "Cuponete Orion - Editar datos";
+                    this.lblTitulo.Text = "Editar datos";
+                    lblRol.Visible = true;
+                    cmbRol.Visible = false;
+                }
+
             }
         }
 
@@ -53,6 +95,13 @@ namespace GrouponDesktop.UI.AbmProveedor
             cmbRubro.ValueMember = "Idrubro";
             cmbRubro.DisplayMember = "Descripcion";
             cmbRubro.DataSource = Rubro.getRubros();
+
+            if (this.elProveedor != null)
+            {
+                cmbRol.ValueMember = "Idrol";
+                cmbRol.DisplayMember = "NombreRol";
+                cmbRol.DataSource = Rol.getRoles(this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario);
+            }
         }
 
         private void CargarDatos()
@@ -159,9 +208,9 @@ namespace GrouponDesktop.UI.AbmProveedor
             {
                 if (!BasicFunctions.EsNumero(txtCuit.Text))
                 {
-                    txtCuit.Text = "* Solo números. Sin guiones.";
+                    lblCuit.Text = "* Solo números. Sin guiones.";
                     valido = false;
-                    txtCuit.Visible = true;
+                    lblCuit.Visible = true;
                 }
             }
 
@@ -175,8 +224,8 @@ namespace GrouponDesktop.UI.AbmProveedor
             if (txtContacto.Text == "")
             {
                 valido = false;
-                txtContacto.Text = "* Obligatorio";
-                txtContacto.Visible = true;
+                lblContacto.Text = "* Obligatorio";
+                lblContacto.Visible = true;
             }
 
             if (txtUsername.Text == "")
@@ -187,7 +236,7 @@ namespace GrouponDesktop.UI.AbmProveedor
             }
 
             //Solo para la registración
-            if (this.esRegistracion)
+            if (this.tipoOperacion == TipoOperacion.Registro ||this.tipoOperacion == TipoOperacion.Alta)
             {
                 if (txtPassword.Text == "")
                 {
@@ -242,16 +291,33 @@ namespace GrouponDesktop.UI.AbmProveedor
                 {
                     case 0: //Todo OK
                         {
-                            if (esRegistracion)
+                            switch (this.tipoOperacion)
                             {
-                                MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo proveedor");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Cambios guardados correctamente", "ABM Proveedores");
+                                case TipoOperacion.Registro:
+                                    {
+                                        MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo proveedor");
+                                        break;
+                                    }
+                                case TipoOperacion.Edicion_Admin:
+                                    {
+                                        MessageBox.Show("Cambios guardados correctamente", "ABM proveedor");
+                                        break;
+                                    }
+                                case TipoOperacion.Alta:
+                                    {
+                                        MessageBox.Show("Cliente generado correctamente", "ABM proveedor");
+                                        break;
+                                    }
+                                case TipoOperacion.Edicion_Cliente:
+                                    {
+                                        MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
+                                        break;
+                                    }
+
                             }
                             this.Close();
                             this.Dispose();
+
 
                             break;
                         }
@@ -260,11 +326,26 @@ namespace GrouponDesktop.UI.AbmProveedor
                             this.txtUsername.Focus();
                             lblUsername.Text = "* Nombre de usuario ya en uso";
                             lblUsername.Visible = true;
+
+                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                            {
+                                elProveedor = new Proveedor();
+                                //Rol y tipo de usuario "Proveedor" por default
+                                this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
+                                this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
+                            }
                             break;
                         }
                     case -2: //El proveedor ya se encuentra dado de alta
                         {
                             MessageBox.Show("Se ha detectado que el proveedor ya se encuentra registrado", "Registro de nuevo cliente");
+                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                            {
+                                elProveedor = new Proveedor();
+                                //Rol y tipo de usuario "Proveedor" por default
+                                this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
+                                this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
+                            }
                             break;
                         }
                     default:
@@ -275,6 +356,11 @@ namespace GrouponDesktop.UI.AbmProveedor
 
                 }
             }
+
+        }
+
+        private void lblErrorMsg_Click(object sender, EventArgs e)
+        {
 
         }
 
