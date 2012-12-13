@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.ArmarCupon
+namespace GrouponDesktop.UI.ArmarCupon
 {
     public partial class frmArmarCupon : Form
     {
@@ -168,9 +168,9 @@ namespace GrouponDesktop.ArmarCupon
         private void LimpiarFormulario()
         {
             txtDescripcion.Text = "";
-            dtpFechaPublicacion.Value = Sesion.currentDate;
-            dtpFechaVencimientoCanje.Value = Sesion.currentDate;
-            dtpFechaVencimientoOferta.Value = Sesion.currentDate;
+            dtpFechaPublicacion.Value = Sesion.ConfigApp.FechaActual;
+            dtpFechaVencimientoCanje.Value = Sesion.ConfigApp.FechaActual;
+            dtpFechaVencimientoOferta.Value = Sesion.ConfigApp.FechaActual;
             txtPrecioReal.Text = "";
             txtPrecioFicticio.Text = "";
             txtStock.Value = 0;
@@ -184,7 +184,7 @@ namespace GrouponDesktop.ArmarCupon
         {
             this.elCupon.ProveedorAsoaciado.Idproveedor = ((Proveedor)Sesion.EntidadLogueada).Idproveedor;
             this.elCupon.Descripcion = txtDescripcion.Text;
-            this.elCupon.FechaAlta = Sesion.currentDate;
+            this.elCupon.FechaAlta = Sesion.ConfigApp.FechaActual;
             this.elCupon.FechaPublicacion = this.dtpFechaPublicacion.Value;
             this.elCupon.FechaVencimiento = this.dtpFechaVencimientoOferta.Value;
             this.elCupon.FechaVencimientoCanje = this.dtpFechaVencimientoCanje.Value;

@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.PedirDevolucion
+﻿namespace GrouponDesktop.UI.PedirDevolucion
 {
     partial class frmPedirDevolucion
     {

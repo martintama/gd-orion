@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.ArmarCupon
+﻿namespace GrouponDesktop.UI.ArmarCupon
 {
     partial class frmArmarCupon
     {
@@ -421,6 +421,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmArmarCupon";
             this.Text = "Cuponete Orion - Armar cupón";
             this.groupBox1.ResumeLayout(false);

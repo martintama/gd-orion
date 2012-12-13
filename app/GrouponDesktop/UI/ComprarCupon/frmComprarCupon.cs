@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.ComprarCupon
+namespace GrouponDesktop.UI.ComprarCupon
 {
     public partial class frmComprarCupon : Form
     {
@@ -108,7 +108,7 @@ namespace GrouponDesktop.ComprarCupon
                 unaCompra = new Compra();
                 unaCompra.ClienteAsociado.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
                 unaCompra.CuponAsociado.Idcupon = this.cuponSeleccionado.Idcupon;
-                unaCompra.FechaCompra = Sesion.currentDate;
+                unaCompra.FechaCompra = Sesion.ConfigApp.FechaActual;
                 unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);
 
                 unaCompra.GrabarCompra();

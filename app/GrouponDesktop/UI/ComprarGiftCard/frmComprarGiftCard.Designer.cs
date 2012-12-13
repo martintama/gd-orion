@@ -163,6 +163,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmComprarGiftCard";
             this.Text = "Cuponete Orion - Comprar Giftcard";
             this.Load += new System.EventHandler(this.frmComprarGiftCard_Load);

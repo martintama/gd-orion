@@ -81,7 +81,6 @@ namespace GrouponDesktop.Base
             Dbaccess.DBConnect();
 
             String strwhere = "";
-            String strwhere_sub = "";
             
             if (estadoPublicacion)
             {
@@ -100,7 +99,7 @@ namespace GrouponDesktop.Base
                 sqlstr += "inner join orion.usuarios u on u.idusuario = p.idusuario where " + strwhere + " order by p.razon_social";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-            sqlc.Parameters.AddWithValue("@fecha", Sesion.currentDate);
+            sqlc.Parameters.AddWithValue("@fecha", Sesion.ConfigApp.FechaActual);
 
             if (idproveedor > 0)
                 sqlc.Parameters.AddWithValue("@idproveedor", idproveedor);
@@ -164,7 +163,7 @@ namespace GrouponDesktop.Base
 
             foreach (Cupon unCupon in listaCuponesPublicar)
             {
-                sqlc.Parameters["@fecha"].Value = Sesion.currentDate.ToString("yyyy-MM-dd");
+                sqlc.Parameters["@fecha"].Value = Sesion.ConfigApp.FechaActual.ToString("yyyy-MM-dd");
                 sqlc.Parameters["@idcupon"].Value = unCupon.Idcupon;
                 sqlc.ExecuteNonQuery();
             }

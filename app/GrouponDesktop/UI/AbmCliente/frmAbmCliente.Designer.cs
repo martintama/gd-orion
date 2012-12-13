@@ -602,6 +602,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chkHabilitado);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAbmCliente";
             this.Text = "Cuponete Orion - ABM Cliente";
             this.Load += new System.EventHandler(this.frmAbmCliente_Load);

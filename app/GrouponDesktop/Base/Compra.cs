@@ -45,7 +45,7 @@ namespace GrouponDesktop.Base
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.CommandType = System.Data.CommandType.StoredProcedure;
 
-            sqlc.Parameters.AddWithValue("@fecha", Sesion.currentDate);
+            sqlc.Parameters.AddWithValue("@fecha", Sesion.ConfigApp.FechaActual);
             sqlc.Parameters.AddWithValue("@idcliente", this.ClienteAsociado.Idcliente);
             sqlc.Parameters.AddWithValue("@cantidad", this.Cantidad);
             sqlc.Parameters.AddWithValue("@idcupon", this.CuponAsociado.Idcupon);

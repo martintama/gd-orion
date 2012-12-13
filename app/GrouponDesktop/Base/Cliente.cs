@@ -65,7 +65,7 @@ namespace GrouponDesktop.Base
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Transaction = tran;
 
-                    cmd.Parameters.AddWithValue("@fecha", Sesion.currentDate);
+                    cmd.Parameters.AddWithValue("@fecha", Sesion.ConfigApp.FechaActual);
                     cmd.Parameters.AddWithValue("@nombre", this.Nombre);
                     cmd.Parameters.AddWithValue("@apellido", this.Apellido);
                     cmd.Parameters.AddWithValue("@dni", this.DNI);

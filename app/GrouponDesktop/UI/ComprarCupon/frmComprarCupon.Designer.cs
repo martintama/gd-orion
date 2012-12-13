@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.ComprarCupon
+﻿namespace GrouponDesktop.UI.ComprarCupon
 {
     partial class frmComprarCupon
     {
@@ -382,6 +382,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvDatos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmComprarCupon";
             this.Text = "Cuponete Orion - Comprar cupón";
             this.Load += new System.EventHandler(this.frmComprarCupon_Load);

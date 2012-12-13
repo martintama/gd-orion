@@ -11,8 +11,8 @@ namespace GrouponDesktop.Base
         static public Object EntidadLogueada { get; set; }
         static public Int16 Idtipo_usuario { get; set; }
         static public LoginStatus EstadoLogin { get; set; }
-        public static DateTime currentDate;
-
+        public static Configuracion ConfigApp { get; set; }
+        
         public enum LoginStatus{
             login_exitoso,
             login_datos_incorrectos,

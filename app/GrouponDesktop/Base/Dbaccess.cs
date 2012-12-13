@@ -18,10 +18,10 @@ namespace GrouponDesktop.Base
             {
                 string connString = string.Format(
                     "Server={0};Database={1};User Id={2};Password={3};",
-                    "localhost\\SQLSERVER2008",
-                    "GD2C2012",
-                    "gd",
-                    "gd2012");
+                    Sesion.ConfigApp.DataBase.Server,
+                    Sesion.ConfigApp.DataBase.Base,
+                    Sesion.ConfigApp.DataBase.Usuario,
+                    Sesion.ConfigApp.DataBase.Pass);
 
                 globalConn = new SqlConnection(connString);
                 

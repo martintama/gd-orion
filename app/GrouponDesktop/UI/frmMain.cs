@@ -150,6 +150,7 @@ namespace GrouponDesktop.UI
         {
             OcultarMenues();
             CargarMenues();
+            this.lblUsername.Text = Sesion.GetUsuarioAsociado().Username;
         }
 
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -174,84 +175,188 @@ namespace GrouponDesktop.UI
         private void aBMRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            AbmRol.frmAbmRol frmRol = new AbmRol.frmAbmRol();
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                AbmRol.frmAbmRol frmRol = new AbmRol.frmAbmRol();
+                frmRol.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
 
-            frmRol.ShowDialog();
         }
 
         private void aBMClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            frmBuscarCliente frmCliente = new frmBuscarCliente();
-            frmCliente.ShowDialog();
-
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                frmBuscarCliente frmCliente = new frmBuscarCliente();
+                frmCliente.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
         }
 
         private void aBMProveedorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmBuscarProveedor frmProveedor = new frmBuscarProveedor();
-            frmProveedor.ShowDialog();
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                frmBuscarProveedor frmProveedor = new frmBuscarProveedor();
+                frmProveedor.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
 
         }
 
         private void facturacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FacturarProveedor.frmFacturarProveedor frmFacturar = new GrouponDesktop.FacturarProveedor.frmFacturarProveedor();
-            frmFacturar.ShowDialog();
+            
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                FacturarProveedor.frmFacturarProveedor frmFacturar = new FacturarProveedor.frmFacturarProveedor();
+                frmFacturar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
         }
 
         private void publicarCuponesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PublicarCupon.frmPublicarCupon frmPublicar = new PublicarCupon.frmPublicarCupon();
-            frmPublicar.ShowDialog();
+            
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                PublicarCupon.frmPublicarCupon frmPublicar = new PublicarCupon.frmPublicarCupon();
+                frmPublicar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
         }
 
         private void listadoEstadisticoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListadoEstadistico.frmListadoEstadistico frmListado = new GrouponDesktop.ListadoEstadistico.frmListadoEstadistico();
-            frmListado.ShowDialog();
+            if (Sesion.Idtipo_usuario == 1)
+            {
+                ListadoEstadistico.frmListadoEstadistico frmListado = new ListadoEstadistico.frmListadoEstadistico();
+                frmListado.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un ADMINISTRATIVO");
+            }
         }
 
         private void cargarCreditoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CargaCredito.frmCargarCredito frmCargar = new GrouponDesktop.CargaCredito.frmCargarCredito();
-            frmCargar.ShowDialog();
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                CargaCredito.frmCargarCredito frmCargar = new CargaCredito.frmCargarCredito();
+                frmCargar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un CLIENTE");
+            }
         }
 
         private void comprarCuponToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComprarCupon.frmComprarCupon frmComprar = new GrouponDesktop.ComprarCupon.frmComprarCupon();
-            frmComprar.ShowDialog();
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                ComprarCupon.frmComprarCupon frmComprar = new ComprarCupon.frmComprarCupon();
+                frmComprar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un CLIENTE");
+            }
+           
         }
 
         private void comprarGiftcardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ComprarGiftCard.frmComprarGiftCard frmComprarGift = new ComprarGiftCard.frmComprarGiftCard();
-            frmComprarGift.ShowDialog();
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                ComprarGiftCard.frmComprarGiftCard frmComprarGift = new ComprarGiftCard.frmComprarGiftCard();
+                frmComprarGift.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un CLIENTE");
+            }
+            
         }
 
         private void verHistorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HistorialCupones.frmHistorialCupones frmHistorial = new GrouponDesktop.HistorialCupones.frmHistorialCupones();
-            frmHistorial.ShowDialog();
+           
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                HistorialCupones.frmHistorialCupones frmHistorial = new HistorialCupones.frmHistorialCupones();
+                frmHistorial.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un CLIENTE");
+            }
         }
 
         private void pedirDevoluciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PedirDevolucion.frmPedirDevolucion frmDevolucion = new GrouponDesktop.PedirDevolucion.frmPedirDevolucion();
-            frmDevolucion.ShowDialog();
+
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                PedirDevolucion.frmPedirDevolucion frmDevolucion = new PedirDevolucion.frmPedirDevolucion();
+                frmDevolucion.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un CLIENTE");
+            }
         }
 
         private void armarCupónToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ArmarCupon.frmArmarCupon frmArmarCupon = new GrouponDesktop.ArmarCupon.frmArmarCupon();
-            frmArmarCupon.ShowDialog();
+            if (Sesion.Idtipo_usuario == 3)
+            {
+                ArmarCupon.frmArmarCupon frmArmarCupon = new ArmarCupon.frmArmarCupon();
+                frmArmarCupon.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un PROVEEDOR");
+            }
         }
 
         private void registrarConsumoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegistroConsumoCupon.frmRegistroConsumo frmConsumo = new GrouponDesktop.RegistroConsumoCupon.frmRegistroConsumo();
-            frmConsumo.ShowDialog();
+            if (Sesion.Idtipo_usuario == 3)
+            {
+                RegistroConsumoCupon.frmRegistroConsumo frmConsumo = new RegistroConsumoCupon.frmRegistroConsumo();
+                frmConsumo.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Para utilizar esta funcionalidad debe ser un PROVEEDOR");
+            }
+            
+        }
+
+
+        private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCambiarPassword frmPassword = new frmCambiarPassword();
+            frmPassword.ShowDialog();
         }
 
     }

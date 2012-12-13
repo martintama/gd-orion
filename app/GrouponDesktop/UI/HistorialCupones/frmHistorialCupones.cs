@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.HistorialCupones
+namespace GrouponDesktop.UI.HistorialCupones
 {
     public partial class frmHistorialCupones : Form
     {
@@ -49,7 +49,7 @@ namespace GrouponDesktop.HistorialCupones
 
         public void LimpiarCampos()
         {
-            dtpHasta.Value = Sesion.currentDate;
+            dtpHasta.Value = Sesion.ConfigApp.FechaActual;
             dtpDesde.Value = dtpHasta.Value.AddMonths(-1);
         }
 

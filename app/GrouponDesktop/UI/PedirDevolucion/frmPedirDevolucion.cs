@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.PedirDevolucion
+namespace GrouponDesktop.UI.PedirDevolucion
 {
     public partial class frmPedirDevolucion : Form
     {
@@ -165,7 +165,7 @@ namespace GrouponDesktop.PedirDevolucion
                 laDevolucion = new Devolucion();
 
                 laDevolucion.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
-                laDevolucion.FechaDevolucion = Sesion.currentDate;
+                laDevolucion.FechaDevolucion = Sesion.ConfigApp.FechaActual;
                 laDevolucion.Idcompra = unaCompra.Idcompra;
                 laDevolucion.Motivo = txtMotivo.Text;
 

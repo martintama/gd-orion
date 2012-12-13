@@ -28,7 +28,7 @@ namespace GrouponDesktop.Base
 
             cmd.Parameters.AddWithValue("@idcliente_origen", this.ClienteOrigen.Idcliente);
             cmd.Parameters.AddWithValue("@idcliente_destino", this.ClienteDestino.Idcliente);
-            cmd.Parameters.AddWithValue("@fecha", Sesion.currentDate.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@fecha", Sesion.ConfigApp.FechaActual.ToString("yyyy-MM-dd"));
             cmd.Parameters.AddWithValue("@monto", this.Monto);
 
             cmd.ExecuteNonQuery();

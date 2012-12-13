@@ -24,7 +24,7 @@ namespace GrouponDesktop.UI.PublicarCupon
 
         private void frmPublicarCupon_Load(object sender, EventArgs e)
         {
-            this.txtFecha.Text = Sesion.currentDate.ToString("dd/MM/yyyy");
+            this.txtFecha.Text = Sesion.ConfigApp.FechaActual.ToString("dd/MM/yyyy");
             CargarDatos();
         }
 

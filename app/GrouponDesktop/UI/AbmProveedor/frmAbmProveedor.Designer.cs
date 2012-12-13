@@ -610,6 +610,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chkHabilitado);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAbmProveedor";
             this.Text = "ABM Proveedores";
             this.Load += new System.EventHandler(this.frmAbmProveedor_Load);

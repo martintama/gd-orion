@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.CargaCredito
+﻿namespace GrouponDesktop.UI.CargaCredito
 {
     partial class frmCargarCredito
     {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 using GrouponDesktop.UI;
+using System.Reflection;
+using System.IO;
 
 namespace GrouponDesktop
 {
@@ -15,9 +17,11 @@ namespace GrouponDesktop
         [STAThread]
         static void Main()
         {
-            IoBLL.loadConfig();
-
+            String rutaConfig = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\GrouponConfig.xml";
+            Sesion.ConfigApp = ConfigReader.LoadConfig(rutaConfig);
+                        
             Application.EnableVisualStyles();
+
             //Application.SetCompatibleTextRenderingDefault(false);
             //PRODUCCION    
             //Application.Run(new frmLogin());

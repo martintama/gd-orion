@@ -8,17 +8,28 @@ using System.IO;
 
 namespace GrouponDesktop.Base
 {
-    public static class IoBLL
+    public static class ConfigReader
     {
-        public static void loadConfig()
+        public static Configuracion LoadConfig(String ruta)
         {
 
+            Configuracion unaConfiguracion = new Configuracion();
+
             XmlDocument xdoc = new XmlDocument();
-            xdoc.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\GrouponConfig.xml");
+            xdoc.Load(ruta);
             XmlNode xnodes = xdoc.SelectSingleNode("/Config/FechaSistema");
 
-            Sesion.currentDate = DateTime.ParseExact(xnodes.InnerText, "dd/MM/yyyy",null);           
+            unaConfiguracion.FechaActual = DateTime.ParseExact(xnodes.InnerText, "dd/MM/yyyy",null);
 
+            xnodes = xdoc.SelectSingleNode("/Config/Database");
+
+            unaConfiguracion.DataBase.Server = xnodes.SelectSingleNode("Server").InnerText;
+            unaConfiguracion.DataBase.Puerto = Convert.ToInt32(xnodes.SelectSingleNode("Puerto").InnerText);
+            unaConfiguracion.DataBase.Base = xnodes.SelectSingleNode("Base").InnerText;
+            unaConfiguracion.DataBase.Usuario = xnodes.SelectSingleNode("Usuario").InnerText;
+            unaConfiguracion.DataBase.Pass = xnodes.SelectSingleNode("Pass").InnerText;
+
+            return unaConfiguracion;
         }
     }
 }

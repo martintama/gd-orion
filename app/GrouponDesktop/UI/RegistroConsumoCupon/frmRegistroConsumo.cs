@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 
-namespace GrouponDesktop.RegistroConsumoCupon
+namespace GrouponDesktop.UI.RegistroConsumoCupon
 {
     public partial class frmRegistroConsumo : Form
     {
@@ -160,7 +160,7 @@ namespace GrouponDesktop.RegistroConsumoCupon
                 if (this.chkVerificado.Checked)
                 {
                     Consumo unConsumo = new Consumo();
-                    unConsumo.FechaConsumo = Sesion.currentDate;
+                    unConsumo.FechaConsumo = Sesion.ConfigApp.FechaActual;
                     unConsumo.Idcliente = unaCompra.ClienteAsociado.Idcliente;
                     unConsumo.Idcompra = unaCompra.Idcompra;
                     unConsumo.Consumir();

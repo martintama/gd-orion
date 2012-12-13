@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.HistorialCupones
+﻿namespace GrouponDesktop.UI.HistorialCupones
 {
     partial class frmHistorialCupones
     {
@@ -30,6 +30,7 @@
         {
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblFechas = new System.Windows.Forms.Label();
             this.dtpHasta = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpDesde = new System.Windows.Forms.DateTimePicker();
@@ -38,10 +39,6 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.lblFechas = new System.Windows.Forms.Label();
-            this.lblMensaje = new System.Windows.Forms.Label();
-            this.lblCantidad = new System.Windows.Forms.Label();
             this.colFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +46,9 @@
             this.colFechaCanje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFechaDevolucion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCerrar = new System.Windows.Forms.Button();
+            this.lblMensaje = new System.Windows.Forms.Label();
+            this.lblCantidad = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,17 @@
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // lblFechas
+            // 
+            this.lblFechas.AutoSize = true;
+            this.lblFechas.ForeColor = System.Drawing.Color.Red;
+            this.lblFechas.Location = new System.Drawing.Point(589, 25);
+            this.lblFechas.Name = "lblFechas";
+            this.lblFechas.Size = new System.Drawing.Size(50, 13);
+            this.lblFechas.TabIndex = 8;
+            this.lblFechas.Text = "* Revisar";
+            this.lblFechas.Visible = false;
             // 
             // dtpHasta
             // 
@@ -157,48 +168,6 @@
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Location = new System.Drawing.Point(12, 432);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
-            this.btnCerrar.TabIndex = 37;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.UseVisualStyleBackColor = true;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
-            // lblFechas
-            // 
-            this.lblFechas.AutoSize = true;
-            this.lblFechas.ForeColor = System.Drawing.Color.Red;
-            this.lblFechas.Location = new System.Drawing.Point(589, 25);
-            this.lblFechas.Name = "lblFechas";
-            this.lblFechas.Size = new System.Drawing.Size(50, 13);
-            this.lblFechas.TabIndex = 8;
-            this.lblFechas.Text = "* Revisar";
-            this.lblFechas.Visible = false;
-            // 
-            // lblMensaje
-            // 
-            this.lblMensaje.ForeColor = System.Drawing.Color.Red;
-            this.lblMensaje.Location = new System.Drawing.Point(95, 432);
-            this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(628, 26);
-            this.lblMensaje.TabIndex = 38;
-            this.lblMensaje.Text = "Mensaje";
-            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMensaje.Visible = false;
-            // 
-            // lblCantidad
-            // 
-            this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidad.Location = new System.Drawing.Point(126, 102);
-            this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(14, 13);
-            this.lblCantidad.TabIndex = 39;
-            this.lblCantidad.Text = "0";
-            // 
             // colFecha
             // 
             this.colFecha.Frozen = true;
@@ -248,6 +217,37 @@
             this.colEstado.Name = "colEstado";
             this.colEstado.ReadOnly = true;
             // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Location = new System.Drawing.Point(12, 432);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
+            this.btnCerrar.TabIndex = 37;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.ForeColor = System.Drawing.Color.Red;
+            this.lblMensaje.Location = new System.Drawing.Point(95, 432);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(628, 26);
+            this.lblMensaje.TabIndex = 38;
+            this.lblMensaje.Text = "Mensaje";
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMensaje.Visible = false;
+            // 
+            // lblCantidad
+            // 
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Location = new System.Drawing.Point(126, 102);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(14, 13);
+            this.lblCantidad.TabIndex = 39;
+            this.lblCantidad.Text = "0";
+            // 
             // frmHistorialCupones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,6 +262,8 @@
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmHistorialCupones";
             this.Text = "Cuponete Orion - Historial";
             this.Load += new System.EventHandler(this.frmHistorialCupones_Load);

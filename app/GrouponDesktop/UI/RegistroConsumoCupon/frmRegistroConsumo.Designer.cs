@@ -1,4 +1,4 @@
-﻿namespace GrouponDesktop.RegistroConsumoCupon
+﻿namespace GrouponDesktop.UI.RegistroConsumoCupon
 {
     partial class frmRegistroConsumo
     {

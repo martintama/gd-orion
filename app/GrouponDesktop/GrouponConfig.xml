@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
   <FechaSistema>21/06/2012</FechaSistema><!-- Fecha en formato dd/MM/YYYY-->
+  <Database>
+    <Server>localhost\SQLSERVER2008</Server>
+    <Puerto>1433</Puerto>
+    <Base>GD2C2012</Base>
+    <Usuario>gd</Usuario>
+    <Pass>gd2012</Pass>
+  </Database>
 </Config>
