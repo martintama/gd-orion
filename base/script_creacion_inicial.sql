@@ -87,6 +87,7 @@ CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
 	idproveedor 			int  NOT NULL,
 	descripcion 			varchar(200) NOT NULL,
+	codigo_cupon			varchar(12),
 	fecha_alta 				date NOT NULL,
 	fecha_publicacion 		date NOT NULL,
 	fecha_vencimiento 		date NOT NULL,
@@ -691,6 +692,30 @@ END
 
 GO
 
+-- =============================================
+-- Description:	Crea un nuevo cupón y le asigna su código propio
+-- =============================================
+CREATE PROCEDURE ORION.Cupones_Crear
+	@idproveedor int, @descripcion varchar(200), @fecha_alta date, @fecha_publicacion date, @fecha_vencimiento date,
+	@fecha_vencimiento_canje date, @precio_real decimal(18,2), @precio_ficticio decimal(18,2), @cantidad_disponible smallint, @cantidad_max_usuario smallint
+AS
+BEGIN
+	
+	declare @codigo varchar(12)
+	declare @idcupon	int
+	
+	Insert into orion.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, fecha_vencimiento_canje, 
+    precio_real, precio_ficticio, cantidad_disponible, cantidad_max_usuario) values(@idproveedor, @descripcion, @fecha_alta, @fecha_publicacion, 
+    @fecha_vencimiento, @fecha_vencimiento_canje, @precio_real, @precio_ficticio, @cantidad_disponible, @cantidad_max_usuario)
+
+	set @idcupon = @@IDENTITY
+	
+    set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6)
+    
+    update ORION.cupones set codigo_cupon = @codigo where idcupon = @idcupon
+    
+END
+GO
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
@@ -859,9 +884,9 @@ WHERE pt.provee_RS is not null
 	CREATE INDEX idx_proveedores_prove_cuit ON ORION.proveedores(cuit)
 
 -- Cupones				00:08		46429 reg.
-insert into ORION.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
+insert into ORION.cupones(idproveedor, descripcion, codigo_cupon, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
 cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real, publicado)
-select p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, 
+select distinct p.idproveedor, groupon_descripcion, substring(groupon_codigo,1,10), groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, 
 groupon_precio_ficticio, Groupon_Cantidad, DATEADD(d, 10, groupon_fecha_venc), 5, groupon_fecha,1
 from ORION.proveedores_temp pt inner join ORION.proveedores p on p.cuit = pt.provee_cuit
 where groupon_entregado_fecha is null and groupon_devolucion_fecha is null 

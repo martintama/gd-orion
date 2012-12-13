@@ -89,6 +89,7 @@ Tabla clientes:
 - Al migrar la base, los usuarios de los clientes se generan usando el DNI como username. La clave inicial en ambos casos es la misma para todos, 123456.
 
 Tabla cupones:
+- Se consideró en la base maestra se utiliza el mismo código para el cupón que para compras (excluyendo los ultimos dos dígitos), por lo que al migrar se le asigna los primeros 10 caracteres del campo "groupon_codigo" como código de cupón
 - Como la fecha de alta (cuando se genera un nuevo cupon) no está en la base, se optó por tomar el dicha fecha como la misma de publicación
 - La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 10 dias, ya que ese fue el máximo intervalo detectado entre vencimiento del cupón y consumo
 - La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5 (El máximo detectado fue de 3 cupones comprados por usuario)

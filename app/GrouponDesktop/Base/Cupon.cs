@@ -48,11 +48,9 @@ namespace GrouponDesktop.Base
         {
             Dbaccess.DBConnect();
 
-            String sqlstr = "Insert into orion.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, fecha_vencimiento_canje, ";
-            sqlstr += "precio_real, precio_ficticio, cantidad_disponible, cantidad_max_usuario) values(@idproveedor, @descripcion, @fecha_alta, @fecha_publicacion, ";
-            sqlstr += "@fecha_vencimiento, @fecha_vencimiento_canje, @precio_real, @precio_ficticio, @cantidad_disponible, @cantidad_max_usuario)";
+            SqlCommand sqlc = new SqlCommand("ORION.Cupones_Crear", Dbaccess.globalConn);
+            sqlc.CommandType = System.Data.CommandType.StoredProcedure;
 
-            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.AddWithValue("@idproveedor", this.ProveedorAsoaciado.Idproveedor);
             sqlc.Parameters.AddWithValue("@descripcion", this.Descripcion);
             sqlc.Parameters.AddWithValue("@fecha_alta", this.FechaAlta);
