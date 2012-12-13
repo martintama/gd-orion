@@ -134,8 +134,7 @@ namespace GrouponDesktop.Base
             Dbaccess.DBConnect();
 
             String sqlstr = "";
-            
-            Int16 cantidad = 0;
+
 
             sqlstr = "select SUM(cantidad) from ORION.compras where idcliente = @idcliente and idcupon = @idcupon and idcompra_estado in (1,2)";
             

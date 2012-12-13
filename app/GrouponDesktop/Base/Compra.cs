@@ -9,18 +9,13 @@ namespace GrouponDesktop.Base
 {
     class Compra
     {
-        public enum EstadoCompra{
-            EnProceso = 0,
-            Comprado,
-            Consumido,
-            Devuelto,
-            Vencido
-        }
-
+    
         public Compra()
         {
-            this.Estado = EstadoCompra.EnProceso;
+            this.Estado = new CompraEstado();
             this.CuponAsociado = new Cupon();
+            this.ConsumoAsociado = new Consumo();
+            this.DevolucionAsociada = new Devolucion();
         }
         public Int32 Idcompra { get; set; }
 
@@ -32,19 +27,20 @@ namespace GrouponDesktop.Base
 
         public String CodigoCompra { get; set; }
 
-        public EstadoCompra Estado { get; set; }
+        public CompraEstado Estado { get; set; }
 
         public Cupon CuponAsociado { get; set; }
 
+        public Consumo ConsumoAsociado { get; set; }
+
+        public Devolucion DevolucionAsociada { get; set; }
+        
         public void GrabarCompra()
         {
             Dbaccess.DBConnect();
 
             String sqlstr = "Orion.Cupones_Comprar";
-            String codigo = "";
-
-
-
+            
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -63,11 +59,61 @@ namespace GrouponDesktop.Base
             Dbaccess.DBDisconnect();
         }
 
-        internal static Compra BuscarCompra(string p, Cliente cliente)
+        internal static Compra BuscarCompra(string Codigo, Cliente cliente)
         {
             throw new NotImplementedException();
         }
 
-        
+        internal static List<Compra> BuscarCompras(DateTime fechaDesde, DateTime fechaHasta, Int32 idcliente)
+        {
+            List<Compra> listaCompras = new List<Compra>();
+
+            Dbaccess.DBConnect();
+
+            String sqlstr = "select co.fecha_compra, co.codigo, cu.descripcion, cu.fecha_vencimiento_canje, ";
+            sqlstr += "con.fecha_consumo, de.fecha_devolucion, ce.idcompra_estado, ce.descripcion estado from ORION.compras co ";
+            sqlstr += "inner join ORION.cupones cu on cu.idcupon = co.idcupon left join ORION.consumos con on con.idcompra = co.idcompra ";
+            sqlstr += "left join ORION.devoluciones de on de.idcompra = co.idcompra inner join ORION.compras_estados ce on ce.idcompra_estado = co.idcompra_estado ";
+            sqlstr += "where co.idcliente = @idcliente and fecha_compra between @fechadesde and @fechahasta";
+
+            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.AddWithValue("@fechadesde", fechaDesde);
+            sqlc.Parameters.AddWithValue("@fechahasta", fechaHasta);
+            sqlc.Parameters.AddWithValue("@idcliente", idcliente);
+
+            SqlDataReader dr1 = sqlc.ExecuteReader();
+
+            while (dr1.Read())
+            {
+                Compra unaCompra = new Compra();
+
+                unaCompra.FechaCompra = Convert.ToDateTime(dr1["fecha_compra"]);
+                unaCompra.CodigoCompra = dr1["codigo"].ToString();
+                unaCompra.CuponAsociado.FechaVencimientoCanje = Convert.ToDateTime(dr1["fecha_vencimiento_canje"]);
+                unaCompra.CuponAsociado.Descripcion = dr1["descripcion"].ToString();
+
+                if (dr1["fecha_consumo"].ToString() != "")
+                {
+                    unaCompra.ConsumoAsociado.FechaConsumo = Convert.ToDateTime(dr1["fecha_consumo"]);
+                }
+                if (dr1["fecha_devolucion"].ToString() != "")
+                {
+                    unaCompra.DevolucionAsociada.FechaDevolucion = Convert.ToDateTime(dr1["fecha_devolucion"]);
+                }
+                unaCompra.Estado = new CompraEstado(Convert.ToInt16(dr1["idcompra_estado"]), dr1["estado"].ToString());
+
+                listaCompras.Add(unaCompra);
+
+            }
+
+            dr1.Close();
+            dr1.Dispose();
+
+            sqlc.Dispose();
+
+            Dbaccess.DBDisconnect();
+            return listaCompras;
+        }
     }
 }
+

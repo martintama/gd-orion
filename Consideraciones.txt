@@ -90,8 +90,8 @@ Tabla clientes:
 
 Tabla cupones:
 - Como la fecha de alta (cuando se genera un nuevo cupon) no está en la base, se optó por tomar el dicha fecha como la misma de publicación
-- La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 5 dias, para darle tiempo a quien compra el cupón de organizar el canje.
-- La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5.
+- La fecha de vencimiento de canje se tomó como la fecha de vencimiento del cupón más 10 dias, ya que ese fue el máximo intervalo detectado entre vencimiento del cupón y consumo
+- La cantidad máxima de cupones por usuario, para aquellos cupones ya en sistema se estableció en 5 (El máximo detectado fue de 3 cupones comprados por usuario)
 - La fecha en la que el cupón se publica (por el administrativo) para los que ya están en sistema, se estableció como la de publicación por el proveedor.
 - El stock con el que se inicializan los cupones es el campo groupon_cantidad. 
 
@@ -119,7 +119,7 @@ Se ingresan el usuario y password. Se verifica si todos los datos están complet
 0 - Todo OK: Logueo
 1 - Usuario o password incorrecto
 2 - Falta completar usuario o password
-3 - Usuario baneado
+3 - Usuario inhabilitado
 
 General
 
@@ -127,28 +127,18 @@ Conexiones a la base se genera una nueva cada vez que se realiza una transaccion
 
 Roles
 
-Suponemos que hay un usuario ya creado, el "administrador general", cuyo tipo de usuario
-es "Administrativo" y posee el rol de "Administrador General".
-
-A este rol, Administrador General, se le asignaron todas las funcionalidades
-
-No se permite deshabilitar un rol que este asociado aún a un usuario. Esto se efectiviza
-utilizando un stored procedure que devuelva un 0 si no hubo problemas, o un 1 si no se pudo
+No se permite deshabilitar un rol que este asociado aún a un usuario. Esto se efectiviza utilizando un stored procedure que devuelva un 0 si no hubo problemas, o un 1 si no se pudo
 inhabilitar porque hay usuarios asociados.
 
-En este caso se consulta al usuarios si desea continuar deshabilitando también los usuarios
-y solo así se puede deshabilitar el rol.
-
-- Cuando se editan las funcionalidades, se desactivan las funcionalidades existentes y se cargan nuevamente.
+En este caso se consulta al usuarios si desea continuar deshabilitando también los usuarios y solo así se puede deshabilitar el rol.
 
 ABM de clientes:
 
 - El DNI además de ser numérico debe ser entre 1000000 y 99999999
-- Se realiza una verificación de que la dirección de correo es válida, pero solo se hace una
-	comprobación estandar. Las direcciones según el RFC correspondiente pueden ser de lo
+- Se realiza una verificación de que la dirección de correo es válida, pero solo se hace una comprobación estandar. Las direcciones según el RFC correspondiente pueden ser de lo
 	más variadas. Una página lo explica: http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx
 	La dirección !def!xyz%abc@example.com es válida según la especificación.
-	Se copió el método de la siguiente dirección: http://www.dreamincode.net/code/snippet1374.htm
+	Se adaptó el método de la siguiente dirección: http://www.dreamincode.net/code/snippet1374.htm
 - La fecha de nacimiento debe estar entre 01/01/1900 y 31/12/2050	
 - Seleccion de ciudades:
 
@@ -168,8 +158,6 @@ conserva la facilidad de uso y la flexibilidad.
 	
 	Se verifica además que no exista otro cliente con el mismo teléfono o DNI. Esas son los datos que es verifican
 	para asegurar que no se da el caso que un cliente se loguea con más de un usuario.
-	
-	- Cuando se editan las ciudades, se desactivan todas y se cargan nuevamente
 	
 	- La carga inicial de $10 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
 	
@@ -203,4 +191,6 @@ Esto quiere decir además que si un cupón tiene un máximo de 2 cupones por per
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del proveedor
 	
-	
+Historial de compra
+- Por defecto se buscan los cupones comprados en el ultimo més (ej. del 23 de noviembre al 23 de diciembre). 
+- El botón limpiar resetea el listado a dicho intervalo.

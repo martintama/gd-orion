@@ -94,9 +94,9 @@ namespace GrouponDesktop.PedirDevolucion
             txtCantidad.Text = unaCompra.Cantidad.ToString();
             txtLimitePromo.Text = unaCompra.CuponAsociado.FechaVencimientoCanje.ToString("dd/MM/yyyy");
 
-            switch (unaCompra.Estado)
+            switch (unaCompra.Estado.Idestado_compra)
             {
-                case Compra.EstadoCompra.Comprado:
+                case 1:
                     {
                         lblEstado.ForeColor = Color.Green;
                         lblEstado.Text = "Devolución habilitada";
@@ -104,7 +104,7 @@ namespace GrouponDesktop.PedirDevolucion
                         HabilitarDevolucion();
                         break;
                     }
-                case Compra.EstadoCompra.Consumido:
+                case 2:
                     {
                         lblEstado.ForeColor = Color.Red;
                         lblEstado.Text = "Devolución no habilitada. Cupón ya consumido.";
@@ -112,7 +112,7 @@ namespace GrouponDesktop.PedirDevolucion
                         DeshabilitarDevolucion();
                         break;
                     }
-                case Compra.EstadoCompra.Devuelto:
+                case 3:
                     {
                         lblEstado.ForeColor = Color.Green;
                         lblEstado.Text = "Devolución no habilitada. Cupón ya devuelto.";
@@ -120,7 +120,7 @@ namespace GrouponDesktop.PedirDevolucion
                         DeshabilitarDevolucion();
                         break;
                     }
-                case Compra.EstadoCompra.Vencido:
+                case 4:
                     {
                         lblEstado.ForeColor = Color.Green;
                         lblEstado.Text = "Devolución no habilitada. Cupón vencido.";

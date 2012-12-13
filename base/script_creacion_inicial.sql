@@ -830,7 +830,7 @@ WHERE pt.provee_RS is not null
 insert into ORION.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, precio_real, precio_ficticio,
 cantidad_disponible, fecha_vencimiento_canje, cantidad_max_usuario, fecha_publicacion_real, publicado)
 select p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha, groupon_fecha_venc, groupon_precio, 
-groupon_precio_ficticio, Groupon_Cantidad, DATEADD(d, 5, groupon_fecha_venc), 5, groupon_fecha,1
+groupon_precio_ficticio, Groupon_Cantidad, DATEADD(d, 10, groupon_fecha_venc), 5, groupon_fecha,1
 from ORION.proveedores_temp pt inner join ORION.proveedores p on p.cuit = pt.provee_cuit
 where groupon_entregado_fecha is null and groupon_devolucion_fecha is null 
 and factura_fecha is null

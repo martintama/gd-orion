@@ -53,6 +53,8 @@
     <Compile Include="Base\Administrativo.cs" />
     <Compile Include="Base\Carga.cs" />
     <Compile Include="Base\Compra.cs" />
+    <Compile Include="Base\CompraEstado.cs" />
+    <Compile Include="Base\Consumo.cs" />
     <Compile Include="Base\Cupon.cs" />
     <Compile Include="Base\Devolucion.cs" />
     <Compile Include="Base\Funcionalidad.cs" />
@@ -80,6 +82,12 @@
     </Compile>
     <Compile Include="UI\ArmarCupon\frmArmarCupon.Designer.cs">
       <DependentUpon>frmArmarCupon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ComprarCupon\frmComprarCupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ComprarCupon\frmComprarCupon.Designer.cs">
+      <DependentUpon>frmComprarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\frmBuscarCliente.cs">
       <SubType>Form</SubType>
@@ -117,12 +125,6 @@
     </Compile>
     <Compile Include="UI\CargaCredito\frmCargarCredito.Designer.cs">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ComprarCupon\frmComprarCupon.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ComprarCupon\frmComprarCupon.Designer.cs">
-      <DependentUpon>frmComprarCupon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ComprarGiftCard\frmComprarGiftCard.cs">
       <SubType>Form</SubType>
@@ -194,6 +196,9 @@
     <EmbeddedResource Include="UI\ArmarCupon\frmArmarCupon.resx">
       <DependentUpon>frmArmarCupon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ComprarCupon\frmComprarCupon.resx">
+      <DependentUpon>frmComprarCupon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,9 +216,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CargaCredito\frmCargarCredito.resx">
       <DependentUpon>frmCargarCredito.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ComprarCupon\frmComprarCupon.resx">
-      <DependentUpon>frmComprarCupon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ComprarGiftCard\frmComprarGiftCard.resx">
       <DependentUpon>frmComprarGiftCard.cs</DependentUpon>
