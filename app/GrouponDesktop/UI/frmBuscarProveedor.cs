@@ -130,7 +130,7 @@ namespace GrouponDesktop.UI
                 }
                 else if (dgvDatos.Columns[e.ColumnIndex].Name == "colSeleccionar")
                 {
-                    this.proveedorSeleccionado = (Cliente)dgvDatos.Rows[e.RowIndex].DataBoundItem;
+                    this.proveedorSeleccionado = (Proveedor)dgvDatos.Rows[e.RowIndex].DataBoundItem;
                     this.Close();
                 }
             }

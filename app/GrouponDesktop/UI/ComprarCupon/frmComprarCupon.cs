@@ -38,9 +38,10 @@ namespace GrouponDesktop.ComprarCupon
         private void LimpiarCampos()
         {
             this.cuponSeleccionado = null;
+            this.dgvDatos.ClearSelection();
             this.CargarDatosCupon();
             chkComprar.Checked = false;
-            numCantidadCompra.Value = 0;
+            numCantidadCompra.Value = 1;
         }
 
         private Boolean VerificarDatos()
@@ -56,13 +57,15 @@ namespace GrouponDesktop.ComprarCupon
             {
                 lblCheck.Text = "* Debe tildar este casillero para confimar su compra";
                 lblCheck.Visible = true;
+                valido = false;
             }
 
             //Ahora me fijo si hay suficiente
             if (numCantidadCompra.Value > this.cuponSeleccionado.CantidadDisponible)
             {
-                lblCantidad.Text = "* No hay disponibles la cantidad seleccionada. Intente con una menor";
+                lblCantidad.Text = "* No hay suficiente stock. Intente con una cantidad menor";
                 lblCantidad.Visible = true;
+                valido = false;
             }
             else
             {
@@ -73,7 +76,22 @@ namespace GrouponDesktop.ComprarCupon
                 {
                     lblMensaje.Text = "No alcanza su crédito disponible para realizar la compra";
                     lblMensaje.Visible = true;
+                    valido = false;
                 }
+                else
+                {
+
+                    //Cargo lo que puede comprar todavía
+                    this.cuponSeleccionado.CalcularRestoCompra(((Cliente)Sesion.EntidadLogueada).Idcliente);
+
+                    if (this.cuponSeleccionado.CantidadRestoDisponible < numCantidadCompra.Value)
+                    {
+                        lblMensaje.Text = "No está permitida la compra de tantas unidades de este cupón por persona.";
+                        lblMensaje.Visible = true;
+                        valido = false;
+                    }
+                }
+            
             }
             
 
@@ -89,11 +107,16 @@ namespace GrouponDesktop.ComprarCupon
                 unaCompra.FechaCompra = Sesion.currentDate;
                 unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);
 
-                unaCompra.GrabarDatos();
+                unaCompra.GrabarCompra();
 
                 Decimal precioTotal = this.cuponSeleccionado.PrecioReal * numCantidadCompra.Value;
 
                 ((Cliente)Sesion.EntidadLogueada).CreditoDisponible = ((Cliente)Sesion.EntidadLogueada).CreditoDisponible - precioTotal;
+
+                MessageBox.Show("Compra efectuada exitosamente. El código de su compra es: " + unaCompra.CodigoCompra, "Comprar cupón");
+
+                this.LimpiarCampos();
+                this.CargarDatos();
             }
         }
 
@@ -105,7 +128,7 @@ namespace GrouponDesktop.ComprarCupon
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-
+            this.LimpiarCampos();
         }
 
         private void dgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -155,6 +178,7 @@ namespace GrouponDesktop.ComprarCupon
         private void chkComprar_CheckedChanged(object sender, EventArgs e)
         {
             this.btnComprar.Enabled = chkComprar.Checked;
+            this.numCantidadCompra.Enabled = chkComprar.Enabled;
         }
 
 

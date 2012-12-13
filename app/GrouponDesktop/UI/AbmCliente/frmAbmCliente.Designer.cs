@@ -553,7 +553,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(151, 444);
+            this.btnCancelar.Location = new System.Drawing.Point(12, 444);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(78, 23);
             this.btnCancelar.TabIndex = 13;
@@ -563,7 +563,7 @@
             // 
             // btnGrabar
             // 
-            this.btnGrabar.Location = new System.Drawing.Point(336, 444);
+            this.btnGrabar.Location = new System.Drawing.Point(471, 444);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(83, 23);
             this.btnGrabar.TabIndex = 12;

@@ -138,7 +138,7 @@
             // brnGrabar
             // 
             this.brnGrabar.Enabled = false;
-            this.brnGrabar.Location = new System.Drawing.Point(324, 421);
+            this.brnGrabar.Location = new System.Drawing.Point(405, 422);
             this.brnGrabar.Name = "brnGrabar";
             this.brnGrabar.Size = new System.Drawing.Size(75, 24);
             this.brnGrabar.TabIndex = 2;
@@ -148,7 +148,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(405, 420);
+            this.btnCancelar.Location = new System.Drawing.Point(12, 421);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 25);
             this.btnCancelar.TabIndex = 3;

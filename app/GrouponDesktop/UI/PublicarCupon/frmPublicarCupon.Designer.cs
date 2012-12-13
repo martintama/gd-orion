@@ -39,8 +39,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
+            this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFechaFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrecioreal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnPublicar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.lblCantidad = new System.Windows.Forms.Label();
+            this.lblMensaje = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +65,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(324, 111);
+            this.btnLimpiar.Location = new System.Drawing.Point(422, 111);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 38;
@@ -67,7 +75,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(405, 111);
+            this.btnFiltrar.Location = new System.Drawing.Point(503, 111);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 37;
@@ -93,7 +101,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 73);
+            this.groupBox1.Size = new System.Drawing.Size(572, 73);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
@@ -108,7 +116,7 @@
             // 
             // btnExaminar
             // 
-            this.btnExaminar.Location = new System.Drawing.Point(393, 40);
+            this.btnExaminar.Location = new System.Drawing.Point(491, 40);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(75, 23);
             this.btnExaminar.TabIndex = 3;
@@ -121,7 +129,7 @@
             this.txtProveedor.Location = new System.Drawing.Point(82, 42);
             this.txtProveedor.Name = "txtProveedor";
             this.txtProveedor.ReadOnly = true;
-            this.txtProveedor.Size = new System.Drawing.Size(305, 20);
+            this.txtProveedor.Size = new System.Drawing.Size(403, 20);
             this.txtProveedor.TabIndex = 2;
             // 
             // label1
@@ -145,34 +153,113 @@
             // dgvDatos
             // 
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Location = new System.Drawing.Point(13, 152);
+            this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCheck,
+            this.colProveedor,
+            this.colDescripcion,
+            this.colFechaFin,
+            this.colStock,
+            this.colPrecioreal});
+            this.dgvDatos.Location = new System.Drawing.Point(12, 153);
             this.dgvDatos.Name = "dgvDatos";
-            this.dgvDatos.Size = new System.Drawing.Size(474, 193);
+            this.dgvDatos.RowHeadersVisible = false;
+            this.dgvDatos.Size = new System.Drawing.Size(571, 193);
             this.dgvDatos.TabIndex = 39;
+            this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
+            // 
+            // colCheck
+            // 
+            this.colCheck.Frozen = true;
+            this.colCheck.HeaderText = "";
+            this.colCheck.Name = "colCheck";
+            this.colCheck.Width = 20;
+            // 
+            // colProveedor
+            // 
+            this.colProveedor.Frozen = true;
+            this.colProveedor.HeaderText = "Proveedor";
+            this.colProveedor.Name = "colProveedor";
+            this.colProveedor.ReadOnly = true;
+            this.colProveedor.Width = 110;
+            // 
+            // colDescripcion
+            // 
+            this.colDescripcion.DataPropertyName = "Descripcion";
+            this.colDescripcion.Frozen = true;
+            this.colDescripcion.HeaderText = "Descrip. Cupon";
+            this.colDescripcion.Name = "colDescripcion";
+            this.colDescripcion.ReadOnly = true;
+            this.colDescripcion.Width = 200;
+            // 
+            // colFechaFin
+            // 
+            this.colFechaFin.DataPropertyName = "FechaVencimiento";
+            this.colFechaFin.Frozen = true;
+            this.colFechaFin.HeaderText = "Fechafin";
+            this.colFechaFin.Name = "colFechaFin";
+            this.colFechaFin.ReadOnly = true;
+            this.colFechaFin.Width = 70;
+            // 
+            // colStock
+            // 
+            this.colStock.DataPropertyName = "CantidadDisponible";
+            this.colStock.Frozen = true;
+            this.colStock.HeaderText = "Stock";
+            this.colStock.Name = "colStock";
+            this.colStock.ReadOnly = true;
+            this.colStock.Width = 50;
+            // 
+            // colPrecioreal
+            // 
+            this.colPrecioreal.DataPropertyName = "PrecioReal";
+            this.colPrecioreal.HeaderText = "Precio Real";
+            this.colPrecioreal.Name = "colPrecioreal";
             // 
             // btnPublicar
             // 
-            this.btnPublicar.Location = new System.Drawing.Point(405, 351);
+            this.btnPublicar.Location = new System.Drawing.Point(509, 351);
             this.btnPublicar.Name = "btnPublicar";
             this.btnPublicar.Size = new System.Drawing.Size(75, 23);
             this.btnPublicar.TabIndex = 41;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = true;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(324, 351);
+            this.btnCerrar.Location = new System.Drawing.Point(13, 351);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 42;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // lblCantidad
+            // 
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Location = new System.Drawing.Point(190, 136);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(14, 13);
+            this.lblCantidad.TabIndex = 43;
+            this.lblCantidad.Text = "0";
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Location = new System.Drawing.Point(94, 349);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(403, 23);
+            this.lblMensaje.TabIndex = 44;
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmPublicarCupon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 384);
+            this.ClientSize = new System.Drawing.Size(596, 384);
+            this.Controls.Add(this.lblMensaje);
+            this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnPublicar);
             this.Controls.Add(this.label2);
@@ -207,5 +294,13 @@
         private System.Windows.Forms.DataGridView dgvDatos;
         private System.Windows.Forms.Button btnPublicar;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFechaFin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPrecioreal;
+        private System.Windows.Forms.Label lblCantidad;
+        private System.Windows.Forms.Label lblMensaje;
     }
 }

@@ -183,9 +183,22 @@ Comprar GiftCard
 - En esta misma selección por busqueda, se omiten todos los clientes inhabilitados.
 - Las compras de giftcards se cargan como cargas de credito para los usuarios destinatarios con el tipo de pago "Gift Card".
 
+Publicar Cupón:
+
+
 Comprar Cupón:
 - En la lista de cupones para comprar, no se muestran los cupones de los proveedores inhabilitados. Esto se hizo así debido a que de mostrarlos, el cliente lo podría comprar y consumir, pero el proveedor
 no podría registrarlo. De esta forma no podria tampoco facturarle al proveedor.
+- El código utilizado para identificar cada compra es por ejemplo: C00123400004. Esto se descompone en:
+
+1- Letra "C"	 (fijo)
+2- Idcupon 		 (Con ceros delante para completar la longitud de 6 dígitos)
+3- nro de compra del cupón (Con ceros delante para completar una longitud de 5 dígitos)
+
+De esta forma nos aseguramos de que los códigos son únicos e irrepetibles. Este código se genera en el SP encargado de cargar la compra.
+
+- Para calcular la cantidad de cupones que un mismo cliente puede comprar, contemplamos unicamente los cupones comprados/canjeados. No tenemos en cuenta los cupones que el cliente puede haber comprado y posteriormente devuelta en los calculos.
+Esto quiere decir además que si un cupón tiene un máximo de 2 cupones por persona, no es posible burlar la limitación comprando primero dos cupones y luego uno aparte.
 
 Devoluciones
 	Los cupones devuefltos vuelven a figurar en el stock del proveedor

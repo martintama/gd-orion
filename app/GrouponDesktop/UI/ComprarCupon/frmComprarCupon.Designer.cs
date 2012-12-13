@@ -32,6 +32,7 @@
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precionormal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFechavto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
@@ -69,9 +70,11 @@
             this.descripcion,
             this.precio,
             this.precionormal,
+            this.colFechavto,
             this.seleccionar});
             this.dgvDatos.Location = new System.Drawing.Point(11, 54);
             this.dgvDatos.Name = "dgvDatos";
+            this.dgvDatos.RowHeadersVisible = false;
             this.dgvDatos.Size = new System.Drawing.Size(509, 180);
             this.dgvDatos.TabIndex = 1;
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
@@ -104,6 +107,15 @@
             this.precionormal.ReadOnly = true;
             this.precionormal.Width = 65;
             // 
+            // colFechavto
+            // 
+            this.colFechavto.DataPropertyName = "FechaVto";
+            this.colFechavto.Frozen = true;
+            this.colFechavto.HeaderText = "Fecha vto. oferta";
+            this.colFechavto.Name = "colFechavto";
+            this.colFechavto.ReadOnly = true;
+            this.colFechavto.Width = 65;
+            // 
             // seleccionar
             // 
             this.seleccionar.Frozen = true;
@@ -123,7 +135,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(452, 505);
+            this.btnCerrar.Location = new System.Drawing.Point(18, 505);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 4;
@@ -134,7 +146,7 @@
             // btnComprar
             // 
             this.btnComprar.Enabled = false;
-            this.btnComprar.Location = new System.Drawing.Point(371, 505);
+            this.btnComprar.Location = new System.Drawing.Point(452, 505);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(75, 23);
             this.btnComprar.TabIndex = 5;
@@ -231,7 +243,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(381, 35);
+            this.label3.Location = new System.Drawing.Point(359, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 7;
@@ -242,7 +254,7 @@
             // 
             this.lblCreditoActual.AutoSize = true;
             this.lblCreditoActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreditoActual.Location = new System.Drawing.Point(470, 35);
+            this.lblCreditoActual.Location = new System.Drawing.Point(448, 35);
             this.lblCreditoActual.Name = "lblCreditoActual";
             this.lblCreditoActual.Size = new System.Drawing.Size(57, 13);
             this.lblCreditoActual.TabIndex = 8;
@@ -262,13 +274,23 @@
             // 
             this.numCantidadCompra.Enabled = false;
             this.numCantidadCompra.Location = new System.Drawing.Point(128, 51);
+            this.numCantidadCompra.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numCantidadCompra.Name = "numCantidadCompra";
             this.numCantidadCompra.Size = new System.Drawing.Size(54, 20);
             this.numCantidadCompra.TabIndex = 1;
+            this.numCantidadCompra.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(290, 505);
+            this.btnReset.Location = new System.Drawing.Point(371, 505);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 10;
@@ -397,12 +419,13 @@
         private System.Windows.Forms.CheckBox chkComprar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precionormal;
-        private System.Windows.Forms.DataGridViewButtonColumn seleccionar;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Label lblCheck;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precionormal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFechavto;
+        private System.Windows.Forms.DataGridViewButtonColumn seleccionar;
     }
 }

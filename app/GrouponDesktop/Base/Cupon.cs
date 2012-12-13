@@ -11,11 +11,12 @@ namespace GrouponDesktop.Base
         public Cupon()
         {
             this.ListaCiudades = new List<Ciudad>();
+            this.ProveedorAsoaciado = new Proveedor();
         }
 
         public Int32 Idcupon { get; set; }
 
-        public Int32 Idproveedor { get; set; }
+        public Proveedor ProveedorAsoaciado { get; set; }
 
         public String Descripcion { get; set; }
 
@@ -39,10 +40,9 @@ namespace GrouponDesktop.Base
 
         public DateTime FechaPublicacionReal { get; set; }
 
-        public Boolean Activo { get; set; }
+        public Int16 CantidadRestoDisponible { get; set; }
 
         public List<Ciudad> ListaCiudades { get; set; }
-
 
         internal void Grabar()
         {
@@ -53,7 +53,7 @@ namespace GrouponDesktop.Base
             sqlstr += "@fecha_vencimiento, @fecha_vencimiento_canje, @precio_real, @precio_ficticio, @cantidad_disponible, @cantidad_max_usuario)";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
-            sqlc.Parameters.AddWithValue("@idproveedor", this.Idproveedor);
+            sqlc.Parameters.AddWithValue("@idproveedor", this.ProveedorAsoaciado.Idproveedor);
             sqlc.Parameters.AddWithValue("@descripcion", this.Descripcion);
             sqlc.Parameters.AddWithValue("@fecha_alta", this.FechaAlta);
             sqlc.Parameters.AddWithValue("@fecha_publicacion", this.FechaPublicacion);
@@ -81,6 +81,7 @@ namespace GrouponDesktop.Base
             Dbaccess.DBConnect();
 
             String strwhere = "";
+            String strwhere_sub = "";
             
             if (estadoPublicacion)
             {
@@ -93,15 +94,15 @@ namespace GrouponDesktop.Base
 
             if (idproveedor > 0)
                 strwhere += "and c.idproveedor = @idproveedor ";
-            
-            String sqlstr = "select c.idproveedor, c.descripcion, c.fecha_vencimiento, c.fecha_vencimiento_canje, c.precio_real, c.precio_ficticio, ";
-            sqlstr += "c.cantidad_disponible, c.cantidad_max_usuario from orion.cupones c inner join orion.proveedores p on p.idproveedor = c.idproveedor ";
-            sqlstr += "inner join orion.usuarios u on u.idusuario = p.idusuario where " + strwhere " order by p.razon_social";
+
+            String sqlstr = "select c.idcupon, c.idproveedor, c.descripcion, c.fecha_vencimiento, c.fecha_vencimiento_canje, c.precio_real, c.precio_ficticio, ";
+                sqlstr += "c.cantidad_disponible, c.cantidad_max_usuario, p.razon_social from orion.cupones c inner join orion.proveedores p on p.idproveedor = c.idproveedor ";
+                sqlstr += "inner join orion.usuarios u on u.idusuario = p.idusuario where " + strwhere + " order by p.razon_social";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.AddWithValue("@fecha", Sesion.currentDate);
 
-             if (idproveedor > 0)
+            if (idproveedor > 0)
                 sqlc.Parameters.AddWithValue("@idproveedor", idproveedor);
 
             SqlDataReader dr1 = sqlc.ExecuteReader();
@@ -109,7 +110,9 @@ namespace GrouponDesktop.Base
             while (dr1.Read())
             {
                 Cupon unCupon = new Cupon();
-                unCupon.Idproveedor = Convert.ToInt32(dr1["idproveedor"].ToString());
+                unCupon.ProveedorAsoaciado.Idproveedor = Convert.ToInt32(dr1["idproveedor"].ToString());
+                unCupon.ProveedorAsoaciado.RazonSocial = dr1["razon_social"].ToString();
+                unCupon.Idcupon = Convert.ToInt32(dr1["idcupon"]);
                 unCupon.Descripcion = dr1["descripcion"].ToString();
                 unCupon.FechaVencimiento = Convert.ToDateTime(dr1["fecha_vencimiento"]);
                 unCupon.FechaVencimientoCanje = Convert.ToDateTime(dr1["fecha_vencimiento_canje"]);
@@ -125,5 +128,50 @@ namespace GrouponDesktop.Base
 
             return listaCupones;
         }
+
+        internal void CalcularRestoCompra(Int32 idcliente)
+        {
+            Dbaccess.DBConnect();
+
+            String sqlstr = "";
+            
+            Int16 cantidad = 0;
+
+            sqlstr = "select SUM(cantidad) from ORION.compras where idcliente = @idcliente and idcupon = @idcupon and idcompra_estado in (1,2)";
+            
+            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.AddWithValue("@idcliente", idcliente);
+            sqlc.Parameters.AddWithValue("@idcupon", this.Idcupon);
+
+
+            this.CantidadRestoDisponible = (Int16)(this.CantidadMaxUsuario - Convert.ToInt16(sqlc.ExecuteScalar()));
+
+            sqlc.Dispose();
+
+            Dbaccess.DBDisconnect();
+
+        }
+
+        internal static void PublicarCupones(List<Cupon> listaCuponesPublicar)
+        {
+            Dbaccess.DBConnect();
+
+            String sqlstr = "Update orion.cupones set publicado = 1, fecha_publicacion_real = @fecha where idcupon = @idcupon";
+            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.Add("@fecha", System.Data.SqlDbType.Date);
+            sqlc.Parameters.Add("@idcupon", System.Data.SqlDbType.Int);
+
+            sqlc.Prepare();
+
+            foreach (Cupon unCupon in listaCuponesPublicar)
+            {
+                sqlc.Parameters["@fecha"].Value = Sesion.currentDate.ToString("yyyy-MM-dd");
+                sqlc.Parameters["@idcupon"].Value = unCupon.Idcupon;
+                sqlc.ExecuteNonQuery();
+            }
+
+            Dbaccess.DBDisconnect();
+        }
+
     }
 }

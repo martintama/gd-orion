@@ -16,16 +16,14 @@ CREATE TABLE ORION.cargas(
 	idcliente		int NOT NULL,
 	idtipo_pago		smallint NOT NULL,
 	monto			numeric(18,2) NOT NULL,
-	idtarjeta		int,
-	activo			bit default 1,
+	idtarjeta		int
 ) ON [PRIMARY]
 alter table orion.cargas add constraint pk_cargas primary key (idcarga)
 
 -- ciudades
 CREATE TABLE ORION.ciudades(
 	idciudad		smallint IDENTITY(1,1) NOT NULL,
-	descripcion		varchar(50) NOT NULL,
-	activo			bit default 1
+	descripcion		varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.ciudades add constraint pk_ciudades primary key (idciudad)
 -- clientes
@@ -51,8 +49,7 @@ ALTER TABLE orion.clientes ADD CONSTRAINT telefono_uniq UNIQUE NONCLUSTERED (tel
 CREATE TABLE ORION.clientes_ciudades(
 	idcliente_ciudad	int IDENTITY(1,1) NOT NULL,
 	idcliente			int NOT NULL,
-	idciudad			smallint NOT NULL,
-	activo				bit default 1
+	idciudad			smallint NOT NULL
 ) ON [PRIMARY]
 alter table orion.clientes_ciudades add constraint pk_clientes_ciudades primary key (idcliente_ciudad)
 
@@ -64,9 +61,7 @@ CREATE TABLE ORION.compras(
 	fecha_compra		date NOT NULL,
 	cantidad			smallint NOT NULL,
 	idcupon				int NOT NULL,
-	nro_cupon			int NOT NULL,
-	idcompra_estado		tinyint NOT NULL,
-	activo				bit default 1
+	idcompra_estado		tinyint NOT NULL
 ) ON [PRIMARY]
 alter table orion.compras add constraint pk_compras primary key (idcompra)
 --ALTER TABLE orion.compras ADD CONSTRAINT uniq_compras_codigo UNIQUE NONCLUSTERED (codigo)
@@ -74,8 +69,7 @@ alter table orion.compras add constraint pk_compras primary key (idcompra)
 -- compras_estados
 CREATE TABLE ORION.compras_estados(
 	idcompra_estado		tinyint IDENTITY(1,1) NOT NULL,
-	descripcion			varchar(50) NOT NULL,
-	activo				bit default 1
+	descripcion			varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.compras_estados add constraint pk_compras_estados primary key (idcompra_estado)
 
@@ -84,11 +78,10 @@ CREATE TABLE ORION.consumos(
 	idconsumo			int IDENTITY(1,1) NOT NULL,
 	fecha_consumo		date NOT NULL,
 	idcompra			int NOT NULL,
-	facturado			bit default 0,
-	activo				bit default 1
+	facturado			bit default 0
 ) ON [PRIMARY]
 alter table orion.consumos add constraint pk_consumos primary key (idconsumo)
-ALTER TABLE orion.consumos ADD CONSTRAINT uniq_consumos_compra_activo UNIQUE NONCLUSTERED (idcompra)
+ALTER TABLE orion.consumos ADD CONSTRAINT uniq_consumos_compra_idcompra UNIQUE NONCLUSTERED (idcompra)
 -- cupones
 CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
@@ -103,8 +96,7 @@ CREATE TABLE ORION.cupones(
 	cantidad_disponible 	smallint NOT NULL,
 	cantidad_max_usuario 	smallint NOT NULL,
 	publicado 				bit default 0,
-	fecha_publicacion_real 	date,
-	activo				bit default 1
+	fecha_publicacion_real 	date
 ) ON [PRIMARY]
 alter table orion.cupones add constraint pk_cupones primary key (idcupon)
 
@@ -112,8 +104,7 @@ alter table orion.cupones add constraint pk_cupones primary key (idcupon)
 CREATE TABLE ORION.cupones_ciudades(
 	idcupon_ciudad		int IDENTITY(1,1) NOT NULL,
 	idcupon				int NOT NULL,
-	idciudad			smallint NOT NULL,
-	activo				bit default 1
+	idciudad			smallint NOT NULL
 ) ON [PRIMARY]
 alter table orion.cupones_ciudades add constraint pk_cupones_ciudades primary key (idcupon_ciudad)
 
@@ -122,8 +113,7 @@ CREATE TABLE ORION.devoluciones(
 	iddevolucion		int IDENTITY(1,1) NOT NULL,
 	fecha_devolucion	date NOT NULL,
 	idcompra			int NOT NULL,
-	motivo				varchar(200) NOT NULL,
-	activo				bit default 1
+	motivo				varchar(200) NOT NULL
 ) ON [PRIMARY]
 alter table orion.devoluciones add constraint pk_devoluciones primary key (iddevolucion)
 ALTER TABLE orion.devoluciones ADD CONSTRAINT uniq_devoluciones_compra UNIQUE NONCLUSTERED (idcompra)
@@ -133,8 +123,7 @@ CREATE TABLE ORION.facturas(
 	fecha_generacion	datetime NOT NULL,
 	idproveedor			int NOT NULL,
 	nro_factura			numeric(18,0) NOT NULL,
-	monto_total			decimal(18,2) NOT NULL,
-	activo				bit default 1
+	monto_total			decimal(18,2) NOT NULL
 ) ON [PRIMARY]
 alter table orion.facturas add constraint pk_facturas primary key (idfactura)
 
@@ -142,16 +131,14 @@ alter table orion.facturas add constraint pk_facturas primary key (idfactura)
 CREATE TABLE ORION.facturas_items(
 	idfactura_item		int IDENTITY(1,1) NOT NULL,
 	idfactura			int NOT NULL,
-	idconsumo			int NOT NULL,
-	activo				bit default 1
+	idconsumo			int NOT NULL
 ) ON [PRIMARY]
 alter table orion.facturas_items add constraint pk_facturas_items primary key (idfactura_item)
 
 -- funcionalidades
 CREATE TABLE ORION.funcionalidades(
 	idfuncionalidad		int IDENTITY(1,1) NOT NULL,
-	descripcion			varchar(50) NOT NULL,	
-	activo				bit default 1
+	descripcion			varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.funcionalidades add constraint pk_funcionalidades primary key (idfuncionalidad)
 
@@ -161,16 +148,14 @@ CREATE TABLE ORION.gift_cards(
 	fecha				date NOT NULL,
 	monto				decimal(18,2) NOT NULL,
 	idcliente_origen	int NOT NULL,
-	idcliente_destino	int NOT NULL,
-	activo				bit default 1
+	idcliente_destino	int NOT NULL
 ) ON [PRIMARY]
 alter table orion.gift_cards add constraint pk_gift_cards primary key (idgift_card)
 
 -- gift cards montos
 CREATE TABLE ORION.gift_cards_montos(
 	idmonto				smallint identity(1,1) not null,
-	monto				decimal(18,2) default 0,
-	activo				bit default 1
+	monto				decimal(18,2) default 0
 ) on [PRIMARY]
 alter table orion.gift_cards_montos add constraint pk_gift_cards_montos primary key (idmonto)
 
@@ -196,7 +181,7 @@ ALTER TABLE orion.proveedores ADD CONSTRAINT uniq_proveedores_razon_social UNIQU
 CREATE TABLE ORION.roles(
 	idrol				int IDENTITY(1,1) NOT NULL,
 	descripcion			varchar(50) NOT NULL,
-	activo				bit default 1
+	habilitado				bit default 1
 ) ON [PRIMARY]
 alter table orion.roles add constraint pk_roles primary key (idrol)
 
@@ -204,23 +189,20 @@ alter table orion.roles add constraint pk_roles primary key (idrol)
 CREATE TABLE ORION.roles_funcionalidades(
 	idrol_funcionalidad		int IDENTITY(1,1) NOT NULL,
 	idrol					int NOT NULL,
-	idfuncionalidad			int NOT NULL,
-	activo					bit default 1
+	idfuncionalidad			int NOT NULL
 ) ON [PRIMARY]
 alter table orion.roles_funcionalidades add constraint pk_roles_funcionalidades primary key (idrol_funcionalidad)
 
 -- rubros
 CREATE TABLE ORION.rubros(
 	idrubro			int IDENTITY(1,1) NOT NULL,
-	descripcion	 	varchar(50) NOT NULL,
-	activo			bit default 1
+	descripcion	 	varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.rubros add constraint pk_rubros primary key (idrubro)
 
 -- tarjetas
 CREATE TABLE ORION.tarjetas(
 	idtarjeta				int IDENTITY(1,1) NOT NULL,
-	fecha_alta				date NOT NULL,
 	idtipo_tarjeta			tinyint NOT NULL,
 	numero_tarjeta			varchar(16) NOT NULL,
 	digitos_verificadores	varchar(3) NOT NULL,
@@ -228,8 +210,7 @@ CREATE TABLE ORION.tarjetas(
 	dni_titular				int  NOT NULL,
 	mes_vencimiento			tinyint	NOT NULL,
 	anio_vencimiento		smallint NOT NULL,
-	idusuario				int NOT NULL,
-	activo				bit default 1
+	idcliente				int NOT NULL
 ) ON [PRIMARY]
 alter table orion.tarjetas add constraint pk_tarjetas primary key (idtarjeta)
 
@@ -237,32 +218,28 @@ alter table orion.tarjetas add constraint pk_tarjetas primary key (idtarjeta)
 CREATE TABLE ORION.tipos_pago(
 	idtipo_pago		int IDENTITY(1,1) NOT NULL,
 	descripcion		varchar(50) NOT NULL,
-	visible			bit default 1,
-	activo			bit default 1
+	visible			bit default 1
 ) ON [PRIMARY]
 alter table orion.tipos_pago add constraint pk_tipos_pago primary key (idtipo_pago)
 
 -- tipos_tarjeta
 CREATE TABLE ORION.tipos_tarjeta(
 	idtipo_tarjeta		tinyint IDENTITY(1,1) NOT NULL,
-	descripcion			varchar(50) NOT NULL,
-	activo				bit default 1
+	descripcion			varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.tipos_tarjeta add constraint pk_tipos_tarjeta primary key (idtipo_tarjeta)
 
 -- tipos_usuario
 CREATE TABLE ORION.tipos_usuario(
 	idtipo_usuario		int IDENTITY(1,1) NOT NULL,
-	descripcion			varchar(50) NOT NULL,
-	activo				bit default 1
+	descripcion			varchar(50) NOT NULL
 ) ON [PRIMARY]
 alter table orion.tipos_usuario add constraint pk_tipos_usuario primary key (idtipo_usuario)
 
 CREATE TABLE ORION.tipos_usuario_rol(
 	idtipo_usuario_rol		int IDENTITY(1,1) NOT NULL,
 	idtipo_usuario			int NOT NULL,
-	idrol					int	NOT NULL,
-	activo					bit default 1
+	idrol					int	NOT NULL
 ) ON [PRIMARY]
 alter table orion.tipos_usuario_rol add constraint pk_tipos_usuario_rol primary key (idtipo_usuario_rol)
 
@@ -339,9 +316,9 @@ create index idx_roles_funcionalidades_idrol on ORION.roles_funcionalidades(idro
 create index idx_roles_funcionalidades_idfuncionalidad on ORION.roles_funcionalidades(idfuncionalidad)
 
 alter table orion.tarjetas add constraint fk_tarjetas_idtipo_tarjeta foreign key (idtipo_tarjeta) references orion.tipos_tarjeta(idtipo_tarjeta)
-alter table orion.tarjetas add constraint fk_tarjetas_idisuario foreign key (idusuario) references orion.usuarios(idusuario)
+alter table orion.tarjetas add constraint fk_tarjetas_idcliente foreign key (idcliente) references orion.clientes(idcliente)
 create index idx_tarjetas_idtipo_tarjeta on ORION.tarjetas(idtipo_tarjeta)
-create index idx_tarjetas_idusuario on ORION.tarjetas(idusuario)
+create index idx_tarjetas_idcliente on ORION.tarjetas(idcliente)
 
 alter table orion.tipos_usuario_rol add constraint fk_tipos_usuario_rol_idtipo_usuario foreign key (idtipo_usuario) references orion.tipos_usuario (idtipo_usuario)
 alter table orion.tipos_usuario_rol add constraint fk_tipos_usuario_rol_idrol foreign key (idrol) references orion.roles (idrol)
@@ -467,13 +444,13 @@ BEGIN
 	set @retstatus = 0 -- OK por default
 	
 	if (not exists(select idusuario from ORION.usuarios where idrol = @idrol and habilitado = 1))
-		update ORION.roles set activo = 0 where idrol = @idrol --Inhabilito el rol
+		update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol
 	else begin
 		if (@forzar = 0) 	
 			set @retstatus = 1	-- Hay usuarios asociados
 		else begin
 			update ORION.usuarios set habilitado = 0 where idrol = @idrol
-			update ORION.roles set activo = 0 where idrol = @idrol --Inhabilito el rol		
+			update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol		
 		end
 	end
 		
@@ -493,15 +470,15 @@ BEGIN
 	
 	if (@filtro = '') begin
 		if (@solo_habilitados = 1) begin
-			select idrol, descripcion, activo as estado,
+			select idrol, descripcion, habilitado as estado,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
 			
-			from ORION.roles where activo = 1 order by descripcion 
+			from ORION.roles where habilitado = 1 order by descripcion 
 		end 
 		else begin
-			select idrol, descripcion, activo as estado,
+			select idrol, descripcion, habilitado as estado,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
@@ -511,15 +488,15 @@ BEGIN
 	end
 	else begin
 		if (@solo_habilitados = 1) begin
-			select idrol, descripcion, activo as estado,
+			select idrol, descripcion, habilitado as estado,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
-			from ORION.roles where activo = 1 and descripcion like '%' + @filtro + '%'
+			from ORION.roles where habilitado = 1 and descripcion like '%' + @filtro + '%'
 			order by descripcion 
 		end 
 		else begin
-			select idrol, descripcion, activo as estado,
+			select idrol, descripcion, habilitado as estado,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
 			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
@@ -651,6 +628,37 @@ BEGIN
 END
 
 GO
+
+-- =============================================
+-- Description:	Procedimiento de compra de un cupón
+-- =============================================
+CREATE PROCEDURE ORION.Cupones_Comprar
+	@fecha date, @idcliente int, @cantidad smallint, @idcupon int, @codigo varchar(12) output
+AS
+BEGIN
+	declare @cantcompras smallint
+	declare @monto decimal(18,2)
+	
+	-- Genero el código de la compra
+	select @cantcompras = (COUNT(1)+1) from ORION.compras where idcupon = @idcupon
+	set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6) + RIGHT('0000' + cast(@cantcompras as varchar), 5)
+	
+	-- Cargo la compra
+	insert into ORION.compras(idcliente, codigo, fecha_compra, cantidad, idcupon, idcompra_estado)
+	values(@idcliente, @codigo, @fecha, @cantidad, @idcupon, 1)
+
+	-- Saco el monto del cupón
+	select @monto = precio_real from ORION.cupones where idcupon = @idcupon
+	
+	-- Actualiza el crédito del cliente
+	update ORION.clientes set credito_actual = credito_actual - @monto where idcliente = @idcliente
+	
+	-- Y actualizo el stock de los cupones
+	update ORION.cupones set cantidad_disponible = cantidad_disponible - @cantidad where idcupon = @idcupon
+	
+END
+GO
+
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
@@ -831,8 +839,8 @@ order by pt.groupon_fecha
 
 
 -- Compras				00:13		116520 reg.
-insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, nro_cupon, idcompra_estado, codigo)
-select c.idcliente, pt.Groupon_Fecha_Compra,  COUNT(distinct 1), cu.idcupon, cu.idcupon, 1, pt.Groupon_Codigo
+insert into orion.compras(idcliente, fecha_compra, cantidad, idcupon, idcompra_estado, codigo)
+select c.idcliente, pt.Groupon_Fecha_Compra,  COUNT(distinct 1), cu.idcupon, 1, pt.Groupon_Codigo
 from orion.proveedores_temp pt
 inner join ORION.clientes c on c.dni = pt.cli_dni
 inner join ORION.cupones cu on cu.descripcion = pt.Groupon_Descripcion and cu.fecha_alta = pt.Groupon_Fecha and 
@@ -879,6 +887,14 @@ update ORION.compras set idcompra_estado = 2 where idcompra in (select idcompra 
 -- Actualizo la tabla de compras según el estado en el que quedó la compra 00:00
 update orion.compras set idcompra_Estado = 4 where fecha_compra <= '2012-12-26' and idcompra_Estado = 1
 
+-- Actualizo el credito de todos los clientes de acuerdo a las compras que tuvieron. Primero cargo el total de "cargas"
+update ORION.clientes set credito_actual = (select SUM(monto) from ORION.cargas where orion.cargas.idcliente = orion.clientes.idcliente group by idcliente)
+-- A continuación le sumo los gift cards
+update ORION.clientes set credito_actual = credito_actual + isnull((select SUM(monto) from ORION.gift_cards where orion.gift_cards.idcliente_destino = orion.clientes.idcliente group by idcliente_destino),0)
+-- Y le resto los cupones que se canjearon o se vencieron (Se omiten los que se devolvieron)
+update ORION.clientes set credito_actual = credito_actual - 
+	isnull((select sum(cu.precio_real) total from ORION.compras c left join ORION.cupones cu on cu.idcupon = c.idcupon where c.idcompra_estado in (1,2,4) and c.idcliente = ORION.clientes.idcliente group by c.idcliente
+),0)
 
 -- Facturas				00:01
 -- Se carga primero con monto cero y despues se actualiza

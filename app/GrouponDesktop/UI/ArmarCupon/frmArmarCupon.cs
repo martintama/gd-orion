@@ -182,7 +182,7 @@ namespace GrouponDesktop.ArmarCupon
 
         private void Grabar()
         {
-            this.elCupon.Idproveedor = ((Proveedor)Sesion.EntidadLogueada).Idproveedor;
+            this.elCupon.ProveedorAsoaciado.Idproveedor = ((Proveedor)Sesion.EntidadLogueada).Idproveedor;
             this.elCupon.Descripcion = txtDescripcion.Text;
             this.elCupon.FechaAlta = Sesion.currentDate;
             this.elCupon.FechaPublicacion = this.dtpFechaPublicacion.Value;

@@ -121,16 +121,19 @@ namespace GrouponDesktop.UI.AbmRol
             if (this.txtNombreRol.Text == "")
             {
                 lblNombre.Visible = true;
+                valido = false;
             }
 
             if (!chkAdministrativo.Checked && !chkCliente.Checked && !chkProveedor.Checked)
             {
                 lblAsociado.Visible = true;
+                valido = false;
             }
 
             if (lstHabilitadas.Items.Count == 0)
             {
                 lblHabilitadas.Visible = true;
+                valido = false;
             }
             return valido;
         }

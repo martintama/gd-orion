@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblClienteReceptor = new System.Windows.Forms.Label();
             this.cmbMonto = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSeleccionar = new System.Windows.Forms.Button();
@@ -38,7 +39,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.lblClienteReceptor = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +56,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos GiftCard";
+            // 
+            // lblClienteReceptor
+            // 
+            this.lblClienteReceptor.AutoSize = true;
+            this.lblClienteReceptor.ForeColor = System.Drawing.Color.Red;
+            this.lblClienteReceptor.Location = new System.Drawing.Point(399, 25);
+            this.lblClienteReceptor.Name = "lblClienteReceptor";
+            this.lblClienteReceptor.Size = new System.Drawing.Size(63, 13);
+            this.lblClienteReceptor.TabIndex = 9;
+            this.lblClienteReceptor.Text = "* Requerido";
+            this.lblClienteReceptor.Visible = false;
             // 
             // cmbMonto
             // 
@@ -107,13 +118,13 @@
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 5;
-            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.Text = "Comprar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(324, 154);
+            this.btnCancelar.Location = new System.Drawing.Point(12, 154);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 6;
@@ -141,17 +152,6 @@
             this.label27.Size = new System.Drawing.Size(156, 20);
             this.label27.TabIndex = 31;
             this.label27.Text = "Comprar Gift-Card";
-            // 
-            // lblClienteReceptor
-            // 
-            this.lblClienteReceptor.AutoSize = true;
-            this.lblClienteReceptor.ForeColor = System.Drawing.Color.Red;
-            this.lblClienteReceptor.Location = new System.Drawing.Point(399, 25);
-            this.lblClienteReceptor.Name = "lblClienteReceptor";
-            this.lblClienteReceptor.Size = new System.Drawing.Size(63, 13);
-            this.lblClienteReceptor.TabIndex = 9;
-            this.lblClienteReceptor.Text = "* Requerido";
-            this.lblClienteReceptor.Visible = false;
             // 
             // frmComprarGiftCard
             // 

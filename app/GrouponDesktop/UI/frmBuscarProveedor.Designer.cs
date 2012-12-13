@@ -30,11 +30,6 @@
         {
             this.btnCerrar = new System.Windows.Forms.Button();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.razónSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cambiarEstado = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
@@ -65,12 +60,6 @@
             // dgvDatos
             // 
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cuit,
-            this.razónSocial,
-            this.mail,
-            this.editar,
-            this.cambiarEstado});
             this.dgvDatos.Location = new System.Drawing.Point(12, 178);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersVisible = false;
@@ -78,47 +67,6 @@
             this.dgvDatos.TabIndex = 5;
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
-            // 
-            // cuit
-            // 
-            this.cuit.DataPropertyName = "Cuit";
-            this.cuit.Frozen = true;
-            this.cuit.HeaderText = "CUIT";
-            this.cuit.Name = "cuit";
-            this.cuit.ReadOnly = true;
-            this.cuit.Width = 80;
-            // 
-            // razónSocial
-            // 
-            this.razónSocial.DataPropertyName = "Razonsocial";
-            this.razónSocial.Frozen = true;
-            this.razónSocial.HeaderText = "Razón Social";
-            this.razónSocial.Name = "razónSocial";
-            this.razónSocial.ReadOnly = true;
-            this.razónSocial.Width = 130;
-            // 
-            // mail
-            // 
-            this.mail.DataPropertyName = "Mail";
-            this.mail.Frozen = true;
-            this.mail.HeaderText = "Mail";
-            this.mail.Name = "mail";
-            this.mail.ReadOnly = true;
-            this.mail.Width = 130;
-            // 
-            // editar
-            // 
-            this.editar.Frozen = true;
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            // 
-            // cambiarEstado
-            // 
-            this.cambiarEstado.Frozen = true;
-            this.cambiarEstado.HeaderText = "Inhabilitar";
-            this.cambiarEstado.Name = "cambiarEstado";
-            this.cambiarEstado.ReadOnly = true;
             // 
             // label5
             // 
@@ -287,11 +235,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lblSoloNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cuit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn razónSocial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mail;
-        private System.Windows.Forms.DataGridViewButtonColumn editar;
-        private System.Windows.Forms.DataGridViewButtonColumn cambiarEstado;
         private System.Windows.Forms.Button btnAgregar;
 
     }

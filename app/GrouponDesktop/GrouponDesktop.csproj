@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Administrativo.cs" />
+    <Compile Include="Base\Carga.cs" />
     <Compile Include="Base\Compra.cs" />
     <Compile Include="Base\Cupon.cs" />
     <Compile Include="Base\Devolucion.cs" />
@@ -63,6 +64,9 @@
     <Compile Include="Base\MontoGiftCard.cs" />
     <Compile Include="Base\Proveedor.cs" />
     <Compile Include="Base\Rubro.cs" />
+    <Compile Include="Base\Tarjeta.cs" />
+    <Compile Include="Base\TipoPago.cs" />
+    <Compile Include="Base\TipoTarjeta.cs" />
     <Compile Include="Base\TipoUsuario.cs" />
     <Compile Include="Base\Usuario.cs" />
     <Compile Include="UI\AbmCliente\frmAbmCliente.cs">

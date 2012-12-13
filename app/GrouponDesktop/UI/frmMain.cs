@@ -202,7 +202,7 @@ namespace GrouponDesktop.UI
 
         private void publicarCuponesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PublicarCupon.frmPublicarCupon frmPublicar = new GrouponDesktop.PublicarCupon.frmPublicarCupon();
+            PublicarCupon.frmPublicarCupon frmPublicar = new PublicarCupon.frmPublicarCupon();
             frmPublicar.ShowDialog();
         }
 
