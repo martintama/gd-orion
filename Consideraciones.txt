@@ -195,6 +195,9 @@ Devoluciones
 	para no revelar información que podría ser de otro cliente.
 
 Registrar consumo	
+	- Cuando se ingresa un código inválido, aquí sí se diferencia si es un código inexistente o si no pertenece al proveedor. Esto se hace así para poder avisar al cliente que el código es válido, pero que
+	debe corroborar de vuelta el proveedor.
+	
 Historial de compra
 - Por defecto se buscan los cupones comprados en el ultimo més (ej. del 23 de noviembre al 23 de diciembre). 
 - El botón limpiar resetea el listado a dicho intervalo.

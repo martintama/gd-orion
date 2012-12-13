@@ -106,7 +106,7 @@ namespace GrouponDesktop.ComprarCupon
             if (this.VerificarDatos())
             {
                 unaCompra = new Compra();
-                unaCompra.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
+                unaCompra.ClienteAsociado.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
                 unaCompra.CuponAsociado.Idcupon = this.cuponSeleccionado.Idcupon;
                 unaCompra.FechaCompra = Sesion.currentDate;
                 unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);

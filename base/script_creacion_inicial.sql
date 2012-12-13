@@ -659,6 +659,38 @@ BEGIN
 END
 GO
 
+-- =============================================
+-- Description:	Devuelve un cupón, retorna el crédito al cliente y el cupón al stock.
+-- =============================================
+CREATE PROCEDURE [ORION].[Compras_Devolver]
+	@fecha date, @idcompra int, @idcliente int, @motivo varchar(200)
+AS
+BEGIN
+
+	declare @idcupon int
+	declare @monto decimal(18,2)
+	declare @cantidad smallint
+	
+	select @idcupon = cu.idcupon, @monto = cu.precio_real, @cantidad = co.cantidad from ORION.cupones cu
+	inner join ORION.compras co on co.idcupon = cu.idcupon
+	where co.idcompra = @idcompra
+	
+	-- Agrego la devolución
+	Insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo) values(@fecha,@idcompra, @motivo)
+	
+	-- Actualizo el estado de la compra
+	update ORION.compras set idcompra_estado = 3 where idcompra = @idcompra
+	
+	-- Actualizo el stock de los cupones
+	update ORION.cupones set cantidad_disponible = cantidad_disponible + @cantidad where idcupon = @idcupon
+	
+	-- Actualizo el crédito del cliente
+	update ORION.clientes set credito_actual = credito_actual + (@cantidad * @monto) where idcliente = @idcliente
+	
+END
+
+GO
+
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
