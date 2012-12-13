@@ -197,6 +197,7 @@ Devoluciones
 Registrar consumo	
 	- Cuando se ingresa un código inválido, aquí sí se diferencia si es un código inexistente o si no pertenece al proveedor. Esto se hace así para poder avisar al cliente que el código es válido, pero que
 	debe corroborar de vuelta el proveedor.
+	- El proveedor debe confirmar que el DNI del cliente corresponde con el DNI de quien lo va a retirar. Debe tildar el casillero de "DNI Verificado" antes de continuar. 
 	
 Historial de compra
 - Por defecto se buscan los cupones comprados en el ultimo més (ej. del 23 de noviembre al 23 de diciembre). 
