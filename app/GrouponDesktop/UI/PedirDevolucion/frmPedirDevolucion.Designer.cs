@@ -45,14 +45,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnDevolucion = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblMotivo = new System.Windows.Forms.Label();
+            this.lblCheck = new System.Windows.Forms.Label();
             this.txtMotivo = new System.Windows.Forms.TextBox();
             this.chkConfirmar = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.lblCheck = new System.Windows.Forms.Label();
-            this.lblMotivo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,10 +80,12 @@
             this.lblErrorCodigo.Size = new System.Drawing.Size(52, 13);
             this.lblErrorCodigo.TabIndex = 3;
             this.lblErrorCodigo.Text = "- Errores -";
+            this.lblErrorCodigo.Visible = false;
             // 
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(72, 43);
+            this.txtCodigo.MaxLength = 14;
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(135, 20);
             this.txtCodigo.TabIndex = 2;
@@ -207,7 +209,7 @@
             // btnDevolucion
             // 
             this.btnDevolucion.Enabled = false;
-            this.btnDevolucion.Location = new System.Drawing.Point(276, 450);
+            this.btnDevolucion.Location = new System.Drawing.Point(288, 450);
             this.btnDevolucion.Name = "btnDevolucion";
             this.btnDevolucion.Size = new System.Drawing.Size(140, 23);
             this.btnDevolucion.TabIndex = 2;
@@ -229,10 +231,33 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos de la devolución";
             // 
+            // lblMotivo
+            // 
+            this.lblMotivo.AutoSize = true;
+            this.lblMotivo.ForeColor = System.Drawing.Color.Red;
+            this.lblMotivo.Location = new System.Drawing.Point(288, 50);
+            this.lblMotivo.Name = "lblMotivo";
+            this.lblMotivo.Size = new System.Drawing.Size(63, 13);
+            this.lblMotivo.TabIndex = 8;
+            this.lblMotivo.Text = "* Requerido";
+            this.lblMotivo.Visible = false;
+            // 
+            // lblCheck
+            // 
+            this.lblCheck.AutoSize = true;
+            this.lblCheck.ForeColor = System.Drawing.Color.Red;
+            this.lblCheck.Location = new System.Drawing.Point(224, 25);
+            this.lblCheck.Name = "lblCheck";
+            this.lblCheck.Size = new System.Drawing.Size(63, 13);
+            this.lblCheck.TabIndex = 7;
+            this.lblCheck.Text = "* Requerido";
+            this.lblCheck.Visible = false;
+            // 
             // txtMotivo
             // 
+            this.txtMotivo.Enabled = false;
             this.txtMotivo.Location = new System.Drawing.Point(11, 67);
-            this.txtMotivo.MaxLength = 250;
+            this.txtMotivo.MaxLength = 200;
             this.txtMotivo.Multiline = true;
             this.txtMotivo.Name = "txtMotivo";
             this.txtMotivo.ReadOnly = true;
@@ -249,6 +274,7 @@
             this.chkConfirmar.TabIndex = 5;
             this.chkConfirmar.Text = "Confirmo que deseo devolver el cupón";
             this.chkConfirmar.UseVisualStyleBackColor = true;
+            this.chkConfirmar.CheckedChanged += new System.EventHandler(this.chkConfirmar_CheckedChanged);
             // 
             // label5
             // 
@@ -257,11 +283,11 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(274, 13);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Ingrese el motivo de la devolución (Max 250 caracteres):";
+            this.label5.Text = "Ingrese el motivo de la devolución (Max 200 caracteres):";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(13, 450);
+            this.btnLimpiar.Location = new System.Drawing.Point(207, 450);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 4;
@@ -281,32 +307,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(195, 450);
+            this.button2.Location = new System.Drawing.Point(12, 450);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
             this.button2.Text = "Cerrar";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // lblCheck
-            // 
-            this.lblCheck.AutoSize = true;
-            this.lblCheck.ForeColor = System.Drawing.Color.Red;
-            this.lblCheck.Location = new System.Drawing.Point(224, 25);
-            this.lblCheck.Name = "lblCheck";
-            this.lblCheck.Size = new System.Drawing.Size(63, 13);
-            this.lblCheck.TabIndex = 7;
-            this.lblCheck.Text = "* Requerido";
-            // 
-            // lblMotivo
-            // 
-            this.lblMotivo.AutoSize = true;
-            this.lblMotivo.ForeColor = System.Drawing.Color.Red;
-            this.lblMotivo.Location = new System.Drawing.Point(288, 50);
-            this.lblMotivo.Name = "lblMotivo";
-            this.lblMotivo.Size = new System.Drawing.Size(35, 13);
-            this.lblMotivo.TabIndex = 8;
-            this.lblMotivo.Text = "label9";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmPedirDevolucion
             // 
@@ -323,6 +330,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmPedirDevolucion";
             this.Text = "Devoluciones";
+            this.Load += new System.EventHandler(this.frmPedirDevolucion_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

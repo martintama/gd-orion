@@ -342,6 +342,32 @@ namespace GrouponDesktop.Base
                 this.UsuarioAsociado.Habilitar();
             }
         }
+
+        public void ActualizarCredito()
+        {
+            Dbaccess.DBConnect();
+
+            if (this.Idcliente > 0)
+            {
+                String sqlstr = "select credito_actual from orion.clientes where idcliente = @idcliente";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
+
+                SqlDataReader dr1 = sqlc.ExecuteReader();
+
+                if (dr1.Read())
+                {
+                    this.CreditoDisponible = Convert.ToDecimal(dr1["credito_actual"]);
+                }
+
+                dr1.Close();
+                sqlc.Dispose();
+
+            }
+
+            Dbaccess.DBDisconnect();
+        }
     }
 }
 

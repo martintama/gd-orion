@@ -172,7 +172,7 @@ Comprar GiftCard
 - Las compras de giftcards se cargan como cargas de credito para los usuarios destinatarios con el tipo de pago "Gift Card".
 
 Publicar Cupón:
-
+	- Las fechas de publicación, vencimiento de promoción y vencimiento de canje deben estar separadas por un día entre ellas mínimamente.
 
 Comprar Cupón:
 - En la lista de cupones para comprar, no se muestran los cupones de los proveedores inhabilitados. Esto se hizo así debido a que de mostrarlos, el cliente lo podría comprar y consumir, pero el proveedor
@@ -187,10 +187,14 @@ De esta forma nos aseguramos de que los códigos son únicos e irrepetibles. Est
 
 - Para calcular la cantidad de cupones que un mismo cliente puede comprar, contemplamos unicamente los cupones comprados/canjeados. No tenemos en cuenta los cupones que el cliente puede haber comprado y posteriormente devuelta en los calculos.
 Esto quiere decir además que si un cupón tiene un máximo de 2 cupones por persona, no es posible burlar la limitación comprando primero dos cupones y luego uno aparte.
+- El botón limpiar blanquea los campos, y recarga los cupones del día. Se omiten aquellos que ya no tienen stock disponible.
 
 Devoluciones
-	Los cupones devuefltos vuelven a figurar en el stock del proveedor
-	
+	- Los cupones devueltos vuelven a figurar en el stock del proveedor.
+	- CUando se ingresa un código inválido, ya sea porque el código no existe o no pertenece al cliente, el mensaje de error que recibe el usuario es el mismo: "Código inválido". Esto se hace así
+	para no revelar información que podría ser de otro cliente.
+
+Registrar consumo	
 Historial de compra
 - Por defecto se buscan los cupones comprados en el ultimo més (ej. del 23 de noviembre al 23 de diciembre). 
 - El botón limpiar resetea el listado a dicho intervalo.

@@ -78,13 +78,15 @@ namespace GrouponDesktop.PedirDevolucion
         {
             unaCompra = Compra.BuscarCompra(txtCodigo.Text, (Cliente)Sesion.EntidadLogueada);
 
-            if (unaCompra != null)
+            lblErrorCodigo.Visible = false;
+            if (unaCompra.Idcompra > 0)
             {
                 this.CargarDatosCompra();
             }
             else
             {
                 lblErrorCodigo.Text = "El código ingresado es inválido";
+                lblErrorCodigo.Visible = true;
             }
         }
 
@@ -114,17 +116,17 @@ namespace GrouponDesktop.PedirDevolucion
                     }
                 case 3:
                     {
-                        lblEstado.ForeColor = Color.Green;
-                        lblEstado.Text = "Devolución no habilitada. Cupón ya devuelto.";
+                        lblEstado.ForeColor = Color.Red;
+                        lblEstado.Text = "Devolución no habilitada. Cupón ya devuelto el " + unaCompra.DevolucionAsociada.FechaDevolucion.ToString("dd/MM/yyyy");
 
                         DeshabilitarDevolucion();
                         break;
                     }
                 case 4:
                     {
-                        lblEstado.ForeColor = Color.Green;
+                        lblEstado.ForeColor = Color.Red;
                         lblEstado.Text = "Devolución no habilitada. Cupón vencido.";
-
+                        
                         DeshabilitarDevolucion();
                         break;
                     }
@@ -136,14 +138,11 @@ namespace GrouponDesktop.PedirDevolucion
         private void HabilitarDevolucion()
         {
             chkConfirmar.Enabled = true;
-            txtMotivo.Enabled = true;
-            btnDevolucion.Enabled = true;
+
         }
         private void DeshabilitarDevolucion()
         {
             chkConfirmar.Enabled = false;
-            txtMotivo.Enabled = false;
-            btnDevolucion.Enabled = false;
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -163,16 +162,20 @@ namespace GrouponDesktop.PedirDevolucion
         {
             if (this.VerificarCamposDevolucion())
             {
+                laDevolucion = new Devolucion();
+
                 laDevolucion.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
+                laDevolucion.FechaDevolucion = Sesion.currentDate;
                 laDevolucion.Idcompra = unaCompra.Idcompra;
                 laDevolucion.Motivo = txtMotivo.Text;
-                laDevolucion.FechaDevolucion = Sesion.currentDate;
 
                 laDevolucion.Devolver();
+
 
                 if (MessageBox.Show("Cupón devuelto correctamente. ¿Desea devolver otro cupón?", "Devolver cupón", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.LimpiarCampos();
+                    this.txtCodigo.Focus();
                 }
                 else
                 {
@@ -182,6 +185,24 @@ namespace GrouponDesktop.PedirDevolucion
                 
 
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
+
+        private void chkConfirmar_CheckedChanged(object sender, EventArgs e)
+        {
+            txtMotivo.Enabled = chkConfirmar.Checked;
+            txtMotivo.ReadOnly = !chkConfirmar.Checked;
+            btnDevolucion.Enabled = chkConfirmar.Checked;
+        }
+
+        private void frmPedirDevolucion_Load(object sender, EventArgs e)
+        {
+
         }
 
 

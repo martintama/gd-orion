@@ -27,12 +27,16 @@ namespace GrouponDesktop.ComprarCupon
 
         private void CargarDatos()
         {
+            //Actualizo el credito luego de comprar (o quizas vuelvo de una devolucion)
+            ((Cliente)Sesion.EntidadLogueada).ActualizarCredito();
+
             lblCreditoActual.Text = "$ " + ((Cliente)Sesion.EntidadLogueada).CreditoDisponible.ToString(); ;
 
             dgvDatos.AutoGenerateColumns = false;
             dgvDatos.DataSource = Cupon.BuscarCupones();
-            dgvDatos.ClearSelection();
-            
+
+            LimpiarCampos();
+
         }
 
         private void LimpiarCampos()
@@ -108,10 +112,6 @@ namespace GrouponDesktop.ComprarCupon
                 unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);
 
                 unaCompra.GrabarCompra();
-
-                Decimal precioTotal = this.cuponSeleccionado.PrecioReal * numCantidadCompra.Value;
-
-                ((Cliente)Sesion.EntidadLogueada).CreditoDisponible = ((Cliente)Sesion.EntidadLogueada).CreditoDisponible - precioTotal;
 
                 MessageBox.Show("Compra efectuada exitosamente. El código de su compra es: " + unaCompra.CodigoCompra, "Comprar cupón");
 

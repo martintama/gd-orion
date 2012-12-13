@@ -85,7 +85,7 @@ namespace GrouponDesktop.Base
             
             if (estadoPublicacion)
             {
-                strwhere = "@fecha between c.fecha_publicacion and c.fecha_Vencimiento and publicado = 1 ";
+                strwhere = "@fecha between c.fecha_publicacion and c.fecha_Vencimiento and publicado = 1 and c.cantidad_disponible > 0 ";
             }
             else
             {
@@ -136,7 +136,7 @@ namespace GrouponDesktop.Base
             String sqlstr = "";
 
 
-            sqlstr = "select SUM(cantidad) from ORION.compras where idcliente = @idcliente and idcupon = @idcupon and idcompra_estado in (1,2)";
+            sqlstr = "select isnull(SUM(cantidad),0) from ORION.compras where idcliente = @idcliente and idcupon = @idcupon and idcompra_estado in (1,2)";
             
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             sqlc.Parameters.AddWithValue("@idcliente", idcliente);

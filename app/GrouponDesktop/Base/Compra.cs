@@ -59,9 +59,53 @@ namespace GrouponDesktop.Base
             Dbaccess.DBDisconnect();
         }
 
-        internal static Compra BuscarCompra(string Codigo, Cliente cliente)
+        internal static Compra BuscarCompra(string codigo, Cliente unCliente)
         {
-            throw new NotImplementedException();
+            Compra unaCompra = new Compra();
+
+            Dbaccess.DBConnect();
+
+            String sqlstr = "select co.idcompra, co.fecha_compra, co.codigo, cu.descripcion, cu.fecha_vencimiento_canje, co.cantidad, ";
+            sqlstr += "con.fecha_consumo, de.fecha_devolucion, ce.idcompra_estado, ce.descripcion estado from ORION.compras co ";
+            sqlstr += "inner join ORION.cupones cu on cu.idcupon = co.idcupon left join ORION.consumos con on con.idcompra = co.idcompra ";
+            sqlstr += "left join ORION.devoluciones de on de.idcompra = co.idcompra inner join ORION.compras_estados ce on ce.idcompra_estado = co.idcompra_estado ";
+            sqlstr += "where co.codigo = @codigo and co.idcliente = @idcliente";
+
+            SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+            sqlc.Parameters.AddWithValue("@codigo", codigo);
+            sqlc.Parameters.AddWithValue("@idcliente", unCliente.Idcliente);
+
+            SqlDataReader dr1 = sqlc.ExecuteReader();
+
+            if (dr1.Read())
+            {
+                unaCompra.Idcompra = Convert.ToInt32(dr1["idcompra"]);
+                unaCompra.FechaCompra = Convert.ToDateTime(dr1["fecha_compra"]);
+                unaCompra.CodigoCompra = dr1["codigo"].ToString();
+                unaCompra.CuponAsociado.FechaVencimientoCanje = Convert.ToDateTime(dr1["fecha_vencimiento_canje"]);
+                unaCompra.CuponAsociado.Descripcion = dr1["descripcion"].ToString();
+                unaCompra.Cantidad = Convert.ToInt16(dr1["cantidad"]);
+
+                if (dr1["fecha_consumo"].ToString() != "")
+                {
+                    unaCompra.ConsumoAsociado.FechaConsumo = Convert.ToDateTime(dr1["fecha_consumo"]);
+                }
+                if (dr1["fecha_devolucion"].ToString() != "")
+                {
+                    unaCompra.DevolucionAsociada.FechaDevolucion = Convert.ToDateTime(dr1["fecha_devolucion"]);
+                }
+                unaCompra.Estado = new CompraEstado(Convert.ToInt16(dr1["idcompra_estado"]), dr1["estado"].ToString());
+
+            }
+
+            dr1.Close();
+            dr1.Dispose();
+
+            sqlc.Dispose();
+
+            Dbaccess.DBDisconnect();
+
+            return unaCompra;
         }
 
         internal static List<Compra> BuscarCompras(DateTime fechaDesde, DateTime fechaHasta, Int32 idcliente)
