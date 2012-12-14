@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precionormal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFechavto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnComprar = new System.Windows.Forms.Button();
@@ -57,6 +52,11 @@
             this.lblCheck = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precionormal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFechavto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadCompra)).BeginInit();
@@ -79,50 +79,6 @@
             this.dgvDatos.TabIndex = 1;
             this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
-            // 
-            // descripcion
-            // 
-            this.descripcion.DataPropertyName = "Descripcion";
-            this.descripcion.Frozen = true;
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            this.descripcion.Width = 220;
-            // 
-            // precio
-            // 
-            this.precio.DataPropertyName = "PrecioReal";
-            this.precio.Frozen = true;
-            this.precio.HeaderText = "Precio promocional";
-            this.precio.Name = "precio";
-            this.precio.ReadOnly = true;
-            this.precio.Width = 65;
-            // 
-            // precionormal
-            // 
-            this.precionormal.DataPropertyName = "PrecioFicticio";
-            this.precionormal.Frozen = true;
-            this.precionormal.HeaderText = "Precio Normal";
-            this.precionormal.Name = "precionormal";
-            this.precionormal.ReadOnly = true;
-            this.precionormal.Width = 65;
-            // 
-            // colFechavto
-            // 
-            this.colFechavto.DataPropertyName = "FechaVto";
-            this.colFechavto.Frozen = true;
-            this.colFechavto.HeaderText = "Fecha vto. oferta";
-            this.colFechavto.Name = "colFechavto";
-            this.colFechavto.ReadOnly = true;
-            this.colFechavto.Width = 65;
-            // 
-            // seleccionar
-            // 
-            this.seleccionar.Frozen = true;
-            this.seleccionar.HeaderText = "Seleccionar";
-            this.seleccionar.Name = "seleccionar";
-            this.seleccionar.ReadOnly = true;
-            this.seleccionar.Width = 90;
             // 
             // label1
             // 
@@ -365,6 +321,50 @@
             this.lblMensaje.Text = "Revisar";
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblMensaje.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "Descripcion";
+            this.descripcion.Frozen = true;
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            this.descripcion.Width = 220;
+            // 
+            // precio
+            // 
+            this.precio.DataPropertyName = "PrecioReal";
+            this.precio.Frozen = true;
+            this.precio.HeaderText = "Precio promocional";
+            this.precio.Name = "precio";
+            this.precio.ReadOnly = true;
+            this.precio.Width = 65;
+            // 
+            // precionormal
+            // 
+            this.precionormal.DataPropertyName = "PrecioFicticio";
+            this.precionormal.Frozen = true;
+            this.precionormal.HeaderText = "Precio Normal";
+            this.precionormal.Name = "precionormal";
+            this.precionormal.ReadOnly = true;
+            this.precionormal.Width = 65;
+            // 
+            // colFechavto
+            // 
+            this.colFechavto.DataPropertyName = "FechaVencimiento";
+            this.colFechavto.Frozen = true;
+            this.colFechavto.HeaderText = "Fecha vto. oferta";
+            this.colFechavto.Name = "colFechavto";
+            this.colFechavto.ReadOnly = true;
+            this.colFechavto.Width = 65;
+            // 
+            // seleccionar
+            // 
+            this.seleccionar.Frozen = true;
+            this.seleccionar.HeaderText = "Seleccionar";
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.ReadOnly = true;
+            this.seleccionar.Width = 90;
             // 
             // frmComprarCupon
             // 

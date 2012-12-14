@@ -44,8 +44,11 @@ namespace GrouponDesktop.UI.ComprarCupon
             this.cuponSeleccionado = null;
             this.dgvDatos.ClearSelection();
             this.CargarDatosCupon();
+            chkComprar.Enabled = false;
             chkComprar.Checked = false;
+            btnComprar.Enabled = false;
             numCantidadCompra.Value = 1;
+            
         }
 
         private Boolean VerificarDatos()
@@ -164,6 +167,7 @@ namespace GrouponDesktop.UI.ComprarCupon
                 this.txtPrecioReal.Text = "$ " + this.cuponSeleccionado.PrecioReal;
                 this.txtPrecioFicticio.Text = "$ " + this.cuponSeleccionado.PrecioFicticio;
                 this.txtLimitePromo.Text = this.cuponSeleccionado.FechaVencimiento.ToString("dd/MM/yyyy");
+                chkComprar.Enabled = true;
             }
             else
             {

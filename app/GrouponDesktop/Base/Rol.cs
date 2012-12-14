@@ -216,7 +216,7 @@ namespace GrouponDesktop.Base
             {
                 //Traigo funcionalidades habilitadas
                 String sqlstr = "select f.idfuncionalidad, f.descripcion from ORION.funcionalidades f ";
-                sqlstr += "where f.idfuncionalidad in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and activo = 1) order by f.descripcion";
+                sqlstr += "where f.idfuncionalidad in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol) order by f.descripcion";
 
                 SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
@@ -234,7 +234,7 @@ namespace GrouponDesktop.Base
 
                 //Traigo funcionalidades deshablitadas
                 sqlstr = "select f.idfuncionalidad, f.descripcion from ORION.funcionalidades f ";
-                sqlstr += "where f.idfuncionalidad not in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol and activo = 1) order by f.descripcion";
+                sqlstr += "where f.idfuncionalidad not in (select idfuncionalidad from ORION.roles_funcionalidades where idrol = @idrol) order by f.descripcion";
 
                 sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idrol", this.Idrol);
@@ -290,7 +290,7 @@ namespace GrouponDesktop.Base
         {
             Dbaccess.DBConnect();
 
-            String sqlstr = "Update orion.roles set activo = 1 where idrol = @idrol";
+            String sqlstr = "Update orion.roles set habilitado = 1 where idrol = @idrol";
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
 
             sqlc.Parameters.AddWithValue("@idrol", this.Idrol);

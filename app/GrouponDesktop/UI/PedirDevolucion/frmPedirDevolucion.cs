@@ -28,6 +28,7 @@ namespace GrouponDesktop.UI.PedirDevolucion
             txtCantidad.Text = "";
             txtLimitePromo.Text = "";
             lblEstado.Text = "-";
+            chkConfirmar.Enabled = false;
             chkConfirmar.Checked = false;
             txtMotivo.Text = "";
         }
@@ -102,7 +103,7 @@ namespace GrouponDesktop.UI.PedirDevolucion
                     {
                         lblEstado.ForeColor = Color.Green;
                         lblEstado.Text = "Devolución habilitada";
-                        
+                        chkConfirmar.Enabled = false;
                         HabilitarDevolucion();
                         break;
                     }

@@ -159,7 +159,7 @@ namespace GrouponDesktop.Base
             {
                 //Traigo ciudades habilitadas
                 String sqlstr = "select idciudad, descripcion from ORION.ciudades ";
-                sqlstr += "where idciudad in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente and activo = 1) and activo = 1 order by descripcion;";
+                sqlstr += "where idciudad in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente) order by descripcion;";
 
                 SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);
@@ -177,7 +177,7 @@ namespace GrouponDesktop.Base
 
                 //Traigo funcionalidades deshablitadas
                 sqlstr = "select idciudad, descripcion from ORION.ciudades ";
-                sqlstr += "where idciudad not in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente and activo = 1) and activo = 1 order by descripcion;";
+                sqlstr += "where idciudad not in (select idciudad from ORION.clientes_ciudades where idcliente = @idcliente) order by descripcion;";
 
                 sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
                 sqlc.Parameters.AddWithValue("@idcliente", this.Idcliente);

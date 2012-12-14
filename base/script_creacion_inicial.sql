@@ -333,6 +333,17 @@ create index idx_usuarios_idtipo_usuario on ORION.usuarios(idtipo_usuario)
 
 GO
 -- Creo los Stored Procedures
+USE [GD2C2012]
+GO
+
+/****** Object:  StoredProcedure [ORION].[Clientes_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- Creo los Stored Procedures
 -- =============================================
 -- Description:	Inserta un registro en la tabla de clientes y devueve en output el idcliente generado
 -- =============================================
@@ -378,7 +389,403 @@ BEGIN
     end
 END
 
+
 GO
+
+/****** Object:  StoredProcedure [ORION].[Compras_Consumir]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Description:	Registra el consumo del cupón
+-- =============================================
+CREATE PROCEDURE [ORION].[Compras_Consumir]
+	@fecha date, @idcompra int
+AS
+BEGIN
+
+	Insert into ORION.consumos(idcompra, fecha_consumo) values(@idcompra, @fecha)
+	
+	update ORION.compras set idcompra_estado = 2 where idcompra = @idcompra
+	
+	
+END
+
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Compras_Devolver]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Devuelve un cupón, retorna el crédito al cliente y el cupón al stock.
+-- =============================================
+CREATE PROCEDURE [ORION].[Compras_Devolver]
+	@fecha date, @idcompra int, @idcliente int, @motivo varchar(200)
+AS
+BEGIN
+
+	declare @idcupon int
+	declare @monto decimal(18,2)
+	declare @cantidad smallint
+	
+	select @idcupon = cu.idcupon, @monto = cu.precio_real, @cantidad = co.cantidad from ORION.cupones cu
+	inner join ORION.compras co on co.idcupon = cu.idcupon
+	where co.idcompra = @idcompra
+	
+	-- Agrego la devolución
+	Insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo) values(@fecha,@idcompra, @motivo)
+	
+	-- Actualizo el estado de la compra
+	update ORION.compras set idcompra_estado = 3 where idcompra = @idcompra
+	
+	-- Actualizo el stock de los cupones
+	update ORION.cupones set cantidad_disponible = cantidad_disponible + @cantidad where idcupon = @idcupon
+	
+	-- Actualizo el crédito del cliente
+	update ORION.clientes set credito_actual = credito_actual + (@cantidad * @monto) where idcliente = @idcliente
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Cupones_Comprar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Procedimiento de compra de un cupón
+-- =============================================
+CREATE PROCEDURE [ORION].[Cupones_Comprar]
+	@fecha date, @idcliente int, @cantidad smallint, @idcupon int, @codigo varchar(12) output
+AS
+BEGIN
+	declare @cantcompras smallint
+	declare @monto decimal(18,2)
+	
+	-- Genero el código de la compra
+	select @cantcompras = (COUNT(1)+1) from ORION.compras where idcupon = @idcupon
+	set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6) + RIGHT('0000' + cast(@cantcompras as varchar), 5)
+	
+	-- Cargo la compra
+	insert into ORION.compras(idcliente, codigo, fecha_compra, cantidad, idcupon, idcompra_estado)
+	values(@idcliente, @codigo, @fecha, @cantidad, @idcupon, 1)
+
+	-- Saco el monto del cupón
+	select @monto = precio_real from ORION.cupones where idcupon = @idcupon
+	
+	-- Actualiza el crédito del cliente
+	update ORION.clientes set credito_actual = credito_actual - @monto where idcliente = @idcliente
+	
+	-- Y actualizo el stock de los cupones
+	update ORION.cupones set cantidad_disponible = cantidad_disponible - @cantidad where idcupon = @idcupon
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Cupones_Crear]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Crea un nuevo cupón y le asigna su código propio
+-- =============================================
+CREATE PROCEDURE [ORION].[Cupones_Crear]
+	@idproveedor int, @descripcion varchar(200), @fecha_alta date, @fecha_publicacion date, @fecha_vencimiento date,
+	@fecha_vencimiento_canje date, @precio_real decimal(18,2), @precio_ficticio decimal(18,2), @cantidad_disponible smallint, @cantidad_max_usuario smallint
+AS
+BEGIN
+	
+	declare @codigo varchar(12)
+	declare @idcupon	int
+	
+	Insert into orion.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, fecha_vencimiento_canje, 
+    precio_real, precio_ficticio, cantidad_disponible, cantidad_max_usuario) values(@idproveedor, @descripcion, @fecha_alta, @fecha_publicacion, 
+    @fecha_vencimiento, @fecha_vencimiento_canje, @precio_real, @precio_ficticio, @cantidad_disponible, @cantidad_max_usuario)
+
+	set @idcupon = @@IDENTITY
+	
+    set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6)
+    
+    update ORION.cupones set codigo_cupon = @codigo where idcupon = @idcupon
+    
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[GiftCard_Comprar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Comprar GiftCard
+-- =============================================
+CREATE PROCEDURE [ORION].[GiftCard_Comprar]
+	@idcliente_origen int, @idcliente_destino int, @monto decimal(18,2), @fecha date
+AS
+BEGIN
+	Insert into ORION.gift_cards(fecha, idcliente_origen, idcliente_destino, monto)
+	values(@fecha, @idcliente_origen, @idcliente_destino, @monto)
+	
+	Insert into ORION.cargas(fecha_carga, idcliente, idtipo_pago, monto) 
+	values(@fecha, @idcliente_destino, 4, @monto)
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Proveedores_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Description:	Inserta un registro en la tabla de proveedores y devueve en output el idproveedor generado
+-- =============================================
+CREATE PROCEDURE [ORION].[Proveedores_Grabar]
+	@idproveedor int output, @razon_social varchar(50), @mail varchar(50), @telefono varchar(50), 
+	@direccion varchar(100), @codpost varchar(8), @idciudad int, @cuit varchar(11), @idrubro int, 
+	@contacto varchar(50), @idusuario int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- Si es un alta
+	if (@idproveedor = 0) begin
+		-- Me fijo antes que no haya otro "duplicado"
+		if exists (select idproveedor from ORION.proveedores where cuit = @cuit or razon_social = @razon_social) begin
+			return 1	-- Proveedor duplicado
+		end
+		else begin
+			insert into ORION.proveedores(razon_social, email, telefono, direccion, codigo_postal, idciudad, cuit, idrubro, contacto, idusuario)
+			values(@razon_social, @mail, @telefono, @direccion, @codpost, @idciudad, @cuit, @idrubro, @contacto, @idusuario)
+			
+			set @idproveedor = @@IDENTITY
+			return 0
+		end
+	end
+	else begin --Es una modificacion
+		-- me tengo que fijar que no haya OTRO idcliente diferente con el mismo telefono o dni
+		if exists (select idproveedor from ORION.proveedores where (cuit = @cuit or razon_social = @razon_social) and idproveedor <> @idproveedor) begin
+			return 1	-- Proveedor duplicado
+		end
+		else begin
+			update ORION.proveedores set razon_social = @razon_social, email = @mail, telefono = @telefono, direccion = @direccion, codigo_postal = @codpost,
+			idciudad= @idciudad, cuit = @cuit, idrubro = @idrubro, contacto = @contacto where idproveedor = @idproveedor
+			
+			return 0
+		end
+				
+    end
+END
+
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Roles_Crear]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Crea un nuevo rol y devuelve el idrol creado
+-- =============================================
+CREATE PROCEDURE [ORION].[Roles_Crear]
+	@descripcion varchar(50),@idrol int = 0 output 
+AS 
+BEGIN
+	SET NOCOUNT ON
+
+	Insert into orion.roles(descripcion) values(@descripcion)
+	
+	set @idrol = @@IDENTITY	
+	
+END
+
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Roles_Inhabilitar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Inhabilita el rol deseado
+-- =============================================
+CREATE PROCEDURE [ORION].[Roles_Inhabilitar]
+	@idrol int, @forzar bit
+AS 
+BEGIN
+	SET NOCOUNT ON
+
+	declare @retstatus tinyint
+	set @retstatus = 0 -- OK por default
+	
+	if (not exists(select idusuario from ORION.usuarios where idrol = @idrol and habilitado = 1))
+		update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol
+	else begin
+		if (@forzar = 0) 	
+			set @retstatus = 1	-- Hay usuarios asociados
+		else begin
+			update ORION.usuarios set habilitado = 0 where idrol = @idrol
+			update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol		
+		end
+	end
+		
+	return @retstatus
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Roles_Obtener]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Description:	Obtiene los roles existentes en el sistema, opcionalmente puede pedirse un filtro
+-- =============================================
+CREATE PROCEDURE [ORION].[Roles_Obtener]
+	@filtro varchar(60) = '', @solo_habilitados bit = 0
+AS
+BEGIN
+	
+	if (@filtro = '') begin
+		if (@solo_habilitados = 1) begin
+			select idrol, descripcion, habilitado as estado,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
+			
+			from ORION.roles where habilitado = 1 order by descripcion 
+		end 
+		else begin
+			select idrol, descripcion, habilitado as estado,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
+			from ORION.roles order by descripcion
+		end
+		
+	end
+	else begin
+		if (@solo_habilitados = 1) begin
+			select idrol, descripcion, habilitado as estado,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
+			from ORION.roles where habilitado = 1 and descripcion like '%' + @filtro + '%'
+			order by descripcion 
+		end 
+		else begin
+			select idrol, descripcion, habilitado as estado,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
+			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
+			from ORION.roles 
+			where descripcion like '%' + @filtro + '%'
+			order by descripcion
+		end
+		
+	end
+END
+
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Usuarios_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Description:	Inserta o actualiza el usuario
+-- =============================================
+CREATE PROCEDURE [ORION].[Usuarios_Grabar]
+	@idusuario int = 0 output, @username varchar(50), @pass char(64) = null, @idrol int, @idtipo_usuario tinyint, @habilitado bit = 1
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	--Si vino, es una actualizacion
+	if (@idusuario > 0) begin
+		-- solo si la clave vino se cambia
+		if (@pass is not null) begin
+			update ORION.usuarios set username = @username, clave = @pass, 
+				idrol = @idrol ,idtipo_usuario = @idtipo_usuario, habilitado = @habilitado where idusuario = @idusuario
+		end
+		else begin
+			update ORION.usuarios set username = @username, 
+				idrol = @idrol ,idtipo_usuario = @idtipo_usuario, habilitado = @habilitado where idusuario = @idusuario
+		end
+		return 0
+	end
+	else begin
+		--Sino, es un alta. Verifico que no haya otro usuario asi antes
+		If (exists(select idusuario from ORION.usuarios where username = @username and idusuario <> @idusuario)) begin
+
+			return 1
+		end
+		
+		else begin
+			--Si no existe, puedo insertar
+			insert into ORION.usuarios(username, clave, idrol, idtipo_usuario, habilitado) 
+			values(@username, @pass, @idrol, @idtipo_usuario, @habilitado)
+			
+			set @idusuario = @@IDENTITY
+			
+			return 0
+		end
+    end
+END
+
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Usuarios_Loguear]    Script Date: 12/14/2012 02:06:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 -- =============================================
 -- Loguea al usuario y si es necesario lo banea por intentos fallidos
 -- =============================================
@@ -431,291 +838,9 @@ BEGIN
 	end
 END
 
-GO
--- =============================================
--- Description:	Inhabilita el rol deseado
--- =============================================
-CREATE PROCEDURE [ORION].[Roles_Inhabilitar]
-	@idrol int, @forzar bit
-AS 
-BEGIN
-	SET NOCOUNT ON
-
-	declare @retstatus tinyint
-	set @retstatus = 0 -- OK por default
-	
-	if (not exists(select idusuario from ORION.usuarios where idrol = @idrol and habilitado = 1))
-		update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol
-	else begin
-		if (@forzar = 0) 	
-			set @retstatus = 1	-- Hay usuarios asociados
-		else begin
-			update ORION.usuarios set habilitado = 0 where idrol = @idrol
-			update ORION.roles set habilitado = 0 where idrol = @idrol --Inhabilito el rol		
-		end
-	end
-		
-	return @retstatus
-	
-END
 
 GO
 
--- =============================================
--- Description:	Obtiene los roles existentes en el sistema, opcionalmente puede pedirse un filtro
--- =============================================
-CREATE PROCEDURE [ORION].[Roles_Obtener]
-	@filtro varchar(60) = '', @solo_habilitados bit = 0
-AS
-BEGIN
-	
-	if (@filtro = '') begin
-		if (@solo_habilitados = 1) begin
-			select idrol, descripcion, habilitado as estado,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
-			
-			from ORION.roles where habilitado = 1 order by descripcion 
-		end 
-		else begin
-			select idrol, descripcion, habilitado as estado,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
-			from ORION.roles order by descripcion
-		end
-		
-	end
-	else begin
-		if (@solo_habilitados = 1) begin
-			select idrol, descripcion, habilitado as estado,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
-			from ORION.roles where habilitado = 1 and descripcion like '%' + @filtro + '%'
-			order by descripcion 
-		end 
-		else begin
-			select idrol, descripcion, habilitado as estado,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 1) then 'S' else 'N' end administrativo,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 2) then 'S' else 'N' end cliente,
-			case when exists(select idtipo_usuario_rol from orion.tipos_usuario_rol where idrol = orion.roles.idrol and idtipo_usuario = 3) then 'S' else 'N' end proveedor
-			from ORION.roles 
-			where descripcion like '%' + @filtro + '%'
-			order by descripcion
-		end
-		
-	end
-END
-
-GO
-
--- =============================================
--- Description:	Inserta o actualiza el usuario
--- =============================================
-CREATE PROCEDURE [ORION].[Usuarios_Grabar]
-	@idusuario int = 0 output, @username varchar(50), @pass char(64) = null, @idrol int, @idtipo_usuario tinyint, @habilitado bit = 1
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-	
-	--Si vino, es una actualizacion
-	if (@idusuario > 0) begin
-		-- solo si la clave vino se cambia
-		if (@pass is not null) begin
-			update ORION.usuarios set username = @username, clave = @pass, 
-				idrol = @idrol ,idtipo_usuario = @idtipo_usuario, habilitado = @habilitado where idusuario = @idusuario
-		end
-		else begin
-			update ORION.usuarios set username = @username, 
-				idrol = @idrol ,idtipo_usuario = @idtipo_usuario, habilitado = @habilitado where idusuario = @idusuario
-		end
-		return 0
-	end
-	else begin
-		--Sino, es un alta. Verifico que no haya otro usuario asi antes
-		If (exists(select idusuario from ORION.usuarios where username = @username and idusuario <> @idusuario)) begin
-
-			return 1
-		end
-		
-		else begin
-			--Si no existe, puedo insertar
-			insert into ORION.usuarios(username, clave, idrol, idtipo_usuario, habilitado) 
-			values(@username, @pass, @idrol, @idtipo_usuario, @habilitado)
-			
-			set @idusuario = @@IDENTITY
-			
-			return 0
-		end
-    end
-END
-
-GO
-
--- =============================================
--- Description:	Inserta un registro en la tabla de proveedores y devueve en output el idproveedor generado
--- =============================================
-CREATE PROCEDURE [ORION].[Proveedores_Grabar]
-	@idproveedor int output, @razon_social varchar(50), @mail varchar(50), @telefono varchar(50), 
-	@direccion varchar(100), @codpost varchar(8), @idciudad int, @cuit varchar(11), @idrubro int, 
-	@contacto varchar(50), @idusuario int
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-	-- Si es un alta
-	if (@idproveedor = 0) begin
-		-- Me fijo antes que no haya otro "duplicado"
-		if exists (select idproveedor from ORION.proveedores where cuit = @cuit or razon_social = @razon_social) begin
-			return 1	-- Proveedor duplicado
-		end
-		else begin
-			insert into ORION.proveedores(razon_social, email, telefono, direccion, codigo_postal, idciudad, cuit, idrubro, contacto, idusuario)
-			values(@razon_social, @mail, @telefono, @direccion, @codpost, @idciudad, @cuit, @idrubro, @contacto, @idusuario)
-			
-			set @idproveedor = @@IDENTITY
-			return 0
-		end
-	end
-	else begin --Es una modificacion
-		-- me tengo que fijar que no haya OTRO idcliente diferente con el mismo telefono o dni
-		if exists (select idproveedor from ORION.proveedores where (cuit = @cuit or razon_social = @razon_social) and idproveedor <> @idproveedor) begin
-			return 1	-- Proveedor duplicado
-		end
-		else begin
-			update ORION.proveedores set razon_social = @razon_social, email = @mail, telefono = @telefono, direccion = @direccion, codigo_postal = @codpost,
-			idciudad= @idciudad, cuit = @cuit, idrubro = @idrubro, contacto = @contacto where idproveedor = @idproveedor
-			
-			return 0
-		end
-				
-    end
-END
-
-GO
--- =============================================
--- Description:	Comprar GiftCard
--- =============================================
-CREATE PROCEDURE [ORION].[GiftCard_Comprar]
-	@idcliente_origen int, @idcliente_destino int, @monto decimal(18,2), @fecha date
-AS
-BEGIN
-	Insert into ORION.gift_cards(fecha, idcliente_origen, idcliente_destino, monto)
-	values(@fecha, @idcliente_origen, @idcliente_destino, @monto)
-	
-	
-END
-GO
-
--- =============================================
--- Description:	Crea un nuevo rol y devuelve el idrol creado
--- =============================================
-CREATE PROCEDURE [ORION].[Roles_Crear]
-	@idrol int = 0 output, @descripcion varchar(50)
-AS 
-BEGIN
-	SET NOCOUNT ON
-
-	Insert into orion.roles(descripcion) values(@descripcion)
-	
-	set @idrol = @@IDENTITY	
-	
-END
-
-GO
-
--- =============================================
--- Description:	Procedimiento de compra de un cupón
--- =============================================
-CREATE PROCEDURE ORION.Cupones_Comprar
-	@fecha date, @idcliente int, @cantidad smallint, @idcupon int, @codigo varchar(12) output
-AS
-BEGIN
-	declare @cantcompras smallint
-	declare @monto decimal(18,2)
-	
-	-- Genero el código de la compra
-	select @cantcompras = (COUNT(1)+1) from ORION.compras where idcupon = @idcupon
-	set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6) + RIGHT('0000' + cast(@cantcompras as varchar), 5)
-	
-	-- Cargo la compra
-	insert into ORION.compras(idcliente, codigo, fecha_compra, cantidad, idcupon, idcompra_estado)
-	values(@idcliente, @codigo, @fecha, @cantidad, @idcupon, 1)
-
-	-- Saco el monto del cupón
-	select @monto = precio_real from ORION.cupones where idcupon = @idcupon
-	
-	-- Actualiza el crédito del cliente
-	update ORION.clientes set credito_actual = credito_actual - @monto where idcliente = @idcliente
-	
-	-- Y actualizo el stock de los cupones
-	update ORION.cupones set cantidad_disponible = cantidad_disponible - @cantidad where idcupon = @idcupon
-	
-END
-GO
-
--- =============================================
--- Description:	Devuelve un cupón, retorna el crédito al cliente y el cupón al stock.
--- =============================================
-CREATE PROCEDURE [ORION].[Compras_Devolver]
-	@fecha date, @idcompra int, @idcliente int, @motivo varchar(200)
-AS
-BEGIN
-
-	declare @idcupon int
-	declare @monto decimal(18,2)
-	declare @cantidad smallint
-	
-	select @idcupon = cu.idcupon, @monto = cu.precio_real, @cantidad = co.cantidad from ORION.cupones cu
-	inner join ORION.compras co on co.idcupon = cu.idcupon
-	where co.idcompra = @idcompra
-	
-	-- Agrego la devolución
-	Insert into ORION.devoluciones(fecha_devolucion, idcompra, motivo) values(@fecha,@idcompra, @motivo)
-	
-	-- Actualizo el estado de la compra
-	update ORION.compras set idcompra_estado = 3 where idcompra = @idcompra
-	
-	-- Actualizo el stock de los cupones
-	update ORION.cupones set cantidad_disponible = cantidad_disponible + @cantidad where idcupon = @idcupon
-	
-	-- Actualizo el crédito del cliente
-	update ORION.clientes set credito_actual = credito_actual + (@cantidad * @monto) where idcliente = @idcliente
-	
-END
-
-GO
-
--- =============================================
--- Description:	Crea un nuevo cupón y le asigna su código propio
--- =============================================
-CREATE PROCEDURE ORION.Cupones_Crear
-	@idproveedor int, @descripcion varchar(200), @fecha_alta date, @fecha_publicacion date, @fecha_vencimiento date,
-	@fecha_vencimiento_canje date, @precio_real decimal(18,2), @precio_ficticio decimal(18,2), @cantidad_disponible smallint, @cantidad_max_usuario smallint
-AS
-BEGIN
-	
-	declare @codigo varchar(12)
-	declare @idcupon	int
-	
-	Insert into orion.cupones(idproveedor, descripcion, fecha_alta, fecha_publicacion, fecha_vencimiento, fecha_vencimiento_canje, 
-    precio_real, precio_ficticio, cantidad_disponible, cantidad_max_usuario) values(@idproveedor, @descripcion, @fecha_alta, @fecha_publicacion, 
-    @fecha_vencimiento, @fecha_vencimiento_canje, @precio_real, @precio_ficticio, @cantidad_disponible, @cantidad_max_usuario)
-
-	set @idcupon = @@IDENTITY
-	
-    set @codigo = 'C' + RIGHT('00000' + cast(@idcupon as varchar), 6)
-    
-    update ORION.cupones set codigo_cupon = @codigo where idcupon = @idcupon
-    
-END
-GO
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
@@ -891,7 +1016,7 @@ groupon_precio_ficticio, Groupon_Cantidad, DATEADD(d, 10, groupon_fecha_venc), 5
 from ORION.proveedores_temp pt inner join ORION.proveedores p on p.cuit = pt.provee_cuit
 where groupon_entregado_fecha is null and groupon_devolucion_fecha is null 
 and factura_fecha is null
-group by p.idproveedor, groupon_descripcion, groupon_fecha, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio, Groupon_Cantidad
+group by p.idproveedor, groupon_descripcion, groupon_fecha, groupon_codigo, groupon_fecha_venc, groupon_precio, groupon_precio_ficticio, Groupon_Cantidad
 order by pt.groupon_fecha
 
 

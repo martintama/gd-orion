@@ -37,7 +37,7 @@ namespace GrouponDesktop.Base
             Dbaccess.DBConnect();
 
             //Traigo todas las ciudades y las pongo como deshabilitadas en el caso de que sea un nuevo usuario
-            String sqlstr = "select idciudad, descripcion from ORION.ciudades where activo = 1 order by descripcion ";
+            String sqlstr = "select idciudad, descripcion from ORION.ciudades order by descripcion ";
 
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
 

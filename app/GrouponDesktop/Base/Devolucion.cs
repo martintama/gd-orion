@@ -22,7 +22,7 @@ namespace GrouponDesktop.Base
         {
             Dbaccess.DBConnect();
 
-            SqlCommand sqlc = new SqlCommand("Orion.Devoluciones_Pedir", Dbaccess.globalConn);
+            SqlCommand sqlc = new SqlCommand("Orion.Compras_Devolver", Dbaccess.globalConn);
             sqlc.CommandType = System.Data.CommandType.StoredProcedure;
             sqlc.Parameters.AddWithValue("@fecha", this.FechaDevolucion);
             sqlc.Parameters.AddWithValue("@idcompra", this.Idcompra);

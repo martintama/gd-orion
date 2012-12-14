@@ -18,7 +18,7 @@ namespace GrouponDesktop.Base
 
             Dbaccess.DBConnect();
 
-            String sqlstr = "Select idrubro, descripcion from orion.rubros where activo = 1 order by descripcion";
+            String sqlstr = "Select idrubro, descripcion from orion.rubros order by descripcion";
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             SqlDataReader dr1 = sqlc.ExecuteReader();
 

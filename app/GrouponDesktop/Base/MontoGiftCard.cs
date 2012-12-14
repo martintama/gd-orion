@@ -19,7 +19,7 @@ namespace GrouponDesktop.Base
 
             Dbaccess.DBConnect();
 
-            String sqlstr = "Select idmonto, monto from orion.gift_cards_montos where activo = 1 order by monto";
+            String sqlstr = "Select idmonto, monto from orion.gift_cards_montos order by monto";
             SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
             SqlDataReader dr1 = sqlc.ExecuteReader();
 
