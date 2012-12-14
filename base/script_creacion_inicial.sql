@@ -206,7 +206,7 @@ CREATE TABLE ORION.tarjetas(
 	idtarjeta				int IDENTITY(1,1) NOT NULL,
 	idtipo_tarjeta			tinyint NOT NULL,
 	numero_tarjeta			varchar(16) NOT NULL,
-	codigo_seguridad		varchar(3) NOT NULL,
+	codigo_seguridad		varchar(4) NOT NULL,
 	nombre_titular			varchar(50) NOT NULL,
 	dni_titular				int  NOT NULL,
 	mes_vencimiento			tinyint	NOT NULL,
@@ -927,6 +927,49 @@ BEGIN
 END
 GO
 
+-- =============================================
+-- Description:	Pasa los datos completos de la tarjeta. Si ya existe me devuelve el idtarjeta. Si no existe, lo inserta y recién ahi devuelve.
+-- =============================================
+CREATE PROCEDURE ORION.Tarjetas_ObtenerId
+	@idcliente int, @idtipo_tarjeta int, @numero_tarjeta varchar(16), @codigo_seguridad varchar(4), @nombre_titular varchar(50), 
+	@dni_titular int, @mes_vencimiento smallint, @anio_vencimiento smallint
+
+AS
+BEGIN
+	
+	declare @idtarjeta int
+
+
+	select @idtarjeta = idtarjeta from orion.tarjetas where idcliente = @idcliente and idtipo_tarjeta = @idtipo_tarjeta and numero_tarjeta = @numero_tarjeta and idcliente = @idcliente
+	if (@idtarjeta != null)
+	begin
+		-- Si no existe, lo inserto
+		insert into orion.tarjetas(idtipo_tarjeta, numero_tarjeta, codigo_seguridad, nombre_titular, dni_titular, mes_vencimiento, anio_vencimiento)
+		values(@idtipo_tarjeta, @numero_tarjeta, @codigo_seguridad, @nombre_titular, @dni_titular, @mes_vencimiento, @anio_vencimiento)
+
+		set @idtarjeta = @@identity
+
+	end
+
+		return  @idtarjeta
+END
+GO
+
+-- =============================================
+-- Description:	Cargar credito a la cuenta de un cliente
+-- =============================================
+CREATE PROCEDURE ORION.Credito_Cargar
+	@fecha date, @idcliente int, @idtipo_pago smallint, @monto decimal, @idtarjeta int = 0
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto)
+	values(@fecha, @idcliente, @idtipo_pago, @monto)
+END
+GO
 
 
 -- VISTAS

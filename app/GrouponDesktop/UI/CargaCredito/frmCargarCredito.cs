@@ -19,51 +19,21 @@ namespace GrouponDesktop.UI.CargaCredito
             InitializeComponent();
         }
 
-        private void montoBox_TextChanged(object sender, EventArgs e)
-        {
-            int credito;
-            int.TryParse(txtMonto.Text, out credito);
-            if (credito <= 15)
-            {
-                lblError.Text = "El monto debe ser mayor a 15$!";
-                btnAceptar.Enabled = false;
-            }
-            else
-            {
-                lblError.Text = "";
-                btnAceptar.Enabled = true;
-            }
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Dispose();
         }
 
-        private void mroTarjBox_TextChanged(object sender, EventArgs e)
-        {
-            int nroTarj;
-            int.TryParse(txtNroTarj.Text, out nroTarj);
-            if (txtNroTarj.Text.Length != 16)
-            {
-                lblError.Text = "Debe ingresar 16 Digitos de Tarjeta";
-            }
-            else
-            {
-                lblError.Text = "";
-            }
-        }
-
         private void cmbPago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbPago.SelectedIndex == 0)
+            if (Convert.ToInt16(cmbPago.SelectedValue) == 2) //Efectivo
             {
-                gbxDatosTarjeta.Visible = false;
+                gbxDatosTarjeta.Enabled = false;
             }
             else
             {
-                gbxDatosTarjeta.Visible = true;
+                gbxDatosTarjeta.Enabled = true;
             }
         }
 
@@ -71,19 +41,32 @@ namespace GrouponDesktop.UI.CargaCredito
         {
             if (VerificarDatos())
             {
+                unaCarga.ClienteAsociado.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
                 //Se supone que si pasó la verificación, es válido
                 unaCarga.Monto = Decimal.Parse(txtMonto.Text);
 
                 unaCarga.TipoPagoAsociado = (TipoPago)cmbPago.SelectedItem;
 
                 //Si es tarjeta, tengo que cargar más datos
-                if (unaCarga.TipoPagoAsociado.Idtipo_Pago != 1)
+                if (unaCarga.TipoPagoAsociado.Idtipo_Pago != 2)
                 {
                     unaCarga.TarjetaAsociada = new Tarjeta();
+                    
+                    unaCarga.TarjetaAsociada.TipoTarjetaAsociada = (TipoTarjeta)cmbTipoTarjeta.SelectedItem;
                     unaCarga.TarjetaAsociada.Titular = txtTitular.Text;
+                    unaCarga.TarjetaAsociada.Dni = Convert.ToInt32(txtDni.Text);
                     unaCarga.TarjetaAsociada.NumeroTarjeta = txtNroTarj.Text;
-                    unaCarga.TarjetaAsociada.
+                    unaCarga.TarjetaAsociada.CodigoSeguridad = Convert.ToInt16(txtCodSeg.Text);
+                    unaCarga.TarjetaAsociada.AnioVencimiento = Convert.ToInt16(nudAnioVenc.Value);
+                    unaCarga.TarjetaAsociada.MesVencimiento = Convert.ToInt16(nudMesVenc.Value);
                 }
+
+                unaCarga.Efectivizar();
+
+                MessageBox.Show("Carga realizada exitosamente!", "Cargar Crédito");
+
+                this.Close();
+                this.Dispose();
 
             }
         }
@@ -102,6 +85,7 @@ namespace GrouponDesktop.UI.CargaCredito
             lblCodSeg.Visible = false;
             lblError.Visible = false;
             lblNroTarjeta.Visible = false;
+            lblDni.Visible = false;
             
             if (txtMonto.Text == "")
             {
@@ -112,13 +96,13 @@ namespace GrouponDesktop.UI.CargaCredito
             else
             {
                 Boolean numeroValido;
-                Decimal monto;
-                numeroValido = Decimal.TryParse(lblMonto.Text, out monto);
+                Int32 monto;
+                numeroValido = Int32.TryParse(txtMonto.Text, out monto);
 
                 if (!numeroValido)
                 {
                     valido = false;
-                    lblMonto.Text = "* Número inválido.";
+                    lblMonto.Text = "* Número inválido. Solo números enteros.";
                     lblMonto.Visible = true;
                 }
                 else
@@ -133,7 +117,7 @@ namespace GrouponDesktop.UI.CargaCredito
             }
 
             //Si no es efectivo, es tarjeta
-            if (((TipoPago)cmbPago.SelectedItem).Idtipo_Pago != 1)
+            if (((TipoPago)cmbPago.SelectedItem).Idtipo_Pago != 2)
             {
                 if (txtTitular.Text == "")
                 {
@@ -144,20 +128,85 @@ namespace GrouponDesktop.UI.CargaCredito
                 if (txtDni.Text == "")
                 {
                     valido = false;
-                    txtDni.Text = "* Obligatorio";
-                    txtDni.Visible = true;
+                    lblDni.Text = "* Obligatorio";
+                    lblDni.Visible = true;
+                }
+                else
+                {
+                    if (!BasicFunctions.EsNumero(txtDni.Text) || Convert.ToInt32(txtDni.Text) > 99999999 || Convert.ToInt32(txtDni.Text) < 1000000)
+                    {
+                        lblDni.Text = "* DNI Inválido";
+                        valido = false;
+                        lblDni.Visible = true;
+                    }
                 }
                 if (txtNroTarj.Text == "")
                 {
                     valido = false;
-                    txtNroTarj.Text = "* Obligatorio";
-                    txtNroTarj.Visible = true;
+                    lblNroTarjeta.Text = "* Obligatorio";
+                    lblNroTarjeta.Visible = true;
+                }
+                else
+                {
+                    if (!BasicFunctions.EsNumero(txtNroTarj.Text))
+                    {
+                        lblNroTarjeta.Text = "* Nro de tarjeta inválida. Debe ingresar solo dígitos";
+                        valido = false;
+                        lblNroTarjeta.Visible = true;
+                    }
+
+                    if (((TipoTarjeta)cmbTipoTarjeta.SelectedItem).Idtipo_tarjeta == 3) //Si es AMEX
+                    {
+                        if (txtNroTarj.Text.Length != 15)
+                        {
+                            lblNroTarjeta.Text = "* Nro de tarjeta inválida";
+                            valido = false;
+                            lblNroTarjeta.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        if (txtNroTarj.Text.Length != 16)
+                        {
+                            lblNroTarjeta.Text = "* Nro de tarjeta inválida";
+                            valido = false;
+                            lblNroTarjeta.Visible = true;
+                        }
+                    }
                 }
                 if (txtCodSeg.Text == "")
                 {
                     valido = false;
-                    txtCodSeg.Text = "* Obligatorio";
-                    txtCodSeg.Visible = true;
+                    lblCodSeg.Text = "* Obligatorio";
+                    lblCodSeg.Visible = true;
+                }
+                else
+                {
+                    if (!BasicFunctions.EsNumero(txtCodSeg.Text))
+                    {
+                        lblCodSeg.Text = "* Código de seguridad inválido";
+                        valido = false;
+                        lblCodSeg.Visible = true;
+                    }
+
+                    if (((TipoTarjeta)cmbTipoTarjeta.SelectedItem).Idtipo_tarjeta == 3) //Si es AMEX
+                    {
+                        if (txtCodSeg.Text.Length != 4)
+                        {
+                            lblCodSeg.Text = "* Código de seguridad inválido. Debe ser de 4 dígitos";
+                            valido = false;
+                            lblCodSeg.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        if (txtCodSeg.Text.Length != 3)
+                        {
+                            lblCodSeg.Text = "* Código de seguridad inválido. Debe ser de 3 dígitos";
+                            valido = false;
+                            lblCodSeg.Visible = true;
+                        }
+                    }
                 }
             }
 
@@ -171,20 +220,21 @@ namespace GrouponDesktop.UI.CargaCredito
 
         private void LimpiarDatos()
         {
+            
+            cmbPago.DataSource = TipoPago.GetTiposPago();
             cmbPago.DisplayMember = "Descripcion";
             cmbPago.ValueMember = "Idtipo_pago";
-            cmbPago.DataSource = TipoPago.GetTiposPago();
 
+            cmbTipoTarjeta.DataSource = TipoTarjeta.GetTiposTarjeta();
             cmbTipoTarjeta.DisplayMember = "Descripcion";
             cmbTipoTarjeta.ValueMember = "Idtipo_tarjeta";
-            cmbTipoTarjeta.DataSource = TipoTarjeta.GetTiposTarjeta();
-            cmbTipoTarjeta.Visible = false;
+            cmbPago.SelectedIndex = 0;
 
             nudAnioVenc.Minimum = Sesion.ConfigApp.FechaActual.Year;
             nudAnioVenc.Maximum = nudAnioVenc.Minimum + 50;
             nudAnioVenc.Value = Sesion.ConfigApp.FechaActual.Year;
 
-            nudMesVenc.Value = 1;
+            nudMesVenc.Value = Sesion.ConfigApp.FechaActual.Month;
 
             txtMonto.Text = "";
 
@@ -192,14 +242,25 @@ namespace GrouponDesktop.UI.CargaCredito
             txtCodSeg.Text = "";
             txtNroTarj.Text = "";
 
-            cmbPago.SelectedIndex = 1;
-            cmbTipoTarjeta.SelectedIndex = 1;
+            if (Convert.ToInt16(cmbPago.SelectedValue) == 3)//Si es con tarjeta de credito
+            {
+                gbxDatosTarjeta.Enabled = true;
+            }
+            else
+            {
+                gbxDatosTarjeta.Enabled = false;
+            }
 
         }
 
         private void frmCargarCredito_Load(object sender, EventArgs e)
         {
             this.LimpiarDatos();
+        }
+
+        private void txtNroTarj_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

@@ -36,9 +36,12 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
             this.txtNroTarj = new System.Windows.Forms.TextBox();
-            this.lblNroTarj = new System.Windows.Forms.Label();
+            this.labelX = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.gbxDatosTarjeta = new System.Windows.Forms.GroupBox();
+            this.lblDni = new System.Windows.Forms.Label();
+            this.txtDni = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.lblCodSeg = new System.Windows.Forms.Label();
             this.lblNroTarjeta = new System.Windows.Forms.Label();
             this.lblTitular = new System.Windows.Forms.Label();
@@ -54,9 +57,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.lblMonto = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtDni = new System.Windows.Forms.TextBox();
-            this.lblDni = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.gbxDatosTarjeta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMesVenc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnioVenc)).BeginInit();
@@ -64,30 +65,32 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(365, 315);
+            this.btnAceptar.Location = new System.Drawing.Point(387, 315);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 0;
+            this.btnAceptar.TabIndex = 9;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // txtMonto
             // 
-            this.txtMonto.Location = new System.Drawing.Point(110, 36);
+            this.txtMonto.Location = new System.Drawing.Point(126, 36);
+            this.txtMonto.MaxLength = 10;
             this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(121, 20);
-            this.txtMonto.TabIndex = 1;
-            this.txtMonto.TextChanged += new System.EventHandler(this.montoBox_TextChanged);
+            this.txtMonto.Size = new System.Drawing.Size(74, 20);
+            this.txtMonto.TabIndex = 0;
             // 
             // cmbPago
             // 
+            this.cmbPago.DisplayMember = "Descripcion";
+            this.cmbPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPago.FormattingEnabled = true;
-            this.cmbPago.Location = new System.Drawing.Point(110, 62);
+            this.cmbPago.Location = new System.Drawing.Point(126, 62);
             this.cmbPago.Name = "cmbPago";
             this.cmbPago.Size = new System.Drawing.Size(121, 21);
-            this.cmbPago.Sorted = true;
-            this.cmbPago.TabIndex = 2;
+            this.cmbPago.TabIndex = 1;
+            this.cmbPago.ValueMember = "Idtipo_pago";
             this.cmbPago.SelectedIndexChanged += new System.EventHandler(this.cmbPago_SelectedIndexChanged);
             // 
             // label1
@@ -113,7 +116,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(11, 315);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 0;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -124,7 +127,7 @@
             this.lblError.ForeColor = System.Drawing.Color.Red;
             this.lblError.Location = new System.Drawing.Point(17, 289);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(423, 23);
+            this.lblError.Size = new System.Drawing.Size(445, 23);
             this.lblError.TabIndex = 5;
             this.lblError.Text = "Error";
             this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,21 +136,20 @@
             // txtNroTarj
             // 
             this.txtNroTarj.Location = new System.Drawing.Point(110, 99);
+            this.txtNroTarj.MaxLength = 16;
             this.txtNroTarj.Name = "txtNroTarj";
             this.txtNroTarj.Size = new System.Drawing.Size(151, 20);
-            this.txtNroTarj.TabIndex = 1;
-            this.txtNroTarj.Visible = false;
-            this.txtNroTarj.TextChanged += new System.EventHandler(this.mroTarjBox_TextChanged);
+            this.txtNroTarj.TabIndex = 5;
+            this.txtNroTarj.TextChanged += new System.EventHandler(this.txtNroTarj_TextChanged);
             // 
-            // lblNroTarj
+            // labelX
             // 
-            this.lblNroTarj.AutoSize = true;
-            this.lblNroTarj.Location = new System.Drawing.Point(10, 102);
-            this.lblNroTarj.Name = "lblNroTarj";
-            this.lblNroTarj.Size = new System.Drawing.Size(63, 13);
-            this.lblNroTarj.TabIndex = 6;
-            this.lblNroTarj.Text = "Nro Tarjeta:";
-            this.lblNroTarj.Visible = false;
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(10, 102);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(63, 13);
+            this.labelX.TabIndex = 6;
+            this.labelX.Text = "Nro Tarjeta:";
             // 
             // label27
             // 
@@ -178,14 +180,42 @@
             this.gbxDatosTarjeta.Controls.Add(this.label4);
             this.gbxDatosTarjeta.Controls.Add(this.txtNroTarj);
             this.gbxDatosTarjeta.Controls.Add(this.label3);
-            this.gbxDatosTarjeta.Controls.Add(this.lblNroTarj);
+            this.gbxDatosTarjeta.Controls.Add(this.labelX);
+            this.gbxDatosTarjeta.Enabled = false;
             this.gbxDatosTarjeta.Location = new System.Drawing.Point(16, 103);
             this.gbxDatosTarjeta.Name = "gbxDatosTarjeta";
-            this.gbxDatosTarjeta.Size = new System.Drawing.Size(424, 183);
+            this.gbxDatosTarjeta.Size = new System.Drawing.Size(446, 183);
             this.gbxDatosTarjeta.TabIndex = 5;
             this.gbxDatosTarjeta.TabStop = false;
             this.gbxDatosTarjeta.Text = "Datos de la tarjeta de crédito";
-            this.gbxDatosTarjeta.Visible = false;
+            // 
+            // lblDni
+            // 
+            this.lblDni.AutoSize = true;
+            this.lblDni.ForeColor = System.Drawing.Color.Red;
+            this.lblDni.Location = new System.Drawing.Point(221, 77);
+            this.lblDni.Name = "lblDni";
+            this.lblDni.Size = new System.Drawing.Size(50, 13);
+            this.lblDni.TabIndex = 32;
+            this.lblDni.Text = "* Revisar";
+            this.lblDni.Visible = false;
+            // 
+            // txtDni
+            // 
+            this.txtDni.Location = new System.Drawing.Point(110, 74);
+            this.txtDni.MaxLength = 8;
+            this.txtDni.Name = "txtDni";
+            this.txtDni.Size = new System.Drawing.Size(100, 20);
+            this.txtDni.TabIndex = 4;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 77);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(57, 13);
+            this.label8.TabIndex = 30;
+            this.label8.Text = "DNI titular:";
             // 
             // lblCodSeg
             // 
@@ -235,7 +265,7 @@
             0});
             this.nudMesVenc.Name = "nudMesVenc";
             this.nudMesVenc.Size = new System.Drawing.Size(51, 20);
-            this.nudMesVenc.TabIndex = 15;
+            this.nudMesVenc.TabIndex = 8;
             this.nudMesVenc.Value = new decimal(new int[] {
             1,
             0,
@@ -261,22 +291,24 @@
             0});
             this.nudAnioVenc.Name = "nudAnioVenc";
             this.nudAnioVenc.Size = new System.Drawing.Size(74, 20);
-            this.nudAnioVenc.TabIndex = 13;
+            this.nudAnioVenc.TabIndex = 7;
             // 
             // txtTitular
             // 
             this.txtTitular.Location = new System.Drawing.Point(110, 49);
+            this.txtTitular.MaxLength = 50;
             this.txtTitular.Name = "txtTitular";
             this.txtTitular.Size = new System.Drawing.Size(221, 20);
-            this.txtTitular.TabIndex = 12;
+            this.txtTitular.TabIndex = 3;
             // 
             // cmbTipoTarjeta
             // 
+            this.cmbTipoTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoTarjeta.FormattingEnabled = true;
             this.cmbTipoTarjeta.Location = new System.Drawing.Point(110, 22);
             this.cmbTipoTarjeta.Name = "cmbTipoTarjeta";
             this.cmbTipoTarjeta.Size = new System.Drawing.Size(126, 21);
-            this.cmbTipoTarjeta.TabIndex = 7;
+            this.cmbTipoTarjeta.TabIndex = 2;
             // 
             // label6
             // 
@@ -299,9 +331,10 @@
             // txtCodSeg
             // 
             this.txtCodSeg.Location = new System.Drawing.Point(110, 125);
+            this.txtCodSeg.MaxLength = 4;
             this.txtCodSeg.Name = "txtCodSeg";
             this.txtCodSeg.Size = new System.Drawing.Size(52, 20);
-            this.txtCodSeg.TabIndex = 9;
+            this.txtCodSeg.TabIndex = 6;
             // 
             // label4
             // 
@@ -323,10 +356,10 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(275, 315);
+            this.btnLimpiar.Location = new System.Drawing.Point(306, 315);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 32;
+            this.btnLimpiar.TabIndex = 11;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -335,45 +368,28 @@
             // 
             this.lblMonto.AutoSize = true;
             this.lblMonto.ForeColor = System.Drawing.Color.Red;
-            this.lblMonto.Location = new System.Drawing.Point(237, 39);
+            this.lblMonto.Location = new System.Drawing.Point(253, 39);
             this.lblMonto.Name = "lblMonto";
             this.lblMonto.Size = new System.Drawing.Size(50, 13);
             this.lblMonto.TabIndex = 30;
             this.lblMonto.Text = "* Revisar";
             this.lblMonto.Visible = false;
             // 
-            // label8
+            // label9
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 77);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 13);
-            this.label8.TabIndex = 30;
-            this.label8.Text = "DNI titular:";
-            // 
-            // txtDni
-            // 
-            this.txtDni.Location = new System.Drawing.Point(110, 74);
-            this.txtDni.Name = "txtDni";
-            this.txtDni.Size = new System.Drawing.Size(100, 20);
-            this.txtDni.TabIndex = 31;
-            // 
-            // lblDni
-            // 
-            this.lblDni.AutoSize = true;
-            this.lblDni.ForeColor = System.Drawing.Color.Red;
-            this.lblDni.Location = new System.Drawing.Point(221, 77);
-            this.lblDni.Name = "lblDni";
-            this.lblDni.Size = new System.Drawing.Size(50, 13);
-            this.lblDni.TabIndex = 32;
-            this.lblDni.Text = "* Revisar";
-            this.lblDni.Visible = false;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(107, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "$";
             // 
             // frmCargarCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 347);
+            this.ClientSize = new System.Drawing.Size(474, 347);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.lblMonto);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.gbxDatosTarjeta);
@@ -407,7 +423,7 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.TextBox txtNroTarj;
-        private System.Windows.Forms.Label lblNroTarj;
+        private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox gbxDatosTarjeta;
         private System.Windows.Forms.TextBox txtTitular;
@@ -428,5 +444,6 @@
         private System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblDni;
+        private System.Windows.Forms.Label label9;
     }
 }
