@@ -173,6 +173,20 @@ Esto se hizo de esta manera para prevenir errores por incompatibilidad de Sesion
 ABM de proveedores
 - Para buscar todos los CUIT, se carga -1 porque es un valor que no se podrá cargar manualmente.
 
+Cargar crédito:
+- Los medios de pago posibles son efectivo o tarjeta de crédito.
+- En caso de elegir tarjeta de crédito, se deben completar los siguientes datos:
+	- Marca (Visa, Mastercard, AMEX)			Selección acotada
+	- Titular (tal cual figura en la tarjeta)	
+	- DNI Titular				(Max 8 caracteres)
+	- Nro de tarjeta			(Max 16 caracteres)
+	- Código de seguridad		(Max 3 caracteres)
+	- Año vencimiento			(Seleccion especial mediante Numericupdown)
+	- Mes vencimiento			(Seleccion especial mediante Numericupdown)
+	
+Tomamos estos datos porque son los datos que se piden al realizar transacciones por internet en la vida real.
+
+Al cargar el formulario, el año de vencimiento se setea con un mínimo que es el año actual (del archivo de configuración). Esto es para que no se pueda ingresar un año anterior al actual e invalido.
 
 Comprar GiftCard
 - Si bien en la base existente hay giftcard con todos los valores entre 25 y 99, se estipuló que a partir de la migración el monto no sea tan libre sino acotado entre { $25, $30, $50, $75 y $100 }.

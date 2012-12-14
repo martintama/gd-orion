@@ -18,7 +18,7 @@ namespace GrouponDesktop.Base
 
         public String NumeroTarjeta { get; set; }
 
-        public Int16 DigitosVerificadores { get; set; }
+        public Int16 CodigoSeguridad { get; set; }
 
         public String Titular { get; set; }
 

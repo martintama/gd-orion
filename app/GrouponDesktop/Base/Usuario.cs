@@ -122,5 +122,33 @@ namespace GrouponDesktop.Base
 
             return result;
         }
+
+        internal void GetDatosUsuario()
+        {
+            if (this.Idusuario > 0)
+            {
+                Dbaccess.DBConnect();
+
+                String sqlstr = "select username, idrol, idtipo_usuario from orion.usuarios where idusuario = @idusuario";
+
+                SqlCommand sqlc = new SqlCommand(sqlstr, Dbaccess.globalConn);
+                sqlc.Parameters.AddWithValue("@idusuario", this.Idusuario);
+
+                SqlDataReader dr1 = sqlc.ExecuteReader();
+
+                if (dr1.Read())
+                {
+                    this.Username = dr1["username"].ToString();
+                    this.TipoUsuarioAsociado = new TipoUsuario(Convert.ToInt16(dr1["idtipo_usuario"]), "");
+                    this.RolAsociado = new Rol(Convert.ToInt32(dr1["idrol"]), "");
+
+                }
+
+                sqlc.Dispose();
+
+                Dbaccess.DBDisconnect();
+            }
+        }
+
     }
 }

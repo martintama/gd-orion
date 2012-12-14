@@ -206,7 +206,7 @@ CREATE TABLE ORION.tarjetas(
 	idtarjeta				int IDENTITY(1,1) NOT NULL,
 	idtipo_tarjeta			tinyint NOT NULL,
 	numero_tarjeta			varchar(16) NOT NULL,
-	digitos_verificadores	varchar(3) NOT NULL,
+	codigo_seguridad		varchar(3) NOT NULL,
 	nombre_titular			varchar(50) NOT NULL,
 	dni_titular				int  NOT NULL,
 	mes_vencimiento			tinyint	NOT NULL,
@@ -907,7 +907,7 @@ GO
 -- Description:	Le cambia la clave a un usuario, previa verificación si a la anterior está ok
 -- =============================================
 CREATE PROCEDURE ORION.Usuarios_CambiarClave
-	@idusuario int, @claveactual char(16), @clavenueva char(16)
+	@idusuario int, @claveactual char(64), @clavenueva char(64)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -961,6 +961,10 @@ insert into ORION.tipos_pago(descripcion) values('Efectivo')
 insert into ORION.tipos_pago(descripcion) values('Crédito')
 insert into ORION.tipos_pago(descripcion, visible) values('GiftCard', 0)
 
+-- Tipos_tarjeta
+insert into ORION.tipos_tarjeta(descripcion) values('Visa')
+insert into ORION.tipos_tarjeta(descripcion) values('Mastercard')
+insert into ORION.tipos_tarjeta(descripcion) values('AMEX')
 
 -- Usuarios_tipo			00:00
 insert into ORION.tipos_usuario(descripcion) values('Administrativo')
