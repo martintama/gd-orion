@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblProveedor = new System.Windows.Forms.Label();
+            this.lblFechaDesde = new System.Windows.Forms.Label();
             this.dtpHasta = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpDesde = new System.Windows.Forms.DateTimePicker();
@@ -49,8 +51,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.lblFechaDesde = new System.Windows.Forms.Label();
-            this.lblProveedor = new System.Windows.Forms.Label();
+            this.lblCantidad = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -73,6 +74,28 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros de facturación";
+            // 
+            // lblProveedor
+            // 
+            this.lblProveedor.AutoSize = true;
+            this.lblProveedor.ForeColor = System.Drawing.Color.Red;
+            this.lblProveedor.Location = new System.Drawing.Point(369, 75);
+            this.lblProveedor.Name = "lblProveedor";
+            this.lblProveedor.Size = new System.Drawing.Size(63, 13);
+            this.lblProveedor.TabIndex = 9;
+            this.lblProveedor.Text = "* Requerido";
+            this.lblProveedor.Visible = false;
+            // 
+            // lblFechaDesde
+            // 
+            this.lblFechaDesde.AutoSize = true;
+            this.lblFechaDesde.ForeColor = System.Drawing.Color.Red;
+            this.lblFechaDesde.Location = new System.Drawing.Point(288, 25);
+            this.lblFechaDesde.Name = "lblFechaDesde";
+            this.lblFechaDesde.Size = new System.Drawing.Size(174, 13);
+            this.lblFechaDesde.TabIndex = 8;
+            this.lblFechaDesde.Text = "* Debe ser anterior a la fecha hasta";
+            this.lblFechaDesde.Visible = false;
             // 
             // dtpHasta
             // 
@@ -120,6 +143,7 @@
             // 
             this.txtProveedor.Location = new System.Drawing.Point(82, 72);
             this.txtProveedor.Name = "txtProveedor";
+            this.txtProveedor.ReadOnly = true;
             this.txtProveedor.Size = new System.Drawing.Size(200, 20);
             this.txtProveedor.TabIndex = 2;
             // 
@@ -150,15 +174,16 @@
             this.btnFacturar.TabIndex = 0;
             this.btnFacturar.Text = "Facturar";
             this.btnFacturar.UseVisualStyleBackColor = true;
+            this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 13);
+            this.label2.Size = new System.Drawing.Size(176, 13);
             this.label2.TabIndex = 31;
-            this.label2.Text = "Consumos facturados al proveedor:";
+            this.label2.Text = "Consumos sin facturar al proveedor:";
             // 
             // dgvDatos
             // 
@@ -224,9 +249,11 @@
             this.btnCerrar.TabIndex = 39;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblCantidad);
             this.groupBox2.Controls.Add(this.dgvDatos);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.lblNroFactura);
@@ -258,27 +285,15 @@
             this.lblMensaje.TabIndex = 42;
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblFechaDesde
+            // lblCantidad
             // 
-            this.lblFechaDesde.AutoSize = true;
-            this.lblFechaDesde.ForeColor = System.Drawing.Color.Red;
-            this.lblFechaDesde.Location = new System.Drawing.Point(288, 25);
-            this.lblFechaDesde.Name = "lblFechaDesde";
-            this.lblFechaDesde.Size = new System.Drawing.Size(174, 13);
-            this.lblFechaDesde.TabIndex = 8;
-            this.lblFechaDesde.Text = "* Debe ser anterior a la fecha hasta";
-            this.lblFechaDesde.Visible = false;
-            // 
-            // lblProveedor
-            // 
-            this.lblProveedor.AutoSize = true;
-            this.lblProveedor.ForeColor = System.Drawing.Color.Red;
-            this.lblProveedor.Location = new System.Drawing.Point(369, 75);
-            this.lblProveedor.Name = "lblProveedor";
-            this.lblProveedor.Size = new System.Drawing.Size(63, 13);
-            this.lblProveedor.TabIndex = 9;
-            this.lblProveedor.Text = "* Requerido";
-            this.lblProveedor.Visible = false;
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Location = new System.Drawing.Point(195, 25);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(14, 13);
+            this.lblCantidad.TabIndex = 39;
+            this.lblCantidad.Text = "0";
             // 
             // frmFacturarProveedor
             // 
@@ -334,5 +349,6 @@
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Label lblFechaDesde;
         private System.Windows.Forms.Label lblProveedor;
+        private System.Windows.Forms.Label lblCantidad;
     }
 }

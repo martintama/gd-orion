@@ -35,6 +35,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtTotal = new System.Windows.Forms.TextBox();
+            this.txtPrecioReal = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtFechaCompra = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblCheck = new System.Windows.Forms.Label();
+            this.chkVerificado = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.txtComprador = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,17 +58,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.chkVerificado = new System.Windows.Forms.CheckBox();
-            this.lblCheck = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtFechaCompra = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPrecioReal = new System.Windows.Forms.TextBox();
-            this.txtTotal = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -150,6 +150,98 @@
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Detalle del cupón seleccionado";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(353, 75);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Total: $";
+            // 
+            // txtTotal
+            // 
+            this.txtTotal.Location = new System.Drawing.Point(398, 72);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.ReadOnly = true;
+            this.txtTotal.Size = new System.Drawing.Size(100, 20);
+            this.txtTotal.TabIndex = 20;
+            // 
+            // txtPrecioReal
+            // 
+            this.txtPrecioReal.Location = new System.Drawing.Point(271, 72);
+            this.txtPrecioReal.Name = "txtPrecioReal";
+            this.txtPrecioReal.ReadOnly = true;
+            this.txtPrecioReal.Size = new System.Drawing.Size(76, 20);
+            this.txtPrecioReal.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(179, 75);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(86, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Precio unitario: $";
+            // 
+            // txtFechaCompra
+            // 
+            this.txtFechaCompra.Location = new System.Drawing.Point(91, 98);
+            this.txtFechaCompra.Name = "txtFechaCompra";
+            this.txtFechaCompra.ReadOnly = true;
+            this.txtFechaCompra.Size = new System.Drawing.Size(100, 20);
+            this.txtFechaCompra.TabIndex = 17;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 101);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(75, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Fecha compra";
+            // 
+            // lblCheck
+            // 
+            this.lblCheck.AutoSize = true;
+            this.lblCheck.ForeColor = System.Drawing.Color.Red;
+            this.lblCheck.Location = new System.Drawing.Point(308, 152);
+            this.lblCheck.Name = "lblCheck";
+            this.lblCheck.Size = new System.Drawing.Size(63, 13);
+            this.lblCheck.TabIndex = 15;
+            this.lblCheck.Text = "* Requerido";
+            this.lblCheck.Visible = false;
+            // 
+            // chkVerificado
+            // 
+            this.chkVerificado.AutoSize = true;
+            this.chkVerificado.Enabled = false;
+            this.chkVerificado.Location = new System.Drawing.Point(209, 151);
+            this.chkVerificado.Name = "chkVerificado";
+            this.chkVerificado.Size = new System.Drawing.Size(95, 17);
+            this.chkVerificado.TabIndex = 14;
+            this.chkVerificado.Text = "DNI Verificado";
+            this.chkVerificado.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 176);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Estado:";
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(88, 176);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(46, 13);
+            this.lblEstado.TabIndex = 13;
+            this.lblEstado.Text = "Estado";
             // 
             // txtDni
             // 
@@ -269,47 +361,6 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 176);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Estado:";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(88, 176);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(46, 13);
-            this.lblEstado.TabIndex = 13;
-            this.lblEstado.Text = "Estado";
-            // 
-            // chkVerificado
-            // 
-            this.chkVerificado.AutoSize = true;
-            this.chkVerificado.Enabled = false;
-            this.chkVerificado.Location = new System.Drawing.Point(209, 151);
-            this.chkVerificado.Name = "chkVerificado";
-            this.chkVerificado.Size = new System.Drawing.Size(95, 17);
-            this.chkVerificado.TabIndex = 14;
-            this.chkVerificado.Text = "DNI Verificado";
-            this.chkVerificado.UseVisualStyleBackColor = true;
-            // 
-            // lblCheck
-            // 
-            this.lblCheck.AutoSize = true;
-            this.lblCheck.ForeColor = System.Drawing.Color.Red;
-            this.lblCheck.Location = new System.Drawing.Point(308, 152);
-            this.lblCheck.Name = "lblCheck";
-            this.lblCheck.Size = new System.Drawing.Size(63, 13);
-            this.lblCheck.TabIndex = 15;
-            this.lblCheck.Text = "* Requerido";
-            this.lblCheck.Visible = false;
-            // 
             // lblMensaje
             // 
             this.lblMensaje.Location = new System.Drawing.Point(100, 322);
@@ -318,62 +369,11 @@
             this.lblMensaje.TabIndex = 28;
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 101);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Fecha compra";
-            // 
-            // txtFechaCompra
-            // 
-            this.txtFechaCompra.Location = new System.Drawing.Point(91, 98);
-            this.txtFechaCompra.Name = "txtFechaCompra";
-            this.txtFechaCompra.ReadOnly = true;
-            this.txtFechaCompra.Size = new System.Drawing.Size(100, 20);
-            this.txtFechaCompra.TabIndex = 17;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(179, 75);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Precio unitario: $";
-            // 
-            // txtPrecioReal
-            // 
-            this.txtPrecioReal.Location = new System.Drawing.Point(271, 72);
-            this.txtPrecioReal.Name = "txtPrecioReal";
-            this.txtPrecioReal.ReadOnly = true;
-            this.txtPrecioReal.Size = new System.Drawing.Size(76, 20);
-            this.txtPrecioReal.TabIndex = 19;
-            // 
-            // txtTotal
-            // 
-            this.txtTotal.Location = new System.Drawing.Point(398, 72);
-            this.txtTotal.Name = "txtTotal";
-            this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(100, 20);
-            this.txtTotal.TabIndex = 20;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(353, 75);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
-            this.label10.TabIndex = 21;
-            this.label10.Text = "Total: $";
-            // 
             // frmRegistroConsumo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 356);
+            this.ClientSize = new System.Drawing.Size(549, 352);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnRegistrar);

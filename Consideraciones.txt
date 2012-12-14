@@ -113,6 +113,9 @@ Tabla devoluciones:
 - Como el motivo no estaba en la tabla maestra, se cargaron todas las devoluciones existentes como "- no especifica (migración inicial) -"
 
 
+-- GUI
+
+
 Logueo.
 
 Se ingresan el usuario y password. Se verifica si todos los datos están completos y se devueve un return_status el que puede ser:
@@ -125,6 +128,7 @@ Se ingresan el usuario y password. Se verifica si todos los datos están complet
 General
 
 Conexiones a la base se genera una nueva cada vez que se realiza una transaccion. Se utiliza una conexion global.
+
 
 Roles
 
@@ -162,6 +166,10 @@ conserva la facilidad de uso y la flexibilidad.
 	
 	- La carga inicial de $10 se realiza con el medio de pago "Sistema", para diferenciarla de las cargas que realiza el cliente
 	
+- Cada funcionalidad está relacionada con un tipo de usuario en especial por defecto, y esto no es posible modificarlo. Según lo solicita el enunciado, es posible crear nuevos roles y asignarle funcionalidades,
+pero si se le asigna una funcionalidad incompatible con el tipo de usuario de "base", se mostrará el item en el menú principal pero no será posible acceder a el (aparecerá un mensaje diciendo "Para utilizar esta funcionalidad usted debe ser X" (Ej. Cliente).
+Esto se hizo de esta manera para prevenir errores por incompatibilidad de Sesion logueada. (de allí se toman datos como idproveedor, por ejemplo, que siendo un cliente no se posee)
+
 ABM de proveedores
 - Para buscar todos los CUIT, se carga -1 porque es un valor que no se podrá cargar manualmente.
 
@@ -203,3 +211,7 @@ Registrar consumo
 Historial de compra
 - Por defecto se buscan los cupones comprados en el ultimo més (ej. del 23 de noviembre al 23 de diciembre). 
 - El botón limpiar resetea el listado a dicho intervalo.
+
+Facturar proveedor
+- Se debe completar un rango de fechas y el proveedor. Al presionar "buscar" se muestran todos los consumos disponibles para facturas. La factura se genera luego de presionar el boton de "Generar". 
+Alli, se setean como facturados todos los consumos, se genera la factura y se cargan los items. Todo esto se realiza en un Stored Procedure en la base.

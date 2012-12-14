@@ -841,6 +841,78 @@ END
 
 GO
 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Le factura al proveedor seleccionado, el rango de fechas asociado
+-- =============================================
+ALTER PROCEDURE Orion.Compras_Facturar 
+	@idproveedor int, @fecha date, @fecha_desde date, @fecha_hasta date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	declare @nrofactura int
+	declare @idfactura int
+	
+	-- Me fijo al menos si hay algun consumo
+	if (exists(select top 1 con.idconsumo
+	from ORION.consumos con
+	inner join ORION.compras com on com.idcompra = con.idcompra
+	inner join ORION.cupones cup on cup.idcupon = com.idcupon
+	where cup.idproveedor = @idproveedor and com.fecha_compra between @fecha_desde and @fecha_hasta
+	and con.facturado = 0)) begin
+	
+		-- Primero lo inserto con monto cero, luego actualizo
+		insert into ORION.facturas(fecha_generacion, idproveedor, monto_total, nro_factura)
+		values(@fecha, @idproveedor, 0, (select MAX(nro_Factura) + 1 from ORION.facturas))
+		
+		set @idfactura = @@IDENTITY
+		
+		-- Agrego los items
+		insert into ORION.facturas_items(idfactura, idconsumo)
+		select @idfactura, con.idconsumo
+		from ORION.consumos con
+		inner join ORION.compras com on com.idcompra = con.idcompra
+		inner join ORION.cupones cup on cup.idcupon = com.idcupon
+		where cup.idproveedor = @idproveedor and con.fecha_consumo between @fecha_desde and @fecha_hasta
+		and con.facturado = 0
+	
+		-- Actualizo el monto de la factura
+		update orion.facturas set monto_total = (select SUM(cup.precio_real * 0.5 * com.cantidad)
+		from ORION.consumos con
+		inner join ORION.compras com on com.idcompra = con.idcompra
+		inner join ORION.cupones cup on cup.idcupon = com.idcupon
+		where cup.idproveedor = 1 and con.fecha_consumo between '20120601' and '20120630'
+		and con.facturado = 0) where idfactura = @idfactura
+
+		-- Seteo los consumos como facturados
+		update ORION.consumos set facturado = 1 where idconsumo in (
+			select idconsumo from ORION.facturas_items where idfactura = @idfactura
+		)
+		
+		select idfactura, nro_factura, fecha_generacion, idproveedor, monto from ORION.vwFactura where idfactura = @idfactura
+	end
+	
+	
+END
+GO
+
+
+-- VISTAS
+Create view ORION.vwFactura as
+select f.idfactura, f.fecha_generacion, f.idproveedor, f.nro_factura, SUM(precio_real * com.cantidad) monto from ORION.facturas f
+inner join ORION.facturas_items fi on fi.idfactura = f.idfactura
+inner join ORION.consumos con on con.idconsumo = fi.idconsumo
+inner join ORION.compras com on com.idcompra = con.idcompra
+inner join ORION.cupones cup on cup.idcupon = com.idcupon
+group by f.idfactura, f.fecha_generacion, f.idproveedor, f.nro_factura
+
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero

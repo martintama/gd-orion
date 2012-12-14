@@ -59,6 +59,7 @@
     <Compile Include="Base\Cupon.cs" />
     <Compile Include="Base\Devolucion.cs" />
     <Compile Include="Base\Estadistica.cs" />
+    <Compile Include="Base\Factura.cs" />
     <Compile Include="Base\Funcionalidad.cs" />
     <Compile Include="Base\GiftCard.cs" />
     <Compile Include="Base\ConfigReader.cs" />

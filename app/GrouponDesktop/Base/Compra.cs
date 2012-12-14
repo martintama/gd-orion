@@ -35,7 +35,9 @@ namespace GrouponDesktop.Base
         public Consumo ConsumoAsociado { get; set; }
 
         public Devolucion DevolucionAsociada { get; set; }
-        
+
+        public Decimal MontoCompra { get; set; }
+
         public void GrabarCompra()
         {
             Dbaccess.DBConnect();
@@ -214,6 +216,45 @@ namespace GrouponDesktop.Base
 
             return unaCompra;
         }
+
+        internal static Factura Facturar(Proveedor proveedor, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            Factura unaFactura = new Factura();
+
+            Dbaccess.DBConnect();
+
+            SqlCommand sqlc = new SqlCommand("ORION.Compras_Facturar", Dbaccess.globalConn);
+            sqlc.CommandType = CommandType.StoredProcedure;
+
+            sqlc.Parameters.AddWithValue("@idproveedor", proveedor.Idproveedor);
+            sqlc.Parameters.AddWithValue("@fecha", Sesion.ConfigApp.FechaActual);
+            sqlc.Parameters.AddWithValue("@fecha_desde", fechaDesde);
+            sqlc.Parameters.AddWithValue("@fecha_hasta", fechaHasta);
+
+            SqlDataReader dr1 = sqlc.ExecuteReader();
+
+            if (dr1.Read())
+            {
+                unaFactura.Idfactura = Convert.ToInt32(dr1["idfactura"]);
+                unaFactura.NroFactura = Convert.ToInt32(dr1["nro_factura"]);
+                unaFactura.FechaFactura = Convert.ToDateTime(dr1["fecha_generacion"]);
+                unaFactura.Monto = Convert.ToDecimal(dr1["monto"]);
+            }
+
+            dr1.Close();
+            dr1.Dispose();
+
+            Dbaccess.DBDisconnect();
+
+            //Si se pudo facturar
+            if (unaFactura.Idfactura > 0)
+            {
+                unaFactura.Items = Consumo.BuscarConsumos(unaFactura.Idfactura);
+            }
+
+            return unaFactura;
+        }
+
     }
 }
 

@@ -20,6 +20,8 @@ namespace GrouponDesktop.Base
 
         public String Descripcion { get; set; }
 
+        public String Codigo { get; set; }
+
         public DateTime FechaAlta { get; set; }
 
         public DateTime FechaPublicacion { get; set; }

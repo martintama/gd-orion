@@ -51,6 +51,9 @@ namespace GrouponDesktop.UI.FacturarProveedor
 
             dtpDesde.Value = Sesion.ConfigApp.FechaActual;
             dtpHasta.Value = Sesion.ConfigApp.FechaActual;
+            dtpDesde.Enabled = true;
+            dtpHasta.Enabled = true;
+            btnExaminar.Enabled = true;
 
             lblMensaje.Visible = false;
             lblFechaDesde.Visible = false;
@@ -59,6 +62,8 @@ namespace GrouponDesktop.UI.FacturarProveedor
             lblProveedor.Visible = false;
             dgvDatos.DataSource = null;
             dgvDatos.ClearSelection();
+            lblCantidad.Text = "0";
+            btnFacturar.Enabled = false;
         }
 
         private Boolean VerificarDatos()
@@ -84,8 +89,42 @@ namespace GrouponDesktop.UI.FacturarProveedor
         {
             if (this.VerificarDatos())
             {
+                dgvDatos.DataSource = Consumo.BuscarConsumos(this.unProveedor.Idproveedor, dtpDesde.Value, dtpHasta.Value);
 
+                if (dgvDatos.Rows.Count > 0)
+                {
+                    lblCantidad.Text = dgvDatos.Rows.Count.ToString();
+                    dtpDesde.Enabled = false;
+                    dtpHasta.Enabled = false;
+                    btnExaminar.Enabled = false;
+                    btnFacturar.Enabled = true;
+                }
+                else
+                {
+                    btnFacturar.Enabled = false;
+                }
             }
+        }
+
+        private void btnFacturar_Click(object sender, EventArgs e)
+        {
+            //Solo si hay algo que facturar...
+            if (dgvDatos.Rows.Count > 0)
+            {
+                Factura unaFactura = Compra.Facturar(this.unProveedor, dtpDesde.Value, dtpHasta.Value);
+                this.lblNroFactura.Text = unaFactura.NroFactura.ToString(); ;
+                this.lblTotalFactura.Text = "$ " + unaFactura.Monto;
+
+                MessageBox.Show("Factura " + unaFactura.NroFactura.ToString() + " generada correctamente por : " + unaFactura.Monto);
+
+                this.btnFacturar.Enabled = false;
+            }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
         }
     }
 }
