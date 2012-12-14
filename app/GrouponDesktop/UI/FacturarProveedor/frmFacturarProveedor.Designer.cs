@@ -52,6 +52,11 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.lblCantidad = new System.Windows.Forms.Label();
+            this.FechaConsumo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCodigoCupon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCodigoCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMonto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -70,7 +75,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(16, 34);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 104);
+            this.groupBox1.Size = new System.Drawing.Size(774, 82);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros de facturación";
@@ -79,7 +84,7 @@
             // 
             this.lblProveedor.AutoSize = true;
             this.lblProveedor.ForeColor = System.Drawing.Color.Red;
-            this.lblProveedor.Location = new System.Drawing.Point(369, 75);
+            this.lblProveedor.Location = new System.Drawing.Point(378, 52);
             this.lblProveedor.Name = "lblProveedor";
             this.lblProveedor.Size = new System.Drawing.Size(63, 13);
             this.lblProveedor.TabIndex = 9;
@@ -90,16 +95,16 @@
             // 
             this.lblFechaDesde.AutoSize = true;
             this.lblFechaDesde.ForeColor = System.Drawing.Color.Red;
-            this.lblFechaDesde.Location = new System.Drawing.Point(288, 25);
+            this.lblFechaDesde.Location = new System.Drawing.Point(563, 25);
             this.lblFechaDesde.Name = "lblFechaDesde";
-            this.lblFechaDesde.Size = new System.Drawing.Size(174, 13);
+            this.lblFechaDesde.Size = new System.Drawing.Size(205, 13);
             this.lblFechaDesde.TabIndex = 8;
-            this.lblFechaDesde.Text = "* Debe ser anterior a la fecha hasta";
+            this.lblFechaDesde.Text = "* Fecha debe ser anterior a la fecha hasta";
             this.lblFechaDesde.Visible = false;
             // 
             // dtpHasta
             // 
-            this.dtpHasta.Location = new System.Drawing.Point(82, 47);
+            this.dtpHasta.Location = new System.Drawing.Point(363, 21);
             this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Size = new System.Drawing.Size(200, 20);
             this.dtpHasta.TabIndex = 7;
@@ -107,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 50);
+            this.label4.Location = new System.Drawing.Point(294, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 6;
@@ -131,17 +136,17 @@
             // 
             // btnExaminar
             // 
-            this.btnExaminar.Location = new System.Drawing.Point(288, 70);
+            this.btnExaminar.Location = new System.Drawing.Point(297, 47);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(75, 23);
             this.btnExaminar.TabIndex = 3;
-            this.btnExaminar.Text = "Examinar";
+            this.btnExaminar.Text = "Seleccionar";
             this.btnExaminar.UseVisualStyleBackColor = true;
             this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
             // 
             // txtProveedor
             // 
-            this.txtProveedor.Location = new System.Drawing.Point(82, 72);
+            this.txtProveedor.Location = new System.Drawing.Point(82, 49);
             this.txtProveedor.Name = "txtProveedor";
             this.txtProveedor.ReadOnly = true;
             this.txtProveedor.Size = new System.Drawing.Size(200, 20);
@@ -150,7 +155,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 75);
+            this.label1.Location = new System.Drawing.Point(8, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 1;
@@ -168,7 +173,7 @@
             // 
             // btnFacturar
             // 
-            this.btnFacturar.Location = new System.Drawing.Point(433, 382);
+            this.btnFacturar.Location = new System.Drawing.Point(715, 362);
             this.btnFacturar.Name = "btnFacturar";
             this.btnFacturar.Size = new System.Drawing.Size(75, 23);
             this.btnFacturar.TabIndex = 0;
@@ -187,11 +192,20 @@
             // 
             // dgvDatos
             // 
+            this.dgvDatos.AllowUserToAddRows = false;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FechaConsumo,
+            this.colCodigoCupon,
+            this.colCodigoCompra,
+            this.colDescripcion,
+            this.colMonto});
             this.dgvDatos.Location = new System.Drawing.Point(11, 41);
             this.dgvDatos.Name = "dgvDatos";
-            this.dgvDatos.Size = new System.Drawing.Size(475, 140);
+            this.dgvDatos.RowHeadersVisible = false;
+            this.dgvDatos.Size = new System.Drawing.Size(743, 140);
             this.dgvDatos.TabIndex = 32;
+            this.dgvDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatos_CellFormatting);
             // 
             // label5
             // 
@@ -204,7 +218,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(352, 144);
+            this.btnLimpiar.Location = new System.Drawing.Point(634, 123);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 35;
@@ -243,7 +257,7 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(19, 382);
+            this.btnCerrar.Location = new System.Drawing.Point(16, 362);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 39;
@@ -260,16 +274,16 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.lblTotalFactura);
-            this.groupBox2.Location = new System.Drawing.Point(16, 172);
+            this.groupBox2.Location = new System.Drawing.Point(16, 152);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(492, 204);
+            this.groupBox2.Size = new System.Drawing.Size(774, 204);
             this.groupBox2.TabIndex = 40;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Detalle de facturación";
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(433, 143);
+            this.btnBuscar.Location = new System.Drawing.Point(715, 122);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 41;
@@ -295,11 +309,49 @@
             this.lblCantidad.TabIndex = 39;
             this.lblCantidad.Text = "0";
             // 
+            // FechaConsumo
+            // 
+            this.FechaConsumo.Frozen = true;
+            this.FechaConsumo.HeaderText = "Fecha consumo";
+            this.FechaConsumo.Name = "FechaConsumo";
+            this.FechaConsumo.ReadOnly = true;
+            // 
+            // colCodigoCupon
+            // 
+            this.colCodigoCupon.Frozen = true;
+            this.colCodigoCupon.HeaderText = "CodigoCupon";
+            this.colCodigoCupon.Name = "colCodigoCupon";
+            this.colCodigoCupon.ReadOnly = true;
+            this.colCodigoCupon.Width = 120;
+            // 
+            // colCodigoCompra
+            // 
+            this.colCodigoCompra.Frozen = true;
+            this.colCodigoCompra.HeaderText = "Codigo Compra";
+            this.colCodigoCompra.Name = "colCodigoCompra";
+            this.colCodigoCompra.ReadOnly = true;
+            this.colCodigoCompra.Width = 120;
+            // 
+            // colDescripcion
+            // 
+            this.colDescripcion.Frozen = true;
+            this.colDescripcion.HeaderText = "Descripcion";
+            this.colDescripcion.Name = "colDescripcion";
+            this.colDescripcion.ReadOnly = true;
+            this.colDescripcion.Width = 280;
+            // 
+            // colMonto
+            // 
+            this.colMonto.Frozen = true;
+            this.colMonto.HeaderText = "Monto";
+            this.colMonto.Name = "colMonto";
+            this.colMonto.ReadOnly = true;
+            // 
             // frmFacturarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 412);
+            this.ClientSize = new System.Drawing.Size(802, 399);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.groupBox2);
@@ -350,5 +402,10 @@
         private System.Windows.Forms.Label lblFechaDesde;
         private System.Windows.Forms.Label lblProveedor;
         private System.Windows.Forms.Label lblCantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaConsumo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigoCupon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigoCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMonto;
     }
 }

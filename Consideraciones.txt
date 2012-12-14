@@ -215,3 +215,6 @@ Historial de compra
 Facturar proveedor
 - Se debe completar un rango de fechas y el proveedor. Al presionar "buscar" se muestran todos los consumos disponibles para facturas. La factura se genera luego de presionar el boton de "Generar". 
 Alli, se setean como facturados todos los consumos, se genera la factura y se cargan los items. Todo esto se realiza en un Stored Procedure en la base.
+
+Estadisticas
+- Para el reporte de devoluciones, se traen los 5 proveedores que tuvieron más cantidad de devoluciones de cupones, y entre ellos se ordena por monto (esto se hace por el enunciado que dice "El listado se debe ordenar en forma descendiente por monto"

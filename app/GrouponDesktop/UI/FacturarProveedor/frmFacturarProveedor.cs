@@ -55,11 +55,13 @@ namespace GrouponDesktop.UI.FacturarProveedor
             dtpHasta.Enabled = true;
             btnExaminar.Enabled = true;
 
+            lblFechaDesde.Visible = false;
             lblMensaje.Visible = false;
             lblFechaDesde.Visible = false;
             lblNroFactura.Text = "-";
             lblTotalFactura.Text = "-";
             lblProveedor.Visible = false;
+            dgvDatos.AutoGenerateColumns = false;
             dgvDatos.DataSource = null;
             dgvDatos.ClearSelection();
             lblCantidad.Text = "0";
@@ -117,7 +119,8 @@ namespace GrouponDesktop.UI.FacturarProveedor
 
                 MessageBox.Show("Factura " + unaFactura.NroFactura.ToString() + " generada correctamente por : " + unaFactura.Monto);
 
-                this.btnFacturar.Enabled = false;
+                this.LimpiarCampos();
+                
             }
         }
 
@@ -125,6 +128,35 @@ namespace GrouponDesktop.UI.FacturarProveedor
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void dgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvDatos.DataSource != null)
+            {
+                Consumo unConsumo = ((List<Consumo>)dgvDatos.DataSource).ElementAt(e.RowIndex);
+
+                if (e.ColumnIndex == this.dgvDatos.Columns["colFechaConsumo"].Index)
+                {
+                    e.Value = unConsumo.FechaConsumo.ToString("dd/MM/yyyy");
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colCodigoCupon"].Index)
+                {
+                    e.Value = unConsumo.CompraAsociada.CuponAsociado.Codigo;
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colCodigoCompra"].Index)
+                {
+                    e.Value = unConsumo.CompraAsociada.CodigoCompra;
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["colDescripcion"].Index)
+                {
+                    e.Value = unConsumo.CompraAsociada.CuponAsociado.Descripcion;
+                }
+                else if (e.ColumnIndex == this.dgvDatos.Columns["conMonto"].Index)
+                {
+                    e.Value = "$ " + unConsumo.CompraAsociada.MontoCompra.ToString();
+                }
+            }
         }
     }
 }

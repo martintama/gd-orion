@@ -103,8 +103,21 @@ namespace GrouponDesktop.Base
 
             Dbaccess.DBConnect();
 
-            throw new NotImplementedException("Falta cambiar clave!");
+            SqlCommand sqlc = new SqlCommand("ORION.Usuarios_CambiarClave", Dbaccess.globalConn);
+            sqlc.CommandType = CommandType.StoredProcedure;
 
+            sqlc.Parameters.AddWithValue("@idusuario", Sesion.GetUsuarioAsociado().Idusuario);
+            sqlc.Parameters.AddWithValue("@claveactual", Hasher.ConvertirSHA256(claveActual));
+            sqlc.Parameters.AddWithValue("@clavenueva", Hasher.ConvertirSHA256(claveNueva));
+
+            SqlParameter returnParameter = sqlc.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+
+            sqlc.ExecuteNonQuery();
+
+            result = Convert.ToInt16(returnParameter.Value);
+
+            
             Dbaccess.DBDisconnect();
 
             return result;

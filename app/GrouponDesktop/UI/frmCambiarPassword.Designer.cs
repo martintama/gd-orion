@@ -84,6 +84,7 @@
             // 
             this.txtPasswordActual.Location = new System.Drawing.Point(146, 40);
             this.txtPasswordActual.Name = "txtPasswordActual";
+            this.txtPasswordActual.PasswordChar = '*';
             this.txtPasswordActual.Size = new System.Drawing.Size(140, 20);
             this.txtPasswordActual.TabIndex = 35;
             // 
@@ -91,6 +92,7 @@
             // 
             this.txtPasswordNuevo1.Location = new System.Drawing.Point(146, 70);
             this.txtPasswordNuevo1.Name = "txtPasswordNuevo1";
+            this.txtPasswordNuevo1.PasswordChar = '*';
             this.txtPasswordNuevo1.Size = new System.Drawing.Size(140, 20);
             this.txtPasswordNuevo1.TabIndex = 36;
             // 
@@ -98,6 +100,7 @@
             // 
             this.txtPasswordNuevo2.Location = new System.Drawing.Point(146, 98);
             this.txtPasswordNuevo2.Name = "txtPasswordNuevo2";
+            this.txtPasswordNuevo2.PasswordChar = '*';
             this.txtPasswordNuevo2.Size = new System.Drawing.Size(140, 20);
             this.txtPasswordNuevo2.TabIndex = 37;
             // 
@@ -129,6 +132,7 @@
             this.lblPasswordActual.Size = new System.Drawing.Size(63, 13);
             this.lblPasswordActual.TabIndex = 40;
             this.lblPasswordActual.Text = "* Requerido";
+            this.lblPasswordActual.Visible = false;
             // 
             // lblPasswordNuevo1
             // 
@@ -139,6 +143,7 @@
             this.lblPasswordNuevo1.Size = new System.Drawing.Size(63, 13);
             this.lblPasswordNuevo1.TabIndex = 41;
             this.lblPasswordNuevo1.Text = "* Requerido";
+            this.lblPasswordNuevo1.Visible = false;
             // 
             // lblPasswordNuevo2
             // 
@@ -149,6 +154,7 @@
             this.lblPasswordNuevo2.Size = new System.Drawing.Size(63, 13);
             this.lblPasswordNuevo2.TabIndex = 42;
             this.lblPasswordNuevo2.Text = "* Requerido";
+            this.lblPasswordNuevo2.Visible = false;
             // 
             // btnLimpiar
             // 

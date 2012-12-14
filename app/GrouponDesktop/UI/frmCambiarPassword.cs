@@ -48,7 +48,9 @@ namespace GrouponDesktop.UI
             if (txtPasswordNuevo1.Text != "" && (txtPasswordNuevo1.Text != txtPasswordNuevo2.Text))
             {
                 lblPasswordNuevo1.Text = "* No coinciden";
+                lblPasswordNuevo1.Visible = true;
                 lblPasswordNuevo2.Text = "* No coinciden";
+                lblPasswordNuevo2.Visible = true;
                 valido = false;
             }
 

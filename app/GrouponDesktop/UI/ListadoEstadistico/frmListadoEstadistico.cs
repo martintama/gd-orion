@@ -21,6 +21,7 @@ namespace GrouponDesktop.UI.ListadoEstadistico
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
+            lblMensaje.Visible = false ;
             dgvDatos.Columns.Clear();
             dgvDatos.AutoGenerateColumns = false;
 
@@ -44,8 +45,13 @@ namespace GrouponDesktop.UI.ListadoEstadistico
                 this.GenerarColumnasListadoGiftCards();
             }
 
+            
             dgvDatos.DataSource = unaEstadistica.GetEstadisticas();
-            lblCantidad.Text = dgvDatos.Rows.Count.ToString();
+
+            if (dgvDatos.Rows.Count == 0)
+            {
+                lblMensaje.Visible = true;
+            }
         }
 
         private void GenerarColumnasListadoGiftCards()
@@ -54,35 +60,40 @@ namespace GrouponDesktop.UI.ListadoEstadistico
             DataGridViewTextBoxColumn colIndice = new DataGridViewTextBoxColumn();
             colIndice.Name = "colIndice";
             colIndice.HeaderText = "Nº";
-            colIndice.Width = 20;
+            colIndice.Width = 30;
+            colIndice.DataPropertyName = "Indice";
             this.dgvDatos.Columns.Add(colIndice);
 
             //Usuario (Nombre, Apellido)
             DataGridViewTextBoxColumn colNombreApellido = new DataGridViewTextBoxColumn();
             colNombreApellido.Name = "colNombreApellido";
             colNombreApellido.HeaderText = "Cliente";
-            colNombreApellido.Width = 20;
+            colNombreApellido.Width = 200;
+            colNombreApellido.DataPropertyName = "NombreApellido";
             this.dgvDatos.Columns.Add(colNombreApellido);
 
             //DNI
             DataGridViewTextBoxColumn colDni = new DataGridViewTextBoxColumn();
             colDni.Name = "colDni";
             colDni.HeaderText = "DNI";
-            colDni.Width = 20;
+            colDni.Width = 80;
+            colDni.DataPropertyName = "Dni";
             this.dgvDatos.Columns.Add(colDni);
 
             //Total giftcards recibidos
             DataGridViewTextBoxColumn colRecibidos = new DataGridViewTextBoxColumn();
             colRecibidos.Name = "colRecibidos";
             colRecibidos.HeaderText = "Recibidos";
-            colRecibidos.Width = 20;
+            colRecibidos.Width = 80;
+            colRecibidos.DataPropertyName = "GiftcardsRecibidos";
             this.dgvDatos.Columns.Add(colRecibidos);
 
             //Monto recibido
             DataGridViewTextBoxColumn colMonto = new DataGridViewTextBoxColumn();
             colMonto.Name = "colMonto";
             colMonto.HeaderText = "Monto recibido";
-            colMonto.Width = 20;
+            colMonto.Width = 90;
+            colMonto.DataPropertyName = "MontoTotalRecibido";   
             this.dgvDatos.Columns.Add(colMonto);
 
             
@@ -95,42 +106,48 @@ namespace GrouponDesktop.UI.ListadoEstadistico
             DataGridViewTextBoxColumn colIndice = new DataGridViewTextBoxColumn();
             colIndice.Name = "colIndice";
             colIndice.HeaderText = "Nº";
-            colIndice.Width = 20;
+            colIndice.Width = 30;
+            colIndice.DataPropertyName = "Indice";
             this.dgvDatos.Columns.Add(colIndice);
 
             //Razon Social
             DataGridViewTextBoxColumn colProveedor = new DataGridViewTextBoxColumn();
             colProveedor.Name = "colProveedor";
             colProveedor.HeaderText = "Proveedor";
-            colProveedor.Width = 60;
+            colProveedor.Width = 200;
+            colProveedor.DataPropertyName = "RazonSocial";
             this.dgvDatos.Columns.Add(colProveedor);
 
             //CUIT
             DataGridViewTextBoxColumn colCuit = new DataGridViewTextBoxColumn();
             colCuit.Name = "colCuit";
-            colCuit.HeaderText = "Proveedor";
-            colCuit.Width = 60;
+            colCuit.HeaderText = "CUIT";
+            colCuit.Width = 80;
+            colCuit.DataPropertyName = "Cuit";
             this.dgvDatos.Columns.Add(colCuit);
 
             //Total de cupones vendidos
             DataGridViewTextBoxColumn colTotal = new DataGridViewTextBoxColumn();
             colTotal.Name = "colTotal";
             colTotal.HeaderText = "Total vendido";
-            colTotal.Width = 60;
+            colTotal.Width = 80;
+            colTotal.DataPropertyName = "TotalVendidos";
             this.dgvDatos.Columns.Add(colTotal);
 
             //Total de cupones devueltos
             DataGridViewTextBoxColumn colDevoluciones = new DataGridViewTextBoxColumn();
             colDevoluciones.Name = "colDevoluciones";
             colDevoluciones.HeaderText = "Devoluciones";
-            colDevoluciones.Width = 60;
+            colDevoluciones.Width = 80;
+            colDevoluciones.DataPropertyName = "TotalDevueltos";
             this.dgvDatos.Columns.Add(colDevoluciones);
 
             //Monto total devuelto
             DataGridViewTextBoxColumn colMonto = new DataGridViewTextBoxColumn();
             colMonto.Name = "colDevoluciones";
             colMonto.HeaderText = "Monto devuelto";
-            colMonto.Width = 60;
+            colMonto.Width = 80;
+            colMonto.DataPropertyName = "MontoDevuelto";
             this.dgvDatos.Columns.Add(colMonto);
 
             //Porcentaje
@@ -138,22 +155,36 @@ namespace GrouponDesktop.UI.ListadoEstadistico
             colPorcentaje.Name = "colPorcentaje";
             colPorcentaje.HeaderText = "Porcentaje";
             colPorcentaje.Width = 60;
+            colPorcentaje.DataPropertyName = "Porcentaje";
             this.dgvDatos.Columns.Add(colPorcentaje);
 
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            nudAnio.Value = 2000;
-            nudSemestre.Value = 1;
+            nudAnio.Value = Sesion.ConfigApp.FechaActual.Year;
+            if (Sesion.ConfigApp.FechaActual.Month >= 6)
+            {
+                nudSemestre.Value = 2;
+            }
+            else
+            {
+                nudSemestre.Value = 1;
+            }
 
-            dgvDatos.Rows.Clear();
+            dgvDatos.ClearSelection();
+            dgvDatos.DataSource = null;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void frmListadoEstadistico_Load(object sender, EventArgs e)
+        {
+
         }
 
         

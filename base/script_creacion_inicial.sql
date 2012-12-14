@@ -903,6 +903,31 @@ BEGIN
 END
 GO
 
+-- =============================================
+-- Description:	Le cambia la clave a un usuario, previa verificación si a la anterior está ok
+-- =============================================
+CREATE PROCEDURE ORION.Usuarios_CambiarClave
+	@idusuario int, @claveactual char(16), @clavenueva char(16)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- si esta bien la clave..
+    if (exists(select idusuario from ORION.usuarios where idusuario = @idusuario and clave = @claveactual))
+    begin
+		update ORION.usuarios set clave = @clavenueva where idusuario = @idusuario
+		return 0
+    end
+    else begin
+		return -1
+	end
+	
+END
+GO
+
+
 
 -- VISTAS
 Create view ORION.vwFactura as
