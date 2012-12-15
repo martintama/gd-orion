@@ -34,8 +34,10 @@ namespace GrouponDesktop
                     lstDisponibles.Items.Add(item);
                     lstSeleccionadas.Items.Remove(item);
 
-                    //No se guardan los cambios aquí
-                    //frmParent.objCliente.Ciudades.Remove(item);
+                    if (lstSeleccionadas.Items.Count > 0)
+                    {
+                        lstSeleccionadas.SelectedIndex = 0;
+                    }
 
                 }
                 btnGuardar.Enabled = true;
@@ -53,8 +55,10 @@ namespace GrouponDesktop
                     lstSeleccionadas.Items.Add(item);
                     lstDisponibles.Items.Remove(item);
 
-                    //No se guardan los cambios aquí
-                    //frmParent.objCliente.Ciudades.Add(item);
+                    if (lstDisponibles.Items.Count > 0)
+                    {
+                        lstDisponibles.SelectedIndex = 0;
+                    }
 
                 }
                 btnGuardar.Enabled = true;

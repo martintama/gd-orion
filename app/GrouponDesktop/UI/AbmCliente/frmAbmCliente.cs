@@ -45,8 +45,12 @@ namespace GrouponDesktop.UI.AbmCliente
                 this.objCliente.FechaNacimiento = dtpNacimiento.Value;
                 this.objCliente.UsuarioAsociado.Username = txtUsername.Text;
                 this.objCliente.UsuarioAsociado.Clave = txtPassword.Text;
-                this.objCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(cmbRol.SelectedValue), cmbRol.SelectedText);
-
+                
+                if (Convert.ToInt32(cmbRol.SelectedValue) != 0)
+                {
+                    this.objCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(cmbRol.SelectedValue), cmbRol.SelectedText);    
+                }
+                
                 Int16 return_value = this.objCliente.Grabar();
 
                 switch (return_value)
@@ -327,6 +331,8 @@ namespace GrouponDesktop.UI.AbmCliente
                     this.lblTitulo.Text = "Editar datos";
                     lblRol.Visible = true;
                     cmbRol.Visible = false;
+                    txtUsername.ReadOnly = true;
+                    txtPassword.ReadOnly = true;
                 }
 
                 this.CargarControles();
@@ -363,22 +369,9 @@ namespace GrouponDesktop.UI.AbmCliente
                 chkHabilitado.Checked = false;
 
             cmbRol.SelectedValue = objCliente.UsuarioAsociado.RolAsociado.Idrol;
-
+            dtpNacimiento.MaxDate = Sesion.ConfigApp.FechaActual;
+            
         }
-        private void Test()
-        {
-            this.txtNombre.Text = "Martin";
-            this.txtApellido.Text = "Tama";
-            this.txtDni.Text = "31934483";
-            this.txtCodPostal.Text = "1428";
-            this.txtDireccion.Text = "Echeverria 2400";
-            this.txtTelefono.Text = "1566555795";
-            this.txtUsername.Text = "Tama";
-            this.txtPassword.Text = "tama";
-            this.txtMail.Text = "tama@gmail.com";
-            this.objCliente.Ciudades.Add(new Ciudad(1, "Bahia Blanca"));
-            this.CargarTextoCiudades();
 
-        }
     }
 }

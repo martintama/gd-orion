@@ -24,7 +24,6 @@ namespace GrouponDesktop.Base
             xnodes = xdoc.SelectSingleNode("/Config/Database");
 
             unaConfiguracion.DataBase.Server = xnodes.SelectSingleNode("Server").InnerText;
-            unaConfiguracion.DataBase.Puerto = Convert.ToInt32(xnodes.SelectSingleNode("Puerto").InnerText);
             unaConfiguracion.DataBase.Base = xnodes.SelectSingleNode("Base").InnerText;
             unaConfiguracion.DataBase.Usuario = xnodes.SelectSingleNode("Usuario").InnerText;
             unaConfiguracion.DataBase.Pass = xnodes.SelectSingleNode("Pass").InnerText;

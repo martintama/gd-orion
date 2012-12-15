@@ -51,7 +51,7 @@ namespace GrouponDesktop
                     }
                 case 3: //Usuario inhabilitado
                     {
-                        lblErrorMsg.Text = "El usuario " + txtUsuario.Text + " ha sido baneado por intentos incorrectos";
+                        lblErrorMsg.Text = "Su usuario ha sido inhabilitado por exceso de intentos fallidos de logueos. Todavía podrá acceder al sistema con su clave correcta, pero deberá contactarse con la administración para que procedan a rehabilitar su usuario";
                         lblErrorMsg.Visible = true;
                         break;
                     }

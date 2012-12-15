@@ -163,7 +163,7 @@ namespace GrouponDesktop.UI
             txtApellido.Text = "";
             txtDNI.Text = "";
             txtEmail.Text = "";
-
+            lblSoloNum.Visible = false;
             CargarDatos();
         }
 

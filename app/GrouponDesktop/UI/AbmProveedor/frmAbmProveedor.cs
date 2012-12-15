@@ -39,6 +39,7 @@ namespace GrouponDesktop.UI.AbmProveedor
             {
                 this.Text = "Cuponete Orion - Registr de nuevo proveedor";
                 lblTitulo.Text = "Registrar nuevo proveedor";
+                this.elProveedor = new Proveedor();
                 this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
                 chkHabilitado.Visible = false;
 
@@ -79,10 +80,12 @@ namespace GrouponDesktop.UI.AbmProveedor
                 {
                     this.Text = "Cuponete Orion - Editar datos";
                     this.lblTitulo.Text = "Editar datos";
+                    txtUsername.ReadOnly = true;
+                    txtPassword.ReadOnly = true;
                     lblRol.Visible = true;
                     cmbRol.Visible = false;
                 }
-
+                CargarDatos();
             }
         }
 
@@ -112,7 +115,7 @@ namespace GrouponDesktop.UI.AbmProveedor
             this.txtDireccion.Text = elProveedor.Direccion;
             this.txtCodPostal.Text = elProveedor.CodPostal;
             this.cmbCiudad.SelectedValue = elProveedor.Ciudad.Idciudad;
-            this.txtCuit.Text = elProveedor.Cuit;
+            this.txtCuit.Text = elProveedor.Cuit.ToString();
             this.cmbRubro.SelectedValue = elProveedor.Rubro.Idrubro;
             this.txtContacto.Text = elProveedor.Contacto;
 
@@ -191,7 +194,7 @@ namespace GrouponDesktop.UI.AbmProveedor
                 lblCodpostal.Visible = true;
             }
 
-            if (cmbCiudad.SelectedValue.ToString() == "")
+            if (cmbCiudad.SelectedItem == null)
             {
                 valido = false;
                 lblCodpostal.Text = "* Obligatorio";
@@ -214,7 +217,7 @@ namespace GrouponDesktop.UI.AbmProveedor
                 }
             }
 
-            if (cmbRubro.SelectedValue.ToString() == "")
+            if (cmbRubro.SelectedItem == null)
             {
                 valido = false;
                 lblRubro.Text = "* Obligatorio";
@@ -279,7 +282,7 @@ namespace GrouponDesktop.UI.AbmProveedor
                 this.elProveedor.Direccion = txtDireccion.Text;
                 this.elProveedor.CodPostal = txtCodPostal.Text;
                 this.elProveedor.Ciudad = (Ciudad)cmbCiudad.SelectedItem;
-                this.elProveedor.Cuit = txtCuit.Text;
+                this.elProveedor.Cuit = Convert.ToInt64(txtCuit.Text);
                 this.elProveedor.Rubro = (Rubro)cmbRubro.SelectedItem;
                 this.elProveedor.Contacto = txtContacto.Text;
                 this.elProveedor.UsuarioAsociado.Username = txtUsername.Text;
@@ -360,6 +363,11 @@ namespace GrouponDesktop.UI.AbmProveedor
         }
 
         private void lblErrorMsg_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbCiudad_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

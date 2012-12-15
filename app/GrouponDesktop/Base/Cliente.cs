@@ -45,6 +45,9 @@ namespace GrouponDesktop.Base
         public Usuario UsuarioAsociado { get; set; }
 
         public Decimal CreditoDisponible { get; set; }
+
+        public Boolean SolicitarDatos { get; set; }
+
         // METODOS
         internal short Grabar()
         {
@@ -240,7 +243,7 @@ namespace GrouponDesktop.Base
                 sqlwhere += "and c.idcliente = @idcliente ";
 
             String sqlstr = "select c.idcliente, c.nombre, c.apellido, c.dni, c.email, c.telefono, c.direccion, c.codigo_postal, c.credito_actual, ";
-            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, ";
+            sqlstr += "Convert(char(10),c.fecha_nacimiento,102) fecha_nacimiento, u.idrol, r.descripcion nombrerol,  u.idusuario, u.clave, c.credito_actual, c.solicitar_datos, ";
             sqlstr += "cc.idciudad, ci.descripcion ciudad, u.idusuario, u.username, u.habilitado as usuario_habilitado, tu.idtipo_usuario, tu.descripcion tipo_usuario from ORION.clientes c  ";
             sqlstr += "left join ORION.clientes_ciudades cc on cc.idcliente = c.idcliente left join ORION.ciudades ci on ci.idciudad = cc.idciudad ";
             sqlstr += "left join ORION.usuarios u on u.idusuario = c.idusuario left join ORION.roles r on r.idrol = u.idrol ";
@@ -290,6 +293,7 @@ namespace GrouponDesktop.Base
                 unCliente.CodPostal = dr1["codigo_postal"].ToString();
                 unCliente.Telefono = dr1["telefono"].ToString();
                 unCliente.CreditoDisponible = Convert.ToDecimal(dr1["credito_actual"]);
+                unCliente.SolicitarDatos = Convert.ToBoolean(dr1["solicitar_datos"].ToString());
 
                 unCliente.FechaNacimiento = DateTime.ParseExact(dr1["fecha_nacimiento"].ToString(), "yyyy.MM.dd", null);
                 unCliente.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"].ToString());
@@ -301,9 +305,10 @@ namespace GrouponDesktop.Base
 
                 while (hayDatos && unCliente.Idcliente == idcliente_actual)
                 {
-
-                    unCliente.Ciudades.Add(new Ciudad(Convert.ToInt32(dr1["idciudad"]), dr1["ciudad"].ToString()));
-
+                    if (dr1["idciudad"] != DBNull.Value)
+                    {
+                        unCliente.Ciudades.Add(new Ciudad(Convert.ToInt32(dr1["idciudad"]), dr1["ciudad"].ToString()));
+                    }
                     if (dr1.Read())
                     {
                         idcliente_actual = Convert.ToInt32(dr1["idcliente"]);

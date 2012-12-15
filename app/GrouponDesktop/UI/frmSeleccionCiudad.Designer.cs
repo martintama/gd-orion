@@ -141,7 +141,7 @@
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnGuardar);
             this.Name = "frmSeleccionCiudad";
-            this.Text = "frmSeleccionCiudad";
+            this.Text = "Cuponete Orion - Seleccionar Ciudad";
             this.Load += new System.EventHandler(this.frmSeleccionCiudad_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

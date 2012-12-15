@@ -39,7 +39,6 @@
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -78,6 +77,7 @@
             this.btnGrabar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblErrorMsg = new System.Windows.Forms.Label();
+            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -162,6 +162,7 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(68, 44);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(175, 20);
             this.txtPassword.TabIndex = 12;
             // 
@@ -190,18 +191,6 @@
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
-            // 
-            // chkHabilitado
-            // 
-            this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.Enabled = false;
-            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHabilitado.Location = new System.Drawing.Point(448, 13);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(106, 17);
-            this.chkHabilitado.TabIndex = 11;
-            this.chkHabilitado.Text = "Cliente habilitado";
-            this.chkHabilitado.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -590,6 +579,18 @@
             this.lblErrorMsg.TabIndex = 22;
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Enabled = false;
+            this.chkHabilitado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHabilitado.Location = new System.Drawing.Point(448, 13);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(106, 17);
+            this.chkHabilitado.TabIndex = 11;
+            this.chkHabilitado.Text = "Cliente habilitado";
+            this.chkHabilitado.UseVisualStyleBackColor = true;
+            // 
             // frmAbmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -642,7 +643,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGrabar;
-        private System.Windows.Forms.CheckBox chkHabilitado;
         private System.Windows.Forms.Button btnEditarCiudades;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
@@ -669,5 +669,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbRol;
         private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.CheckBox chkHabilitado;
     }
 }

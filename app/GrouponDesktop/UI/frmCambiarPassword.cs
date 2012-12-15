@@ -93,5 +93,16 @@ namespace GrouponDesktop.UI
             this.txtPasswordNuevo1.Text = "";
             this.txtPasswordNuevo2.Text = "";
         }
+
+        private void frmCambiarPassword_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }

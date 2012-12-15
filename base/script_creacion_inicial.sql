@@ -1,4 +1,4 @@
-begin transaction tran1
+begin tran tran1
 -- Crear tablas!
 USE [GD2C2012]
 
@@ -35,14 +35,13 @@ CREATE TABLE ORION.clientes(
 	email				varchar(50) NOT NULL,
 	telefono			numeric(18,0) NOT NULL,
 	direccion			varchar(100) NOT NULL,
-	codigo_postal		varchar(8),
-	fecha_nacimiento	date NOT NULL,
+	codigo_postal		varchar(8) NOT NULL,
+	fecha_nacimiento	date,
 	idusuario			int NOT NULL,
 	credito_actual		numeric(18,2) default 0 NOT NULL,
 	solicitar_datos		bit default 0
 ) ON [PRIMARY]
 alter table orion.clientes add constraint pk_clientes primary key (idcliente)
-ALTER TABLE orion.clientes ADD CONSTRAINT telefono_uniq UNIQUE NONCLUSTERED (telefono)
 
 
 -- clientes_ciudades
@@ -87,7 +86,7 @@ CREATE TABLE ORION.cupones(
 	idcupon 				int IDENTITY(1,1) NOT NULL,
 	idproveedor 			int  NOT NULL,
 	descripcion 			varchar(200) NOT NULL,
-	codigo_cupon			varchar(12),
+	codigo_cupon			varchar(50),
 	fecha_alta 				date NOT NULL,
 	fecha_publicacion 		date NOT NULL,
 	fecha_vencimiento 		date NOT NULL,
@@ -163,20 +162,19 @@ alter table orion.gift_cards_montos add constraint pk_gift_cards_montos primary 
 -- proveedores
 CREATE TABLE ORION.proveedores(
 	idproveedor		int IDENTITY(1,1) NOT NULL,
-	razon_social	varchar(100) NOT NULL,
+	razon_social	varchar(50) NOT NULL,
 	email			varchar(50) NOT NULL,
 	telefono		numeric(18,0) NOT NULL,
 	direccion		varchar(100) NOT NULL,
 	codigo_postal	varchar(8) NOT NULL default '-',
-	idciudad		smallint NOT NULL,
-	cuit			char(11) NOT NULL,
-	idrubro			int NOT NULL,
+	idciudad		smallint,
+	cuit			bigint NOT NULL,
+	idrubro			int,
 	contacto		varchar(50) NOT NULL,
+	solicitar_datos		bit default 0,
 	idusuario		int NOT NULL
 ) ON [PRIMARY]
 alter table orion.proveedores add constraint pk_proveedores primary key (idproveedor)
-ALTER TABLE orion.proveedores ADD CONSTRAINT uniq_proveedores_cuit UNIQUE NONCLUSTERED (cuit)
-ALTER TABLE orion.proveedores ADD CONSTRAINT uniq_proveedores_razon_social UNIQUE NONCLUSTERED (razon_social)
 
 -- roles
 CREATE TABLE ORION.roles(
@@ -256,6 +254,7 @@ CREATE TABLE ORION.usuarios(
 	habilitado			bit default 1
 ) ON [PRIMARY]
 alter table orion.usuarios add constraint pk_usuarios primary key (idusuario)
+ALTER TABLE orion.usuarios ADD CONSTRAINT uniq_usuario_username UNIQUE NONCLUSTERED (username)
 
 GO
 -- Agrego los FK E INDICES
@@ -336,12 +335,13 @@ GO
 USE [GD2C2012]
 GO
 
-/****** Object:  StoredProcedure [ORION].[Clientes_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Clientes_Grabar]    Script Date: 12/14/2012 23:58:30 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- Creo los Stored Procedures
 -- =============================================
@@ -390,14 +390,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Compras_Consumir]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Consumir]    Script Date: 12/14/2012 23:58:30 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -416,14 +418,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Compras_Devolver]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Devolver]    Script Date: 12/14/2012 23:58:30 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Devuelve un cupón, retorna el crédito al cliente y el cupón al stock.
@@ -455,14 +459,113 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Cupones_Comprar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Facturar]    Script Date: 12/14/2012 23:58:30 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
+-- =============================================
+-- Description:	Le factura al proveedor seleccionado, el rango de fechas asociado
+-- =============================================
+CREATE PROCEDURE [ORION].[Compras_Facturar] 
+	@idproveedor int, @fecha date, @fecha_desde date, @fecha_hasta date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	declare @nrofactura int
+	declare @idfactura int
+	
+	-- Me fijo al menos si hay algun consumo
+	if (exists(select top 1 con.idconsumo
+	from ORION.consumos con
+	inner join ORION.compras com on com.idcompra = con.idcompra
+	inner join ORION.cupones cup on cup.idcupon = com.idcupon
+	where cup.idproveedor = @idproveedor and com.fecha_compra between @fecha_desde and @fecha_hasta
+	and con.facturado = 0)) begin
+	
+		-- Primero lo inserto con monto cero, luego actualizo
+		insert into ORION.facturas(fecha_generacion, idproveedor, monto_total, nro_factura)
+		values(@fecha, @idproveedor, 0, (select MAX(nro_Factura) + 1 from ORION.facturas))
+		
+		set @idfactura = @@IDENTITY
+		
+		-- Agrego los items
+		insert into ORION.facturas_items(idfactura, idconsumo)
+		select @idfactura, con.idconsumo
+		from ORION.consumos con
+		inner join ORION.compras com on com.idcompra = con.idcompra
+		inner join ORION.cupones cup on cup.idcupon = com.idcupon
+		where cup.idproveedor = @idproveedor and con.fecha_consumo between @fecha_desde and @fecha_hasta
+		and con.facturado = 0
+	
+		-- Actualizo el monto de la factura
+		update orion.facturas set monto_total = (select SUM(cup.precio_real * 0.5 * com.cantidad)
+		from ORION.consumos con
+		inner join ORION.compras com on com.idcompra = con.idcompra
+		inner join ORION.cupones cup on cup.idcupon = com.idcupon
+		where cup.idproveedor = 1 and con.fecha_consumo between '20120601' and '20120630'
+		and con.facturado = 0) where idfactura = @idfactura
+
+		-- Seteo los consumos como facturados
+		update ORION.consumos set facturado = 1 where idconsumo in (
+			select idconsumo from ORION.facturas_items where idfactura = @idfactura
+		)
+		
+		select idfactura, nro_factura, fecha_generacion, idproveedor, monto from ORION.vwFactura where idfactura = @idfactura
+	end
+	
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Credito_Cargar]    Script Date: 12/14/2012 23:58:30 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Cargar credito a la cuenta de un cliente
+-- =============================================
+CREATE PROCEDURE [ORION].[Credito_Cargar]
+	@fecha date, @idcliente int, @idtipo_pago smallint, @monto decimal, @idtarjeta int = 0
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	if (@idtarjeta > 0) begin
+		insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto, idtarjeta)
+		values(@fecha, @idcliente, @idtipo_pago, @monto,@idtarjeta)
+	end
+	else begin
+		insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto)
+		values(@fecha, @idcliente, @idtipo_pago, @monto)
+	end
+
+	update orion.clientes set credito_actual = credito_actual + @monto where idcliente = @idcliente
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Cupones_Comprar]    Script Date: 12/14/2012 23:58:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 
 -- =============================================
 -- Description:	Procedimiento de compra de un cupón
@@ -493,14 +596,16 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Cupones_Crear]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Cupones_Crear]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Crea un nuevo cupón y le asigna su código propio
@@ -526,14 +631,16 @@ BEGIN
     
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[GiftCard_Comprar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[GiftCard_Comprar]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Comprar GiftCard
@@ -550,9 +657,10 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Proveedores_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Proveedores_Grabar]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -560,12 +668,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+
 -- =============================================
 -- Description:	Inserta un registro en la tabla de proveedores y devueve en output el idproveedor generado
 -- =============================================
 CREATE PROCEDURE [ORION].[Proveedores_Grabar]
 	@idproveedor int output, @razon_social varchar(50), @mail varchar(50), @telefono varchar(50), 
-	@direccion varchar(100), @codpost varchar(8), @idciudad int, @cuit varchar(11), @idrubro int, 
+	@direccion varchar(100), @codpost varchar(8), @idciudad int, @cuit bigint, @idrubro int, 
 	@contacto varchar(50), @idusuario int
 AS
 BEGIN
@@ -603,14 +712,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Crear]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Crear]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Crea un nuevo rol y devuelve el idrol creado
@@ -628,14 +739,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Inhabilitar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Inhabilitar]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Inhabilita el rol deseado
@@ -664,14 +777,16 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Obtener]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Obtener]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -723,14 +838,85 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Usuarios_Grabar]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Tarjetas_ObtenerId]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
+-- =============================================
+-- Description:	Pasa los datos completos de la tarjeta. Si ya existe me devuelve el idtarjeta. Si no existe, lo inserta y recién ahi devuelve.
+-- =============================================
+CREATE PROCEDURE [ORION].[Tarjetas_ObtenerId]
+	@idcliente int, @idtipo_tarjeta int, @numero_tarjeta varchar(16), @codigo_seguridad varchar(4), @nombre_titular varchar(50), 
+	@dni_titular int, @mes_vencimiento smallint, @anio_vencimiento smallint
+
+AS
+BEGIN
+	
+	declare @idtarjeta int
+
+	
+	select @idtarjeta = idtarjeta from orion.tarjetas where idcliente = @idcliente and idtipo_tarjeta = @idtipo_tarjeta and numero_tarjeta = @numero_tarjeta and idcliente = @idcliente
+	if (@idtarjeta is null)
+	begin
+		-- Si no existe, lo inserto
+		insert into orion.tarjetas(idcliente, idtipo_tarjeta, numero_tarjeta, codigo_seguridad, nombre_titular, dni_titular, mes_vencimiento, anio_vencimiento)
+		values(@idcliente, @idtipo_tarjeta, @numero_tarjeta, @codigo_seguridad, @nombre_titular, @dni_titular, @mes_vencimiento, @anio_vencimiento)
+
+		set @idtarjeta = @@identity
+
+	end
+
+	select   @idtarjeta idtarjeta
+
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Usuarios_CambiarClave]    Script Date: 12/14/2012 23:58:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Description:	Le cambia la clave a un usuario, previa verificación si a la anterior está ok
+-- =============================================
+CREATE PROCEDURE [ORION].[Usuarios_CambiarClave]
+	@idusuario int, @claveactual char(64), @clavenueva char(64)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- si esta bien la clave..
+    if (exists(select idusuario from ORION.usuarios where idusuario = @idusuario and clave = @claveactual))
+    begin
+		update ORION.usuarios set clave = @clavenueva where idusuario = @idusuario
+		return 0
+    end
+    else begin
+		return -1
+	end
+	
+END
+
+GO
+
+/****** Object:  StoredProcedure [ORION].[Usuarios_Grabar]    Script Date: 12/14/2012 23:58:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 
 
 -- =============================================
@@ -777,14 +963,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Usuarios_Loguear]    Script Date: 12/14/2012 02:06:31 ******/
+/****** Object:  StoredProcedure [ORION].[Usuarios_Loguear]    Script Date: 12/14/2012 23:58:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Loguea al usuario y si es necesario lo banea por intentos fallidos
@@ -839,137 +1027,9 @@ BEGIN
 END
 
 
+
 GO
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Description:	Le factura al proveedor seleccionado, el rango de fechas asociado
--- =============================================
-ALTER PROCEDURE Orion.Compras_Facturar 
-	@idproveedor int, @fecha date, @fecha_desde date, @fecha_hasta date
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-	
-	declare @nrofactura int
-	declare @idfactura int
-	
-	-- Me fijo al menos si hay algun consumo
-	if (exists(select top 1 con.idconsumo
-	from ORION.consumos con
-	inner join ORION.compras com on com.idcompra = con.idcompra
-	inner join ORION.cupones cup on cup.idcupon = com.idcupon
-	where cup.idproveedor = @idproveedor and com.fecha_compra between @fecha_desde and @fecha_hasta
-	and con.facturado = 0)) begin
-	
-		-- Primero lo inserto con monto cero, luego actualizo
-		insert into ORION.facturas(fecha_generacion, idproveedor, monto_total, nro_factura)
-		values(@fecha, @idproveedor, 0, (select MAX(nro_Factura) + 1 from ORION.facturas))
-		
-		set @idfactura = @@IDENTITY
-		
-		-- Agrego los items
-		insert into ORION.facturas_items(idfactura, idconsumo)
-		select @idfactura, con.idconsumo
-		from ORION.consumos con
-		inner join ORION.compras com on com.idcompra = con.idcompra
-		inner join ORION.cupones cup on cup.idcupon = com.idcupon
-		where cup.idproveedor = @idproveedor and con.fecha_consumo between @fecha_desde and @fecha_hasta
-		and con.facturado = 0
-	
-		-- Actualizo el monto de la factura
-		update orion.facturas set monto_total = (select SUM(cup.precio_real * 0.5 * com.cantidad)
-		from ORION.consumos con
-		inner join ORION.compras com on com.idcompra = con.idcompra
-		inner join ORION.cupones cup on cup.idcupon = com.idcupon
-		where cup.idproveedor = 1 and con.fecha_consumo between '20120601' and '20120630'
-		and con.facturado = 0) where idfactura = @idfactura
-
-		-- Seteo los consumos como facturados
-		update ORION.consumos set facturado = 1 where idconsumo in (
-			select idconsumo from ORION.facturas_items where idfactura = @idfactura
-		)
-		
-		select idfactura, nro_factura, fecha_generacion, idproveedor, monto from ORION.vwFactura where idfactura = @idfactura
-	end
-	
-	
-END
-GO
-
--- =============================================
--- Description:	Le cambia la clave a un usuario, previa verificación si a la anterior está ok
--- =============================================
-CREATE PROCEDURE ORION.Usuarios_CambiarClave
-	@idusuario int, @claveactual char(64), @clavenueva char(64)
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-	-- si esta bien la clave..
-    if (exists(select idusuario from ORION.usuarios where idusuario = @idusuario and clave = @claveactual))
-    begin
-		update ORION.usuarios set clave = @clavenueva where idusuario = @idusuario
-		return 0
-    end
-    else begin
-		return -1
-	end
-	
-END
-GO
-
--- =============================================
--- Description:	Pasa los datos completos de la tarjeta. Si ya existe me devuelve el idtarjeta. Si no existe, lo inserta y recién ahi devuelve.
--- =============================================
-CREATE PROCEDURE ORION.Tarjetas_ObtenerId
-	@idcliente int, @idtipo_tarjeta int, @numero_tarjeta varchar(16), @codigo_seguridad varchar(4), @nombre_titular varchar(50), 
-	@dni_titular int, @mes_vencimiento smallint, @anio_vencimiento smallint
-
-AS
-BEGIN
-	
-	declare @idtarjeta int
-
-
-	select @idtarjeta = idtarjeta from orion.tarjetas where idcliente = @idcliente and idtipo_tarjeta = @idtipo_tarjeta and numero_tarjeta = @numero_tarjeta and idcliente = @idcliente
-	if (@idtarjeta != null)
-	begin
-		-- Si no existe, lo inserto
-		insert into orion.tarjetas(idtipo_tarjeta, numero_tarjeta, codigo_seguridad, nombre_titular, dni_titular, mes_vencimiento, anio_vencimiento)
-		values(@idtipo_tarjeta, @numero_tarjeta, @codigo_seguridad, @nombre_titular, @dni_titular, @mes_vencimiento, @anio_vencimiento)
-
-		set @idtarjeta = @@identity
-
-	end
-
-		return  @idtarjeta
-END
-GO
-
--- =============================================
--- Description:	Cargar credito a la cuenta de un cliente
--- =============================================
-CREATE PROCEDURE ORION.Credito_Cargar
-	@fecha date, @idcliente int, @idtipo_pago smallint, @monto decimal, @idtarjeta int = 0
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-    insert into orion.cargas(fecha_carga, idcliente, idtipo_pago, monto)
-	values(@fecha, @idcliente, @idtipo_pago, @monto)
-END
-GO
 
 
 -- VISTAS
@@ -981,6 +1041,59 @@ inner join ORION.compras com on com.idcompra = con.idcompra
 inner join ORION.cupones cup on cup.idcupon = com.idcupon
 group by f.idfactura, f.fecha_generacion, f.idproveedor, f.nro_factura
 
+go
+
+--TRIGGERS
+
+-- =============================================
+-- Description:	Blanquea los datos identificatorios del cliente/proveedor cuando se modifica el rol y se setea el campo "solicitar_datos" en 1
+-- =============================================
+CREATE TRIGGER Orion.trUsuario_CambiaRol on orion.usuarios
+   for UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    declare @idusuario int
+    declare @idrol_anterior int
+    declare @idtipo_usuario int
+    declare @idrol_nuevo int
+    declare @idexterno int
+    
+    declare cur1 cursor for 
+    select d.idusuario, d.idrol idrol_1, i.idrol idrol_2, i.idtipo_usuario from deleted d
+    inner join inserted i on i.idusuario = d.idusuario
+    
+    open cur1
+    
+    fetch next from cur1 into @idusuario, @idrol_anterior, @idrol_nuevo, @idtipo_usuario
+    
+    while @@fetch_status = 0 begin
+		
+		if (@idrol_anterior <> @idrol_nuevo) begin
+			if (@idtipo_usuario = 2) begin--es un cliente
+				select @idexterno = idcliente from orion.clientes where idusuario = @idusuario
+				
+				update orion.clientes set nombre = '', apellido = '', email = '', telefono = 0, dni = 0, direccion = '', codigo_postal = '', fecha_nacimiento = null, solicitar_datos = 1 where idcliente = @idexterno
+			end
+			else begin
+				select @idexterno = idproveedor from orion.proveedores where idusuario = @idusuario
+				
+				update orion.proveedores set razon_social = '', idrubro = null, cuit = 0, direccion = '', codigo_postal = '', solicitar_datos = 1, idciudad = null, telefono = 0 where idproveedor = @idexterno
+			
+			end
+		end
+		fetch next from cur1 into @idusuario, @idrol_anterior, @idrol_nuevo, @idtipo_usuario
+    end 
+    
+    close cur1
+    
+    deallocate cur1
+
+END
+GO
 
 -- ACA VAN LOS DATOS DE LA MIGRACION
 -- Cargo algunas tablas de "Indices" primero
@@ -1060,7 +1173,7 @@ insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(3, 3);
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario) values('admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
 
 
--- Carga completa clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades:	02:39
+-- Carga completa de información para clientes, giftcards y cargas, tipos_pago, ciudades, clientes_ciudades en tabla temporal:	02:39
 select distinct cli_nombre, cli_apellido, Cli_Dni,Cli_Direccion, Cli_Telefono, Cli_Mail, Cli_Fecha_Nac, Cli_Ciudad,
 Carga_Credito, Carga_Fecha, Cli_Dest_Dni, GiftCard_Fecha, GiftCard_Monto, tipo_pago_desc
 into orion.clientes_temp
@@ -1115,8 +1228,7 @@ from orion.clientes_temp ct
 left join orion.clientes c on c.dni = ct.cli_dni
 where ct.carga_credito is not null
 
--- Carga general proveedores, cupones, devoluciones, compras, compras_estados,
- --facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items		02:18
+-- Carga general de datos para proveedores, cupones, devoluciones, compras, compras_estados, facturas, rubros, cupones_ciudades, funcionalidades, roles, facturas, facturas_items 02:18
 
 select cli_dni, Provee_RS,Provee_Dom,Provee_Ciudad,Provee_Telefono,replace(Provee_CUIT,'-','') provee_cuit,Provee_Rubro,
 Groupon_Cantidad, Groupon_Codigo, Groupon_Descripcion,
@@ -1201,17 +1313,17 @@ insert into ORION.consumos(fecha_consumo, idcompra)
 select Groupon_Entregado_Fecha, co.idcompra
 from orion.proveedores_temp pt
 inner join ORION.clientes c on c.dni = pt.cli_dni
---inner join ORION.cupones cu on cu.codigo = pt.Groupon_Codigo
 inner join ORION.compras co on co.idcliente = c.idcliente and co.codigo = pt.groupon_codigo and co.fecha_compra = pt.groupon_fecha_Compra
 where Groupon_Descripcion is not null and groupon_fecha_compra is not null and groupon_devolucion_Fecha is null and 
 groupon_entregado_fecha is not null
 group by  Groupon_Entregado_Fecha, co.idcompra
 order by Groupon_Entregado_Fecha
 
+-- Actualizo el estado de todos los consumos
 update ORION.compras set idcompra_estado = 2 where idcompra in (select idcompra from ORION.consumos)
 
--- Actualizo la tabla de compras según el estado en el que quedó la compra 00:00
-update orion.compras set idcompra_Estado = 4 where fecha_compra <= '2012-12-26' and idcompra_Estado = 1
+-- Actualizo la tabla de compras según el estado en el que quedó la compra. Todos los que no fueron canjeados o devueltos, estan vencidos
+update orion.compras set idcompra_Estado = 4 where idcompra_Estado = 1
 
 -- Actualizo el credito de todos los clientes de acuerdo a las compras que tuvieron. Primero cargo el total de "cargas"
 update ORION.clientes set credito_actual = (select SUM(monto) from ORION.cargas where orion.cargas.idcliente = orion.clientes.idcliente group by idcliente)
@@ -1276,4 +1388,4 @@ update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COU
 drop table orion.proveedores_temp
 drop table orion.clientes_temp
 
-commit	
+commit

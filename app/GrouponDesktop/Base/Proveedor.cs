@@ -32,13 +32,15 @@ namespace GrouponDesktop.Base
 
         public Ciudad Ciudad { get; set; }
 
-        public String Cuit { get; set; }
+        public Int64 Cuit { get; set; }
 
         public Rubro Rubro { get; set; }
 
         public String Contacto { get; set; }
 
         public Usuario UsuarioAsociado { get; set; }
+
+        public Boolean SolicitarDatos { get; set; }
 
         //METODOS
         public static List<Proveedor> BuscarProveedor(){
@@ -68,7 +70,7 @@ namespace GrouponDesktop.Base
                 sqlwhere += "and p.idproveedor = @idproveedor ";
 
             String sqlstr = "select p.idproveedor, p.razon_social, p.email, p.telefono, p.direccion, p.codigo_postal, ";
-            sqlstr += "p.idciudad, c.descripcion ciudad, p.cuit, p.idrubro, r.descripcion rubro, ";
+            sqlstr += "p.idciudad, c.descripcion ciudad, p.cuit, p.idrubro, r.descripcion rubro, p.solicitar_datos, ";
 	        sqlstr += "p.contacto, p.idusuario, u.idrol, ro.descripcion rol,  u.idtipo_usuario, u.username, u.habilitado usuario_habilitado ";
             sqlstr += "from orion.proveedores p left join orion.ciudades c on c.idciudad = p.idciudad 	left join orion.rubros r on r.idrubro = p.idrubro ";
             sqlstr += "left join orion.usuarios u on u.idusuario = p.idusuario left join orion.roles ro on ro.idrol = u.idrol where " + sqlwhere + " order by p.razon_social";
@@ -98,24 +100,26 @@ namespace GrouponDesktop.Base
                 unProveedor.Telefono = dr1["telefono"].ToString();
                 unProveedor.Direccion = dr1["direccion"].ToString();
                 unProveedor.CodPostal = dr1["codigo_postal"].ToString();
-                unProveedor.Ciudad.Idciudad = Convert.ToInt32(dr1["idciudad"]);
-                unProveedor.Ciudad.Descripcion = dr1["ciudad"].ToString();
-                unProveedor.Cuit = dr1["cuit"].ToString();
-                unProveedor.Rubro.Idrubro = Convert.ToInt16(dr1["idrubro"]);
-                unProveedor.Rubro.Descripcion = dr1["rubro"].ToString();
+                if ( (dr1["idciudad"] != DBNull.Value))
+                {
+                    unProveedor.Ciudad.Idciudad = Convert.ToInt32(dr1["idciudad"]);
+                    unProveedor.Ciudad.Descripcion = dr1["ciudad"].ToString();
+                }
+                unProveedor.Cuit = Convert.ToInt64(dr1["cuit"]);
+                if (dr1["idrubro"] != DBNull.Value)
+                {
+                    unProveedor.Rubro.Idrubro = Convert.ToInt16(dr1["idrubro"]);
+                    unProveedor.Rubro.Descripcion = dr1["rubro"].ToString();
+                }
                 unProveedor.Contacto = dr1["contacto"].ToString();
+                unProveedor.SolicitarDatos = Convert.ToBoolean(dr1["solicitar_datos"].ToString());
                 unProveedor.UsuarioAsociado.Idusuario = Convert.ToInt32(dr1["idusuario"]);
                 unProveedor.UsuarioAsociado.Username = dr1["username"].ToString();
                 unProveedor.UsuarioAsociado.RolAsociado.Idrol = Convert.ToInt32(dr1["idrol"]);
                 unProveedor.UsuarioAsociado.RolAsociado.NombreRol = dr1["rol"].ToString();
                 unProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = Convert.ToInt16(dr1["idtipo_usuario"]);
-                if (Convert.ToBoolean(dr1["usuario_habilitado"].ToString()))
-                {
-                    unProveedor.UsuarioAsociado.Habilitado = true;
-                }
-                else{
-                    unProveedor.UsuarioAsociado.Habilitado = false;
-                }
+                unProveedor.UsuarioAsociado.Habilitado = Convert.ToBoolean(dr1["usuario_habilitado"].ToString());
+                
 
                 listaProveedores.Add(unProveedor);
             }
@@ -152,7 +156,7 @@ namespace GrouponDesktop.Base
                     cmd.Parameters.AddWithValue("@direccion", this.Direccion);
                     cmd.Parameters.AddWithValue("@codpost", this.CodPostal);
                     cmd.Parameters.AddWithValue("@idciudad", this.Ciudad.Idciudad);
-                    cmd.Parameters.AddWithValue("@cuit", this.Cuit);
+                    //cmd.Parameters.AddWithValue("@cuit", this.Cuit);
                     cmd.Parameters.AddWithValue("@idrubro", this.Rubro.Idrubro);
                     cmd.Parameters.AddWithValue("@contacto", this.Contacto);
                     cmd.Parameters.AddWithValue("@idusuario", this.UsuarioAsociado.Idusuario);

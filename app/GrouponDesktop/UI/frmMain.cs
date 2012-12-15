@@ -143,11 +143,41 @@ namespace GrouponDesktop.UI
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            ChequearSolicitarDatos();
             OcultarMenues();
             CargarMenues();
             this.lblUsername.Text = Sesion.GetUsuarioAsociado().Username;
         }
 
+        private void ChequearSolicitarDatos()
+        {
+            //Si me piden los datos para completar nuevamente, cuando un administrativo me cambia el rol
+            //Si es cliente
+            if (Sesion.Idtipo_usuario == 2)
+            {
+                if (((Cliente)Sesion.EntidadLogueada).SolicitarDatos)
+                {
+                    MessageBox.Show("Su rol ha sido modificado por un administrador. Debe completar nuevamente sus datos");
+                    AbmCliente.frmAbmCliente oFrm = new GrouponDesktop.UI.AbmCliente.frmAbmCliente();
+                    oFrm.tipoOperacion = GrouponDesktop.UI.AbmCliente.frmAbmCliente.TipoOperacion.Edicion_Cliente;
+                    oFrm.objCliente = (Cliente)Sesion.EntidadLogueada;
+                    oFrm.ShowDialog();
+                }
+            }
+            else if (Sesion.Idtipo_usuario == 3) //O proveedor
+            {
+                if (((Proveedor)Sesion.EntidadLogueada).SolicitarDatos)
+                {
+                    MessageBox.Show("Su rol ha sido modificado por un administrador. Debe completar nuevamente sus datos");
+                    AbmProveedor.frmAbmProveedor oFrm = new GrouponDesktop.UI.AbmProveedor.frmAbmProveedor();
+                    oFrm.tipoOperacion = GrouponDesktop.UI.AbmProveedor.frmAbmProveedor.TipoOperacion.Edicion_Cliente;
+                    oFrm.elProveedor = (Proveedor)Sesion.EntidadLogueada;
+                    oFrm.ShowDialog();
+                }
+            }
+
+            
+        }
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -255,8 +285,15 @@ namespace GrouponDesktop.UI
         {
             if (Sesion.Idtipo_usuario == 2)
             {
-                CargaCredito.frmCargarCredito frmCargar = new CargaCredito.frmCargarCredito();
-                frmCargar.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    CargaCredito.frmCargarCredito frmCargar = new CargaCredito.frmCargarCredito();
+                    frmCargar.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {
@@ -268,8 +305,15 @@ namespace GrouponDesktop.UI
         {
             if (Sesion.Idtipo_usuario == 2)
             {
-                ComprarCupon.frmComprarCupon frmComprar = new ComprarCupon.frmComprarCupon();
-                frmComprar.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    ComprarCupon.frmComprarCupon frmComprar = new ComprarCupon.frmComprarCupon();
+                    frmComprar.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {
@@ -282,8 +326,15 @@ namespace GrouponDesktop.UI
         {
             if (Sesion.Idtipo_usuario == 2)
             {
-                ComprarGiftCard.frmComprarGiftCard frmComprarGift = new ComprarGiftCard.frmComprarGiftCard();
-                frmComprarGift.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    ComprarGiftCard.frmComprarGiftCard frmComprarGift = new ComprarGiftCard.frmComprarGiftCard();
+                    frmComprarGift.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {
@@ -311,8 +362,15 @@ namespace GrouponDesktop.UI
 
             if (Sesion.Idtipo_usuario == 2)
             {
-                PedirDevolucion.frmPedirDevolucion frmDevolucion = new PedirDevolucion.frmPedirDevolucion();
-                frmDevolucion.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    PedirDevolucion.frmPedirDevolucion frmDevolucion = new PedirDevolucion.frmPedirDevolucion();
+                    frmDevolucion.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {
@@ -324,8 +382,15 @@ namespace GrouponDesktop.UI
         {
             if (Sesion.Idtipo_usuario == 3)
             {
-                ArmarCupon.frmArmarCupon frmArmarCupon = new ArmarCupon.frmArmarCupon();
-                frmArmarCupon.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    ArmarCupon.frmArmarCupon frmArmarCupon = new ArmarCupon.frmArmarCupon();
+                    frmArmarCupon.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {
@@ -337,8 +402,15 @@ namespace GrouponDesktop.UI
         {
             if (Sesion.Idtipo_usuario == 3)
             {
-                RegistroConsumoCupon.frmRegistroConsumo frmConsumo = new RegistroConsumoCupon.frmRegistroConsumo();
-                frmConsumo.ShowDialog();
+                if (Sesion.GetUsuarioAsociado().Habilitado)
+                {
+                    RegistroConsumoCupon.frmRegistroConsumo frmConsumo = new RegistroConsumoCupon.frmRegistroConsumo();
+                    frmConsumo.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Su usuario ha sido inhabilitado y no puede acceder a esta funcionalidad. Por favor contactese con el administrador", "Usuario inhabilitado");
+                }
             }
             else
             {

@@ -122,6 +122,7 @@
             this.button2.TabIndex = 39;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // lblPasswordActual
             // 
@@ -187,6 +188,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmCambiarPassword";
             this.Text = "Cuponete Orion - Cambiar Password";
+            this.Load += new System.EventHandler(this.frmCambiarPassword_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

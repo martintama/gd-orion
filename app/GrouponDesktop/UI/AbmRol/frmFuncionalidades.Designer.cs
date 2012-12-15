@@ -67,6 +67,7 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Listado de funcionalidades";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // lblHabilitadas
             // 
@@ -277,7 +278,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmFuncionalidades";
-            this.Text = "Editar rol";
+            this.Text = "Cuponete Orion - Editar rol";
             this.Load += new System.EventHandler(this.frmFuncionalidades_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -2,8 +2,7 @@
 <Config>
   <FechaSistema>21/06/2012</FechaSistema><!-- Fecha en formato dd/MM/YYYY-->
   <Database>
-    <Server>192.168.2.125\SQLSERVER2008</Server>
-    <Puerto>1433</Puerto>
+    <Server>localhost\SQLSERVER2008</Server>
     <Base>GD2C2012</Base>
     <Usuario>gd</Usuario>
     <Pass>gd2012</Pass>
