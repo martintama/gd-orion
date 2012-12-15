@@ -208,7 +208,7 @@
             this.btnSeleccionar.Location = new System.Drawing.Point(317, 287);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(75, 23);
-            this.btnSeleccionar.TabIndex = 18;
+            this.btnSeleccionar.TabIndex = 8;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = true;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
@@ -233,16 +233,18 @@
             // txtPrecioFicticio
             // 
             this.txtPrecioFicticio.Location = new System.Drawing.Point(110, 211);
+            this.txtPrecioFicticio.MaxLength = 18;
             this.txtPrecioFicticio.Name = "txtPrecioFicticio";
             this.txtPrecioFicticio.Size = new System.Drawing.Size(88, 20);
-            this.txtPrecioFicticio.TabIndex = 15;
+            this.txtPrecioFicticio.TabIndex = 5;
             // 
             // txtPrecioReal
             // 
             this.txtPrecioReal.Location = new System.Drawing.Point(110, 185);
+            this.txtPrecioReal.MaxLength = 18;
             this.txtPrecioReal.Name = "txtPrecioReal";
             this.txtPrecioReal.Size = new System.Drawing.Size(88, 20);
-            this.txtPrecioReal.TabIndex = 14;
+            this.txtPrecioReal.TabIndex = 4;
             // 
             // label8
             // 
@@ -267,7 +269,7 @@
             this.dtpFechaVencimientoCanje.Location = new System.Drawing.Point(110, 158);
             this.dtpFechaVencimientoCanje.Name = "dtpFechaVencimientoCanje";
             this.dtpFechaVencimientoCanje.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaVencimientoCanje.TabIndex = 11;
+            this.dtpFechaVencimientoCanje.TabIndex = 3;
             // 
             // label6
             // 
@@ -283,7 +285,7 @@
             this.dtpFechaVencimientoOferta.Location = new System.Drawing.Point(110, 132);
             this.dtpFechaVencimientoOferta.Name = "dtpFechaVencimientoOferta";
             this.dtpFechaVencimientoOferta.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaVencimientoOferta.TabIndex = 9;
+            this.dtpFechaVencimientoOferta.TabIndex = 2;
             // 
             // label5
             // 
@@ -299,7 +301,7 @@
             this.dtpFechaPublicacion.Location = new System.Drawing.Point(110, 106);
             this.dtpFechaPublicacion.Name = "dtpFechaPublicacion";
             this.dtpFechaPublicacion.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaPublicacion.TabIndex = 7;
+            this.dtpFechaPublicacion.TabIndex = 1;
             // 
             // txtDescripcion
             // 
@@ -308,7 +310,7 @@
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(282, 75);
-            this.txtDescripcion.TabIndex = 6;
+            this.txtDescripcion.TabIndex = 0;
             // 
             // label4
             // 
@@ -333,14 +335,15 @@
             this.txtMaxCliente.Location = new System.Drawing.Point(110, 261);
             this.txtMaxCliente.Name = "txtMaxCliente";
             this.txtMaxCliente.Size = new System.Drawing.Size(61, 20);
-            this.txtMaxCliente.TabIndex = 4;
+            this.txtMaxCliente.TabIndex = 7;
             // 
             // txtStock
             // 
             this.txtStock.Location = new System.Drawing.Point(110, 236);
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(61, 20);
-            this.txtStock.TabIndex = 3;
+            this.txtStock.TabIndex = 6;
+            this.txtStock.ThousandsSeparator = true;
             // 
             // label3
             // 
@@ -375,7 +378,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(9, 358);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 31;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -385,7 +388,7 @@
             this.btnGrabar.Location = new System.Drawing.Point(479, 358);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(75, 23);
-            this.btnGrabar.TabIndex = 32;
+            this.btnGrabar.TabIndex = 9;
             this.btnGrabar.Text = "Grabar";
             this.btnGrabar.UseVisualStyleBackColor = true;
             this.btnGrabar.Click += new System.EventHandler(this.btnGrabar_Click);
@@ -395,7 +398,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(398, 358);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 33;
+            this.btnLimpiar.TabIndex = 11;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);

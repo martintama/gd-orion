@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.RegistroConsumoCupon
 {
@@ -31,7 +32,15 @@ namespace GrouponDesktop.UI.RegistroConsumoCupon
             lblErrorCodigo.Visible = false;
             if (txtCodigo.Text != "")
             {
-                this.Buscar();
+                try
+                {
+                    this.Buscar();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
             else
             {

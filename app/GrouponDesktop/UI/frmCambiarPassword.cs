@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI
 {
@@ -60,24 +61,32 @@ namespace GrouponDesktop.UI
         {
             if (VerificarDatos())
             {
-                Int16 result = Sesion.GetUsuarioAsociado().CambiarClave(txtPasswordActual.Text, txtPasswordNuevo1.Text);
-
-                switch (result)
+                try
                 {
-                    case 0:
-                        {
-                            MessageBox.Show("La contraseña ha sido modificada con exito!", "Cambiar clave");
-                            this.Close();
-                            this.Dispose();
-                            break;
-                        }
-                    case -1:
-                        {
-                            MessageBox.Show("La contraseña actual no es válida", "Cambiar clave");
-                            this.LimpiarCampos();
-                            this.txtPasswordActual.Focus();
-                            break;
-                        }
+                    Int16 result = Sesion.GetUsuarioAsociado().CambiarClave(txtPasswordActual.Text, txtPasswordNuevo1.Text);
+
+                    switch (result)
+                    {
+                        case 0:
+                            {
+                                MessageBox.Show("La contraseña ha sido modificada con exito!", "Cambiar clave");
+                                this.Close();
+                                this.Dispose();
+                                break;
+                            }
+                        case -1:
+                            {
+                                MessageBox.Show("La contraseña actual no es válida", "Cambiar clave");
+                                this.LimpiarCampos();
+                                this.txtPasswordActual.Focus();
+                                break;
+                            }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
                 }
             }
         }

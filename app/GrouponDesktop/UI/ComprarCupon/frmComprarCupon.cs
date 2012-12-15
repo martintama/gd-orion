@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.ComprarCupon
 {
@@ -108,18 +109,26 @@ namespace GrouponDesktop.UI.ComprarCupon
         {
             if (this.VerificarDatos())
             {
-                unaCompra = new Compra();
-                unaCompra.ClienteAsociado.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
-                unaCompra.CuponAsociado.Idcupon = this.cuponSeleccionado.Idcupon;
-                unaCompra.FechaCompra = Sesion.ConfigApp.FechaActual;
-                unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);
+                try
+                {
+                    unaCompra = new Compra();
+                    unaCompra.ClienteAsociado.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
+                    unaCompra.CuponAsociado.Idcupon = this.cuponSeleccionado.Idcupon;
+                    unaCompra.FechaCompra = Sesion.ConfigApp.FechaActual;
+                    unaCompra.Cantidad = Convert.ToInt16(this.numCantidadCompra.Value);
 
-                unaCompra.GrabarCompra();
+                    unaCompra.GrabarCompra();
 
-                MessageBox.Show("Compra efectuada exitosamente. El código de su compra es: " + unaCompra.CodigoCompra, "Comprar cupón");
+                    MessageBox.Show("Compra efectuada exitosamente. El código de su compra es: " + unaCompra.CodigoCompra, "Comprar cupón");
 
-                this.LimpiarCampos();
-                this.CargarDatos();
+                    this.LimpiarCampos();
+                    this.CargarDatos();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
         }
 

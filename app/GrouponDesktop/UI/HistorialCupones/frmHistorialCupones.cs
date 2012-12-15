@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.HistorialCupones
 {
@@ -42,9 +43,17 @@ namespace GrouponDesktop.UI.HistorialCupones
 
         public void CargarDatos()
         {
-            dgvDatos.AutoGenerateColumns = false;
-            dgvDatos.DataSource = Compra.BuscarCompras(dtpDesde.Value, dtpHasta.Value, ((Cliente)Sesion.EntidadLogueada).Idcliente);
-            lblCantidad.Text = dgvDatos.Rows.Count.ToString();
+            try
+            {
+                dgvDatos.AutoGenerateColumns = false;
+                dgvDatos.DataSource = Compra.BuscarCompras(dtpDesde.Value, dtpHasta.Value, ((Cliente)Sesion.EntidadLogueada).Idcliente);
+                lblCantidad.Text = dgvDatos.Rows.Count.ToString();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
         }
 
         public void LimpiarCampos()

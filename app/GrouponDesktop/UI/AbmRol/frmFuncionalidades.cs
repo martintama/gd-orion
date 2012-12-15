@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.AbmRol
 {
@@ -86,6 +87,7 @@ namespace GrouponDesktop.UI.AbmRol
 
         private void GrabarCambios()
         {
+            
             Rol frmabm = new Rol();
             objRol.NombreRol = txtNombreRol.Text;
             objRol.FuncHabilitadas.Clear();
@@ -109,7 +111,15 @@ namespace GrouponDesktop.UI.AbmRol
                 objRol.TipoUsuarioAsociados.Add(new TipoUsuario(3, null));
             }
 
-            this.objRol.GrabarRol();
+            try
+            {
+                this.objRol.GrabarRol();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
         }
 
         private bool VerificarDatos()

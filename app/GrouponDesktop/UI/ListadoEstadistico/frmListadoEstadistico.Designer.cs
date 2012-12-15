@@ -230,6 +230,9 @@
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label27);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmListadoEstadistico";
             this.Text = "Cuponete Orion - Estadisticas";
             this.Load += new System.EventHandler(this.frmListadoEstadistico_Load);

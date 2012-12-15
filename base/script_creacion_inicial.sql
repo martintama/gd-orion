@@ -1,4 +1,4 @@
-begin tran tran1
+
 -- Crear tablas!
 USE [GD2C2012]
 
@@ -344,6 +344,19 @@ GO
 
 
 -- Creo los Stored Procedures
+USE [GD2C2012]
+GO
+
+/****** Object:  StoredProcedure [ORION].[Clientes_Grabar]    Script Date: 12/15/2012 09:26:32 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- Creo los Stored Procedures
 -- =============================================
 -- Description:	Inserta un registro en la tabla de clientes y devueve en output el idcliente generado
 -- =============================================
@@ -391,14 +404,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Compras_Consumir]    Script Date: 12/14/2012 23:58:30 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Consumir]    Script Date: 12/15/2012 09:26:32 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -419,14 +434,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Compras_Devolver]    Script Date: 12/14/2012 23:58:30 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Devolver]    Script Date: 12/15/2012 09:26:32 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -460,14 +477,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Compras_Facturar]    Script Date: 12/14/2012 23:58:30 ******/
+/****** Object:  StoredProcedure [ORION].[Compras_Facturar]    Script Date: 12/15/2012 09:26:32 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Le factura al proveedor seleccionado, el rango de fechas asociado
@@ -525,14 +544,16 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Credito_Cargar]    Script Date: 12/14/2012 23:58:30 ******/
+/****** Object:  StoredProcedure [ORION].[Credito_Cargar]    Script Date: 12/15/2012 09:26:32 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Cargar credito a la cuenta de un cliente
@@ -557,14 +578,16 @@ BEGIN
 	update orion.clientes set credito_actual = credito_actual + @monto where idcliente = @idcliente
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Cupones_Comprar]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Cupones_Comprar]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -597,14 +620,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Cupones_Crear]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Cupones_Crear]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -632,14 +657,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[GiftCard_Comprar]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[GiftCard_Comprar]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -658,14 +685,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Proveedores_Grabar]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Proveedores_Grabar]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -713,14 +742,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Crear]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Crear]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -740,14 +771,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Inhabilitar]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Inhabilitar]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -778,14 +811,16 @@ BEGIN
 END
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Roles_Obtener]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Roles_Obtener]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -839,14 +874,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Tarjetas_ObtenerId]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Tarjetas_ObtenerId]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Pasa los datos completos de la tarjeta. Si ya existe me devuelve el idtarjeta. Si no existe, lo inserta y recién ahi devuelve.
@@ -876,14 +913,16 @@ BEGIN
 
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Usuarios_CambiarClave]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Usuarios_CambiarClave]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	Le cambia la clave a un usuario, previa verificación si a la anterior está ok
@@ -908,14 +947,16 @@ BEGIN
 	
 END
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Usuarios_Grabar]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Usuarios_Grabar]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -964,14 +1005,16 @@ END
 
 
 
+
 GO
 
-/****** Object:  StoredProcedure [ORION].[Usuarios_Loguear]    Script Date: 12/14/2012 23:58:31 ******/
+/****** Object:  StoredProcedure [ORION].[Usuarios_Loguear]    Script Date: 12/15/2012 09:26:33 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 -- =============================================
@@ -996,7 +1039,7 @@ BEGIN
 	select @idusuario = u.idusuario, @clave = clave, @idtipo_usuario = idtipo_usuario, @idrol = idrol, @intentos_fallidos = intentos_fallidos,
 	@idcliente = c.idcliente, @idproveedor = p.idproveedor
 	from ORION.usuarios u left join ORION.clientes c on c.idusuario = u.idusuario left join ORION.proveedores p on p.idusuario = u.idusuario  
-	where username = @username and u.habilitado = 1
+	where username = @username-- and u.habilitado = 1
 	
 	-- Si no es nulo, existe. 
 	if (@idusuario is not null) begin
@@ -1028,7 +1071,9 @@ END
 
 
 
+
 GO
+
 
 
 
@@ -1168,6 +1213,7 @@ insert into ORION.roles_funcionalidades(idrol, idfuncionalidad) select 4,idfunci
 insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(1, 1);
 insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(2, 2);
 insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(3, 3);
+insert into ORION.tipos_usuario_rol(idtipo_usuario, idrol) values(1, 4);
 
 -- Usuario administrativo
 insert into ORION.usuarios(username, clave, idrol, idtipo_usuario) values('admin', 'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 4,1)
@@ -1388,4 +1434,3 @@ update ORION.cupones set cantidad_disponible = cantidad_disponible - (select COU
 drop table orion.proveedores_temp
 drop table orion.clientes_temp
 
-commit

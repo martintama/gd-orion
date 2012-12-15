@@ -382,6 +382,9 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitulo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmRegistroConsumo";
             this.Text = "Registro consumo";
             this.Load += new System.EventHandler(this.frmRegistroConsumo_Load);

@@ -14,8 +14,9 @@ namespace GrouponDesktop.Base
         public static Configuracion ConfigApp { get; set; }
         
         public enum LoginStatus{
-            login_exitoso,
+            login_exitoso = 0,
             login_datos_incorrectos,
+            login_datos_faltantes,
             login_inhabilitado
         }
 

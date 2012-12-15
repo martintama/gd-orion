@@ -156,7 +156,7 @@ namespace GrouponDesktop.Base
                     cmd.Parameters.AddWithValue("@direccion", this.Direccion);
                     cmd.Parameters.AddWithValue("@codpost", this.CodPostal);
                     cmd.Parameters.AddWithValue("@idciudad", this.Ciudad.Idciudad);
-                    //cmd.Parameters.AddWithValue("@cuit", this.Cuit);
+                    cmd.Parameters.AddWithValue("@cuit", this.Cuit);
                     cmd.Parameters.AddWithValue("@idrubro", this.Rubro.Idrubro);
                     cmd.Parameters.AddWithValue("@contacto", this.Contacto);
                     cmd.Parameters.AddWithValue("@idusuario", this.UsuarioAsociado.Idusuario);

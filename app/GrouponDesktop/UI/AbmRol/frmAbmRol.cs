@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.AbmRol
 {
@@ -88,13 +89,29 @@ namespace GrouponDesktop.UI.AbmRol
         {
             if (MessageBox.Show("Está seguro que desea HABILITAR este rol?", "Habilitar rol", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                objRol.HabilitarRol();
+                try
+                {
+                    objRol.HabilitarRol();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
         }
         
         private void InhabilitarRol(Rol objRol)
         {
-            this.InhabilitarRol(objRol, false);
+            try
+            {
+                this.InhabilitarRol(objRol, false);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
         }
 
         private void InhabilitarRol(Rol objRol, bool forzar)

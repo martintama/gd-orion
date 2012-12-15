@@ -11,6 +11,7 @@ namespace GrouponDesktop.Base
     {
         public static String ConvertirSHA256(String input)
         {
+
             SHA256Managed sha256hasher = new SHA256Managed();
 
             byte[] inputBytes = Encoding.UTF8.GetBytes(input);

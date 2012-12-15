@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.PublicarCupon
 {
@@ -58,11 +59,19 @@ namespace GrouponDesktop.UI.PublicarCupon
 
         private void CargarDatos()
         {
-            List<Cupon> listaCupones = Cupon.BuscarCupones(unProveedor.Idproveedor, false);
-            dgvDatos.AutoGenerateColumns = false;
-            dgvDatos.DataSource = listaCupones;
+            try
+            {
+                List<Cupon> listaCupones = Cupon.BuscarCupones(unProveedor.Idproveedor, false);
+                dgvDatos.AutoGenerateColumns = false;
+                dgvDatos.DataSource = listaCupones;
 
-            lblCantidad.Text = listaCupones.Count.ToString();
+                lblCantidad.Text = listaCupones.Count.ToString();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -72,28 +81,36 @@ namespace GrouponDesktop.UI.PublicarCupon
 
         private void btnPublicar_Click(object sender, EventArgs e)
         {
-            listaCuponesPublicar.Clear();
-            lblMensaje.Visible = false;
-            foreach (DataGridViewRow fila in dgvDatos.Rows)
+            try
             {
-                DataGridViewCheckBoxCell celdaCheck = (DataGridViewCheckBoxCell) fila.Cells[0];
-
-                if (Convert.ToBoolean(celdaCheck.Value))
+                listaCuponesPublicar.Clear();
+                lblMensaje.Visible = false;
+                foreach (DataGridViewRow fila in dgvDatos.Rows)
                 {
-                    listaCuponesPublicar.Add((Cupon)fila.DataBoundItem);
+                    DataGridViewCheckBoxCell celdaCheck = (DataGridViewCheckBoxCell)fila.Cells[0];
+
+                    if (Convert.ToBoolean(celdaCheck.Value))
+                    {
+                        listaCuponesPublicar.Add((Cupon)fila.DataBoundItem);
+                    }
+                }
+
+                if (listaCuponesPublicar.Count > 0)
+                {
+                    Cupon.PublicarCupones(listaCuponesPublicar);
+                    MessageBox.Show("Cupones publicados exitosamente");
+                    this.LimpiarCampos();
+                }
+                else
+                {
+                    lblMensaje.Text = "Debe seleccionar al menos un cupón para publicar";
+                    lblMensaje.Visible = true;
                 }
             }
-
-            if (listaCuponesPublicar.Count > 0)
+            catch (SqlException ex)
             {
-                Cupon.PublicarCupones(listaCuponesPublicar);
-                MessageBox.Show("Cupones publicados exitosamente");
-                this.LimpiarCampos();
-            }
-            else
-            {
-                lblMensaje.Text = "Debe seleccionar al menos un cupón para publicar";
-                lblMensaje.Visible = true;
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
             }
         }
 

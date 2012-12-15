@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 using GrouponDesktop.UI.AbmCliente;
+using System.Data.SqlClient;
+
 
 namespace GrouponDesktop.UI
 {
@@ -105,32 +107,39 @@ namespace GrouponDesktop.UI
 
         private void CargarDatos()
         {
-            Cliente fnCliente = new Cliente();
-            String nombre = txtNombre.Text;
-            String apellido = txtApellido.Text;
-            Int32 dni = -1;
-
-            if (txtDNI.Text != "")
+            try
             {
-                dni = Convert.ToInt32(txtDNI.Text);
+                Cliente fnCliente = new Cliente();
+                String nombre = txtNombre.Text;
+                String apellido = txtApellido.Text;
+                Int32 dni = -1;
+
+                if (txtDNI.Text != "")
+                {
+                    dni = Convert.ToInt32(txtDNI.Text);
+                }
+
+                String mail = txtEmail.Text;
+
+                List<Cliente> listaDatos;
+                if (esAbm)
+                {
+                    listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail, false, 0);
+                }
+                else
+                {
+                    listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail);
+                }
+
+                ExcluirClientes(listaDatos, listaExclusion);
+
+                dgvDatos.DataSource = listaDatos;
             }
-
-            String mail = txtEmail.Text;
-
-            List<Cliente> listaDatos;
-            if (esAbm)
+            catch (SqlException ex)
             {
-                listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail, false, 0);
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
             }
-            else
-            {
-                listaDatos = Cliente.GetClientes(nombre, apellido, dni, mail);
-            }
-
-            ExcluirClientes(listaDatos, listaExclusion);
-
-            dgvDatos.DataSource = listaDatos;
-            
         }
 
         private Boolean VerificarDatos()

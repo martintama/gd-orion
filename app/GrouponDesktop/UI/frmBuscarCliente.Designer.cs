@@ -234,8 +234,11 @@
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label27);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBuscarCliente";
-            this.Text = "ABM Clientes";
+            this.Text = "Cuponete Orion - ABM Clientes";
             this.Load += new System.EventHandler(this.frmBuscarCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

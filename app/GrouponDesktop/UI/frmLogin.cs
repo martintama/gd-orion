@@ -8,11 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 using GrouponDesktop.UI;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop
 {
     public partial class frmLogin : Form
     {
+
+        Boolean flagMensajeVisto = false;
+
         public frmLogin()
         {
             InitializeComponent();
@@ -51,7 +55,13 @@ namespace GrouponDesktop
                     }
                 case 3: //Usuario inhabilitado
                     {
-                        lblErrorMsg.Text = "Su usuario ha sido inhabilitado por exceso de intentos fallidos de logueos. Todavía podrá acceder al sistema con su clave correcta, pero deberá contactarse con la administración para que procedan a rehabilitar su usuario";
+                        //la 1ra vez es falso, luego true
+                        if (!flagMensajeVisto)
+                        {
+                            MessageBox.Show("Su usuario ha sido inhabilitado por exceso de intentos fallidos de logueos. Todavía podrá acceder al sistema con su clave correcta, pero deberá contactarse con la administración para que procedan a rehabilitar su usuario");
+                            this.flagMensajeVisto = true;
+                        }
+                        lblErrorMsg.Text = "Usuario inhabilitado";
                         lblErrorMsg.Visible = true;
                         break;
                     }
@@ -77,14 +87,21 @@ namespace GrouponDesktop
 
                 string passHashed = Hasher.ConvertirSHA256(password);
 
-                Sesion.ValidarUsuario(usuario, passHashed);
-
+                try
+                {
+                    Sesion.ValidarUsuario(usuario, passHashed);
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
                 return Convert.ToInt32(Sesion.EstadoLogin);
 
             }
             else
             {
-                return_status = -2;
+                return_status = 2;
             }
 
             return return_status;

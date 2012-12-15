@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.ListadoEstadistico
 {
@@ -45,9 +46,16 @@ namespace GrouponDesktop.UI.ListadoEstadistico
                 this.GenerarColumnasListadoGiftCards();
             }
 
-            
-            dgvDatos.DataSource = unaEstadistica.GetEstadisticas();
 
+            try
+            {
+                dgvDatos.DataSource = unaEstadistica.GetEstadisticas();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
             if (dgvDatos.Rows.Count == 0)
             {
                 lblMensaje.Visible = true;

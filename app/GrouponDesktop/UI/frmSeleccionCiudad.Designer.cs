@@ -140,6 +140,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnGuardar);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmSeleccionCiudad";
             this.Text = "Cuponete Orion - Seleccionar Ciudad";
             this.Load += new System.EventHandler(this.frmSeleccionCiudad_Load);

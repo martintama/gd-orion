@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.AbmProveedor
 {
@@ -156,7 +157,7 @@ namespace GrouponDesktop.UI.AbmProveedor
             }
             else
             {
-                if (!BasicFunctions.IsValidEmail(txtMail.Text))
+                if (!BasicFunctions.EsMail(txtMail.Text))
                 {
                     lblMail.Text = "* Email Inválido";
                     lblMail.Visible = true;
@@ -204,8 +205,8 @@ namespace GrouponDesktop.UI.AbmProveedor
             if (txtCuit.Text == "")
             {
                 valido = false;
-                txtCuit.Text = "* Obligatorio";
-                txtCuit.Visible = true;
+                lblCuit.Text = "* Obligatorio";
+                lblCuit.Visible = true;
             }
             else
             {
@@ -276,89 +277,98 @@ namespace GrouponDesktop.UI.AbmProveedor
             Int16 return_value = -1;
             if (this.VerificarDatos())
             {
-                this.elProveedor.RazonSocial = txtRazonSocial.Text;
-                this.elProveedor.Mail = txtMail.Text;
-                this.elProveedor.Telefono = txtTelefono.Text;
-                this.elProveedor.Direccion = txtDireccion.Text;
-                this.elProveedor.CodPostal = txtCodPostal.Text;
-                this.elProveedor.Ciudad = (Ciudad)cmbCiudad.SelectedItem;
-                this.elProveedor.Cuit = Convert.ToInt64(txtCuit.Text);
-                this.elProveedor.Rubro = (Rubro)cmbRubro.SelectedItem;
-                this.elProveedor.Contacto = txtContacto.Text;
-                this.elProveedor.UsuarioAsociado.Username = txtUsername.Text;
-                this.elProveedor.UsuarioAsociado.Clave = txtPassword.Text;
-
-                return_value = this.elProveedor.Grabar();
-
-                switch (return_value)
+                try
                 {
-                    case 0: //Todo OK
-                        {
-                            switch (this.tipoOperacion)
+                    this.elProveedor.RazonSocial = txtRazonSocial.Text;
+                    this.elProveedor.Mail = txtMail.Text;
+                    this.elProveedor.Telefono = txtTelefono.Text;
+                    this.elProveedor.Direccion = txtDireccion.Text;
+                    this.elProveedor.CodPostal = txtCodPostal.Text;
+                    this.elProveedor.Ciudad = (Ciudad)cmbCiudad.SelectedItem;
+                    this.elProveedor.Cuit = Convert.ToInt64(txtCuit.Text);
+                    this.elProveedor.Rubro = (Rubro)cmbRubro.SelectedItem;
+                    this.elProveedor.Contacto = txtContacto.Text;
+                    this.elProveedor.UsuarioAsociado.Username = txtUsername.Text;
+                    this.elProveedor.UsuarioAsociado.Clave = txtPassword.Text;
+
+                    return_value = this.elProveedor.Grabar();
+
+                    switch (return_value)
+                    {
+                        case 0: //Todo OK
                             {
-                                case TipoOperacion.Registro:
-                                    {
-                                        MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo proveedor");
-                                        break;
-                                    }
-                                case TipoOperacion.Edicion_Admin:
-                                    {
-                                        MessageBox.Show("Cambios guardados correctamente", "ABM proveedor");
-                                        break;
-                                    }
-                                case TipoOperacion.Alta:
-                                    {
-                                        MessageBox.Show("Cliente generado correctamente", "ABM proveedor");
-                                        break;
-                                    }
-                                case TipoOperacion.Edicion_Cliente:
-                                    {
-                                        MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
-                                        break;
-                                    }
+                                switch (this.tipoOperacion)
+                                {
+                                    case TipoOperacion.Registro:
+                                        {
+                                            MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo proveedor");
+                                            break;
+                                        }
+                                    case TipoOperacion.Edicion_Admin:
+                                        {
+                                            MessageBox.Show("Cambios guardados correctamente", "ABM proveedor");
+                                            break;
+                                        }
+                                    case TipoOperacion.Alta:
+                                        {
+                                            MessageBox.Show("Cliente generado correctamente", "ABM proveedor");
+                                            break;
+                                        }
+                                    case TipoOperacion.Edicion_Cliente:
+                                        {
+                                            MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
+                                            break;
+                                        }
 
+                                }
+                                this.Close();
+                                this.Dispose();
+
+
+                                break;
                             }
-                            this.Close();
-                            this.Dispose();
-
-
-                            break;
-                        }
-                    case -1: //Usuario ya existe
-                        {
-                            this.txtUsername.Focus();
-                            lblUsername.Text = "* Nombre de usuario ya en uso";
-                            lblUsername.Visible = true;
-
-                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                        case -1: //Usuario ya existe
                             {
-                                elProveedor = new Proveedor();
-                                //Rol y tipo de usuario "Proveedor" por default
-                                this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
-                                this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
-                            }
-                            break;
-                        }
-                    case -2: //El proveedor ya se encuentra dado de alta
-                        {
-                            MessageBox.Show("Se ha detectado que el proveedor ya se encuentra registrado", "Registro de nuevo cliente");
-                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
-                            {
-                                elProveedor = new Proveedor();
-                                //Rol y tipo de usuario "Proveedor" por default
-                                this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
-                                this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
-                            }
-                            break;
-                        }
-                    default:
-                        {
-                            MessageBox.Show("Error registrando");
-                            break;
-                        }
+                                this.txtUsername.Focus();
+                                lblUsername.Text = "* Nombre de usuario ya en uso";
+                                lblUsername.Visible = true;
 
+                                if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                                {
+                                    elProveedor = new Proveedor();
+                                    //Rol y tipo de usuario "Proveedor" por default
+                                    this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
+                                    this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
+                                }
+                                break;
+                            }
+                        case -2: //El proveedor ya se encuentra dado de alta
+                            {
+                                MessageBox.Show("Se ha detectado que el proveedor ya se encuentra registrado", "Registro de nuevo cliente");
+                                if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                                {
+                                    elProveedor = new Proveedor();
+                                    //Rol y tipo de usuario "Proveedor" por default
+                                    this.elProveedor.UsuarioAsociado.RolAsociado.Idrol = 3;
+                                    this.elProveedor.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 3;
+                                }
+                                break;
+                            }
+                        default:
+                            {
+                                MessageBox.Show("Error registrando");
+                                break;
+                            }
+
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
                 }
             }
+            
 
         }
 

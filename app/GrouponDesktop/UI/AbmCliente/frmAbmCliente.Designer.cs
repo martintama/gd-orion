@@ -156,7 +156,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(95, 13);
             this.label19.TabIndex = 26;
-            this.label19.Text = "Max 30 caracteres";
+            this.label19.Text = "Max 50 caracteres";
             // 
             // txtPassword
             // 
@@ -169,7 +169,7 @@
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(68, 14);
-            this.txtUsername.MaxLength = 30;
+            this.txtUsername.MaxLength = 50;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(175, 20);
             this.txtUsername.TabIndex = 9;
@@ -276,6 +276,7 @@
             // txtTelefono
             // 
             this.txtTelefono.Location = new System.Drawing.Point(74, 124);
+            this.txtTelefono.MaxLength = 18;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(100, 20);
             this.txtTelefono.TabIndex = 4;
@@ -307,6 +308,7 @@
             // txtMail
             // 
             this.txtMail.Location = new System.Drawing.Point(74, 97);
+            this.txtMail.MaxLength = 50;
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(168, 20);
             this.txtMail.TabIndex = 3;

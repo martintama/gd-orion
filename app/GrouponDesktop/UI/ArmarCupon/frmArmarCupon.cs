@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.ArmarCupon
 {
@@ -182,22 +183,30 @@ namespace GrouponDesktop.UI.ArmarCupon
 
         private void Grabar()
         {
-            this.elCupon.ProveedorAsoaciado.Idproveedor = ((Proveedor)Sesion.EntidadLogueada).Idproveedor;
-            this.elCupon.Descripcion = txtDescripcion.Text;
-            this.elCupon.FechaAlta = Sesion.ConfigApp.FechaActual;
-            this.elCupon.FechaPublicacion = this.dtpFechaPublicacion.Value;
-            this.elCupon.FechaVencimiento = this.dtpFechaVencimientoOferta.Value;
-            this.elCupon.FechaVencimientoCanje = this.dtpFechaVencimientoCanje.Value;
-            this.elCupon.PrecioReal = Decimal.Parse(txtPrecioReal.Text);
-            this.elCupon.PrecioFicticio = Decimal.Parse(txtPrecioFicticio.Text);
-            this.elCupon.CantidadDisponible = Convert.ToInt16(this.txtStock.Value);
-            this.elCupon.CantidadMaxUsuario = Convert.ToInt16(this.txtMaxCliente.Value);
-            //La lista de ciudades ya está cargada...
-            this.elCupon.Grabar();
+            try
+            {
+                this.elCupon.ProveedorAsoaciado.Idproveedor = ((Proveedor)Sesion.EntidadLogueada).Idproveedor;
+                this.elCupon.Descripcion = txtDescripcion.Text;
+                this.elCupon.FechaAlta = Sesion.ConfigApp.FechaActual;
+                this.elCupon.FechaPublicacion = this.dtpFechaPublicacion.Value;
+                this.elCupon.FechaVencimiento = this.dtpFechaVencimientoOferta.Value;
+                this.elCupon.FechaVencimientoCanje = this.dtpFechaVencimientoCanje.Value;
+                this.elCupon.PrecioReal = Decimal.Parse(txtPrecioReal.Text);
+                this.elCupon.PrecioFicticio = Decimal.Parse(txtPrecioFicticio.Text);
+                this.elCupon.CantidadDisponible = Convert.ToInt16(this.txtStock.Value);
+                this.elCupon.CantidadMaxUsuario = Convert.ToInt16(this.txtMaxCliente.Value);
+                //La lista de ciudades ya está cargada...
+                this.elCupon.Grabar();
 
-            MessageBox.Show("Cupón generado correctamente", "Armar cupón");
-            this.Close();
-            this.Dispose();
+                MessageBox.Show("Cupón generado correctamente", "Armar cupón");
+                this.Close();
+                this.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
 
         }
         private void btnSeleccionar_Click(object sender, EventArgs e)

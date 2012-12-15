@@ -208,8 +208,11 @@
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label27);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmBuscarProveedor";
-            this.Text = "ABM Proveedores";
+            this.Text = "Cuponete Orion - ABM Proveedores";
             this.Load += new System.EventHandler(this.frmBuscarProveedor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.groupBox1.ResumeLayout(false);

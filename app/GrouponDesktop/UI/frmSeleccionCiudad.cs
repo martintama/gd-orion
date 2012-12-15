@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 using GrouponDesktop.UI.AbmCliente;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop
 {
@@ -80,9 +81,16 @@ namespace GrouponDesktop
                 lstSeleccionadas.Items.Add(item);
             }
 
-            //Cargo todas las ciudades y luego saco las ciudades que ya están-
-            listaCiudadesDisponibles = Ciudad.getListaCiudades(this.listaCiudadesParent);
-
+            try
+            {
+                //Cargo todas las ciudades y luego saco las ciudades que ya están-
+                listaCiudadesDisponibles = Ciudad.getListaCiudades(this.listaCiudadesParent);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                Application.Exit();
+            }
             foreach (Ciudad item in listaCiudadesDisponibles)
             {
                 lstDisponibles.Items.Add(item);

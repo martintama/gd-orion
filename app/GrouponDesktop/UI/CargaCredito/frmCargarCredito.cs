@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
+
 
 namespace GrouponDesktop.UI.CargaCredito
 {
@@ -60,8 +62,15 @@ namespace GrouponDesktop.UI.CargaCredito
                     unaCarga.TarjetaAsociada.AnioVencimiento = Convert.ToInt16(nudAnioVenc.Value);
                     unaCarga.TarjetaAsociada.MesVencimiento = Convert.ToInt16(nudMesVenc.Value);
                 }
-
-                unaCarga.Efectivizar();
+                try
+                {
+                    unaCarga.Efectivizar();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
 
                 MessageBox.Show("Carga realizada exitosamente!", "Cargar Crédito");
 

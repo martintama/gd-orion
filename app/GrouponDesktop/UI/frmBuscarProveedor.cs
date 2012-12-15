@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
 using GrouponDesktop.UI.AbmProveedor;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI
 {
@@ -43,18 +44,26 @@ namespace GrouponDesktop.UI
         {
             if (verificarDatos())
             {
-                Proveedor oProveedor = new Proveedor();
-                String razonsocial = txtNombre.Text;
-                String email = txtMail.Text;
-
-                String cuit = "";
-                if (txtCuit.Text != "")
+                try
                 {
-                    cuit = txtCuit.Text;
-                }
+                    Proveedor oProveedor = new Proveedor();
+                    String razonsocial = txtNombre.Text;
+                    String email = txtMail.Text;
 
-                dgvDatos.AutoGenerateColumns = false;
-                dgvDatos.DataSource = Proveedor.BuscarProveedor(razonsocial, cuit, email, false, 0);
+                    String cuit = "";
+                    if (txtCuit.Text != "")
+                    {
+                        cuit = txtCuit.Text;
+                    }
+
+                    dgvDatos.AutoGenerateColumns = false;
+                    dgvDatos.DataSource = Proveedor.BuscarProveedor(razonsocial, cuit, email, false, 0);
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
         }
         private void btnLimpiar_Click(object sender, EventArgs e)

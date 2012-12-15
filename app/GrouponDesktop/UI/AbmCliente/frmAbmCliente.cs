@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.AbmCliente
 {
@@ -35,92 +36,100 @@ namespace GrouponDesktop.UI.AbmCliente
         {
             if (VerificarDatos())
             {
-                this.objCliente.Nombre = txtNombre.Text;
-                this.objCliente.Apellido = txtApellido.Text;
-                this.objCliente.DNI = Convert.ToInt32(txtDni.Text);
-                this.objCliente.Mail = txtMail.Text;
-                this.objCliente.Telefono = txtTelefono.Text;
-                this.objCliente.Direccion = txtDireccion.Text;
-                this.objCliente.CodPostal = txtCodPostal.Text;
-                this.objCliente.FechaNacimiento = dtpNacimiento.Value;
-                this.objCliente.UsuarioAsociado.Username = txtUsername.Text;
-                this.objCliente.UsuarioAsociado.Clave = txtPassword.Text;
-                
-                if (Convert.ToInt32(cmbRol.SelectedValue) != 0)
+                try
                 {
-                    this.objCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(cmbRol.SelectedValue), cmbRol.SelectedText);    
+                    this.objCliente.Nombre = txtNombre.Text;
+                    this.objCliente.Apellido = txtApellido.Text;
+                    this.objCliente.DNI = Convert.ToInt32(txtDni.Text);
+                    this.objCliente.Mail = txtMail.Text;
+                    this.objCliente.Telefono = txtTelefono.Text;
+                    this.objCliente.Direccion = txtDireccion.Text;
+                    this.objCliente.CodPostal = txtCodPostal.Text;
+                    this.objCliente.FechaNacimiento = dtpNacimiento.Value;
+                    this.objCliente.UsuarioAsociado.Username = txtUsername.Text;
+                    this.objCliente.UsuarioAsociado.Clave = txtPassword.Text;
+
+                    if (Convert.ToInt32(cmbRol.SelectedValue) != 0)
+                    {
+                        this.objCliente.UsuarioAsociado.RolAsociado = new Rol(Convert.ToInt32(cmbRol.SelectedValue), cmbRol.SelectedText);
+                    }
+
+                    Int16 return_value = this.objCliente.Grabar();
+
+                    switch (return_value)
+                    {
+                        case 0: //Todo OK
+                            {
+                                switch (this.tipoOperacion)
+                                {
+                                    case TipoOperacion.Registro:
+                                        {
+                                            MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
+                                            break;
+                                        }
+                                    case TipoOperacion.Edicion_Admin:
+                                        {
+                                            MessageBox.Show("Cambios guardados correctamente", "ABM Clientes");
+                                            break;
+                                        }
+                                    case TipoOperacion.Alta:
+                                        {
+                                            MessageBox.Show("Cliente generado correctamente", "ABM Clientes");
+                                            break;
+                                        }
+                                    case TipoOperacion.Edicion_Cliente:
+                                        {
+                                            MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
+                                            break;
+                                        }
+
+                                }
+                                this.Close();
+                                this.Dispose();
+
+                                break;
+                            }
+                        case 1: //Usuario ya existe
+                            {
+                                this.txtUsername.Focus();
+                                lblUsername.Text = "* Nombre de usuario ya en uso";
+                                lblUsername.Visible = true;
+
+                                //Reseteo el objeto Cliente
+                                if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                                {
+                                    this.objCliente = new Cliente();
+                                    this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+                                    this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
+                                }
+                                break;
+                            }
+                        case 2: //El cliente ya se encuentra dado de alta
+                            {
+                                MessageBox.Show("Se ha detectado que el cliente ya se encuentra registrado", "Registro de nuevo cliente");
+
+                                //Reseteo el objeto Cliente
+                                if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
+                                {
+                                    this.objCliente = new Cliente();
+                                    this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
+                                    this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
+                                }
+
+                                break;
+                            }
+                        default:
+                            {
+                                MessageBox.Show("Error registrando");
+                                break;
+                            }
+
+                    }
                 }
-                
-                Int16 return_value = this.objCliente.Grabar();
-
-                switch (return_value)
+                catch (SqlException ex)
                 {
-                    case 0: //Todo OK
-                        {
-                            switch(this.tipoOperacion)
-                            {
-                                case TipoOperacion.Registro:
-                                {
-                                    MessageBox.Show("Registración exitosa. Puede ingresar al sistema con su usuario y clave", "Registro de nuevo cliente");
-                                    break;
-                                }
-                                case TipoOperacion.Edicion_Admin:
-                                {
-                                    MessageBox.Show("Cambios guardados correctamente", "ABM Clientes");
-                                    break;
-                                }
-                                case TipoOperacion.Alta:
-                                {
-                                    MessageBox.Show("Cliente generado correctamente", "ABM Clientes");
-                                    break;
-                                }
-                                case TipoOperacion.Edicion_Cliente:
-                                {
-                                    MessageBox.Show("Datos guardados correctamente. Puede continuar.", "Editar datos");
-                                    break;
-                                }
-                                
-                            }
-                            this.Close();
-                            this.Dispose();
-                           
-                            break;
-                        }
-                    case 1: //Usuario ya existe
-                        {
-                            this.txtUsername.Focus();
-                            lblUsername.Text = "* Nombre de usuario ya en uso";
-                            lblUsername.Visible = true;
-
-                            //Reseteo el objeto Cliente
-                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
-                            {
-                                this.objCliente = new Cliente();
-                                this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
-                                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
-                            }
-                            break;
-                        }
-                    case 2: //El cliente ya se encuentra dado de alta
-                        {
-                            MessageBox.Show("Se ha detectado que el cliente ya se encuentra registrado", "Registro de nuevo cliente");
-
-                            //Reseteo el objeto Cliente
-                            if (this.tipoOperacion == TipoOperacion.Registro || this.tipoOperacion == TipoOperacion.Alta)
-                            {
-                                this.objCliente = new Cliente();
-                                this.objCliente.UsuarioAsociado.RolAsociado.Idrol = 2;
-                                this.objCliente.UsuarioAsociado.TipoUsuarioAsociado.Idtipo_usuario = 2;
-                            }
-
-                            break;
-                        }
-                    default:
-                        {
-                            MessageBox.Show("Error registrando");
-                            break;
-                        }
-
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
                 }
             }
         }
@@ -167,7 +176,7 @@ namespace GrouponDesktop.UI.AbmCliente
                 valido = false;
             }
             else{
-                if (!BasicFunctions.IsValidEmail(txtMail.Text))
+                if (!BasicFunctions.EsMail(txtMail.Text))
                 {
                     lblMail.Text = "* Email Inválido";
                     lblMail.Visible = true;

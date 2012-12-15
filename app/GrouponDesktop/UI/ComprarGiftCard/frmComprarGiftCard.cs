@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.ComprarGiftCard
 {
@@ -68,12 +69,20 @@ namespace GrouponDesktop.UI.ComprarGiftCard
         {
             if (VerificarDatos())
             {
-                this.elGiftCard.Monto = Convert.ToDecimal(cmbMonto.SelectedValue);
-                this.elGiftCard.CompraGiftCard();
+                try
+                {
+                    this.elGiftCard.Monto = Convert.ToDecimal(cmbMonto.SelectedValue);
+                    this.elGiftCard.CompraGiftCard();
 
-                MessageBox.Show("GiftCard comprado exitosamente", "Comprar GiftCard");
-                this.Close();
-                this.Dispose();
+                    MessageBox.Show("GiftCard comprado exitosamente", "Comprar GiftCard");
+                    this.Close();
+                    this.Dispose();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
         }
 

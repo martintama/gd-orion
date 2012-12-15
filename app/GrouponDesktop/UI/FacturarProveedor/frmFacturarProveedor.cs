@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.FacturarProveedor
 {
@@ -91,21 +92,30 @@ namespace GrouponDesktop.UI.FacturarProveedor
         {
             if (this.VerificarDatos())
             {
-                dgvDatos.DataSource = Consumo.BuscarConsumos(this.unProveedor.Idproveedor, dtpDesde.Value, dtpHasta.Value);
+                try
+                {
+                    dgvDatos.DataSource = Consumo.BuscarConsumos(this.unProveedor.Idproveedor, dtpDesde.Value, dtpHasta.Value);
 
-                if (dgvDatos.Rows.Count > 0)
-                {
-                    lblCantidad.Text = dgvDatos.Rows.Count.ToString();
-                    dtpDesde.Enabled = false;
-                    dtpHasta.Enabled = false;
-                    btnExaminar.Enabled = false;
-                    btnFacturar.Enabled = true;
+                    if (dgvDatos.Rows.Count > 0)
+                    {
+                        lblCantidad.Text = dgvDatos.Rows.Count.ToString();
+                        dtpDesde.Enabled = false;
+                        dtpHasta.Enabled = false;
+                        btnExaminar.Enabled = false;
+                        btnFacturar.Enabled = true;
+                    }
+                    else
+                    {
+                        btnFacturar.Enabled = false;
+                    }
                 }
-                else
+                catch (SqlException ex)
                 {
-                    btnFacturar.Enabled = false;
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
                 }
             }
+
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
@@ -113,14 +123,21 @@ namespace GrouponDesktop.UI.FacturarProveedor
             //Solo si hay algo que facturar...
             if (dgvDatos.Rows.Count > 0)
             {
-                Factura unaFactura = Compra.Facturar(this.unProveedor, dtpDesde.Value, dtpHasta.Value);
-                this.lblNroFactura.Text = unaFactura.NroFactura.ToString(); ;
-                this.lblTotalFactura.Text = "$ " + unaFactura.Monto;
+                try
+                {
+                    Factura unaFactura = Compra.Facturar(this.unProveedor, dtpDesde.Value, dtpHasta.Value);
+                    this.lblNroFactura.Text = unaFactura.NroFactura.ToString(); ;
+                    this.lblTotalFactura.Text = "$ " + unaFactura.Monto;
 
-                MessageBox.Show("Factura " + unaFactura.NroFactura.ToString() + " generada correctamente por : " + unaFactura.Monto);
+                    MessageBox.Show("Factura " + unaFactura.NroFactura.ToString() + " generada correctamente por : " + unaFactura.Monto);
 
-                this.LimpiarCampos();
-                
+                    this.LimpiarCampos();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
         }
 

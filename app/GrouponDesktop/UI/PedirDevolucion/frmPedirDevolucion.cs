@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GrouponDesktop.Base;
+using System.Data.SqlClient;
 
 namespace GrouponDesktop.UI.PedirDevolucion
 {
@@ -82,7 +83,15 @@ namespace GrouponDesktop.UI.PedirDevolucion
             lblErrorCodigo.Visible = false;
             if (unaCompra.Idcompra > 0)
             {
-                this.CargarDatosCompra();
+                try
+                {
+                    this.CargarDatosCompra();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
             }
             else
             {
@@ -163,15 +172,22 @@ namespace GrouponDesktop.UI.PedirDevolucion
         {
             if (this.VerificarCamposDevolucion())
             {
-                laDevolucion = new Devolucion();
+                try
+                {
+                    laDevolucion = new Devolucion();
 
-                laDevolucion.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
-                laDevolucion.FechaDevolucion = Sesion.ConfigApp.FechaActual;
-                laDevolucion.Idcompra = unaCompra.Idcompra;
-                laDevolucion.Motivo = txtMotivo.Text;
+                    laDevolucion.Idcliente = ((Cliente)Sesion.EntidadLogueada).Idcliente;
+                    laDevolucion.FechaDevolucion = Sesion.ConfigApp.FechaActual;
+                    laDevolucion.Idcompra = unaCompra.Idcompra;
+                    laDevolucion.Motivo = txtMotivo.Text;
 
-                laDevolucion.Devolver();
-
+                    laDevolucion.Devolver();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: " + ex.Message + ". El programa se cerrará.");
+                    Application.Exit();
+                }
 
                 if (MessageBox.Show("Cupón devuelto correctamente. ¿Desea devolver otro cupón?", "Devolver cupón", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {

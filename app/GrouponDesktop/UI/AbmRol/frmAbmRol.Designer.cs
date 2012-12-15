@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -170,9 +170,9 @@
             // btnInhabilitar
             // 
             this.btnInhabilitar.DataPropertyName = "NombreRol";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInhabilitar.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInhabilitar.DefaultCellStyle = dataGridViewCellStyle2;
             this.btnInhabilitar.Frozen = true;
             this.btnInhabilitar.HeaderText = "Cambiar estado";
             this.btnInhabilitar.Name = "btnInhabilitar";
@@ -216,6 +216,7 @@
             // txtRol
             // 
             this.txtRol.Location = new System.Drawing.Point(88, 17);
+            this.txtRol.MaxLength = 50;
             this.txtRol.Name = "txtRol";
             this.txtRol.Size = new System.Drawing.Size(149, 20);
             this.txtRol.TabIndex = 0;

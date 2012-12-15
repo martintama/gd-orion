@@ -216,7 +216,7 @@
             // 
             this.lblRazonSocial.AutoSize = true;
             this.lblRazonSocial.ForeColor = System.Drawing.Color.Red;
-            this.lblRazonSocial.Location = new System.Drawing.Point(373, 21);
+            this.lblRazonSocial.Location = new System.Drawing.Point(454, 21);
             this.lblRazonSocial.Name = "lblRazonSocial";
             this.lblRazonSocial.Size = new System.Drawing.Size(50, 13);
             this.lblRazonSocial.TabIndex = 74;
@@ -342,9 +342,9 @@
             // txtRazonSocial
             // 
             this.txtRazonSocial.Location = new System.Drawing.Point(93, 18);
-            this.txtRazonSocial.MaxLength = 50;
+            this.txtRazonSocial.MaxLength = 100;
             this.txtRazonSocial.Name = "txtRazonSocial";
-            this.txtRazonSocial.Size = new System.Drawing.Size(168, 20);
+            this.txtRazonSocial.Size = new System.Drawing.Size(248, 20);
             this.txtRazonSocial.TabIndex = 0;
             // 
             // label2
@@ -359,11 +359,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(272, 21);
+            this.label13.Location = new System.Drawing.Point(347, 21);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(95, 13);
+            this.label13.Size = new System.Drawing.Size(101, 13);
             this.label13.TabIndex = 65;
-            this.label13.Text = "Max 50 caracteres";
+            this.label13.Text = "Max 100 caracteres";
             // 
             // txtCodPostal
             // 
@@ -393,7 +393,7 @@
             // txtTelefono
             // 
             this.txtTelefono.Location = new System.Drawing.Point(93, 68);
-            this.txtTelefono.MaxLength = 50;
+            this.txtTelefono.MaxLength = 18;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(100, 20);
             this.txtTelefono.TabIndex = 2;
@@ -530,7 +530,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 13);
             this.label5.TabIndex = 24;
-            this.label5.Text = " Max 30 caracteres";
+            this.label5.Text = " Max 50 caracteres";
             // 
             // txtPassword
             // 

@@ -186,6 +186,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label27);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmCambiarPassword";
             this.Text = "Cuponete Orion - Cambiar Password";
             this.Load += new System.EventHandler(this.frmCambiarPassword_Load);
